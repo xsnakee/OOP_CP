@@ -7,6 +7,7 @@
 #include "char_t.hpp"
 #include "physPref_t.hpp"
 #include "playerInterface_t.hpp"
+#include <memory>
 
 //*
 class tile_t {
@@ -18,9 +19,9 @@ public:
 class game_t {
 
 public: 
-    //std::list<physOb_t> obList;
+    //std::list<physOb_t*> obList;
 	std::list<character_t> charList;
-	//std::list<playerInterface_t> interfaceOb;
+	//std::list<playerInterface_t*> interfaceOb;
 //    map_t map;
 
 	game_t();

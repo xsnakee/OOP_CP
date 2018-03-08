@@ -9,7 +9,7 @@
 
 //*
 class characterStats_t {
-private:
+public:
 	float HP;
 	float AP;
 	float atackPower;
@@ -23,14 +23,16 @@ private:
 	float defMulttiple;
 	float attackRang;
 
-
+	characterStats_t();
+	//virtual ~characterStats_t();
 };
 
 
 class character_t {
 protected:
 	sf::Texture texture;
-	float CoordX;
+	sf::Sprite sprite;
+	float coordX;
 	float coordY;
 	float dX;
 	float dY;
@@ -40,7 +42,8 @@ protected:
 	bool alive;
 	bool godMode;
 
-
+	character_t();
+	//virtual ~character_t();
 };
 
 
@@ -48,7 +51,7 @@ class NPC_t : public character_t {
 public:
 	bool alied;
 
-
+	//virtual NPC_t
 };
 
 class alied_t : public NPC_t {
@@ -65,8 +68,11 @@ public:
 
 class player_t : public character_t {
 public:
-	skill_t *curSkill;
+	//skill_t *curSkill;
 	character::elements elPoints[character::ELEMENT_POINTS_AMOUNT];
+
+	player_t();
+	~player_t();
 };
 
 //*/

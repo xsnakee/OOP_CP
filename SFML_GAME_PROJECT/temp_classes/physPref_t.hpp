@@ -10,6 +10,7 @@ protected:
     float coordX;
     float CoordY;
     sf::Texture Texture;
+	sf::Sprite sprite;
     size_t height;
     size_t width;
     

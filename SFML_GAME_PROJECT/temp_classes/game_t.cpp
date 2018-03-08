@@ -3,11 +3,19 @@
 #include "game_t.hpp"
 
 
-/*
+//*
 class tile_t;
 
 
-class game_t;
+//GAME_T
+
+game_t::game_t() {
+
+	//charList.push_back(player_t());
+
+}
+
+
 
 
 class map_t;
