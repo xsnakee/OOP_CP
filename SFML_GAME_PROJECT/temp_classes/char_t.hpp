@@ -7,9 +7,9 @@
 #include "addons.hpp"
 #include "skill_t.h"
 
-/*
+//*
 class characterStats_t {
-public:
+private:
 	float HP;
 	float AP;
 	float atackPower;
@@ -28,7 +28,7 @@ public:
 
 
 class character_t {
-public:
+protected:
 	sf::Texture texture;
 	float CoordX;
 	float coordY;
@@ -36,12 +36,11 @@ public:
 	float dY;
 	bool collision;
 	float viewRange;
-	unsigned char direction;
-	characterStats_t *stats;
+	characterStats_t stats;
 	bool alive;
 	bool godMode;
 
-	void Operation1();
+
 };
 
 
@@ -49,10 +48,8 @@ class NPC_t : public character_t {
 public:
 	bool alied;
 
-	void trajectory();
+
 };
-
-
 
 class alied_t : public NPC_t {
 public:
@@ -69,7 +66,7 @@ public:
 class player_t : public character_t {
 public:
 	skill_t *curSkill;
-	elem::elements elPoints[elem::ELEMENT_POINTS_AMOUNT];
+	character::elements elPoints[character::ELEMENT_POINTS_AMOUNT];
 };
 
 //*/

@@ -8,7 +8,7 @@ class skill_t
 	float range;
 	float AOE;
 	bool penetrate;
-	elem::elements element;
+	character::elements element;
 
 public:
 	skill_t();
@@ -18,6 +18,12 @@ public:
 
 class AOEskill_t : public skill_t {
 	float AOErange;
+
+};
+
+class effect_t {
+	sf::Clock timer;
+
 
 };
 
