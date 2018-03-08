@@ -8,17 +8,34 @@ int main()
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
 
+	sf::Clock clock;
+	float speedMultiple = 1.f;
+
 	Game game;
 
 	while (window.isOpen())
 	{
+
+		//calc game Speed
+		float time = clock.getElapsedTime().asMicroseconds();
+		clock.restart();
+		float gameSpeed = time / speedMultiple;
+
+		//std::cout << gameSpeed << std::endl;
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if ((event.type == sf::Event::Closed)||(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
 				window.close();
 
+			if (event.type == sf::Event::EventType::KeyPressed) {
+				game.charList[0]->getKey(event.KeyPressed);
+			}
+
 		}
+
+		game.charList[0]->update(gameSpeed);
 
 		window.clear();
 		
