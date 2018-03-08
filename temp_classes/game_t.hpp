@@ -7,7 +7,6 @@
 #include "char_t.hpp"
 #include "physPref_t.hpp"
 #include "playerInterface_t.hpp"
-#include <memory>
 
 //*
 class tile_t {
