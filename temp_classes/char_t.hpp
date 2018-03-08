@@ -29,7 +29,7 @@ public:
 
 
 class character_t {
-protected:
+public:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	float coordX;

@@ -20,7 +20,7 @@ class game_t {
 
 public: 
     //std::list<physOb_t*> obList;
-	std::list<character_t> charList;
+	std::vector<character_t> charList;
 	//std::list<playerInterface_t*> interfaceOb;
 //    map_t map;
 

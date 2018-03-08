@@ -11,7 +11,7 @@ class tile_t;
 
 game_t::game_t() {
 
-	//charList.push_back(player_t());
+	charList.push_back(player_t());
 
 }
 

@@ -26,8 +26,8 @@ character_t::character_t() {
 	alive = true;
 	coordX = 10.f;
 	coordY = 10.f;
-
-	//texture.loadFromFile();
+	
+	texture.loadFromFile("../img/hero_sprite.gif");
 	sprite.setTexture(texture);
 	sprite.setPosition(coordX,coordY);
 	dX = 0.1f;
