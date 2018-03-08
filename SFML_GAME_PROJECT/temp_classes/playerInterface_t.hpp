@@ -1,11 +1,14 @@
 #ifndef _PLAYERINTERFACE_T_H
 #define _PLAYERINTERFACE_T_H
 
+#include <SFML/Graphics.hpp>
+#include <vector>
 
-class heroInterface_t {
+/*
+class playerInterface_t {
 public: 
     float coordX;
-    floatY coordY;
+    float coordY;
     size_t height;
     size_t width;
     bool clickable;
@@ -14,9 +17,9 @@ public:
 
 
 
-class bar_t: public heroInterface_t {
+class bar_t: public playerInterface_t {
 public: 
-    color color;
+    sf::Color color;
     float maxSize;
     float curVal;
 };
@@ -26,19 +29,20 @@ public:
 class border_t {
 public: 
     size_t borderSize;
-    color borderColor;
-    heroInterface_t 1;
+    sf::Color borderColor;
 };
 
 
 class textField_t: public heroInterface_t {
 public: 
     size_t fontSize;
-    color color;
-    string content;
+    sf::Color color;
+    std::string content;
 };
 
 
 class window_t: public heroInterface_t {
 };
+
+//*/
 #endif //_PLAYERINTERFACE_T_H

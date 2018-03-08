@@ -122,6 +122,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="temp_classes\char_t.cpp" />
+    <ClCompile Include="temp_classes\game_t.cpp" />
+    <ClCompile Include="temp_classes\physPref_t.cpp" />
+    <ClCompile Include="temp_classes\playerInterface_t.cpp" />
+    <ClCompile Include="temp_classes\skill_t.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="temp_classes\addons.hpp" />
+    <ClInclude Include="temp_classes\char_t.hpp" />
+    <ClInclude Include="temp_classes\game_t.hpp" />
+    <ClInclude Include="temp_classes\physPref_t.hpp" />
+    <ClInclude Include="temp_classes\playerInterface_t.hpp" />
+    <ClInclude Include="temp_classes\skill_t.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

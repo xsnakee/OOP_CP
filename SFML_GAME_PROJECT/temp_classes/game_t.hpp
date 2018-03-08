@@ -1,20 +1,26 @@
 #ifndef _GAME_T_H
 #define _GAME_T_H
 
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <list>
+#include "char_t.hpp"
+#include "physPref_t.hpp"
+#include "playerInterface_t.hpp"
+
+/*
 class tile_t {
 public: 
-    *ground_t tileOb;
-    map_t 1;
+    ground_t *tileOb;
 };
 
 
 class game_t {
 public: 
-    list<physOb_t> obList;
-    list<character_t> charList;
-    list<heroInterface_t> interfaceOb;
+    std::list<physOb_t> obList;
+	std::list<character_t> charList;
+	std::list<playerInterface_t> interfaceOb;
     map_t map;
-    map_t 1;
 };
 
 
@@ -22,10 +28,11 @@ class map_t {
 public: 
     size_t height;
     size_t width;
-    void gameField[][];
-    Vector<ground_t> tile;
+    size_t **gameField;
+	std::vector<ground_t> tile;
     float bordersSize;
-    tile_t 1..*;
+    tile_t *tiles;
 };
 
+//*/
 #endif //_GAME_T_H

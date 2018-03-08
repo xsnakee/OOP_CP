@@ -1,72 +1,39 @@
 #ifndef _PHYS_OB
 #define _PHYS_OB
 
+#include "physPref_t.hpp"
 
+
+/*
 class physPref_t {
-protected: 
-    float coordX;
-    float CoordY;
-    texture Texture;
-    size_t height;
-    size_t width;
-    
-    void Operation1();
 };
 
-//GROUND TILES
+GROUND TILES
 
-class ground_t: public physPref_t {
-protected: 
-    effect_t effects;
-};
+class ground_t: public physPref_t;
 
-class Sand_t: public ground_t {
-};
+class Sand_t: public ground_t;
 
-class Water_t: public ground_t {
-};
+class Water_t: public ground_t;
 
-class Grace_t: public ground_t {
-};
+class Grace_t: public ground_t;
 
 
-//PHYSIC OBJECTS
-class physOb_t: public physPref_t, public physPref_t {
-protected: 
-    bool destroyble;
-    size_t Dest points;
-    bool collision;
-};
+PHYSIC OBJECTS
+class physOb_t: public physPref_t;
 
 
-class staticOb_t: public physOb_t {
-private: 
-    Vector<size_t> dropList;
-};
+class staticOb_t: public physOb_t;
 
 
-class dynamicOb_t: public physOb_t {
-private: 
-    clock timer;
-    float dX;
-    float dY;
-    float range;
-    bool AOE;
-    
-    void trajectory();
-};
+class dynamicOb_t: public physOb_t;
 
-//BONUS DROP
-class bonus_t: public staticOb_t {
-public: 
-    size_t id;
-    effect_t effect;
-};
+BONUS DROP
+class bonus_t: public staticOb_t;
 
 	
-class skillOrb_t: public dynamicOb_t {
-public: 
-    bool AOE;
-};
+class skillOrb_t: public dynamicOb_t;
 
+
+//*/
 #endif //_PHYS_OB
