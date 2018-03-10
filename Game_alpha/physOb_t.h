@@ -20,8 +20,8 @@ public:
 
 	physOb_t();
 	physOb_t(float _posX, float _posY);	
-	//physOb_t(obPreference spritePref);
-	//physOb_t(float _posX, float _posY, obPreference spritePref);
+	physOb_t(obPreference spritePref);
+	physOb_t(float _posX, float _posY, obPreference spritePref);
 	~physOb_t();
 	
 	//GET

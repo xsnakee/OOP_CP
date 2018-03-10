@@ -16,7 +16,7 @@ protected:
 public:
 	character_t();
 	character_t(float _x, float _y);
-	//character_t(float _x, float _y, obPreference_t spritePref);
+	character_t(float _x, float _y, obPreference spritePref);
 	virtual ~character_t() = 0;
 
 	//GET

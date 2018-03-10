@@ -4,8 +4,8 @@
 
 game_t::game_t()
 {
-	//obPreference_t ob("img/mainHeroSprite.png",110,40,135,150);
-	charactersList.push_back(new player_t(200.f,200.f));
+	obPreference ob("img/mainHeroSprite.png",110,40,135,150);
+	charactersList.push_back(new player_t(200.f,200.f,ob));
 }
 
 
