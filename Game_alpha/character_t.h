@@ -15,6 +15,6 @@ protected:
 
 public:
 	character_t();
-	~character_t();
+	virtual ~character_t() = 0;
 };
 
