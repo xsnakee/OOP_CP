@@ -30,6 +30,6 @@ public:
 	float defMulttiple;
 	float attackRang;
 	characterStats_t();
-	virtual ~characterStats_t() = 0;
+	virtual ~characterStats_t();
 };
 

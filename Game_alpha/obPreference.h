@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
+
 const size_t SPRITE_HEIGHT = 32;
 const size_t SPRITE_WIDTH = 32;
 

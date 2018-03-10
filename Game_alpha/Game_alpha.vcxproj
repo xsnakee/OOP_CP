@@ -128,7 +128,6 @@
     <ClCompile Include="map_t.cpp" />
     <ClCompile Include="obPreference.cpp" />
     <ClCompile Include="physOb_t.cpp" />
-    <ClCompile Include="staticOb_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="characterStats_t.h" />
@@ -137,7 +136,6 @@
     <ClInclude Include="map_t.h" />
     <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
-    <ClInclude Include="staticOb_t.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,8 +12,10 @@ protected:
 
 	bool destroyble;
 	bool alive;
-	float HP;
+	float hitsToDestroy;
 	bool collision;
+
+	std::vector<size_t> dropList;
 public:
 
 	physOb_t();
@@ -21,7 +23,8 @@ public:
 	
 	physOb_t(obPreference_t spritePref);
 	~physOb_t();
-
+	
+	//GET
 	float getPosX() const {
 		return posX;
 	}
@@ -42,8 +45,40 @@ public:
 		return collision;
 	}
 
-	float getHP() const {
-		return HP;
+	float gethitsToDestroy() const {
+		return hitsToDestroy;
 	}
+
+	//SET
+	float setPosX(float _x){
+		posX = _x;
+		return posX;
+	}
+
+	float setPosY(float _y){
+		posY = _y;
+		return posY;
+	}
+
+	bool setDestroyble(bool _d){
+		destroyble = _d;
+		return destroyble;
+	}
+
+	bool setAlive(bool _live){
+		alive = _live;
+		return alive;
+	}
+
+	bool setCollision(bool _collision){
+		collision = _collision;
+		return collision;
+	}
+
+	float sethitsToDestroy(float _hitsToDestroy){
+		hitsToDestroy = _hitsToDestroy;
+		return hitsToDestroy;
+	}
+
 };
 

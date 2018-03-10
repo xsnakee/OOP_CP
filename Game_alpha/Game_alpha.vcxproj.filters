@@ -36,9 +36,6 @@
     <ClCompile Include="obPreference.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="staticOb_t.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_t.h">
@@ -57,9 +54,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="obPreference.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="staticOb_t.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
