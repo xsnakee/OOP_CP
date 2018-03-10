@@ -40,7 +40,7 @@ public:
 
 class Character_t
 {
-protected:
+public:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
@@ -57,8 +57,9 @@ protected:
 
 	Character_t();
 	virtual ~Character_t();
-	virtual void move(float time) = 0;
-	virtual void update(float time) = 0;
+	virtual void getKey(sf::Event);
+	virtual void move(float time);
+	virtual void update(float time);
 };
 
 class NPC_t : public Character_t {

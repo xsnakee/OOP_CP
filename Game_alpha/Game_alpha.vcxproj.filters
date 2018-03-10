@@ -33,10 +33,10 @@
     <ClCompile Include="physOb_t.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="obPreference.cpp">
+    <ClCompile Include="player_t.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="player_t.cpp">
+    <ClCompile Include="obPreference_t.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,10 +56,10 @@
     <ClInclude Include="physOb_t.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="obPreference.h">
+    <ClInclude Include="player_t.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="player_t.h">
+    <ClInclude Include="obPreference_t.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

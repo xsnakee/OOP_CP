@@ -10,6 +10,7 @@ class obPreference_t
 protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
+
 	size_t spriteCoordX;
 	size_t spriteCoordY;
 	size_t heigth;
@@ -18,13 +19,10 @@ protected:
 public:
 	obPreference_t();
 	obPreference_t(std::string _fileTexturePath);
-	obPreference_t(std::string _fileTexturePath,
-		size_t _coordX,
-		size_t _coordY,
-		size_t _heigth,
-		size_t _width);
+	obPreference_t(std::string _fileTexturePath, size_t _coordX, size_t _coordY, size_t _heigth, size_t _width);
 	virtual ~obPreference_t();
 
+	//GET
 	sf::Texture getTexture() const{
 		return texture;
 	}

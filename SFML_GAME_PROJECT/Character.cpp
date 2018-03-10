@@ -48,7 +48,7 @@ Character_t::Character_t()
 	viewRange = 20.f;
 	godMode = false;
 }
-void Player_t::getKey(sf::Event) {
+void Character_t::getKey(sf::Event) {
 
 	using namespace sf;
 

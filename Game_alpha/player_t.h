@@ -11,6 +11,7 @@ public:
 
 	player_t();
 	player_t(float _x, float _y);
+	//player_t(float _x, float _y, obPreference_t spritePref);
 	~player_t();
 };
 

@@ -14,7 +14,7 @@ physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
 	hitsToDestroy = 1.f;
 	collision = true;
 }
-
+/*
 physOb_t::physOb_t(obPreference_t spritePref):physOb_t() {
 	spriteCoordX = spritePref.getCoordX();
 	spriteCoordY = spritePref.getCoordY();
@@ -27,6 +27,19 @@ physOb_t::physOb_t(obPreference_t spritePref):physOb_t() {
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, heigth, width));
 }
 
+physOb_t::physOb_t(float _posX, float _posY, obPreference_t spritePref):posX(_posX), posY(_posY) {
+
+	spriteCoordX = spritePref.getCoordX();
+	spriteCoordY = spritePref.getCoordY();
+	heigth = spritePref.getHeight();
+	width = spritePref.getWdith();
+
+	texture = spritePref.getTexture();
+	sprite = spritePref.getSprite();
+
+	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, heigth, width));
+}
+//*/
 physOb_t::~physOb_t()
 {
 }

@@ -1,16 +1,17 @@
 #include <SFML/Graphics.hpp>
-
-
+#include "game_t.h"
 
 using namespace sf;
+
+obPreference_t ob;
+game_t game;
 
 int main() {
 
 	RenderWindow window(VideoMode(1024, 768), "SFML GAME ALPHA");
 
-	CircleShape shape(100.f);
-	shape.setFillColor(Color::Green);
-
+	Texture texture;
+	
 	while (window.isOpen()) {
 
 		Event event;
@@ -25,7 +26,13 @@ int main() {
 
 		window.clear();
 
-		window.draw(shape);
+		//game.draw(window);
+
+		/*
+		for (size_t i = 0; i < game.charactersList.size(); ++i) {
+			window.draw(game.charactersList[i]->getSprite());
+		}
+		//*/
 		window.display();
 	}
 

@@ -11,7 +11,8 @@ public:
 	std::vector<character_t*> charactersList;
 
 	game_t();
-	game_t(sf::RenderWindow window);
 	~game_t();
+
+	void draw(sf::RenderWindow _window);
 };
 
