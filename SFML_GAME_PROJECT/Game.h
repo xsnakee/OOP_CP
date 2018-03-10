@@ -8,7 +8,7 @@
 class Game
 {
 public:
-	std::vector<Character*> charList;
+	std::vector<Character_t*> charList;
 	Game();
 	~Game();
 };

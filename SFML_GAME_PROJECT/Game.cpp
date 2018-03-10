@@ -4,7 +4,7 @@
 
 Game::Game()
 {
-	charList.push_back(new Character);
+	charList.push_back(new Character_t);
 }
 
 

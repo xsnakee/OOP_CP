@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "additional.hpp"
+const size_t ELEMS_AMOUNT = 3;
 
 class CharacterStats {
 public:
@@ -37,9 +38,9 @@ public:
 	virtual ~CharacterStats();
 };
 
-class Character
+class Character_t
 {
-public:
+protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
@@ -54,11 +55,51 @@ public:
 	bool godMode;
 	characterAddons::direction dir;
 
-	Character();
-	~Character();
-
-	void getKey(sf::Event::EventType);
-	void move(float time);
-	void update(float time);
+	Character_t();
+	virtual ~Character_t();
+	virtual void move(float time) = 0;
+	virtual void update(float time) = 0;
 };
 
+class NPC_t : public Character_t {
+
+protected: 
+	bool alied;
+
+	NPC_t();
+	virtual ~NPC_t();
+
+	virtual void move(float time) = 0;
+	virtual void update(float time) = 0;
+
+	void traectory();
+};
+
+class enemy_t : public NPC_t {
+private:	
+	//std::vector<Skill_t> cSkills;
+public:
+	std::vector<size_t> dropList;
+
+	enemy_t();
+	virtual ~enemy_t();
+
+	virtual void move(float time) = 0;
+	virtual void update(float time) = 0;
+};
+
+class Player_t : public Character_t {
+	//Skill_t curSkill;
+	characterAddons::elements element[ELEMS_AMOUNT];
+public:
+
+
+	Player_t();
+	~Player_t();
+
+
+
+	void getKey(sf::Event);
+	virtual void move(float time);
+	virtual void update(float time);
+};

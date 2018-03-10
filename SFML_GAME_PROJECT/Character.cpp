@@ -26,7 +26,7 @@ CharacterStats::~CharacterStats()
 
 //CHARACTER
 
-Character::Character()
+Character_t::Character_t()
 {
 	alive = true;
 	coordX = 10.f;
@@ -48,51 +48,37 @@ Character::Character()
 	viewRange = 20.f;
 	godMode = false;
 }
-void Character::getKey(sf::Event::EventType) {
+void Player_t::getKey(sf::Event) {
 
 	using namespace sf;
-	
-	stat.speed = 0.1f;
 
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
+
+		stat.speed = 0.1f;
 		dir = characterAddons::TOP;
+		dY = -stat.speed;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::D)) {
+
+		stat.speed = 0.1f;
 		dir = characterAddons::RIGHT;
+		dX = stat.speed;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::S)) {
+
+		stat.speed = 0.1f;
+		dY = stat.speed;
 		dir = characterAddons::DOWN;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
+		stat.speed = 0.1f;
+		dX = -stat.speed;
 		dir = characterAddons::LEFT;
 	}
 }
-void Character::move(float time) {
+void Character_t::move(float time) {
 
-	switch (dir) {
-	case 0: {
-		dX = 0.f;
-		dY = -stat.speed;
-		break;
-	}
-	case 1: {
-		dX = stat.speed;
-		dY = 0.f;
-		break;
-	}
-	case 2: {
-		dX = 0.f;
-		dY = stat.speed;
-		break;
-	}
-	case 3: {
-		dX = -stat.speed;
-		dY = 0.f;
-		break;
-	}
-	}
-
-	coordX += dX*time;
+		coordX += dX*time;
 	coordY += dY*time;
 
 	stat.speed = stat.stdSpeed;
@@ -100,11 +86,11 @@ void Character::move(float time) {
 }
 
 
-void Character::update(float time) {
+void Character_t::update(float time) {
 	this->move(time);
 	
 }
 
-Character::~Character()
+Character_t::~Character_t()
 {
 }

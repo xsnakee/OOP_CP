@@ -9,7 +9,7 @@ int main()
 	shape.setFillColor(sf::Color::Green);
 
 	sf::Clock clock;
-	float speedMultiple = 1.f;
+	float speedMultiple = 800.f;
 
 	Game game;
 
@@ -20,7 +20,6 @@ int main()
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 		float gameSpeed = time / speedMultiple;
-
 		//std::cout << gameSpeed << std::endl;
 
 		sf::Event event;
@@ -28,10 +27,10 @@ int main()
 		{
 			if ((event.type == sf::Event::Closed)||(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
 				window.close();
-
+		
 			if (event.type == sf::Event::EventType::KeyPressed) {
-				game.charList[0]->getKey(event.KeyPressed);
-			}
+				game.charList[0]->getKey(event);
+			}	
 
 		}
 
