@@ -9,13 +9,13 @@
 class character_t : public physOb_t
 {
 protected:
-	//characterStats_t stat;
 	float dX;
 	float dY;
 	characterStats_t stat;
 
 public:
 	character_t();
+	character_t(float _x, float _y);
 	virtual ~character_t() = 0;
 
 	//GET

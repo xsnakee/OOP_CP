@@ -2,19 +2,19 @@
 
 physOb_t::physOb_t():posX(0), posY(0)
 {
-	destroyble = false;
+	destroyble = true;
 	alive = true;
 	hitsToDestroy = 1.f;
-	collision = 0;
+	collision = true;
 }
 
 physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
-
-	destroyble = false;
+	destroyble = true;
 	alive = true;
 	hitsToDestroy = 1.f;
-	collision = 0;
+	collision = true;
 }
+
 physOb_t::physOb_t(obPreference_t spritePref):physOb_t() {
 	spriteCoordX = spritePref.getCoordX();
 	spriteCoordY = spritePref.getCoordY();
