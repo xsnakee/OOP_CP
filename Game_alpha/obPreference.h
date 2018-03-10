@@ -5,7 +5,7 @@
 const size_t SPRITE_HEIGHT = 32;
 const size_t SPRITE_WIDTH = 32;
 
-class obPreference_t
+class obPreference
 {
 protected:
 	sf::Texture texture;
@@ -17,10 +17,10 @@ protected:
 	size_t width;
 
 public:
-	obPreference_t();
-	obPreference_t(std::string _fileTexturePath);
-	obPreference_t(std::string _fileTexturePath, size_t _coordX, size_t _coordY, size_t _heigth, size_t _width);
-	virtual ~obPreference_t();
+	obPreference();
+	obPreference(std::string _fileTexturePath);
+	obPreference(std::string _fileTexturePath, size_t _coordX, size_t _coordY, size_t _heigth, size_t _width);
+	~obPreference();
 
 	//GET
 	sf::Texture getTexture() const{

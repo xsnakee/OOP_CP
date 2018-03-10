@@ -126,7 +126,7 @@
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_t.cpp" />
-    <ClCompile Include="obPreference_t.cpp" />
+    <ClCompile Include="obPreference.cpp" />
     <ClCompile Include="physOb_t.cpp" />
     <ClCompile Include="player_t.cpp" />
   </ItemGroup>
@@ -135,7 +135,7 @@
     <ClInclude Include="character_t.h" />
     <ClInclude Include="game_t.h" />
     <ClInclude Include="map_t.h" />
-    <ClInclude Include="obPreference_t.h" />
+    <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
     <ClInclude Include="player_t.h" />
   </ItemGroup>

@@ -1,16 +1,16 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cstdlib>
 #include "game_t.h"
 
 using namespace sf;
 
-obPreference_t ob;
+
 game_t game;
 
 int main() {
 
 	RenderWindow window(VideoMode(1024, 768), "SFML GAME ALPHA");
-
-	Texture texture;
 	
 	while (window.isOpen()) {
 
@@ -28,7 +28,7 @@ int main() {
 
 		//game.draw(window);
 
-		/*
+		//*
 		for (size_t i = 0; i < game.charactersList.size(); ++i) {
 			window.draw(game.charactersList[i]->getSprite());
 		}

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "obPreference_t.h"
+#include "obPreference.h"
 
 
-class physOb_t : public obPreference_t
+class physOb_t : public obPreference
 {
 protected:
 	float posX;
@@ -20,8 +20,8 @@ public:
 
 	physOb_t();
 	physOb_t(float _posX, float _posY);	
-	//physOb_t(obPreference_t spritePref);
-	//physOb_t(float _posX, float _posY, obPreference_t spritePref);
+	//physOb_t(obPreference spritePref);
+	//physOb_t(float _posX, float _posY, obPreference spritePref);
 	~physOb_t();
 	
 	//GET

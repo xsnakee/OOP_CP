@@ -1,19 +1,18 @@
-#include "obPreference_t.h"
+#include "obPreference.h"
 
-
-obPreference_t::obPreference_t() {
+obPreference::obPreference() {
 
 	spriteCoordX = 0;
 	spriteCoordY = 0;
 	heigth = SPRITE_HEIGHT;
 	width = SPRITE_WIDTH;
-	texture.loadFromFile("img/default.png");
+	texture.loadFromFile("img/default.jpg");
 	sprite.setTexture(texture);
 
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, heigth, width));
 }
 
-obPreference_t::obPreference_t(std::string _fileTexturePath)
+obPreference::obPreference(std::string _fileTexturePath)
 {
 
 	spriteCoordX = 0;
@@ -28,7 +27,7 @@ obPreference_t::obPreference_t(std::string _fileTexturePath)
 
 }
 
-obPreference_t::obPreference_t(std::string _fileTexturePath, size_t _coordX, size_t _coordY, size_t _heigth, size_t _width){
+obPreference::obPreference(std::string _fileTexturePath, size_t _coordX, size_t _coordY, size_t _heigth, size_t _width){
 
 	spriteCoordX = _coordX;
 	spriteCoordY = _coordY;
@@ -40,6 +39,6 @@ obPreference_t::obPreference_t(std::string _fileTexturePath, size_t _coordX, siz
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, heigth, width));
 }
 
-obPreference_t::~obPreference_t()
+obPreference::~obPreference()
 {
 }
