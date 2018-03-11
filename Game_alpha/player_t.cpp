@@ -19,12 +19,35 @@ player_t::~player_t()
 }
 
 
-void player_t::update(float time) {
+void player_t::update(float speed) {
 
-	posX += dX*time;
-	posY += dY*time;
+	posX += dX*speed;
+	posY += dY*speed;
 
-	stat.speed = 0;
+	dX = 0.f;
+	dY = 0.f;
 
 	sprite.setPosition(posX, posY);
+}
+
+void player_t:: controller(sf::Event) {
+	using namespace sf;
+	if (Keyboard::isKeyPressed(Keyboard::W)) {
+		dY = -stat.speed;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::S)) {
+
+		dY = stat.speed;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::D)) {
+
+		dX = stat.speed;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::A)) {
+		dX = -stat.speed;
+	}
+
 }

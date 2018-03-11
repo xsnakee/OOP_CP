@@ -13,6 +13,9 @@ public:
 	player_t(float _x, float _y, obPreference spritePref);
 	~player_t();
 
-	virtual void update(float time);
+	
+
+	virtual void update(float speed);
+	void controller(sf::Event);
 };
 

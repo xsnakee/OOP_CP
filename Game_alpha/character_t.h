@@ -22,6 +22,7 @@ public:
 	virtual ~character_t() = 0;
 
 	virtual void update(float time) = 0;
+	virtual void controller(sf::Event) = 0;
 
 	//GET
 	float getdX() const {

@@ -10,7 +10,7 @@ characterStats_t::characterStats_t()
 	atackPower = stdAtackPower = 1.f;
 	physDef = stdPhysDef = 1.f;
 	magDef = stdMagDef = 1.f;
-	speed = stdSpeed = 0.f;
+	speed = stdSpeed = 0.1f;
 	castSpeed = 1.f;
 	damageRand = 5.f;
 	attackMultiple = 1.f;

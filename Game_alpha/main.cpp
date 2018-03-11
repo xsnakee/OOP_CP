@@ -11,12 +11,14 @@ game_t game;
 int main() {
 
 	RenderWindow window(VideoMode(1024, 768), "SFML GAME ALPHA");
-	
-	while (window.isOpen()) {
 
+	
+	Clock clock;
+
+	while (window.isOpen()) {
 		Event event;
-		Clock clock;
 		float timer = clock.getElapsedTime().asMicroseconds();
+		clock.restart();
 		game.setSpeed(timer);
 
 		while (window.pollEvent(event)) {
@@ -25,9 +27,9 @@ int main() {
 				window.close();
 			}
 
-			game.keyController(event);
-
 		}
+
+		game.keyController(event);
 
 		window.clear();
 		game.update();
