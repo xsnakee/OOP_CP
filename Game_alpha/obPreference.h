@@ -2,8 +2,8 @@
 
 #include <SFML\Graphics.hpp>
 
-const size_t SPRITE_HEIGHT = 32;
-const size_t SPRITE_WIDTH = 32;
+const int SPRITE_HEIGHT = 32;
+const int SPRITE_WIDTH = 32;
 
 class obPreference
 {
@@ -11,15 +11,15 @@ protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
-	size_t spriteCoordX;
-	size_t spriteCoordY;
-	size_t heigth;
-	size_t width;
+	int spriteCoordX;
+	int spriteCoordY;
+	int heigth;
+	int width;
 
 public:
 	obPreference();
 	obPreference(std::string _fileTexturePath);
-	obPreference(std::string _fileTexturePath, size_t _coordX, size_t _coordY, size_t _heigth, size_t _width);
+	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _heigth, int _width);
 	~obPreference();
 
 	//GET
@@ -31,17 +31,17 @@ public:
 		return sprite;
 	}
 
-	size_t getCoordX() const {
+	int getCoordX() const {
 		return spriteCoordX;
 	}
-	size_t getCoordY() const {
+	int getCoordY() const {
 		return spriteCoordY;
 	}
-	size_t getHeight() const {
-		return spriteCoordX;
+	int getHeight() const {
+		return heigth;
 	}
-	size_t getWdith() const {
-		return spriteCoordX;
+	int getWdith() const {
+		return width;
 	}
 };
 

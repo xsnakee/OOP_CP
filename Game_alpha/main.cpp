@@ -29,7 +29,7 @@ int main() {
 		//game.draw(window);
 
 		//*
-		for (size_t i = 0; i < game.charactersList.size(); ++i) {
+		for (int i = 0; i < game.charactersList.size(); ++i) {
 			window.draw(game.charactersList[i]->getSprite());
 		}
 		//*/
