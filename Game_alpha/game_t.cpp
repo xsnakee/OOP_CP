@@ -22,8 +22,10 @@ game_t::~game_t()
 
 void game_t::update() {
 
-	for (int i = 0; i < charactersList.size(); ++i) {
-		charactersList[i]->update(speed);
+	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
+
+	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
+		(*tempCharIter)->update(speed);
 	}
 
 
@@ -31,16 +33,10 @@ void game_t::update() {
 
 void game_t::draw(sf::RenderWindow *_window) {
 	
-	
+	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
 
-	for (int i = 0; i < charactersList.size(); ++i) {
-
-		character_t *temp = charactersList[i];
-
-		if (charactersList[i]->getAlive()) {
-			_window->draw(temp->getSprite());
-		}
-			
+	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
+			_window->draw((*tempCharIter)->getSprite());			
 	}
 	
 	std::list<physOb_t*>::iterator tempOb = obList.begin();
@@ -55,7 +51,10 @@ void game_t::keyController(sf::Event &event) {
 	using namespace sf;
 
 	//NAVIGATION CONTROLLER	
-	charactersList[0]->controller(event);
+	std::list<character_t*>::iterator mainHero = charactersList.begin();
+	if ((*mainHero)->getAlive()) {
+		(*mainHero)->controller(event);
+	}
 
 	
 
@@ -66,14 +65,12 @@ void game_t::keyController(sf::Event &event) {
 
 void game_t::checkAlive() {
 
-	physOb_t *temp;
+	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
 
-	for (int i = 0; i < charactersList.size(); ++i) {
+	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 
-		temp = charactersList[i];
-
-		if (!charactersList[i]->getAlive()) {
-			charactersList.erase(charactersList.begin() + i);
+		if (!(*tempCharIter)->getAlive()) {
+			charactersList.erase(tempCharIter);
 		}
 
 	}

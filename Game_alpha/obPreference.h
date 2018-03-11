@@ -46,7 +46,7 @@ public:
 
 	//FOR CHECK COLLISION
 	sf::FloatRect getRect()const {
-		sf::FloatRect rect(spriteCoordX, spriteCoordY, width, height);
+		sf::FloatRect rect(static_cast<float>(spriteCoordX), static_cast<float>(spriteCoordY), static_cast<float>(width), static_cast<float>(height));
 		return rect;
 	}
 };

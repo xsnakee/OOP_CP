@@ -15,7 +15,7 @@ private:
 	float speedMultipple;
 
 public:
-	std::vector<character_t*> charactersList;
+	std::list<character_t*> charactersList;
 	std::list<physOb_t*> obList;
 
 	game_t();
