@@ -5,6 +5,7 @@
 #include <list>
 #include "character_t.h"
 #include "player_t.h"
+#include "map_t.h"
 
 class game_t
 {
@@ -13,12 +14,14 @@ private:
 	float curTime;
 	float speed;
 	float speedMultipple;
+	map_t map;
 
 public:
 	std::list<character_t*> charactersList;
 	std::list<physOb_t*> obList;
 
 	game_t();
+	game_t(std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY);
 	~game_t();
 	
 

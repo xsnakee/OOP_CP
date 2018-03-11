@@ -1,19 +1,27 @@
 #pragma once
 
+namespace elements {
 
+	enum element {
+		NONE,
+		WIND,
+		WATER,
+		FIRE,
+		EARTH
+	};
+}
 namespace tiles {
 
-	int size = 32;
-	int tileSpriteHeight = 21;//TILES VERTICAL AMOUNT IN FILE
-	int tileSpriteidth = 21;//TILES HORIZONTAL AMOUNT IN FILE
+	const int size = 32;
 
 	enum tile {
-		GRACE = 0,
-		SAND = 1,
-		WATER = 2,
-		MAGMA = 3,
-		STONE = 4,
-		BUSH = 5,
+		DARK = 0,
+		GRACE = 1,
+		SAND = 2,
+		WATER = 3,
+		MAGMA = 4,
+		STONE = 5,
+		BUSH = 6,
 		//...
 	};
 }

@@ -9,7 +9,7 @@ class ground_t:public physOb_t
 
 public:
 	ground_t();
-	ground_t(std::string tileFile, int ID, int _x, int _y);
+	ground_t(float _posX, float _posY, std::string tileFile, int _x, int _y);
 	~ground_t();
 };
 
