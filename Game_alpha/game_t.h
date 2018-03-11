@@ -13,6 +13,6 @@ public:
 	game_t();
 	~game_t();
 
-	void draw(sf::RenderWindow _window);
+	void draw(sf::RenderWindow *_window);
 };
 

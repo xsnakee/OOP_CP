@@ -26,13 +26,8 @@ int main() {
 
 		window.clear();
 
-		//game.draw(window);
+		game.draw(&window);
 
-		//*
-		for (int i = 0; i < game.charactersList.size(); ++i) {
-			window.draw(game.charactersList[i]->getSprite());
-		}
-		//*/
 		window.display();
 	}
 

@@ -14,9 +14,9 @@ game_t::~game_t()
 }
 
 
-void game_t::draw(sf::RenderWindow _window) {
+void game_t::draw(sf::RenderWindow *_window) {
 	
 	for (int i = 0; i < charactersList.size(); ++i) {
-		_window.draw(charactersList[i]->getSprite());
+		_window->draw(charactersList[i]->getSprite());
 	}
 }
