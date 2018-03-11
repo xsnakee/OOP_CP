@@ -26,6 +26,7 @@ void game_t::update() {
 		charactersList[i]->update(speed);
 	}
 
+
 }
 
 void game_t::draw(sf::RenderWindow *_window) {

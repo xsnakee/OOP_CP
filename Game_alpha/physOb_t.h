@@ -24,7 +24,7 @@ public:
 	~physOb_t();
 	
 	void update();
-
+	virtual bool checkCollision();
 
 
 	//GET

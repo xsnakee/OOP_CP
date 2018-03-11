@@ -13,13 +13,13 @@ protected:
 
 	int spriteCoordX;
 	int spriteCoordY;
-	int heigth;
+	int height;
 	int width;
 
 public:
 	obPreference();
 	obPreference(std::string _fileTexturePath);
-	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _heigth, int _width);
+	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _height, int _width);
 	virtual ~obPreference();
 
 	//GET
@@ -38,10 +38,16 @@ public:
 		return spriteCoordY;
 	}
 	int getHeight() const {
-		return heigth;
+		return height;
 	}
 	int getWdith() const {
 		return width;
+	}
+
+	//FOR CHECK COLLISION
+	sf::FloatRect getRect()const {
+		sf::FloatRect rect(spriteCoordX, spriteCoordY, width, height);
+		return rect;
 	}
 };
 

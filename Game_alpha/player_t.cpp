@@ -2,15 +2,15 @@
 
 
 
-player_t::player_t():character_t()
+player_t::player_t() :character_t()
 {
 }
 
 
 
 //*
-player_t::player_t(float _x, float _y, obPreference spritePref): character_t(_x,_y, spritePref) {
-	
+player_t::player_t(float _x, float _y, obPreference spritePref) : character_t(_x, _y, spritePref) {
+
 }
 //*/
 
@@ -20,14 +20,21 @@ player_t::~player_t()
 
 
 void player_t::update(float speed) {
+	if (abs(stat.HP - 1.f) < FLT_EPSILON) {
+		alive = false;
+		return;
+	}
 
-	posX += dX*speed;
-	posY += dY*speed;
+	if (alive) {
+		posX += dX*speed;
+		posY += dY*speed;
 
-	dX = 0.f;
-	dY = 0.f;
+		dX = 0.f;
+		dY = 0.f;
 
-	sprite.setPosition(posX, posY);
+		sprite.setPosition(posX, posY);
+	}
+	
 }
 
 void player_t:: controller(sf::Event) {

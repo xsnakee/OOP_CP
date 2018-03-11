@@ -33,13 +33,13 @@ physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref) {
 	posY = _posY;
 	spriteCoordX = spritePref.getCoordX();
 	spriteCoordY = spritePref.getCoordY();
-	heigth = spritePref.getHeight();
+	height = spritePref.getHeight();
 	width = spritePref.getWdith();
 
 	texture = spritePref.getTexture();
 	sprite = spritePref.getSprite();
 	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, heigth, width));
+	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, height, width));
 	sprite.setPosition(posX, posY);
 
 }
@@ -55,4 +55,9 @@ void physOb_t::update() {
 	if (!alive) {
 
 	}
+}
+
+bool physOb_t::checkCollision() {
+	//sprite.
+	return true;
 }
