@@ -26,12 +26,13 @@ int main() {
 			if ((event.type == Event::Closed) || (Keyboard::isKeyPressed(Keyboard::Escape))) {
 				window.close();
 			}
-
 		}
 
 		game.keyController(event);
 
 		window.clear();
+
+		game.checkAlive();
 		game.update();
 		game.draw(&window);
 

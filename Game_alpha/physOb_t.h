@@ -23,6 +23,10 @@ public:
 	physOb_t(float _posX, float _posY, obPreference spritePref);
 	~physOb_t();
 	
+	void update();
+
+
+
 	//GET
 	float getPosX() const {
 		return posX;

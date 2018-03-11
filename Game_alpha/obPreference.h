@@ -20,7 +20,7 @@ public:
 	obPreference();
 	obPreference(std::string _fileTexturePath);
 	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _heigth, int _width);
-	~obPreference();
+	virtual ~obPreference();
 
 	//GET
 	sf::Texture getTexture() const{

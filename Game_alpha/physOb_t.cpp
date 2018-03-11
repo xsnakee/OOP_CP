@@ -8,6 +8,7 @@ physOb_t::physOb_t()
 	alive = true;
 	hitsToDestroy = 1.f;
 	collision = true;
+	sprite.setPosition(posX, posY);
 }
 
 physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
@@ -17,10 +18,16 @@ physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
 	alive = true;
 	hitsToDestroy = 1.f;
 	collision = true;
+	sprite.setPosition(posX, posY);
 }
 //*
 
 physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref) {
+	
+	destroyble = true;
+	alive = true;
+	hitsToDestroy = 1.f;
+	collision = true;
 
 	posX = _posX;
 	posY = _posY;
@@ -39,4 +46,13 @@ physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref) {
 //*/
 physOb_t::~physOb_t()
 {
+}
+
+
+
+void physOb_t::update() {
+
+	if (!alive) {
+
+	}
 }
