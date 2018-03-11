@@ -29,6 +29,7 @@ public:
 	float attackMultiple;
 	float defMulttiple;
 	float attackRang;
+
 	characterStats_t();
 	virtual ~characterStats_t();
 };

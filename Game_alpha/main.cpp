@@ -15,6 +15,9 @@ int main() {
 	while (window.isOpen()) {
 
 		Event event;
+		Clock clock;
+		float timer = clock.getElapsedTime().asMicroseconds();
+		game.setSpeed(timer);
 
 		while (window.pollEvent(event)) {
 
@@ -22,10 +25,12 @@ int main() {
 				window.close();
 			}
 
+			game.keyController(event);
+
 		}
 
 		window.clear();
-
+		game.update();
 		game.draw(&window);
 
 		window.display();

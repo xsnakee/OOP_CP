@@ -1,7 +1,9 @@
 #include "physOb_t.h"
 
-physOb_t::physOb_t():posX(0), posY(0)
+physOb_t::physOb_t()
 {
+	posX = 0;
+	posY = 0;
 	destroyble = true;
 	alive = true;
 	hitsToDestroy = 1.f;
@@ -9,6 +11,8 @@ physOb_t::physOb_t():posX(0), posY(0)
 }
 
 physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
+	posX = _posX;
+	posY = _posY;
 	destroyble = true;
 	alive = true;
 	hitsToDestroy = 1.f;
@@ -16,8 +20,10 @@ physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
 }
 //*
 
-physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref):posX(_posX), posY(_posY) {
+physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref) {
 
+	posX = _posX;
+	posY = _posY;
 	spriteCoordX = spritePref.getCoordX();
 	spriteCoordY = spritePref.getCoordY();
 	heigth = spritePref.getHeight();
@@ -27,6 +33,7 @@ physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref):posX(_posX
 	sprite = spritePref.getSprite();
 	sprite.setTexture(texture);
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, heigth, width));
+	sprite.setPosition(posX, posY);
 
 }
 //*/

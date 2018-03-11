@@ -11,13 +11,17 @@ class character_t : public physOb_t
 protected:
 	float dX;
 	float dY;
-	characterStats_t stat;
 
 public:
+
+	characterStats_t stat;
+
 	character_t();
 	character_t(float _x, float _y);
 	character_t(float _x, float _y, obPreference spritePref);
 	virtual ~character_t() = 0;
+
+	virtual void update(float time) = 0;
 
 	//GET
 	float getdX() const {
@@ -38,5 +42,7 @@ public:
 		dY = _y;
 		return dY;
 	}
+
+
 };
 

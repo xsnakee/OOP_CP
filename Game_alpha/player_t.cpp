@@ -17,3 +17,14 @@ player_t::player_t(float _x, float _y, obPreference spritePref): character_t(_x,
 player_t::~player_t()
 {
 }
+
+
+void player_t::update(float time) {
+
+	posX += dX*time;
+	posY += dY*time;
+
+	stat.speed = 0;
+
+	sprite.setPosition(posX, posY);
+}
