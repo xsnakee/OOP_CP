@@ -7,11 +7,10 @@ game_t::game_t():clock()
 	speedMultipple = 800.f;
 	speed = 10.f;
 
-	obPreference ob("img/mainHeroSprite.png",195,0,25,30);
-	charactersList.push_back(new player_t(200.f,200.f,ob));
+	charactersList.push_back(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT));
 
 
-	//obList.push_back(new physOb_t(400.f, 400.f));
+	obList.push_back(new physOb_t(400.f, 400.f));
 }
 
 

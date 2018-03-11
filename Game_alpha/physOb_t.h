@@ -20,7 +20,7 @@ public:
 
 	physOb_t();
 	physOb_t(float _posX, float _posY);	
-	physOb_t(float _posX, float _posY, obPreference spritePref);
+	physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height);
 	~physOb_t();
 	
 	void update();

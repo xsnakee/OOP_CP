@@ -22,7 +22,7 @@ physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
 }
 //*
 
-physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref) {
+physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height):obPreference(fileName, _coordX, _coordY, _width, _height) {
 	
 	destroyble = true;
 	alive = true;
@@ -31,15 +31,7 @@ physOb_t::physOb_t(float _posX, float _posY, obPreference spritePref) {
 
 	posX = _posX;
 	posY = _posY;
-	spriteCoordX = spritePref.getCoordX();
-	spriteCoordY = spritePref.getCoordY();
-	height = spritePref.getHeight();
-	width = spritePref.getWdith();
 
-	texture = spritePref.getTexture();
-	sprite = spritePref.getSprite();
-	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, height, width));
 	sprite.setPosition(posX, posY);
 
 }
