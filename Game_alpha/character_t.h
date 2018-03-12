@@ -9,8 +9,6 @@
 class character_t : public physOb_t
 {
 protected:
-	float dX;
-	float dY;
 
 public:
 
@@ -24,25 +22,7 @@ public:
 	virtual void update(float time) = 0;
 	virtual void controller(sf::Event) = 0;
 
-	//GET
-	float getdX() const {
-		return dX;
-	}
-
-	float getdY() const {
-		return dY;
-	}
-
-	//SET
-	float setdX(float _x) {
-		dX = _x;
-		return dX;
-	}
-
-	float setdY(float _y) {
-		dY = _y;
-		return dY;
-	}
+	
 
 
 };

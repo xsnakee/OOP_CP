@@ -4,7 +4,7 @@ ground_t::ground_t():physOb_t()
 {
 	destroyble = false;
 	alive = true;
-	hitsToDestroy = 1.f;
+	hitsToDestroy = 0.f;
 	collision = 0;
 }
 
@@ -13,7 +13,7 @@ ground_t::ground_t(float _posX, float _posY, std::string tileFile, int _x, int _
 {
 	destroyble = false;
 	alive = true;
-	hitsToDestroy = 1.f;
+	hitsToDestroy = 0.f;
 	collision = 0;
 }
 

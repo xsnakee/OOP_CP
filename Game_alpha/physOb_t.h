@@ -8,8 +8,7 @@ class physOb_t : public obPreference
 {
 protected:
 	float posX;
-	float posY;
-
+	float posY;	
 	float dX;
 	float dY;
 	bool destroyble;
@@ -27,7 +26,26 @@ public:
 	
 	void update();
 	virtual bool checkCollision();
+	
+	//GET
+	float getdX() const {
+		return dX;
+	}
 
+	float getdY() const {
+		return dY;
+	}
+
+	//SET
+	float setdX(float _x) {
+		dX = _x;
+		return dX;
+	}
+
+	float setdY(float _y) {
+		dY = _y;
+		return dY;
+	}
 
 	//GET
 	float getPosX() const {

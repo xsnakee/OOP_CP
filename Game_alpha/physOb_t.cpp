@@ -2,6 +2,8 @@
 
 physOb_t::physOb_t()
 {
+	dX = 0.f;
+	dY = 0.f;
 	posX = 0;
 	posY = 0;
 	destroyble = true;
@@ -11,7 +13,9 @@ physOb_t::physOb_t()
 	sprite.setPosition(posX, posY);
 }
 
-physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
+physOb_t::physOb_t(float _posX, float _posY){
+	dX = 0.f;
+	dY = 0.f;
 	posX = _posX;
 	posY = _posY;
 	destroyble = true;
@@ -23,7 +27,8 @@ physOb_t::physOb_t(float _posX, float _posY):posX(_posX), posY(_posY) {
 //*
 
 physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height):obPreference(fileName, _coordX, _coordY, _width, _height) {
-	
+	dX = 0.f;
+	dY = 0.f;
 	destroyble = true;
 	alive = true;
 	hitsToDestroy = 1.f;
