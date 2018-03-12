@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bullet_t.cpp" />
     <ClCompile Include="characterStats_t.cpp" />
     <ClCompile Include="character_t.cpp" />
     <ClCompile Include="game_t.cpp" />
@@ -133,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="additional.h" />
+    <ClInclude Include="bullet_t.h" />
     <ClInclude Include="characterStats_t.h" />
     <ClInclude Include="character_t.h" />
     <ClInclude Include="game_t.h" />

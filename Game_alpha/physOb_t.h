@@ -10,6 +10,8 @@ protected:
 	float posX;
 	float posY;
 
+	float dX;
+	float dY;
 	bool destroyble;
 	bool alive;
 	float hitsToDestroy;

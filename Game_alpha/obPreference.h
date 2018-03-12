@@ -22,6 +22,7 @@ public:
 	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _height, int _width);
 	virtual ~obPreference();
 
+	virtual void update() = 0;
 	//GET
 	sf::Texture getTexture() const{
 		return texture;
