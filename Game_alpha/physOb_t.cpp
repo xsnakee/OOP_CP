@@ -45,7 +45,10 @@ physOb_t::~physOb_t()
 {
 }
 
-
+bool physOb_t::kill() {
+	alive = false;
+	return alive;
+}
 
 void physOb_t::update() {
 
@@ -56,5 +59,9 @@ void physOb_t::update() {
 
 bool physOb_t::checkCollision() {
 	//sprite.
+	return true;
+}
+
+bool physOb_t::checkTimer(sf::Clock *time) {
 	return true;
 }

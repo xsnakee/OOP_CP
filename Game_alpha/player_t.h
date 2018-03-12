@@ -15,7 +15,7 @@ public:
 
 	player_t();
 	player_t(float _x, float _y, std::string filename, int _coordX, int _coordY, int _width, int _height);
-	~player_t();
+	virtual  ~player_t();
 
 	
 

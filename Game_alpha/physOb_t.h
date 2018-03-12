@@ -22,10 +22,12 @@ public:
 	physOb_t();
 	physOb_t(float _posX, float _posY);	
 	physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height);
-	~physOb_t();
+	virtual ~physOb_t();
 	
+	virtual bool kill();
 	void update();
 	virtual bool checkCollision();
+	virtual bool checkTimer(sf::Clock *time);
 	
 	//GET
 	float getdX() const {
@@ -46,7 +48,6 @@ public:
 		dY = _y;
 		return dY;
 	}
-
 	//GET
 	float getPosX() const {
 		return posX;

@@ -6,6 +6,7 @@
 #include "character_t.h"
 #include "player_t.h"
 #include "map_t.h"
+#include "bullet_t.h"
 
 class game_t
 {
