@@ -59,7 +59,7 @@ bool bullet_t::checkTimer(sf::Clock *time) {
 
 	bool result = (abs(tempTime - startTime) > timer) ? false : true;
 
-	//alive = result;
+	alive = result;
 
 	return result;
 }

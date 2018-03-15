@@ -122,7 +122,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bullet_t.cpp" />
-    <ClCompile Include="characterStats_t.cpp" />
     <ClCompile Include="character_t.cpp" />
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="ground_t.cpp" />

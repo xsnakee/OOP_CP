@@ -1,36 +1,32 @@
 #pragma once
-class characterStats_t
+struct characterStats_t
 {
-public:
-	float HP;
-	float stdHP;
+	float HP = 100.f;
+	float stdHP = 100.f;
 
-	float AP;
-	float stdAP;
+	float AP = 5.f;
+	float stdAP = 5.f;
 
-	float stamina;
-	float stdStamina;
+	float stamina = 100.f;
+	float stdStamina = 100.f;
 
-	float atackPower;
-	float stdAtackPower;
+	float atackPower = 1.f;
+	float stdAtackPower = 1.f;
+	
+	float physDef = 1.f;
+	float stdPhysDef = 1.f;
 
-	float physDef;
-	float stdPhysDef;
+	float magDef = 1.f;
+	float stdMagDef = 1.f;
 
-	float magDef;
-	float stdMagDef;
+	float speed = 0.1f;
+	float stdSpeed = 0.1f;
 
-	float speed;
-	float stdSpeed;
+	float castSpeed = 1.f;
+	float damageRand = 5.f;
 
-	float castSpeed;
-	float damageRand;
-
-	float attackMultiple;
-	float defMulttiple;
-	float attackRang;
-
-	characterStats_t();
-	virtual ~characterStats_t();
+	float attackMultiple = 1.f;
+	float defMulttiple = 1.f;
+	float attackRange = 20.f;
 };
 

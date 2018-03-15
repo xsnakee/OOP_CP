@@ -73,6 +73,7 @@ void game_t::checkAlive() {
 	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		if (!(*tempCharIter)->getAlive()) {
+			delete (*tempCharIter);
 			charactersList.erase(tempCharIter);		
 		}
 	}
@@ -80,7 +81,9 @@ void game_t::checkAlive() {
 	std::list<physOb_t*>::iterator tempOb = obList.begin();
 	for (int i = 0; i < obList.size(); ++i, ++tempOb) {
 
+		(*tempOb)->checkTimer(&clock);
 		if (!(*tempOb)->getAlive()) {
+			delete (*tempOb);
 			obList.erase(tempOb);
 		}
 
