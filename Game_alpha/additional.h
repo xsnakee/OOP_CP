@@ -1,13 +1,12 @@
 #pragma once
 
 namespace elements {
-
+	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
-		NONE,
-		WIND,
-		WATER,
-		FIRE,
-		EARTH
+		NONE = 0,
+		WIND = 1,
+		FIRE = 2,
+		EARTH = 8
 	};
 }
 namespace tiles {

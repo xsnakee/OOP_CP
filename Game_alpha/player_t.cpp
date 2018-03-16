@@ -4,6 +4,7 @@
 
 player_t::player_t() :character_t()
 {
+	elemStatus = 0;
 }
 
 
@@ -26,6 +27,8 @@ void player_t::update(float speed) {
 	}
 
 	if (alive) {
+		checkSkillGeneratorEmpty();
+
 		posX += dX*speed;
 		posY += dY*speed;
 
@@ -56,5 +59,35 @@ void player_t:: controller(sf::Event) {
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
 		dX = -stat.speed;
 	}
+
+}
+
+
+bool player_t::checkSkillGeneratorEmpty() {
+	std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
+
+	size_t tempStatus = 0;
+
+	for (size_t i = 0; i < skillGeneratorArr.size(); ++i,++temp) {
+		if ((*temp) == elements::NONE) return false;
+		tempStatus += (*temp);
+	}
+
+	elemStatus = tempStatus;
+	return true;
+}
+
+bool player_t::addElement(elements::element _elem) {
+	if (skillGeneratorArr.size() < 3) {
+		skillGeneratorArr.push_back(_elem);
+	}
+	else{
+		skillGeneratorArr.pop_back();
+		skillGeneratorArr.push_back(_elem);
+	}
+
+}
+
+size_t player_t::generateSkill(){
 
 }
