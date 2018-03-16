@@ -4,8 +4,8 @@ struct characterStats_t
 	float HP = 100.f;
 	float stdHP = 100.f;
 
-	float AP = 5.f;
-	float stdAP = 5.f;
+	float MP = 5.f;
+	float stdMP = 5.f;
 
 	float stamina = 100.f;
 	float stdStamina = 100.f;

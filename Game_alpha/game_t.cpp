@@ -63,7 +63,7 @@ void game_t::keyController(sf::Event &event) {
 
 	//ATACK CONTROLLER
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
-		obList.push_back(new bullet_t(&clock, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f,elements::WIND, 10.f));
+		//obList.push_back(new bullet_t(&clock, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f,elements::WIND, 10.f));
 	}
 
 }

@@ -26,7 +26,7 @@ public:
 
 	virtual void update(float speed);
 	void controller(sf::Event);
-	bool checkSkillGeneratorEmpty();
+	bool checkSkillGenerator();
 	bool addElement(elements::element _elem);
 	size_t generateSkill();
 };

@@ -27,7 +27,7 @@ void player_t::update(float speed) {
 	}
 
 	if (alive) {
-		checkSkillGeneratorEmpty();
+		
 
 		posX += dX*speed;
 		posY += dY*speed;
@@ -60,10 +60,15 @@ void player_t:: controller(sf::Event) {
 		dX = -stat.speed;
 	}
 
+	if (Keyboard::isKeyPressed(Keyboard::Space)) {
+		addElement(elements::FIRE);
+		checkSkillGenerator();
+	}
+
 }
 
 
-bool player_t::checkSkillGeneratorEmpty() {
+bool player_t::checkSkillGenerator() {
 	std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
 
 	size_t tempStatus = 0;
@@ -74,6 +79,8 @@ bool player_t::checkSkillGeneratorEmpty() {
 	}
 
 	elemStatus = tempStatus;
+	sprite.setColor(sf::Color::Green);
+
 	return true;
 }
 
