@@ -4,6 +4,7 @@
 
 skills_t::skills_t()
 {
+	self = false;
 }
 
 
