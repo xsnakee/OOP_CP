@@ -10,21 +10,20 @@ struct bulletStats{
 	float range;
 	elements::element element;
 	float AOE;
-
 };
 
 class bullet_t:public physOb_t
 {
 private:
 	bulletStats stat;
-	float startTime;
-	float timer; //live time as Milliseconds
+	sf::Int32 startTime;
+	sf::Int32 timer; //live time as Milliseconds
 	bool mass;
 
 public:
 	bullet_t();
 	bullet_t(float _posX, float _posY, float _speed, elements::element _element, float _AOE);
-	bullet_t(sf::Clock *time, float _posX, float _posY, float _speed, elements::element _element, float _AOE);
+	bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, float _AOE);
 	virtual ~bullet_t();
 
 public:
@@ -36,7 +35,7 @@ public:
 		return stat.element;
 	}
 
-	float getTimer()const {
+	sf::Int32 getTimer()const {
 		return timer;
 	}
 

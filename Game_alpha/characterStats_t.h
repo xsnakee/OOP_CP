@@ -28,5 +28,14 @@ struct characterStats_t
 	float attackMultiple = 1.f;
 	float defMulttiple = 1.f;
 	float attackRange = 20.f;
+
+
+	void resetStats(characterStats_t &stats) {
+		stats.HP = stats.stdHP = stats.MP = stats.stdMP = stats.stamina =
+			stats.stdStamina = stats.atackPower = stats.stdAtackPower =
+			stats.physDef = stats.stdPhysDef = stats.magDef = stats.stdMagDef
+			= stats.speed = stats.stdSpeed = stats.castSpeed = stats.damageRand =
+			stats.attackMultiple = stats.defMulttiple = stats.attackRange = 0.f;
+	}
 };
 

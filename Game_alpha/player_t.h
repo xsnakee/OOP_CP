@@ -1,7 +1,6 @@
 #pragma once
 
 #include "character_t.h"
-#include "skills_t.h"
 #include "additional.h"
 #include <list>
 #include <iterator>
@@ -17,7 +16,6 @@ class player_t : public character_t
 public:
 	std::list<elements::element> skillGeneratorArr;
 	size_t elemStatus;
-	skills_t *skill;
 public:
 
 	player_t();

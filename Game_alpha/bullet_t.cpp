@@ -27,11 +27,11 @@ bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _e
 	sprite.setPosition(posX, posY);
 }
 
-bullet_t::bullet_t(sf::Clock *time, float _posX, float _posY, float _speed, elements::element _element, float _AOE = 1.f) : physOb_t(_posX,_posY) {
+bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, float _AOE = 1.f) : physOb_t(_posX, _posY) {
 
-	float _startTime = time->getElapsedTime().asMilliseconds();
+	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
 	startTime = _startTime;
-	timer = 1500;
+	timer = _timer;
 
 	stat.range = 50.f;
 	stat.speed = _speed;
@@ -55,11 +55,9 @@ bullet_t::~bullet_t()
 
 bool bullet_t::checkTimer(sf::Clock *time) {
 
-	float tempTime = time->getElapsedTime().asMilliseconds();
+	sf::Int32 tempTime = time->getElapsedTime().asMilliseconds();
 
-	bool result = (abs(tempTime - startTime) > timer) ? false : true;
+	alive = (abs(tempTime - startTime) > timer) ? false : true;
 
-	alive = result;
-
-	return result;
+	return alive;
 }

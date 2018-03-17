@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="bullet_t.cpp" />
     <ClCompile Include="character_t.cpp" />
+    <ClCompile Include="effectSkill_t.cpp" />
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="ground_t.cpp" />
     <ClCompile Include="main.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="bullet_t.h" />
     <ClInclude Include="characterStats_t.h" />
     <ClInclude Include="character_t.h" />
+    <ClInclude Include="effectSkill_t.h" />
     <ClInclude Include="game_t.h" />
     <ClInclude Include="ground_t.h" />
     <ClInclude Include="map_t.h" />

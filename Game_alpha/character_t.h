@@ -8,11 +8,11 @@
 
 class character_t : public physOb_t
 {
-protected:
 
+protected:
+	characterStats_t stat;
 public:
 
-	characterStats_t stat;
 
 	character_t();
 	character_t(float _x, float _y);
