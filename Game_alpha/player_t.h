@@ -16,6 +16,7 @@ class player_t : public character_t
 public:
 	std::list<elements::element> skillGeneratorArr;
 	size_t elemStatus;
+
 public:
 
 	player_t();

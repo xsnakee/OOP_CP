@@ -30,12 +30,21 @@ struct characterStats_t
 	float attackRange = 20.f;
 
 
-	void resetStats(characterStats_t &stats) {
-		stats.HP = stats.stdHP = stats.MP = stats.stdMP = stats.stamina =
-			stats.stdStamina = stats.atackPower = stats.stdAtackPower =
-			stats.physDef = stats.stdPhysDef = stats.magDef = stats.stdMagDef
-			= stats.speed = stats.stdSpeed = stats.castSpeed = stats.damageRand =
-			stats.attackMultiple = stats.defMulttiple = stats.attackRange = 0.f;
+	void resetStats() {
+		HP = stdHP = MP = stdMP = stamina =
+			stdStamina = atackPower = stdAtackPower =
+			physDef = stdPhysDef = magDef = stdMagDef
+			= speed = stdSpeed = castSpeed = damageRand =
+			attackMultiple = defMulttiple = attackRange = 0.f;
+	}
+	void defaultStats() {
+		HP = stdHP;
+		MP = stdMP;
+		stamina = stdStamina;
+		atackPower = stdAtackPower;
+		physDef = stdPhysDef;
+		magDef = stdMagDef;
+		speed = stdSpeed;
 	}
 };
 

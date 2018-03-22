@@ -89,3 +89,12 @@ void game_t::checkAlive() {
 
 	}
 }
+
+
+void game_t:: addOb(physOb_t *bullet) {
+	obList.push_back(bullet);
+}
+
+void game_t::addChar(character_t *NPC) {
+	charactersList.push_back(NPC);
+}

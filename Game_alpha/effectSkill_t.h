@@ -16,12 +16,14 @@ private:
 
 public:
 	effectSkill_t();
+	effectSkill_t(characterStats_t _stats);
 	effectSkill_t(sf::Clock *time, sf::Int32 _timer = 10);
 	~effectSkill_t();
 
 public:
-	virtual bool castSkill(); 
+	virtual bool castSkill(sf::Clock *time, sf::Int32 _timer);
 	virtual bool checkTimer(sf::Clock *time);
+	virtual bool update();
 
 public:
 

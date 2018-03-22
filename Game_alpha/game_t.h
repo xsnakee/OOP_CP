@@ -32,6 +32,9 @@ public:
 	void keyController(sf::Event &event);
 	void checkAlive();
 
+	void addOb(physOb_t *);
+	void addChar(character_t *);
+
 	//GET
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;
