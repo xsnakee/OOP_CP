@@ -10,7 +10,7 @@ physOb_t::physOb_t()
 	alive = true;
 	hitsToDestroy = 1.f;
 	collision = true;
-	sprite.setPosition(posX, posY);
+	spritePref.setSpritePos(posX, posY);
 }
 
 physOb_t::physOb_t(float _posX, float _posY){
@@ -22,11 +22,11 @@ physOb_t::physOb_t(float _posX, float _posY){
 	alive = true;
 	hitsToDestroy = 1.f;
 	collision = true;
-	sprite.setPosition(posX, posY);
+	spritePref.setSpritePos(posX, posY);
 }
 //*
 
-physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height):obPreference(fileName, _coordX, _coordY, _width, _height) {
+physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height):spritePref(fileName, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
 	dY = 0.f;
 	destroyble = true;
@@ -37,7 +37,7 @@ physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, 
 	posX = _posX;
 	posY = _posY;
 
-	sprite.setPosition(posX, posY);
+	spritePref.setSpritePos(posX, posY);
 
 }
 //*/

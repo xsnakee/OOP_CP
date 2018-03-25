@@ -4,9 +4,11 @@
 #include "obPreference.h"
 
 
-class physOb_t : public obPreference
+class physOb_t
 {
 protected:
+	obPreference spritePref;
+
 	float posX;
 	float posY;	
 	float dX;
@@ -30,6 +32,10 @@ public:
 	virtual bool checkTimer(sf::Clock *time);
 	
 	//GET
+	sf::Sprite getSprite() const {
+		return spritePref.getSprite();
+	}
+
 	float getdX() const {
 		return dX;
 	}

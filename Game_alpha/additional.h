@@ -13,6 +13,9 @@ namespace tiles {
 
 	const int size = 32;
 
+	const int SPRITE_HEIGHT = 32;
+	const int SPRITE_WIDTH = 32;
+
 	enum tile {
 		DARK = 0,
 		GRACE = 1,

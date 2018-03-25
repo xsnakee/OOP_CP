@@ -35,7 +35,7 @@ void player_t::update(float speed) {
 		dX = 0.f;
 		dY = 0.f;
 
-		sprite.setPosition(posX, posY);
+		spritePref.setSpritePos(posX, posY);
 	}
 	
 }

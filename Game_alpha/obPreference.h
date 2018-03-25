@@ -1,13 +1,12 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-
-const int SPRITE_HEIGHT = 32;
-const int SPRITE_WIDTH = 32;
+const int DEFAULT_HEIGHT = 31;
+const int DEFAULT_WIDTH = 27;
 
 class obPreference
 {
-protected:
+private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
@@ -19,16 +18,15 @@ protected:
 public:
 	obPreference();
 	obPreference(std::string _fileTexturePath);
-	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _height, int _width);
+	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _width, int _height);
 	virtual ~obPreference();
 
-	virtual void update() = 0;
 	//GET
 	sf::Texture getTexture() const{
 		return texture;
 	}
 
-	sf::Sprite getSprite() const {
+	sf::Sprite getSprite() const{
 		return sprite;
 	}
 
@@ -43,6 +41,16 @@ public:
 	}
 	int getWdith() const {
 		return width;
+	}
+
+	//SET
+	void setTexturePos(int coordX,int coordY) {
+		spriteCoordX = coordX;
+		spriteCoordY = coordY;
+	}
+
+	void setSpritePos(int coordX, int coordY) {
+		sprite.setPosition(coordX, coordY);
 	}
 
 	//FOR CHECK COLLISION

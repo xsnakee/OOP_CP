@@ -24,7 +24,7 @@ bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _e
 		mass = true;
 	}
 
-	sprite.setPosition(posX, posY);
+	spritePref.setSpritePos(posX, posY);
 }
 
 bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, float _AOE = 1.f) : physOb_t(_posX, _posY) {
@@ -45,7 +45,7 @@ bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, floa
 	else {
 		mass = true;
 	}
-	sprite.setPosition(posX, posY);
+	spritePref.setSpritePos(posX, posY);
 }
 
 bullet_t::~bullet_t()
