@@ -1,17 +1,22 @@
 #include "player_t.h"
-
+#include <iostream>
 
 
 player_t::player_t() :character_t()
 {
+	keyCooldown = 40;
+	startKeyPressTime = 0;
 	elemStatus = 0;
 }
 
 
 
 //*
-player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height) : character_t(_x, _y, fileName, _coordX, _coordY, _width, _height) {
+player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : character_t(_x, _y, fileName, _coordX, _coordY, _width, _height) {
 
+	keyCooldown = 40;
+	startKeyPressTime = 0;
+	clock = _clock;
 }
 //*/
 
@@ -61,8 +66,15 @@ void player_t:: controller(sf::Event) {
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
-		addElement(elements::FIRE);
-		checkSkillGenerator();
+		
+		if (!checkKeyCd(clock)) 
+		{
+			addElement(elements::FIRE);
+			checkSkillGenerator();
+			std::cout << elements::FIRE;
+		}
+
+		startKeyPressTime = clock->getElapsedTime().asMilliseconds();
 	}
 
 }
@@ -97,4 +109,11 @@ bool player_t::addElement(elements::element _elem) {
 
 size_t player_t::generateSkill(){
 
+}
+
+bool player_t::checkKeyCd(sf::Clock *clock) {
+
+	sf::Int32 temptime = clock->getElapsedTime().asMilliseconds();
+
+	return (temptime - startKeyPressTime) >= keyCooldown ? false : true;
 }

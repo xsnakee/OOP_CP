@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML\Graphics.hpp>
 
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
@@ -9,6 +10,8 @@ namespace elements {
 		EARTH = 8
 	};
 }
+
+
 namespace tiles {
 
 	const int size = 32;

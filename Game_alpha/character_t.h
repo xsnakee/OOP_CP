@@ -13,6 +13,10 @@ class character_t : public physOb_t
 protected:
 	characterStats_t stat;
 	skills_t *skill;
+
+	sf::Int32 timer;
+	sf::Int32 startTime;
+	sf::Int32 cooldown;
 public:
 
 
@@ -25,6 +29,7 @@ public:
 	void defaultStats();
 	virtual void update(float time) = 0;
 	virtual void controller(sf::Event) = 0;
+	virtual bool checkTimer(sf::Clock *clock);
 
 public:
 	void setStats(characterStats_t &_stats);

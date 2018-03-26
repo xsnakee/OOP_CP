@@ -40,3 +40,12 @@ characterStats_t character_t::getStats() {
 void character_t::defaultStats() {
 	stat.defaultStats();
 }
+
+bool character_t::checkTimer(sf::Clock *clock) {
+
+	sf::Int32 tempTime = clock->getElapsedTime().asMilliseconds();
+
+	bool tempReuslt= (abs(tempTime - startTime) > timer) ? false : true;
+
+	return tempReuslt;
+}

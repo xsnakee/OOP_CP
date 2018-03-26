@@ -29,7 +29,6 @@ struct characterStats_t
 	float defMulttiple = 1.f;
 	float attackRange = 20.f;
 
-
 	void resetStats() {
 		HP = stdHP = MP = stdMP = stamina =
 			stdStamina = atackPower = stdAtackPower =
