@@ -6,7 +6,7 @@
 using namespace sf;
 
 
-game_t game;
+game_t game("maps/test_map.txt","img/maps/mapTilesCombine.png",1024,768);
 
 int main() {
 

@@ -17,6 +17,7 @@ game_t::game_t(std::string mapFileName, std::string _tileFileName, int _sizeX, i
 	speed = 10.f;
 	
 	charactersList.push_back(new player_t(200.f, 200.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock));
+	//map.fillTheMap();
 }
 
 game_t::~game_t()
@@ -48,6 +49,12 @@ void game_t::draw(sf::RenderWindow *_window) {
 	for (int i = 0; i < obList.size(); ++i, ++tempOb){
 			_window->draw((*tempOb)->getSprite());
 				
+	}
+
+
+	std::list<ground_t*>::iterator tempIt;
+	for (tempIt = map.groundTilesList.begin(); tempIt != map.groundTilesList.end(); ++tempIt) {
+		_window->draw((*tempIt)->getSprite());
 	}
 }
 

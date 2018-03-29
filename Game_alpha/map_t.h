@@ -25,6 +25,7 @@ public:
 	
 public:
 	void fillTheMap();
+	void drawMap();
 
 public:
 	//GET
