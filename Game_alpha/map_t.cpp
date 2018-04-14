@@ -15,6 +15,10 @@ map_t::map_t(std::string _mapFileName, int _sizeX, int _sizeY,std::string _tileF
 	tileAmountY = _sizeY / tiles::size;
 	mapFileName = _mapFileName;
 	tileFileName = _tileFileName;
+	std::unique_ptr<sf::Texture> _tile_texture(new sf::Texture);
+
+	tile_texture = _tile_texture.get();
+	tile_texture->loadFromFile(tileFileName);
 }
 
 map_t::~map_t()
@@ -36,7 +40,8 @@ void map_t::fillTheMap() {
 		for (size_t j = 0; j < tileAmountX; ++j) {
 
 			MAP_FILE >> tileId;
-			groundTilesList.push_back(new ground_t(j*tiles::size,i*tiles::size,tileFileName,((tileId % tileAmountX)*tiles::size),(tileId % tileAmountX)*tiles::size));
+			MAP_FILE.get();
+			groundTilesList.push_back(new ground_t(tile_texture, j*tiles::size,i*tiles::size,((tileId % tileAmountX)*tiles::size),(tileId % tileAmountX)*tiles::size));
 			
 		
 		}

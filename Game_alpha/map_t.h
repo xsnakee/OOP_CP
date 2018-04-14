@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "ground_t.h"
 #include "additional.h"
+#include <memory>
 #include <list>
 
 class map_t
@@ -15,6 +16,7 @@ private:
 	int tileAmountY;
 	std::string mapFileName;
 	std::string tileFileName;
+	sf::Texture *tile_texture;
 
 public:
 	std::list<ground_t*> groundTilesList;

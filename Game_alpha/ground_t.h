@@ -4,12 +4,25 @@
 #include "physOb_t.h"
 #include "additional.h"
 
-class ground_t:public physOb_t
+class ground_t
 {
+	sf::Texture *texture;
+	sf::Sprite sprite;
+	int spriteCoordX;
+	int spriteCoordY;
+	int height;
+	int width;
+	float posX;
+	float posY;
 
 public:
 	ground_t();
-	ground_t(float _posX, float _posY, std::string tileFile, int _x, int _y);
+	ground_t(sf::Texture *_texture,float _posX, float _posY, int _x, int _y);
 	~ground_t();
+
+
+	sf::Sprite getSprite() const {
+		return sprite;
+	}
 };
 

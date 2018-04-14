@@ -1,20 +1,32 @@
 #include "ground_t.h"
 
-ground_t::ground_t():physOb_t()
+ground_t::ground_t()
 {
-	destroyble = false;
-	alive = true;
-	hitsToDestroy = 0.f;
-	collision = 0;
+	texture = nullptr;
+	int spriteCoordX = 0;
+	int spriteCoordY = 0;
+	int height = tiles::SPRITE_HEIGHT;
+	int width = tiles::SPRITE_WIDTH;
+	float posX = 0;
+	float posY = 0;
+
 }
 
 
-ground_t::ground_t(float _posX, float _posY, std::string tileFile, int _x, int _y):physOb_t(_posX, _posY, tileFile, _x, _y, tiles::size, tiles::size)
+ground_t::ground_t(sf::Texture *_texture, float _posX, float _posY, int _x, int _y)
 {
-	destroyble = false;
-	alive = true;
-	hitsToDestroy = 0.f;
-	collision = 0;
+	texture = _texture;
+	sprite.setTexture(*texture);
+	int spriteCoordX = _x;
+	int spriteCoordY = _y;
+
+	int height = tiles::SPRITE_HEIGHT;
+	int width = tiles::SPRITE_WIDTH;
+	float posX = _posX;
+	float posY = _posY;
+
+	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
+	sprite.setPosition(posX, posY);
 }
 
 ground_t::~ground_t()

@@ -44,7 +44,7 @@ public:
 	}
 
 	//SET
-	void setTexturePos(int coordX,int coordY) {
+	void setTexturePos(int coordX, int coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;
 	}

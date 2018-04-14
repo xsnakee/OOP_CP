@@ -17,7 +17,7 @@ int main() {
 
 	while (window.isOpen()) {
 		Event event;
-		float timer = clock.getElapsedTime().asMicroseconds();
+		float timer = static_cast<sf::Int64>(clock.getElapsedTime().asMicroseconds());
 		clock.restart();
 		game.setSpeed(timer);
 
