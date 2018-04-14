@@ -19,6 +19,10 @@ game_t::game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _
 	window = _window;
 	view = new sf::View;
 	view->reset(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
+	window->setMouseCursorVisible(false);
+
+
+	cursor = new cursor_t("img/cursor_aim.png",20,20);
 
 	speedMultipple = 800.f;
 	speed = 10.f;
@@ -33,6 +37,8 @@ game_t::game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _
 
 game_t::~game_t()
 {
+	delete view;
+	delete cursor;
 }
 
 
@@ -48,7 +54,7 @@ void game_t::update() {
 
 	setCamera();//set Camera
 	window->setView(*view); // Set camera
-
+	cursor->setCursorPosition(window);
 }
 
 void game_t::draw() {
@@ -72,6 +78,8 @@ void game_t::draw() {
 		window->draw((*tempOb)->getSprite());
 
 	}
+
+	drawCursor();
 }
 
 void game_t::keyController(sf::Event &event) {
@@ -177,4 +185,10 @@ void game_t::setCamera() {
 	}
 
 	view->setCenter(_x, _y);
+}
+
+
+
+void game_t::drawCursor() {
+	window->draw(cursor->getSprite());
 }

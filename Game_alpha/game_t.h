@@ -8,11 +8,13 @@
 #include "map_t.h"
 #include "bullet_t.h"
 #include "additional.h"
+#include "cursor_t.h"
 
 class game_t
 {
 private:
 	sf :: RenderWindow *window;
+	cursor_t *cursor;
 
 	sf::Clock clock;
 	float curTime;
@@ -47,6 +49,11 @@ public:
 	void generateStaticObjects(std::list<ground_t*> _obTextureList);
 
 	void setCamera();
+
+	void drawCursor();
+	
+
+
 	//GET
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;
