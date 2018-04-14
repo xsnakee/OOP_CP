@@ -49,3 +49,7 @@ bool character_t::checkTimer(sf::Clock *clock) {
 
 	return tempReuslt;
 }
+
+bool character_t::checkKeyCd(sf::Clock *clock) {
+	return false;
+}

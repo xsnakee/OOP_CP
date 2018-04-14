@@ -22,7 +22,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _
 	window->setMouseCursorVisible(false);
 
 
-	cursor = new cursor_t("img/cursor_aim.png",20,20);
+	cursor = new cursor_t("img/cursor_aim.png",20,20, window);
 
 	speedMultipple = 800.f;
 	speed = 10.f;
@@ -54,7 +54,7 @@ void game_t::update() {
 
 	setCamera();//set Camera
 	window->setView(*view); // Set camera
-	cursor->setCursorPosition(window);
+	cursor->setCursorPosition();
 }
 
 void game_t::draw() {
@@ -95,7 +95,9 @@ void game_t::keyController(sf::Event &event) {
 
 	//ATACK CONTROLLER
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
-					//obList.push_back(new bullet_t(&clock, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f,elements::WIND, 10.f));
+		
+			obList.push_back(new bullet_t(&clock, 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, sf::Mouse::getPosition(*window), 10.f));
+		
 	}
 
 }

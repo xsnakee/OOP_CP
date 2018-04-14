@@ -10,12 +10,13 @@ class cursor_t
 	int height;
 	int width;
 
+	sf::RenderWindow *window;
 public:
 	cursor_t();
-	cursor_t(std::string fileName, int _height, int _width);
+	cursor_t(std::string fileName, int _height, int _width, sf::RenderWindow *_window);
 	~cursor_t();
 
-	void setCursorPosition(sf::RenderWindow *_window);
+	void setCursorPosition();
 
 
 	//GET
@@ -23,6 +24,10 @@ public:
 
 	sf::Sprite getSprite() const {
 		return sprite;
+	}
+
+	sf::Vector2i getPosition() const {
+
 	}
 };
 

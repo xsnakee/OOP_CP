@@ -16,14 +16,17 @@ class bullet_t:public physOb_t
 {
 private:
 	bulletStats stat;
+
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
 	bool mass;
 
+	sf::Vector2i targetCoords;
+
 public:
 	bullet_t();
-	bullet_t(float _posX, float _posY, float _speed, elements::element _element, float _AOE);
-	bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, float _AOE);
+	bullet_t(float _posX, float _posY, float _speed, elements::element _element, float _AOE, sf::Vector2i _targetCoords);
+	bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, sf::Vector2i _targetCoords, float _AOE);
 	virtual ~bullet_t();
 
 public:

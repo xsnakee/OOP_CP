@@ -30,6 +30,7 @@ public:
 	virtual void update(float time) = 0;
 	virtual void controller(sf::Event) = 0;
 	virtual bool checkTimer(sf::Clock *clock);
+	virtual bool checkKeyCd(sf::Clock *clock);
 
 public:
 	void setStats(characterStats_t &_stats);
