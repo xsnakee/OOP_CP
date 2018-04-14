@@ -5,13 +5,15 @@
 
 using namespace sf;
 
+const int windowWidth = 1024;
+const int windowHeight = 768;
 
-game_t game("maps/test_map.txt","img/maps/mapTilesCombine.png",1024,768);
 
 int main() {
 
-	RenderWindow window(VideoMode(1024, 768), "SFML GAME ALPHA");
+	RenderWindow window(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA");
 
+	game_t game("maps/test_map.txt", "img/maps/mapTilesCombine.png", 12, 14);
 	
 	Clock clock;
 
