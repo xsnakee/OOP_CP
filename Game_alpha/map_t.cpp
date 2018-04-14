@@ -47,7 +47,7 @@ void map_t::fillTheMap() {
 			int spritePosY = ((tileId / tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 			int spritePosX = ((tileId % tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 			
-			if (tileId > 200) {
+			if (tileId > tiles::OB_TEXTURE_VALUE) {
 				obTextureList.push_back(new ground_t(tile_texture, coordX, coordY, spritePosX, spritePosY, tileId));
 				groundTilesList.push_back(new ground_t(tile_texture, coordX, coordY, groundTilesList.back()->getCoordX(), groundTilesList.back()->getCoordY(), tileId));
 			}

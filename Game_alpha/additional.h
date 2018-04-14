@@ -25,6 +25,8 @@ namespace tiles {
 	const int TEXTURE_FILE_WIDHT = 672;
 	const int TEXTURE_FILE_HEIGHT = 960;
 
+	const int OB_TEXTURE_VALUE = 400;
+
 	enum tile {
 		DARK = 0,
 		GRACE = 1,
