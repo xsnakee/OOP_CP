@@ -9,10 +9,12 @@ map_t::map_t()
 }
 
 map_t::map_t(std::string _mapFileName, int _sizeX, int _sizeY,std::string _tileFileName) {
-	sizeX = _sizeX* tiles::size;
-	sizeY = _sizeY * tiles::size;
 	tileAmountX = _sizeX;
 	tileAmountY = _sizeY;
+	
+	sizeX = _sizeX* tiles::size;
+	sizeY = _sizeY * tiles::size;
+	
 	mapFileName = _mapFileName;
 	tileFileName = _tileFileName;
 	tile_texture = new sf::Texture;

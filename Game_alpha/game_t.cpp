@@ -149,5 +149,32 @@ void game_t::generateStaticObjects(std::list<ground_t*> _obTextureList) {
 
 void game_t::setCamera() {
 
-	view->setCenter((*mainHero)->getPosX(), (*mainHero)->getPosY());
+	float _x = (*mainHero)->getPosX();
+	float _y = (*mainHero)->getPosY();
+	
+
+	//EDIT THIS FOR CAMERA CONTROLL
+	float leftBorder = window->getSize().x / 2;
+	float topBorder = window->getSize().y / 2;
+	
+	float rightBorder = map.getSize().x - (window->getSize().x / 2);
+	float bottomBorder = map.getSize().y - (window->getSize().y / 2);
+	
+
+	
+	if (_x < leftBorder) {
+		_x = leftBorder;
+	}
+	else if (_x > rightBorder) {
+		_x = rightBorder;
+	}
+
+	if (_y > bottomBorder) {
+		_y = bottomBorder;
+	}
+	else if (_y < topBorder) {
+		_y = topBorder;
+	}
+
+	view->setCenter(_x, _y);
 }
