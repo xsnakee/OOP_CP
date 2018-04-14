@@ -13,7 +13,7 @@ int main() {
 
 	RenderWindow window(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA");
 
-	game_t game("maps/test_map.txt", "img/maps/mapTilesCombine.png", 12, 14);
+	game_t game("maps/test_map.txt", "img/maps/mapTilesCombine.png", 29, 14);
 	
 	Clock clock;
 

@@ -15,9 +15,11 @@ class ground_t
 	float posX;
 	float posY;
 
+	int id;
+
 public:
 	ground_t();
-	ground_t(sf::Texture *_texture,float _posX, float _posY, int _x, int _y);
+	ground_t(sf::Texture *_texture,float _posX, float _posY, int _x, int _y, int _id);
 	~ground_t();
 
 

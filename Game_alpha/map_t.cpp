@@ -45,10 +45,11 @@ void map_t::fillTheMap() {
 			MAP_FILE.get();
 			int coordX = j * tiles::size;
 			int coordY = i * tiles::size;
-			int spritePosX = ((tileId % tileAmountX)*tiles::size);
-			int spritePosY = ((tileId % tileAmountX)*tiles::size);
 
-			groundTilesList.push_back(new ground_t(tile_texture,coordX, coordY,spritePosX,spritePosY));
+			int spritePosY = ((tileId / tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
+			int spritePosX = ((tileId % tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
+
+			groundTilesList.push_back(new ground_t(tile_texture,coordX, coordY,spritePosX,spritePosY, tileId));
 			
 		
 		}
