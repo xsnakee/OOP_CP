@@ -18,6 +18,8 @@ game_t::game_t(std::string mapFileName, std::string _tileFileName, int _sizeX, i
 	
 	charactersList.push_back(new player_t(200.f, 200.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock));
 	map.fillTheMap();
+
+	generateStaticObjects(map.obTextureList);
 }
 
 game_t::~game_t()
@@ -108,3 +110,26 @@ void game_t::addChar(character_t *NPC) {
 	charactersList.push_back(NPC);
 }
 
+void game_t::generateStaticObjects(std::list<ground_t*> _obTextureList) {
+
+	
+	for (std::list<ground_t*>::iterator curObTexture = _obTextureList.begin(); curObTexture != _obTextureList.end(); ++curObTexture) {
+		
+		sf::Texture *texture = (*curObTexture)->getTexture();
+
+		int SpriteX = (*curObTexture)->getCoordX();
+
+		int SpriteY = (*curObTexture)->getCoordY();
+
+		int Height = (*curObTexture)->getHeight();
+
+		int Width = (*curObTexture)->getWdith();
+
+		float PosX = (*curObTexture)->getPosX();
+
+		float PosY = (*curObTexture)->getPosY();
+		
+		obList.push_back(new physOb_t(PosX, PosY, texture, SpriteX, SpriteY, Width, Height));
+	}
+	
+}

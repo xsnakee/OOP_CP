@@ -35,4 +35,5 @@ namespace tiles {
 		BUSH = 6,
 		//...
 	};
+
 }

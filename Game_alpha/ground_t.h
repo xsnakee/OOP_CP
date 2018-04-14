@@ -23,8 +23,41 @@ public:
 	~ground_t();
 
 
+	//GET
+	sf::Texture *getTexture() const {
+		return texture;
+	}
+
 	sf::Sprite getSprite() const {
 		return sprite;
+	}
+
+	int getCoordX() const {
+		return spriteCoordX;
+	}
+
+	int getCoordY() const {
+		return spriteCoordY;
+	}
+
+	int getHeight() const {
+		return height;
+	}
+
+	int getWdith() const {
+		return width;
+	}
+
+	float getPosX() const {
+		return posX;
+	}
+
+	float getPosY() const {
+		return posY;
+	}
+
+	int getId() const {
+		return id;
 	}
 };
 

@@ -20,6 +20,7 @@ private:
 
 public:
 	std::list<ground_t*> groundTilesList;
+	std::list<ground_t*> obTextureList;
 
 	map_t();
 	map_t(std::string mapFileName, int _sizeX, int _sizeY, std::string _tileFileName);

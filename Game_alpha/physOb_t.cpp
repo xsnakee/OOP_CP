@@ -44,7 +44,7 @@ physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, 
 physOb_t::physOb_t(float _posX, float _posY, sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height) : spritePref(_texture, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
 	dY = 0.f;
-	destroyble = true;
+	destroyble = false;
 	alive = true;
 	hitsToDestroy = 1.f;
 	collision = true;

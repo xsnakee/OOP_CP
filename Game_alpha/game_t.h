@@ -36,6 +36,7 @@ public:
 	void addOb(physOb_t *);
 	void addChar(character_t *);
 
+	void generateStaticObjects(std::list<ground_t*> _obTextureList);
 	//GET
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;

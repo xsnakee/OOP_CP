@@ -46,17 +46,6 @@ public:
 		return dY;
 	}
 
-	//SET
-	float setdX(float _x) {
-		dX = _x;
-		return dX;
-	}
-
-	float setdY(float _y) {
-		dY = _y;
-		return dY;
-	}
-	//GET
 	float getPosX() const {
 		return posX;
 	}
@@ -112,5 +101,14 @@ public:
 		return hitsToDestroy;
 	}
 
+	float setdX(float _x) {
+		dX = _x;
+		return dX;
+	}
+
+	float setdY(float _y) {
+		dY = _y;
+		return dY;
+	}
 };
 

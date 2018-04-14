@@ -49,6 +49,9 @@ void map_t::fillTheMap() {
 
 			groundTilesList.push_back(new ground_t(tile_texture,coordX, coordY,spritePosX,spritePosY, tileId));
 			
+			if (tileId > 200) {
+				obTextureList.push_back(groundTilesList.back());
+			}
 		
 		}
 	}
