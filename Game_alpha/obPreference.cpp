@@ -7,8 +7,10 @@ obPreference::obPreference() {
 	height = DEFAULT_HEIGHT;
 	width = DEFAULT_WIDTH;
 
-	texture.loadFromFile("img/default.jpg");
-	sprite.setTexture(texture);
+	texture = new sf::Texture;
+
+	texture->loadFromFile("img/default.jpg");
+	sprite.setTexture(*texture);
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY,width,height));
 }
 
@@ -20,8 +22,9 @@ obPreference::obPreference(std::string _fileTexturePath)
 	height = DEFAULT_HEIGHT;
 	width = DEFAULT_WIDTH;
 
-	texture.loadFromFile(_fileTexturePath);
-	sprite.setTexture(texture);
+	texture = new sf::Texture;
+	texture->loadFromFile(_fileTexturePath);
+	sprite.setTexture(*texture);
 
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
 }
@@ -32,12 +35,26 @@ obPreference::obPreference(std::string _fileTexturePath, int _coordX, int _coord
 	spriteCoordY = _coordY;
 	height = _height;
 	width = _width;
-	
-	texture.loadFromFile(_fileTexturePath);
-	sprite.setTexture(texture);
+
+	texture = new sf::Texture;
+	texture->loadFromFile(_fileTexturePath);
+	sprite.setTexture(*texture);
+	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
+}
+
+obPreference::obPreference(sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height) {
+
+	spriteCoordX = _coordX;
+	spriteCoordY = _coordY;
+	height = _height;
+	width = _width;
+
+	texture = _texture;
+	sprite.setTexture(*texture);
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
 }
 
 obPreference::~obPreference()
 {
+	delete texture;
 }

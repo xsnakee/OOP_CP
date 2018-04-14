@@ -7,7 +7,7 @@ const int DEFAULT_WIDTH = 27;
 class obPreference
 {
 private:
-	sf::Texture texture;
+	sf::Texture *texture;
 	sf::Sprite sprite;
 
 	int spriteCoordX;
@@ -19,11 +19,13 @@ public:
 	obPreference();
 	obPreference(std::string _fileTexturePath);
 	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _width, int _height);
+	obPreference::obPreference(sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height);
+
 	virtual ~obPreference();
 
 	//GET
 	sf::Texture getTexture() const{
-		return texture;
+		return *texture;
 	}
 
 	sf::Sprite getSprite() const{

@@ -15,8 +15,6 @@ map_t::map_t(std::string _mapFileName, int _sizeX, int _sizeY,std::string _tileF
 	tileAmountY = _sizeY;
 	mapFileName = _mapFileName;
 	tileFileName = _tileFileName;
-	//std::unique_ptr<sf::Texture> _tile_texture(new sf::Texture);
-	//tile_texture = _tile_texture.get();
 	tile_texture = new sf::Texture;
 
 	tile_texture->loadFromFile(tileFileName);
