@@ -46,7 +46,7 @@ public:
 
 	void generateStaticObjects(std::list<ground_t*> _obTextureList);
 
-	void setCameraCenter(float _x, float _y);
+	void setCamera();
 	//GET
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;

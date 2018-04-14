@@ -24,6 +24,8 @@ game_t::game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _
 	speed = 10.f;
 	
 	charactersList.push_back(new player_t(200.f, 200.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock));
+	mainHero = charactersList.begin();
+
 	map.fillTheMap();
 
 	generateStaticObjects(map.obTextureList);
@@ -38,13 +40,13 @@ void game_t::update() {
 
 	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
 
-	setCameraCenter((*tempCharIter )->getPosX(), (*tempCharIter )->getPosY());//set Camera
+	
 
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		(*tempCharIter)->update(speed);
 	}
 
-	
+	setCamera();//set Camera
 	window->setView(*view); // Set camera
 
 }
@@ -145,6 +147,7 @@ void game_t::generateStaticObjects(std::list<ground_t*> _obTextureList) {
 	
 }
 
-void game_t::setCameraCenter(float _x, float _y) {
-	view->setCenter(_x, _y);
+void game_t::setCamera() {
+
+	view->setCenter((*mainHero)->getPosX(), (*mainHero)->getPosY());
 }
