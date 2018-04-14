@@ -10,7 +10,7 @@ protected:
 	obPreference spritePref;
 
 	float posX;
-	float posY;	
+	float posY;
 	float dX;
 	float dY;
 	bool destroyble;
@@ -71,12 +71,12 @@ public:
 	}
 
 	//SET
-	float setPosX(float _x){
+	int setPosX(int _x){
 		posX = _x;
 		return posX;
 	}
 
-	float setPosY(float _y){
+	int setPosY(int _y){
 		posY = _y;
 		return posY;
 	}

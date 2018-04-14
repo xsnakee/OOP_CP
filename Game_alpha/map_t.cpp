@@ -36,8 +36,8 @@ void map_t::fillTheMap() {
 	}
 	int tileId;
 
-	for (size_t i = 0; i < tileAmountY; ++i) {
-		for (size_t j = 0; j < tileAmountX; ++j) {
+	for (int i = 0; i < tileAmountY; ++i) {
+		for (int j = 0; j < tileAmountX; ++j) {
 
 			MAP_FILE >> tileId;
 			MAP_FILE.get();

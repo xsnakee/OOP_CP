@@ -12,23 +12,31 @@
 class game_t
 {
 private:
+	sf :: RenderWindow *window;
+
 	sf::Clock clock;
 	float curTime;
 	float speed;
 	float speedMultipple;
 	map_t map;
+	
+	sf::View *view;
 
-public:
 	std::list<character_t*> charactersList;
+	std::list<character_t*>::iterator mainHero;
+
 	std::list<physOb_t*> obList;
 
+public:
+	
+
 	game_t();
-	game_t(std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY);
+	game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY);
 	~game_t();
 	
 
 	void update();
-	void draw(sf::RenderWindow *_window);
+	void draw();
 
 	void keyController(sf::Event &event);
 	void checkAlive();
@@ -37,6 +45,8 @@ public:
 	void addChar(character_t *);
 
 	void generateStaticObjects(std::list<ground_t*> _obTextureList);
+
+	void setCameraCenter(float _x, float _y);
 	//GET
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;

@@ -46,12 +46,12 @@ public:
 	}
 
 	//SET
-	void setTexturePos(int coordX, int coordY) {
+	void setTexturePos(float coordX, float coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;
 	}
 
-	void setSpritePos(int coordX, int coordY) {
+	void setSpritePos(float coordX, float coordY) {
 		sprite.setPosition(coordX, coordY);
 	}
 

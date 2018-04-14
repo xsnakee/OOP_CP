@@ -4,15 +4,22 @@
 
 game_t::game_t():clock()
 {
+	window = nullptr;
+	view = new sf::View;
+
 	speedMultipple = 800.f;
 	speed = 10.f;
 	charactersList.push_back(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,&clock));
-
+	
 	//obList.push_back(new physOb_t(400.f, 400.f));
 }
 
-game_t::game_t(std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY):clock(), map(mapFileName, _sizeX, _sizeY,  _tileFileName)
+game_t::game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY):clock(), map(mapFileName, _sizeX, _sizeY,  _tileFileName)
 {
+	window = _window;
+	view = new sf::View;
+	view->reset(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
+
 	speedMultipple = 800.f;
 	speed = 10.f;
 	
@@ -31,32 +38,36 @@ void game_t::update() {
 
 	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
 
+	setCameraCenter((*tempCharIter )->getPosX(), (*tempCharIter )->getPosY());//set Camera
+
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		(*tempCharIter)->update(speed);
 	}
 
+	
+	window->setView(*view); // Set camera
 
 }
 
-void game_t::draw(sf::RenderWindow *_window) {
+void game_t::draw() {
 	
 
 
 	std::list<ground_t*>::iterator tempIt;
 	for (tempIt = map.groundTilesList.begin(); tempIt != map.groundTilesList.end(); ++tempIt) {
-		_window->draw((*tempIt)->getSprite());
+		window->draw((*tempIt)->getSprite());
 	}
 
 	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
 
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
-		_window->draw((*tempCharIter)->getSprite());
+		window->draw((*tempCharIter)->getSprite());
 	}
 
 	std::list<physOb_t*>::iterator tempOb = obList.begin();
 
 	for (int i = 0; i < obList.size(); ++i, ++tempOb) {
-		_window->draw((*tempOb)->getSprite());
+		window->draw((*tempOb)->getSprite());
 
 	}
 }
@@ -132,4 +143,8 @@ void game_t::generateStaticObjects(std::list<ground_t*> _obTextureList) {
 		obList.push_back(new physOb_t(PosX, PosY, texture, SpriteX, SpriteY, Width, Height));
 	}
 	
+}
+
+void game_t::setCameraCenter(float _x, float _y) {
+	view->setCenter(_x, _y);
 }

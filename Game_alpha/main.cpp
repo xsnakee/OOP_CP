@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cstdlib>
+#include <memory>
 #include "game_t.h"
 
 using namespace sf;
@@ -11,34 +12,34 @@ const int windowHeight = 768;
 
 int main() {
 
-	RenderWindow window(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA");
+	std::unique_ptr<RenderWindow> window (new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));
 
-	game_t game("maps/test_map.txt", "img/maps/mapTilesCombine.png", 29, 14*3);
+	game_t game(window.get(), "maps/test_map.txt", "img/maps/mapTilesCombine.png", 29, 14*3);
 	
 	Clock clock;
 
-	while (window.isOpen()) {
+	while (window->isOpen()) {
 		Event event;
-		float timer = static_cast<sf::Int64>(clock.getElapsedTime().asMicroseconds());
+		float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
 		clock.restart();
 		game.setSpeed(timer);
 
-		while (window.pollEvent(event)) {
+		while (window->pollEvent(event)) {
 
 			if ((event.type == Event::Closed) || (Keyboard::isKeyPressed(Keyboard::Escape))) {
-				window.close();
+				window->close();
 			}
 		}
 
 		game.keyController(event);
 
-		window.clear();
+		game.update();
+		window->clear();
 
 		game.checkAlive();
-		game.update();
-		game.draw(&window);
+		game.draw();
 
-		window.display();
+		window->display();
 	}
 
 

@@ -13,7 +13,7 @@ const std::string MAIN_HERO_TEXTURE_FILE = "img/mainHeroSprite.png";
 
 class player_t : public character_t
 {
-public:
+private:
 	std::list<elements::element> skillGeneratorArr;
 	size_t elemStatus;
 
