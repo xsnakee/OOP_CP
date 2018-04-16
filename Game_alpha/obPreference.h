@@ -49,6 +49,7 @@ public:
 	void setTexturePos(float coordX, float coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;
+		sprite.setTextureRect(sf::IntRect(coordX,coordY,width,height));
 	}
 
 	void setSpritePos(float coordX, float coordY) {

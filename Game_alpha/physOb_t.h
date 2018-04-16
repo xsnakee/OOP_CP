@@ -29,7 +29,7 @@ public:
 	virtual ~physOb_t();
 	
 	virtual bool kill();
-	void update();
+	void update(float _speed);
 	virtual bool checkCollision();
 	virtual bool checkTimer(sf::Clock *time);
 	

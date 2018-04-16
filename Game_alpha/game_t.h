@@ -35,7 +35,6 @@ public:
 	game_t();
 	game_t(sf::RenderWindow *_window, std::string _levelName);
 	~game_t();
-	
 
 	void update();
 	void draw();
@@ -46,7 +45,7 @@ public:
 	void addOb(physOb_t *);
 	void addChar(character_t *);
 
-	void generateStaticObjects(std::list<physOb_t*> _obTextureList);
+	void generateMapObjects(std::list<physOb_t*> _obTextureList);
 
 	void setCamera();
 

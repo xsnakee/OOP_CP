@@ -25,45 +25,41 @@ player_t::~player_t()
 }
 
 
-void player_t::update(float speed) {
-	if (abs(stat.HP - 1.f) < FLT_EPSILON) {
-		alive = false;
-		return;
-	}
-
-	if (alive) {
-
-
-		posX += dX * speed;
-		posY += dY * speed;
-
-		dX = 0.f;
-		dY = 0.f;
-
-		spritePref.setSpritePos(posX, posY);
-	}
+void player_t::update(float _speed) {
+	character_t::update(_speed);
 
 }
 
 void player_t::controller(sf::Event) {
 	using namespace sf;
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
+		direction = animation::TOP;
 		dY = -stat.speed;
+		updateFrame();
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::S)) {
 
+		direction = animation::BOTTOM;
 		dY = stat.speed;
+		updateFrame();
+
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::D)) {
 
+		direction = animation::RIGHT;
 		dX = stat.speed;
+		updateFrame();
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
+		direction = animation::LEFT;
 		dX = -stat.speed;
+		updateFrame();
 	}
+
+	
 
 	if (!checkKeyCd(clock))
 	{
@@ -120,4 +116,9 @@ bool player_t::checkKeyCd(sf::Clock *clock) {
 	sf::Int32 temptime = clock->getElapsedTime().asMilliseconds();
 
 	return (temptime - startKeyPressTime) >= keyCooldown ? false : true;
+}
+
+
+bool player_t::attack(float _x, float _y) {
+	return false;
 }

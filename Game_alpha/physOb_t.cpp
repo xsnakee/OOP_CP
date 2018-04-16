@@ -64,10 +64,18 @@ bool physOb_t::kill() {
 	return alive;
 }
 
-void physOb_t::update() {
+void physOb_t::update(float _speed) {
 
-	if (!alive) {
+	if (alive) {
 
+
+		posX += dX * _speed;
+		posY += dY * _speed;
+
+		dX = 0.f;
+		dY = 0.f;
+
+		spritePref.setSpritePos(posX, posY);
 	}
 }
 

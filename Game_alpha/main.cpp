@@ -9,13 +9,24 @@ using namespace sf;
 const int windowWidth = 1024;
 const int windowHeight = 768;
 
-
+void START_GAME(sf::RenderWindow *window);
 int main() {
 
 	std::unique_ptr<RenderWindow> window (new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));
 
-	game_t game(window.get(), "level1");
-	
+	START_GAME(window.get());
+
+
+	return 0;
+}
+
+
+
+
+void START_GAME(sf::RenderWindow *window) {
+
+	game_t game(window, "level2");
+
 	Clock clock;
 
 	while (window->isOpen()) {
@@ -41,7 +52,4 @@ int main() {
 
 		window->display();
 	}
-
-
-	return 0;
 }

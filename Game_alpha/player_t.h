@@ -1,15 +1,11 @@
 #pragma once
 
 #include "character_t.h"
-#include "additional.h"
 #include <list>
 #include <iterator>
 
-const int MAIN_HERO_SPRITE_WIDTH = 25;
-const int MAIN_HERO_SPRITE_HEIGHT = 30;
-const int SPRITE_X = 0;
-const int SPRITE_Y= 0;
-const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHeroSprite.png";
+
+
 
 class player_t : public character_t
 {
@@ -30,7 +26,9 @@ public:
 
 	
 
-	virtual void update(float speed);
+	void update(float _speed);
+	bool attack(float _x, float _y);
+
 	void controller(sf::Event);
 	bool checkSkillGenerator();
 	bool addElement(elements::element _elem);
