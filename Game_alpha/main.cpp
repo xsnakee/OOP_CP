@@ -14,7 +14,7 @@ int main() {
 
 	std::unique_ptr<RenderWindow> window (new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));
 
-	game_t game(window.get(), "level1");
+	game_t game(window.get(), "level2");
 	
 	Clock clock;
 
