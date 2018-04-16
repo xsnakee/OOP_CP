@@ -5,6 +5,7 @@
 #include "characterStats_t.h"
 #include "physOb_t.h"
 #include "skills_t.h"
+#include "additional.h"
 
 class character_t : public physOb_t
 {
@@ -16,6 +17,10 @@ protected:
 	sf::Int32 timer;
 	sf::Int32 startTime;
 	sf::Int32 cooldown;
+
+	animation::direction direction;
+
+	float frame;
 public:
 
 
@@ -30,15 +35,25 @@ public:
 	virtual bool checkTimer(sf::Clock *clock);
 	virtual bool checkKeyCd(sf::Clock *clock) = 0;
 	virtual bool attack(float _x, float _y) = 0;
-	
+	//virtual bool move();
+
 	bool kill();
 	void update(float _speed);
+	void animation();
+	void updateFrame();
 
 public:
 	void setStats(characterStats_t &_stats);
 
 	characterStats_t getStats();
 
+	float getFrame() const {
+		return frame;
+	}
 
+	float setFrame(float _frame) {
+		frame = _frame;
+		return frame;
+	}
 };
 

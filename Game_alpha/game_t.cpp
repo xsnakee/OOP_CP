@@ -9,6 +9,9 @@ game_t::game_t():clock()
 
 	speedMultipple = 800.f;
 	speed = 10.f;
+
+	using namespace animation;
+
 	charactersList.push_back(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,&clock));
 }
 
@@ -22,9 +25,10 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_
 
 	cursor = new cursor_t("img/cursor_aim.png",20,20, window);
 
-	speedMultipple = 800.f;
+	speedMultipple = 900.f; //formula (gameSpped = time/speedMultipple)
 	speed = 10.f;
 	
+	using namespace animation;
 	charactersList.push_back(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock));
 	mainHero = charactersList.begin();
 

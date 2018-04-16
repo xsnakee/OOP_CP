@@ -28,3 +28,23 @@ namespace tiles {
 	const int OB_TEXTURE_VALUE = 400;
 
 }
+
+namespace animation {
+
+	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHeroSprite.png";
+
+	const int MAIN_HERO_SPRITE_WIDTH = 27;
+	const int MAIN_HERO_SPRITE_HEIGHT = 32;
+	const int SPRITE_X = 0;
+	const int SPRITE_Y = 0;
+
+	const float frameRate = 3.f;
+	const float frameSpeed = 0.01f;
+
+	enum direction{
+		BOTTOM = 0,
+		LEFT = 1,
+		RIGHT = 2,
+		TOP = 3
+	};
+}
