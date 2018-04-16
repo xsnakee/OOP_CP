@@ -4,7 +4,7 @@
 
 player_t::player_t() :character_t()
 {
-	keyCooldown = 40;
+	keyCooldown = 400;
 	startKeyPressTime = 0;
 	elemStatus = 0;
 }
@@ -14,7 +14,7 @@ player_t::player_t() :character_t()
 //*
 player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : character_t(_x, _y, fileName, _coordX, _coordY, _width, _height) {
 
-	keyCooldown = 40;
+	keyCooldown = 400;
 	startKeyPressTime = 0;
 	clock = _clock;
 }
@@ -32,20 +32,20 @@ void player_t::update(float speed) {
 	}
 
 	if (alive) {
-		
 
-		posX += dX*speed;
-		posY += dY*speed;
+
+		posX += dX * speed;
+		posY += dY * speed;
 
 		dX = 0.f;
 		dY = 0.f;
 
 		spritePref.setSpritePos(posX, posY);
 	}
-	
+
 }
 
-void player_t:: controller(sf::Event) {
+void player_t::controller(sf::Event) {
 	using namespace sf;
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
 		dY = -stat.speed;
@@ -65,18 +65,22 @@ void player_t:: controller(sf::Event) {
 		dX = -stat.speed;
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::Space)) {
-		
-		if (!checkKeyCd(clock)) 
-		{
+	if (!checkKeyCd(clock))
+	{
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+
+
 			addElement(elements::FIRE);
 			checkSkillGenerator();
 			std::cout << elements::FIRE;
+
 		}
 
+		
 		startKeyPressTime = clock->getElapsedTime().asMilliseconds();
-	}
 
+	}
+	
 }
 
 
@@ -85,7 +89,7 @@ bool player_t::checkSkillGenerator() {
 
 	size_t tempStatus = 0;
 
-	for (size_t i = 0; i < skillGeneratorArr.size(); ++i,++temp) {
+	for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
 		if ((*temp) == elements::NONE) return false;
 		tempStatus += (*temp);
 	}
@@ -100,14 +104,14 @@ bool player_t::addElement(elements::element _elem) {
 	if (skillGeneratorArr.size() < 3) {
 		skillGeneratorArr.push_back(_elem);
 	}
-	else{
+	else {
 		skillGeneratorArr.pop_back();
 		skillGeneratorArr.push_back(_elem);
 	}
 
 }
 
-size_t player_t::generateSkill(){
+size_t player_t::generateSkill() {
 
 }
 
