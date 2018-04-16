@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include <vector>
 
 #include "characterStats_t.h"
 #include "physOb_t.h"
@@ -30,6 +29,7 @@ public:
 	virtual void update(float time) = 0;
 	virtual void controller(sf::Event) = 0;
 	virtual bool checkTimer(sf::Clock *clock);
+	virtual bool checkKeyCd(sf::Clock *clock) = 0;
 
 public:
 	void setStats(characterStats_t &_stats);

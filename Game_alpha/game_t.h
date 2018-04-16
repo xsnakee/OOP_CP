@@ -8,11 +8,13 @@
 #include "map_t.h"
 #include "bullet_t.h"
 #include "additional.h"
+#include "cursor_t.h"
 
 class game_t
 {
 private:
 	sf :: RenderWindow *window;
+	cursor_t *cursor;
 
 	sf::Clock clock;
 	float curTime;
@@ -31,7 +33,7 @@ public:
 	
 
 	game_t();
-	game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY);
+	game_t(sf::RenderWindow *_window, std::string _levelName);
 	~game_t();
 	
 
@@ -44,9 +46,14 @@ public:
 	void addOb(physOb_t *);
 	void addChar(character_t *);
 
-	void generateStaticObjects(std::list<ground_t*> _obTextureList);
+	void generateStaticObjects(std::list<physOb_t*> _obTextureList);
 
 	void setCamera();
+
+	void drawCursor();
+	
+
+
 	//GET
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;

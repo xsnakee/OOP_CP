@@ -8,18 +8,36 @@ map_t::map_t()
 {
 }
 
-map_t::map_t(std::string _mapFileName, int _sizeX, int _sizeY,std::string _tileFileName) {
+map_t::map_t(std::string _levelName) {
+	/*
+	int _sizeX, int _sizeY;
+
 	tileAmountX = _sizeX;
 	tileAmountY = _sizeY;
-	
-	sizeX = _sizeX* tiles::size;
-	sizeY = _sizeY * tiles::size;
-	
-	mapFileName = _mapFileName;
-	tileFileName = _tileFileName;
-	tile_texture = new sf::Texture;
+	*/
 
+	
+
+	levelName = _levelName;
+	//LOAD MAP BG
+	mapObjectsFile = MAP_PATH + levelName + MAP_OBJ_FILE_NAME;
+	mapBgTextureFile = IMG_MAP_PATH + levelName + MAP_BG_FILE_NAME;
+	mapBgTexture = new sf::Texture;
+	mapBgTexture->loadFromFile(mapBgTextureFile);
+	mapBgSprite.setTexture(*mapBgTexture);
+	mapBgSprite.setPosition(.0f, .0f);
+
+	//LOAD MAP OBJECTS
+	tileFileName = TILE_FILE_PATH;
+	tile_texture = new sf::Texture;
 	tile_texture->loadFromFile(tileFileName);
+
+	//CALC MAP SIZEs
+	tileAmountX = mapBgTexture->getSize().x / tiles::size;
+	tileAmountY = mapBgTexture->getSize().y / tiles::size;
+
+	sizeX = mapBgTexture->getSize().x;
+	sizeY = mapBgTexture->getSize().y;
 }
 
 map_t::~map_t()
@@ -31,7 +49,7 @@ map_t::~map_t()
 void map_t::fillTheMap() {
 	using namespace std;
 
-	ifstream MAP_FILE(mapFileName, ios::in);
+	ifstream MAP_FILE(mapObjectsFile, ios::in);
 	if (!MAP_FILE) {
 		cout << "OPEN FILE ERROR" << endl;
 		return;
@@ -49,14 +67,19 @@ void map_t::fillTheMap() {
 			int spritePosY = ((tileId / tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 			int spritePosX = ((tileId % tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 			
+			/*
 			if (tileId > tiles::OB_TEXTURE_VALUE) {
-				obTextureList.push_back(new ground_t(tile_texture, coordX, coordY, spritePosX, spritePosY, tileId));
+				obTextureList.push_back(new ground_t(, tileId));
 				groundTilesList.push_back(new ground_t(tile_texture, coordX, coordY, groundTilesList.back()->getCoordX(), groundTilesList.back()->getCoordY(), tileId));
 			}
+			
 			else {
 				groundTilesList.push_back(new ground_t(tile_texture, coordX, coordY, spritePosX, spritePosY, tileId));
 			}
-			
+			*/
+			if (tileId != (-1)) {
+				mapObList.push_back(new physOb_t(coordX, coordY, tile_texture, spritePosX, spritePosY, tiles::size, tiles::size));
+			}
 			
 		
 		}
