@@ -26,10 +26,13 @@ public:
 
 
 	void defaultStats();
-	virtual void update(float time) = 0;
 	virtual void controller(sf::Event) = 0;
 	virtual bool checkTimer(sf::Clock *clock);
 	virtual bool checkKeyCd(sf::Clock *clock) = 0;
+	virtual bool attack(float _x, float _y) = 0;
+	
+	bool kill();
+	void update(float _speed);
 
 public:
 	void setStats(characterStats_t &_stats);

@@ -35,7 +35,6 @@ public:
 	game_t();
 	game_t(sf::RenderWindow *_window, std::string _levelName);
 	~game_t();
-	
 
 	void update();
 	void draw();

@@ -30,7 +30,9 @@ public:
 
 	
 
-	virtual void update(float speed);
+	void update(float _speed);
+	bool attack(float _x, float _y);
+
 	void controller(sf::Event);
 	bool checkSkillGenerator();
 	bool addElement(elements::element _elem);

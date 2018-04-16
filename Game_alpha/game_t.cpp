@@ -25,7 +25,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_
 	speedMultipple = 800.f;
 	speed = 10.f;
 	
-	charactersList.push_back(new player_t(200.f, 200.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock));
+	charactersList.push_back(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock));
 	mainHero = charactersList.begin();
 
 	map.fillTheMap();

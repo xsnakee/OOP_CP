@@ -49,3 +49,18 @@ bool character_t::checkTimer(sf::Clock *clock) {
 
 	return tempReuslt;
 }
+
+bool character_t::kill() {
+	alive = false;
+	return false;
+};
+
+void character_t::update(float _speed) {
+	if (abs(stat.HP - 1.f) < FLT_EPSILON) {
+		alive = false;
+		return;
+	}
+
+	physOb_t::update(_speed);
+
+}
