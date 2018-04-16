@@ -33,7 +33,7 @@ public:
 	
 
 	game_t();
-	game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY);
+	game_t(sf::RenderWindow *_window, std::string _levelName);
 	~game_t();
 	
 
@@ -46,7 +46,7 @@ public:
 	void addOb(physOb_t *);
 	void addChar(character_t *);
 
-	void generateStaticObjects(std::list<ground_t*> _obTextureList);
+	void generateStaticObjects(std::list<physOb_t*> _obTextureList);
 
 	void setCamera();
 

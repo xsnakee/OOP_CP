@@ -14,7 +14,7 @@ game_t::game_t():clock()
 	//obList.push_back(new physOb_t(400.f, 400.f));
 }
 
-game_t::game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _tileFileName, int _sizeX, int _sizeY):clock(), map(mapFileName, _sizeX, _sizeY,  _tileFileName)
+game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_levelName)
 {
 	window = _window;
 	view = new sf::View;
@@ -32,7 +32,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string mapFileName, std::string _
 
 	map.fillTheMap();
 
-	generateStaticObjects(map.obTextureList);
+	generateStaticObjects(map.mapObList);
 }
 
 game_t::~game_t()
@@ -61,10 +61,7 @@ void game_t::draw() {
 	
 
 
-	std::list<ground_t*>::iterator tempIt;
-	for (tempIt = map.groundTilesList.begin(); tempIt != map.groundTilesList.end(); ++tempIt) {
-		window->draw((*tempIt)->getSprite());
-	}
+	window->draw(map.mapBgSprite);
 
 	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
 
@@ -76,7 +73,6 @@ void game_t::draw() {
 
 	for (int i = 0; i < obList.size(); ++i, ++tempOb) {
 		window->draw((*tempOb)->getSprite());
-
 	}
 
 	drawCursor();
@@ -133,10 +129,10 @@ void game_t::addChar(character_t *NPC) {
 	charactersList.push_back(NPC);
 }
 
-void game_t::generateStaticObjects(std::list<ground_t*> _obTextureList) {
-
+void game_t::generateStaticObjects(std::list<physOb_t*> _obList) {
 	
-	for (std::list<ground_t*>::iterator curObTexture = _obTextureList.begin(); curObTexture != _obTextureList.end(); ++curObTexture) {
+	/*
+	for ( std::list<ground_t*>::iterator _bTextureList = _obList.begin(); curObTexture != _obTextureList.end(); ++curObTexture) {
 		
 		sf::Texture *texture = (*curObTexture)->getTexture();
 
@@ -154,7 +150,8 @@ void game_t::generateStaticObjects(std::list<ground_t*> _obTextureList) {
 		
 		obList.push_back(new physOb_t(PosX, PosY, texture, SpriteX, SpriteY, Width, Height));
 	}
-	
+	*/
+	obList.insert(obList.end(), _obList.begin(), _obList.end());
 }
 
 void game_t::setCamera() {
