@@ -10,8 +10,6 @@ game_t::game_t():clock()
 	speedMultipple = 800.f;
 	speed = 10.f;
 	charactersList.push_back(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,&clock));
-	
-	//obList.push_back(new physOb_t(400.f, 400.f));
 }
 
 game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_levelName)
@@ -32,7 +30,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_
 
 	map.fillTheMap();
 
-	generateStaticObjects(map.mapObList);
+	generateMapObjects(map.mapObList);
 }
 
 game_t::~game_t()
@@ -129,28 +127,7 @@ void game_t::addChar(character_t *NPC) {
 	charactersList.push_back(NPC);
 }
 
-void game_t::generateStaticObjects(std::list<physOb_t*> _obList) {
-	
-	/*
-	for ( std::list<ground_t*>::iterator _bTextureList = _obList.begin(); curObTexture != _obTextureList.end(); ++curObTexture) {
-		
-		sf::Texture *texture = (*curObTexture)->getTexture();
-
-		int SpriteX = (*curObTexture)->getCoordX();
-
-		int SpriteY = (*curObTexture)->getCoordY();
-
-		int Height = (*curObTexture)->getHeight();
-
-		int Width = (*curObTexture)->getWdith();
-
-		float PosX = (*curObTexture)->getPosX();
-
-		float PosY = (*curObTexture)->getPosY();
-		
-		obList.push_back(new physOb_t(PosX, PosY, texture, SpriteX, SpriteY, Width, Height));
-	}
-	*/
+void game_t::generateMapObjects(std::list<physOb_t*> _obList) {
 	obList.insert(obList.end(), _obList.begin(), _obList.end());
 }
 

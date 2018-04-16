@@ -9,14 +9,6 @@ map_t::map_t()
 }
 
 map_t::map_t(std::string _levelName) {
-	/*
-	int _sizeX, int _sizeY;
-
-	tileAmountX = _sizeX;
-	tileAmountY = _sizeY;
-	*/
-
-	
 
 	levelName = _levelName;
 	//LOAD MAP BG
@@ -67,7 +59,7 @@ void map_t::fillTheMap() {
 			int spritePosY = ((tileId / tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 			int spritePosX = ((tileId % tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 			
-			/*
+			/*//IF needed layers view should return this fragment
 			if (tileId > tiles::OB_TEXTURE_VALUE) {
 				obTextureList.push_back(new ground_t(, tileId));
 				groundTilesList.push_back(new ground_t(tile_texture, coordX, coordY, groundTilesList.back()->getCoordX(), groundTilesList.back()->getCoordY(), tileId));

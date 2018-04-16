@@ -1,7 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "ground_t.h"
+//#include "ground_t.h"
+#include "physOb_t.h"
 #include "additional.h"
 #include <memory>
 #include <list>
@@ -33,7 +34,7 @@ private:
 	
 public:
 	sf::Sprite mapBgSprite;
-	//std::list<ground_t*> groundTilesList;
+	//std::list<ground_t*> groundTilesList; //If needed layers view
 	std::list<physOb_t*> mapObList;
 
 	map_t();

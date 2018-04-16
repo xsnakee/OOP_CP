@@ -27,15 +27,4 @@ namespace tiles {
 
 	const int OB_TEXTURE_VALUE = 400;
 
-	enum tile {
-		DARK = 0,
-		GRACE = 1,
-		SAND = 2,
-		WATER = 3,
-		MAGMA = 4,
-		STONE = 5,
-		BUSH = 6,
-		//...
-	};
-
 }
