@@ -31,9 +31,14 @@ namespace tiles {
 
 namespace animation {
 
-	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHeroSprite.png";
+	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero.png";
 
-	const int MAIN_HERO_SPRITE_WIDTH = 27;
+	const std::string ENEMY_DEMON_FILE = "img/characters/enemy_demon.png";
+	const std::string ENEMY_SLENDER_DEMON_FILE = "img/characters/enemy_slenderDemon.png";
+	const std::string ENEMY_WARRIOR_FILE = "img/characters/enemy_warrior.png";
+	const std::string ENEMY_MAGE_FILE = "img/characters/enemy_mage.png";
+
+	const int MAIN_HERO_SPRITE_WIDTH = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
 	const int SPRITE_X = 0;
 	const int SPRITE_Y = 0;

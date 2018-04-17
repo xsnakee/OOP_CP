@@ -9,6 +9,7 @@
 #include "bullet_t.h"
 #include "additional.h"
 #include "cursor_t.h"
+#include <memory>
 
 class game_t
 {
