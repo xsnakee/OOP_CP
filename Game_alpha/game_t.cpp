@@ -12,7 +12,7 @@ game_t::game_t():clock()
 
 	using namespace animation;
 
-	charactersList.push_back(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,&clock));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,&clock)));
 }
 
 game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_levelName)
@@ -29,7 +29,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_
 	speed = 10.f;
 	
 	using namespace animation;
-	charactersList.push_back(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT,&clock)));
 	mainHero = charactersList.begin();
 
 	map.fillTheMap();
@@ -46,7 +46,7 @@ game_t::~game_t()
 
 void game_t::update() {
 
-	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
+	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
 	
 
@@ -65,7 +65,7 @@ void game_t::draw() {
 
 	window->draw(map.mapBgSprite);
 
-	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
+	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		window->draw((*tempCharIter)->getSprite());
@@ -82,7 +82,8 @@ void game_t::draw() {
 
 void game_t::keyController(sf::Event &event) {
 	using namespace sf;
-	std::list<character_t*>::iterator mainHero = charactersList.begin();
+
+	std::list<std::unique_ptr <character_t>>::iterator mainHero = charactersList.begin();
 	sf::Keyboard::Key tempKey = event.key.code;
 	//NAVIGATION CONTROLLER	{
 		if ((*mainHero)->getAlive()) {
@@ -95,17 +96,16 @@ void game_t::keyController(sf::Event &event) {
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
 		
 			obList.push_back(new bullet_t(&clock, 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, sf::Mouse::getPosition(*window), 10.f));
-		
+			
 	}
 
 }
 
 void game_t::checkAlive() {
 
-	std::list<character_t*>::iterator tempCharIter = charactersList.begin();
+	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		if (!(*tempCharIter)->getAlive()) {
-			delete (*tempCharIter);
 			charactersList.erase(tempCharIter);		
 		}
 	}
@@ -128,7 +128,7 @@ void game_t:: addOb(physOb_t *bullet) {
 }
 
 void game_t::addChar(character_t *NPC) {
-	charactersList.push_back(NPC);
+	//charactersList.push_back(std::unique_ptr <character_t>(new ));
 }
 
 void game_t::generateMapObjects(std::list<physOb_t*> _obList) {

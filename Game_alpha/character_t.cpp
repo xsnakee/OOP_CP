@@ -62,6 +62,7 @@ bool character_t::kill() {
 };
 
 void character_t::update(float _speed) {
+
 	if (abs(stat.HP - 1.f) < FLT_EPSILON) {
 		alive = false;
 		return;

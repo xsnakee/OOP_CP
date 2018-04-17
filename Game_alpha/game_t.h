@@ -25,8 +25,8 @@ private:
 	
 	sf::View *view;
 
-	std::list<character_t*> charactersList;
-	std::list<character_t*>::iterator mainHero;
+	std::list<std::unique_ptr <character_t>> charactersList;
+	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 
 	std::list<physOb_t*> obList;
 
