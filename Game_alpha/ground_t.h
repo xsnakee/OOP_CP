@@ -44,7 +44,7 @@ public:
 		return height;
 	}
 
-	int getWdith() const {
+	int getWidth() const {
 		return width;
 	}
 

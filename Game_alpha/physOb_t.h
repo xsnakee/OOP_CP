@@ -33,7 +33,7 @@ public:
 	virtual bool kill();
 	void update(float _speed);
 	bool checkCollision(physOb_t *Object);
-	virtual void collisionHandler(physOb_t *Object);
+	virtual void collisionHandler(physOb_t *Object, float _speed);
 
 	virtual bool checkTimer(sf::Clock *time);;
 	

@@ -41,7 +41,7 @@ public:
 	int getHeight() const {
 		return height;
 	}
-	int getWdith() const {
+	int getWidth() const {
 		return width;
 	}
 

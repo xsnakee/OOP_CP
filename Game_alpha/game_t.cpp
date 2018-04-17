@@ -134,11 +134,11 @@ void game_t::collisionEngine() {
 		
 		for (auto &innerElement : charactersList) {
 			if (outerElement != innerElement) {
-				outerElement->collisionHandler(innerElement.get());
+				outerElement->collisionHandler(innerElement.get(), speed);
 			}
 		}
 		for (auto &innerElement : obList) {
-			outerElement->collisionHandler(innerElement);
+			outerElement->collisionHandler(innerElement, speed);
 		}
 	}
 }
