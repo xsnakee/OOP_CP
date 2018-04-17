@@ -29,6 +29,7 @@ private:
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 
 	std::list<physOb_t*> obList;
+	std::list<bullet_t*> bulletsList;
 
 public:
 	
@@ -42,6 +43,7 @@ public:
 
 	void keyController(sf::Event &event);
 	void checkAlive();
+	void collisionEngine();
 
 	void addOb(physOb_t *);
 	void addChar(character_t *);

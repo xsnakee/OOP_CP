@@ -79,10 +79,53 @@ void physOb_t::update(float _speed) {
 	}
 }
 
-bool physOb_t::checkCollision() {
-	//sprite.
-	return true;
+bool physOb_t::checkCollision(physOb_t *Object) {
+
+	float thisWidth = static_cast<float>(spritePref.getWdith());
+	float thisHeight = static_cast<float>(spritePref.getHeight());
+
+
+	float ObjectLeftBorder = static_cast<float>(Object->getPosX() - thisWidth);
+	float ObjectTopBorder = static_cast<float>(Object->getPosY() - thisHeight);
+	float ObjectRightBorder = ObjectLeftBorder + static_cast<float>(Object->spritePref.getWdith());
+	float ObjectBottomBorder = ObjectTopBorder + static_cast<float>(Object->spritePref.getHeight());
+
+	if ((posX >= ObjectLeftBorder) && (posX <= ObjectRightBorder) && (posY >= ObjectTopBorder) && (posY <= ObjectBottomBorder)) {
+		return true;
+	}
+
+	return false;
 }
+
+void physOb_t::collisionHandler(physOb_t *Object) {
+	if (checkCollision(Object) && Object->collision) {
+
+		float thisWidth = static_cast<float>(spritePref.getWdith());
+		float thisHeight = static_cast<float>(spritePref.getHeight());
+		
+		switch (direction) {
+		case animation::TOP: {
+			//posY = static_cast<float>(Object->getPosY() + thisHeight);
+			dY = .0f;
+		}
+		case animation::BOTTOM:{
+			//posY = static_cast<float>(Object->getPosY() - 1);
+			dY = .0f;
+		}
+
+		case animation::LEFT: {
+			//posX = static_cast<float>(Object->getPosX() + 1);
+			dX = .0f;
+		}
+		
+		case animation::RIGHT: {
+			//posX = static_cast<float>(Object->getPosX() - thisWidth);
+			dX = .0f;
+		}
+		}
+	}
+}
+
 
 bool physOb_t::checkTimer(sf::Clock *time) {
 	return true;

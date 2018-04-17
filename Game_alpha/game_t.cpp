@@ -52,9 +52,11 @@ void game_t::update() {
 
 	
 
+	collisionEngine();
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		(*tempCharIter)->update(speed);
 	}
+
 
 	setCamera();//set Camera
 	window->setView(*view); // Set camera
@@ -69,9 +71,7 @@ void game_t::draw() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
-	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
-		window->draw((*tempCharIter)->getSprite());
-	}
+	
 
 	std::list<physOb_t*>::iterator tempOb = obList.begin();
 
@@ -79,6 +79,9 @@ void game_t::draw() {
 		window->draw((*tempOb)->getSprite());
 	}
 
+	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
+		window->draw((*tempCharIter)->getSprite());
+	}
 	drawCursor();
 }
 
@@ -121,6 +124,22 @@ void game_t::checkAlive() {
 			obList.erase(tempOb);
 		}
 
+	}
+}
+
+
+void game_t::collisionEngine() {
+
+	for (auto &outerElement : charactersList) {
+		
+		for (auto &innerElement : charactersList) {
+			if (outerElement != innerElement) {
+				outerElement->collisionHandler(innerElement.get());
+			}
+		}
+		for (auto &innerElement : obList) {
+			outerElement->collisionHandler(innerElement);
+		}
 	}
 }
 

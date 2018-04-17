@@ -2,7 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "obPreference.h"
-
+#include "additional.h"
 
 class physOb_t
 {
@@ -18,6 +18,8 @@ protected:
 	float hitsToDestroy;
 	bool collision;
 
+	animation::direction direction;
+
 	std::vector<int> dropList;
 public:
 
@@ -30,8 +32,10 @@ public:
 	
 	virtual bool kill();
 	void update(float _speed);
-	virtual bool checkCollision();
-	virtual bool checkTimer(sf::Clock *time);
+	bool checkCollision(physOb_t *Object);
+	virtual void collisionHandler(physOb_t *Object);
+
+	virtual bool checkTimer(sf::Clock *time);;
 	
 	//GET
 	sf::Sprite getSprite() const {

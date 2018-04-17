@@ -18,8 +18,6 @@ protected:
 	sf::Int32 startTime;
 	sf::Int32 cooldown;
 
-	animation::direction direction;
-
 	float frame;
 public:
 
