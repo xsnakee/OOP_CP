@@ -50,13 +50,13 @@ void game_t::update() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
-	
-
 	collisionEngine();
+
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		(*tempCharIter)->update(speed);
 	}
 
+	
 
 	setCamera();//set Camera
 	window->setView(*view); // Set camera

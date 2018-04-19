@@ -52,6 +52,7 @@ void player_t::controller(sf::Event) {
 		dX = stat.speed;
 		updateFrame();
 	}
+	
 
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
 		direction = animation::LEFT;
@@ -59,6 +60,10 @@ void player_t::controller(sf::Event) {
 		updateFrame();
 	}
 
+	if (Keyboard::isKeyPressed(Keyboard::E)) {
+		posX = 600.0f;
+		posY = 600.0f;
+	}
 	
 
 	if (!checkKeyCd(clock))

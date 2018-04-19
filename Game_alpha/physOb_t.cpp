@@ -1,4 +1,5 @@
 #include "physOb_t.h"
+#include <iostream>
 
 bool equal(float &a, float &b) {
 
@@ -21,7 +22,7 @@ physOb_t::physOb_t()
 	spritePref.setSpritePos(posX, posY);
 }
 
-physOb_t::physOb_t(float _posX, float _posY){
+physOb_t::physOb_t(float _posX, float _posY) {
 	dX = 0.f;
 	dY = 0.f;
 	posX = _posX;
@@ -34,7 +35,7 @@ physOb_t::physOb_t(float _posX, float _posY){
 }
 //*
 
-physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height):spritePref(fileName, _coordX, _coordY, _width, _height) {
+physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height) :spritePref(fileName, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
 	dY = 0.f;
 	destroyble = true;
@@ -87,7 +88,7 @@ void physOb_t::update(float _speed) {
 	}
 }
 
-bool physOb_t::checkCollision(physOb_t *Object) {	
+bool physOb_t::checkCollision(physOb_t *Object) {
 
 	float thisWidth = static_cast<float>(spritePref.getWidth());
 	float thisHeight = static_cast<float>(spritePref.getHeight());
@@ -98,18 +99,18 @@ bool physOb_t::checkCollision(physOb_t *Object) {
 	float ObjectLeftBorder = ObjectPosX - thisWidth;
 	float ObjectTopBorder = ObjectPosY - thisHeight;
 	float ObjectRightBorder = ObjectPosX + static_cast<float>(Object->spritePref.getWidth());
-	float ObjectBottomBorder = ObjectPosY + static_cast<float>(Object->spritePref.getHeight()) - (thisHeight / 2);
-	/*
-	if ((posX > ObjectLeftBorder || equal(posX, ObjectLeftBorder)) && (posX < ObjectRightBorder || equal(posX, ObjectRightBorder)) && 
-		(posY > ObjectTopBorder || equal(posY, ObjectTopBorder)) && (posY < ObjectBottomBorder || equal(posY, ObjectBottomBorder))) {//  //
+	float ObjectBottomBorder = ObjectPosY + static_cast<float>(Object->spritePref.getHeight());
+	//*
+	if ((posX > (ObjectLeftBorder) && (posX < ObjectRightBorder) && (posY > ObjectTopBorder) && (posY < ObjectBottomBorder))) {//  //
 		return true;
 	}
-	*/
-
+	//*/
+	/*
 	if ((posX > ObjectLeftBorder) && (posX < ObjectRightBorder) &&
 		(posY > ObjectTopBorder) && (posY < ObjectBottomBorder)) {//  //
 		return true;
 	}
+	//*/
 	return false;
 }
 
@@ -128,37 +129,69 @@ void physOb_t::collisionHandler(physOb_t *Object, float _speed) {
 		float ObCenterPosX = ObjectPosX + ObjectWidth / 2;
 		float ObCenterPosY = ObjectPosY + ObjectHeight / 2;
 
-		float ObjectLeftBorder = ObjectPosX - thisWidth - 1.1f;
-		float ObjectTopBorder = ObjectPosY - thisHeight - 1.1F;
-		float ObjectRightBorder = ObjectPosX + ObjectWidth + 1.1f;
-		float ObjectBottomBorder = ObjectPosY + ObjectHeight - (thisHeight / 2) + 1.1f;
+		float ObjectLeftBorder = ObjectPosX - thisWidth;
+		float ObjectTopBorder = ObjectPosY - thisHeight;
+		float ObjectRightBorder = ObjectPosX + ObjectWidth;
+		float ObjectBottomBorder = ObjectPosY + ObjectHeight;
 
+
+
+		float zero = std::numeric_limits<float>::epsilon();
+		float speedX = dX * _speed;
+		float speedY = dY * _speed;
+
+		float errorVal = 1.0f;
+		float errorMultiple = 4.0f;
 		
-		//*
-		
+
+		if ( ((ObjectPosX + errorVal * errorMultiple ) < posX) && ((ObjectRightBorder - errorVal * errorMultiple) > posX) && ((posY < (ObjectPosY -errorVal * errorMultiple)) || (posY > (ObjectBottomBorder - errorVal * errorMultiple)))) {
+			//*
+			std::cout << 1 << std::endl;
 			if (dY > 0) {
-				posY = ObjectTopBorder;
+				posY = ObjectTopBorder - errorVal;
 				dX = 0;
 			}
-			if (dY < 0) {
-				posY = ObjectBottomBorder;
+			else if (dY < 0) {
+				posY = ObjectBottomBorder + errorVal;
 				dX = 0;
 			}
 			if (dX > 0) {
-				posX = ObjectLeftBorder;
+				posX = ObjectLeftBorder - errorVal;
+			}
+			else if (dX < 0) {
+				posX = ObjectRightBorder + errorVal;
+			}
 
+			//*/
+		}
+		else {
+			//*
+			std::cout << 2 << std::endl;
+			if (dX > 0) {
+				posX = ObjectLeftBorder - errorVal;
+				dY = 0;
 			}
-			if (dX < 0) {
-				posX = ObjectRightBorder;
+			else if (dX < 0) {
+				posX = ObjectRightBorder + errorVal;
+				dY = 0;
 			}
-		
-		//*/
-			 
-		 //*/
-	
+
+			if (dY > 0) {
+				posY = ObjectTopBorder - errorVal;
+			}
+			else if (dY < 0) {
+				posY = ObjectBottomBorder + errorVal;
+			}
+			//*/
+		}
+
+
+		dX = 0;
+		dY = 0;
+	}
 
 	}
-}
+
 
 
 bool physOb_t::checkTimer(sf::Clock *time) {
