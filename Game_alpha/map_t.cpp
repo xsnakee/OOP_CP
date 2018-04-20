@@ -22,7 +22,7 @@ map_t::map_t(std::string _levelName) {
 	//LOAD MAP OBJECTS
 	tileFileName = TILE_FILE_PATH;
 	tile_texture = new sf::Texture;
-	//tile_texture->loadFromFile(tileFileName);
+	tile_texture->loadFromFile(tileFileName);
 
 	//CALC MAP SIZEs
 	tileAmountX = mapBgTexture->getSize().x / tiles::size;

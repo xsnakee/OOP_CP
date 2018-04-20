@@ -129,7 +129,7 @@ void game_t::checkAlive() {
 
 
 void game_t::collisionEngine() {
-
+	float obColErr = 3.0f;
 	for (auto &outerElement : charactersList) {
 		
 		for (auto &innerElement : charactersList) {
@@ -138,7 +138,7 @@ void game_t::collisionEngine() {
 			}
 		}
 		for (auto &innerElement : obList) {
-			outerElement->collisionHandler(innerElement, speed);
+			outerElement->collisionHandler(innerElement, speed, obColErr);
 		}
 	}
 }

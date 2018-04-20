@@ -88,7 +88,7 @@ void physOb_t::update(float _speed) {
 	}
 }
 
-bool physOb_t::checkCollision(physOb_t *Object) {
+bool physOb_t::checkCollision(physOb_t *Object, float _borderError = 0.f) {
 
 	float thisWidth = static_cast<float>(spritePref.getWidth());
 	float thisHeight = static_cast<float>(spritePref.getHeight());
@@ -99,9 +99,9 @@ bool physOb_t::checkCollision(physOb_t *Object) {
 	float ObjectLeftBorder = ObjectPosX - thisWidth;
 	float ObjectTopBorder = ObjectPosY - thisHeight;
 	float ObjectRightBorder = ObjectPosX + static_cast<float>(Object->spritePref.getWidth());
-	float ObjectBottomBorder = ObjectPosY + static_cast<float>(Object->spritePref.getHeight());
+	float ObjectBottomBorder = ObjectPosY + static_cast<float>(Object->spritePref.getHeight()) - (thisHeight / 2);
 	//*
-	if ((posX > (ObjectLeftBorder) && (posX < ObjectRightBorder) && (posY > ObjectTopBorder) && (posY < ObjectBottomBorder))) {//  //
+	if ( (posX > ObjectLeftBorder + _borderError) && (posX < ObjectRightBorder - _borderError) && (posY > ObjectTopBorder + _borderError) && (posY < ObjectBottomBorder - _borderError) ) {//  //
 		return true;
 	}
 	//*/
@@ -114,77 +114,39 @@ bool physOb_t::checkCollision(physOb_t *Object) {
 	return false;
 }
 
-void physOb_t::collisionHandler(physOb_t *Object, float _speed) {
-	if (checkCollision(Object) && Object->collision) {
-
-		float thisWidth = static_cast<float>(spritePref.getWidth());
-		float thisHeight = static_cast<float>(spritePref.getHeight());
-
-		float ObjectWidth = static_cast<float>(Object->spritePref.getWidth());
-		float ObjectHeight = static_cast<float>(Object->spritePref.getHeight());
-
-		float ObjectPosX = Object->getPosX();
-		float ObjectPosY = Object->getPosY();
-
-		float ObCenterPosX = ObjectPosX + ObjectWidth / 2;
-		float ObCenterPosY = ObjectPosY + ObjectHeight / 2;
-
-		float ObjectLeftBorder = ObjectPosX - thisWidth;
-		float ObjectTopBorder = ObjectPosY - thisHeight;
-		float ObjectRightBorder = ObjectPosX + ObjectWidth;
-		float ObjectBottomBorder = ObjectPosY + ObjectHeight;
-
-
-
+void physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderError) {
+	if (checkCollision(Object, _borderError) && Object->collision) {
+		
 		float zero = std::numeric_limits<float>::epsilon();
-		float speedX = dX * _speed;
-		float speedY = dY * _speed;
+		float speedX = abs(dX) * _speed;
+		float speedY = abs(dY) * _speed;
 
-		float errorVal = 1.0f;
-		float errorMultiple = 4.0f;
+		float errorVal = 1.0f + _borderError;
+		
 		
 
-		if ( ((ObjectPosX + errorVal * errorMultiple ) < posX) && ((ObjectRightBorder - errorVal * errorMultiple) > posX) && ((posY < (ObjectPosY -errorVal * errorMultiple)) || (posY > (ObjectBottomBorder - errorVal * errorMultiple)))) {
-			//*
+		if (dX > 0) {
+
 			std::cout << 1 << std::endl;
-			if (dY > 0) {
-				posY = ObjectTopBorder - errorVal;
-				dX = 0;
-			}
-			else if (dY < 0) {
-				posY = ObjectBottomBorder + errorVal;
-				dX = 0;
-			}
-			if (dX > 0) {
-				posX = ObjectLeftBorder - errorVal;
-			}
-			else if (dX < 0) {
-				posX = ObjectRightBorder + errorVal;
-			}
-
-			//*/
+			posX -= speedX  + errorVal;
 		}
-		else {
-			//*
+		else if (dX < 0) {
+
 			std::cout << 2 << std::endl;
-			if (dX > 0) {
-				posX = ObjectLeftBorder - errorVal;
-				dY = 0;
-			}
-			else if (dX < 0) {
-				posX = ObjectRightBorder + errorVal;
-				dY = 0;
-			}
-
-			if (dY > 0) {
-				posY = ObjectTopBorder - errorVal;
-			}
-			else if (dY < 0) {
-				posY = ObjectBottomBorder + errorVal;
-			}
-			//*/
+			posX += speedX + errorVal;
 		}
 
+		if (dY > 0) {
+
+			std::cout << 3 << std::endl;
+			posY -= speedY + errorVal;
+
+		}
+		else if (dY < 0) {
+
+			std::cout << 4 << std::endl;
+			posY += speedY + errorVal;
+		}
 
 		dX = 0;
 		dY = 0;
