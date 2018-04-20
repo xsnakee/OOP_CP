@@ -61,8 +61,8 @@ void player_t::controller(sf::Event) {
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::E)) {
-		posX = 600.0f;
-		posY = 600.0f;
+		posX = 100.0f;
+		posY = 100.0f;
 	}
 	
 

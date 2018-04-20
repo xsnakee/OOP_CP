@@ -30,7 +30,7 @@ private:
 
 	std::list<physOb_t*> obList;
 	std::list<bullet_t*> bulletsList;
-
+	std::list<ground_t*> mapTilesList;
 public:
 	
 
@@ -49,7 +49,7 @@ public:
 	void addChar(character_t *);
 
 	void generateMapObjects(std::list<physOb_t*> _obTextureList);
-
+	void generateMapTiles(std::list<ground_t*> _mapTilesList);
 	void setCamera();
 
 	void drawCursor();

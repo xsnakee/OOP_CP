@@ -31,7 +31,7 @@ namespace tiles {
 
 namespace animation {
 
-	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero.png";
+	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/enemy_warrior.png";// "img/characters/mainHero.png";
 
 	const std::string ENEMY_DEMON_FILE = "img/characters/enemy_demon.png";
 	const std::string ENEMY_SLENDER_DEMON_FILE = "img/characters/enemy_slenderDemon.png";
@@ -44,7 +44,7 @@ namespace animation {
 	const int SPRITE_Y = 0;
 
 	const float frameRate = 3.f;
-	const float frameSpeed = 0.01f;
+	const float frameSpeed = 0.05f;
 
 	enum direction{
 		BOTTOM = 0,

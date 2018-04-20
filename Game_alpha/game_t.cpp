@@ -30,9 +30,11 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_
 	
 	
 
-	map.fillTheMap();
+	map.fillTheMapObj();
+	map.fillTheMapTiles();
 
 	generateMapObjects(map.mapObList);
+	generateMapTiles(map.groundTilesList);
 
 	using namespace animation;
 	charactersList.push_back(std::unique_ptr <character_t>(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, &clock)));
@@ -67,7 +69,11 @@ void game_t::draw() {
 	
 
 
-	window->draw(map.mapBgSprite);
+	//window->draw(map.mapBgSprite);
+
+	for (auto &texture : mapTilesList) {
+		window->draw(texture->getSprite());
+	}
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
@@ -153,7 +159,13 @@ void game_t::addChar(character_t *NPC) {
 }
 
 void game_t::generateMapObjects(std::list<physOb_t*> _obList) {
+
 	obList.insert(obList.end(), _obList.begin(), _obList.end());
+}
+
+void game_t::generateMapTiles(std::list<ground_t*> _obList) {
+
+	mapTilesList.insert(mapTilesList.end(), _obList.begin(), _obList.end());
 }
 
 void game_t::setCamera() {
@@ -169,7 +181,7 @@ void game_t::setCamera() {
 	float rightBorder = map.getSize().x - (window->getSize().x / 2);
 	float bottomBorder = map.getSize().y - (window->getSize().y / 2);
 	
-
+	float error = 5.0f;
 	
 	if (_x < leftBorder) {
 		_x = leftBorder;

@@ -105,12 +105,6 @@ bool physOb_t::checkCollision(physOb_t *Object, float _borderError = 0.f) {
 		return true;
 	}
 	//*/
-	/*
-	if ((posX > ObjectLeftBorder) && (posX < ObjectRightBorder) &&
-		(posY > ObjectTopBorder) && (posY < ObjectBottomBorder)) {//  //
-		return true;
-	}
-	//*/
 	return false;
 }
 

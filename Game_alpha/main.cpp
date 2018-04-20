@@ -25,7 +25,7 @@ int main() {
 
 void START_GAME(sf::RenderWindow *window) {
 
-	game_t game(window, "level2");
+	game_t game(window, "level0");
 
 	Clock clock;
 
