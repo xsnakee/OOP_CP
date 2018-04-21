@@ -22,7 +22,7 @@ private:
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
 	bool mass;
-
+	
 	sf::Vector2f targetCoords;
 
 public:
@@ -34,7 +34,7 @@ public:
 
 
 	virtual bool checkAlive();
-
+	virtual void update(float speed);
 public:
 
 	//GET

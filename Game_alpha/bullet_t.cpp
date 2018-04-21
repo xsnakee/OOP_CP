@@ -82,7 +82,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	dX = stat.speed;
 
-	float k = (_targetCoords.x - genObj->getPosX()) / (_targetCoords.y - genObj->getPosY());
+	float k = (targetCoords.x - posX) / (targetCoords.y - posY);
 
 	dY = k * stat.speed;
 
@@ -93,6 +93,16 @@ bullet_t::~bullet_t()
 {
 }
 
+void bullet_t::update(float _speed) {
+	physOb_t::update(_speed);
+	if (alive){
+		dX = stat.speed;
+
+		float k = (targetCoords.x - posX) / (targetCoords.y - posY);
+
+		dY = k * stat.speed;
+	}
+}
 
 bool bullet_t::checkAlive() {
 	alive = checkTimer(clock, startTime, timer);
