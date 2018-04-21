@@ -27,6 +27,8 @@ bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _e
 		mass = true;
 	}
 
+	k = 1;
+
 	spritePref.setSpritePos(posX, posY);
 }
 
@@ -51,6 +53,9 @@ bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, floa
 	else {
 		mass = true;
 	}
+
+	k = 1;
+
 	spritePref.setSpritePos(posX, posY);
 }
 
@@ -61,7 +66,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
 	startTime = _startTime;
-	timer = 400;
+	timer = 4000;
 
 	targetCoords = _targetCoords;
 
@@ -82,10 +87,14 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	dX = stat.speed;
 
+	k = (targetCoords.x - posX) / (targetCoords.y - posY);
+
+	dY = stat.speed;
+	/*
 	float k = (targetCoords.x - posX) / (targetCoords.y - posY);
 
 	dY = k * stat.speed;
-
+	//*/
 }
 
 
@@ -94,13 +103,10 @@ bullet_t::~bullet_t()
 }
 
 void bullet_t::update(float _speed) {
-	physOb_t::update(_speed);
 	if (alive){
-		dX = stat.speed;
-
-		float k = (targetCoords.x - posX) / (targetCoords.y - posY);
-
-		dY = k * stat.speed;
+		posX += dX * _speed;
+		posY += k+(dY * _speed);
+		spritePref.setSpritePos(posX, posY);
 	}
 }
 
