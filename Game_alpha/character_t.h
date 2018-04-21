@@ -32,6 +32,7 @@ public:
 	virtual void controller(sf::Event) = 0;
 	virtual bool checkKeyCd(sf::Clock *clock) = 0;
 	virtual bool attack(float _x, float _y) = 0;
+	virtual bool checkAlive();
 	//virtual bool move();
 
 	bool kill();

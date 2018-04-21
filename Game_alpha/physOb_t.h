@@ -33,12 +33,12 @@ public:
 	virtual ~physOb_t();
 	
 	virtual bool kill();
-	void update(float _speed);
+	virtual void update(float _speed);
 	bool checkCollision(physOb_t *Object, float _borderError = 0.f);
 	virtual void collisionHandler(physOb_t *Object, float _speed, float _borderError = 0.f);
 
 	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
-	
+	virtual bool checkAlive();
 	//GET
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();

@@ -8,6 +8,8 @@ bullet_t::bullet_t():physOb_t()
 
 bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _element, float _AOE, sf::Vector2f _targetCoords) : physOb_t(_posX,_posY)
 {
+	clock = nullptr;
+
 	startTime = 0.f;
 	timer = std::numeric_limits<float>::max();
 	targetCoords = _targetCoords;
@@ -30,6 +32,7 @@ bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _e
 
 bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, sf::Vector2f _targetCoords, float _AOE = 1.f) : physOb_t(_posX, _posY) {
 
+	clock = time;
 	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
 	startTime = _startTime;
 	timer = _timer;
@@ -53,6 +56,9 @@ bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, floa
 
 
 bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords):physOb_t(genObj->getPosX(), genObj->getPosY()) {
+
+	clock = time;
+
 	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
 	startTime = _startTime;
 	timer = 400;
@@ -85,4 +91,10 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 bullet_t::~bullet_t()
 {
+}
+
+
+bool bullet_t::checkAlive() {
+	alive = checkTimer(clock, startTime, timer);
+	return alive;
 }

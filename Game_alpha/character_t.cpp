@@ -57,10 +57,6 @@ bool character_t::kill() {
 
 void character_t::update(float _speed) {
 	if (alive) {
-		if (abs(stat.HP - 1.f) < FLT_EPSILON) {
-			alive = false;
-			return;
-		}
 
 		physOb_t::update(_speed);
 
@@ -87,4 +83,13 @@ void character_t::updateFrame() {
 	if (frame > animation::frameRate) {
 		frame -= animation::frameRate;
 	}
+}
+
+bool character_t::checkAlive() {
+
+	if (abs(stat.HP - 1.f) < FLT_EPSILON) {
+		alive = false;
+	}
+
+	return alive;
 }

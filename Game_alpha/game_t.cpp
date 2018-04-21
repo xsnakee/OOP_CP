@@ -118,28 +118,15 @@ void game_t::checkAlive() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
+		(*tempCharIter)->checkAlive();
 		if (!(*tempCharIter)->getAlive()) {
 			charactersList.erase(tempCharIter);		
 		}
 	}
-	/*
-	std::list<physOb_t*>::iterator tempOb = obList.begin();
-	for (int i = 0; i < obList.size(); ++i, ++tempOb) {
 
-		(*tempOb)->setAlive((*tempOb)->checkTimer(clock.get(),(*tempOb)->getStartTime(), (*tempOb)->getTimer()));
-
-		if (!(*tempOb)->getAlive()) {
-			delete (*tempOb);
-			obList.erase(tempOb);
-		}
-
-	}
-	//*/
-	//*
 	std::list<bullet_t*>::iterator tempOb = bulletsList.begin();
 	for (auto &bullet : bulletsList) {
-		bullet->setAlive(bullet->checkTimer(clock.get(), bullet->getStartTime(), bullet->getTimer()));
-
+		bullet->checkAlive();
 		if (!bullet->getAlive()) {
 			delete (*tempOb);
 			bulletsList.erase(tempOb);

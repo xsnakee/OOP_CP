@@ -16,6 +16,7 @@ struct bulletStats{
 class bullet_t:public physOb_t
 {
 private:
+	sf::Clock *clock;
 	bulletStats stat;
 
 	sf::Int32 startTime;
@@ -30,6 +31,9 @@ public:
 	bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, sf::Vector2f _targetCoords, float _AOE);
 	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords);
 	virtual ~bullet_t();
+
+
+	virtual bool checkAlive();
 
 public:
 

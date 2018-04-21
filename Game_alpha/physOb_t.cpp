@@ -172,3 +172,7 @@ bool physOb_t::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time
 
 	return (abs(curTime - startTime) > _time) ? false : true;
 }
+
+bool physOb_t::checkAlive() {
+	return true;
+}
