@@ -55,10 +55,13 @@ void game_t::update() {
 
 	collisionEngine();
 
-	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
-		(*tempCharIter)->update(speed);
+	for (auto &character : charactersList) {
+		(character)->update(speed);
 	}
 
+	for (auto &bullet : bulletsList) {
+		bullet->update(speed);
+	}
 	
 
 	setCamera();//set Camera
@@ -76,18 +79,16 @@ void game_t::draw() {
 		window->draw(texture->getSprite());
 	}
 
-	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
-
-	
-
-	std::list<physOb_t*>::iterator tempOb = obList.begin();
-
-	for (int i = 0; i < obList.size(); ++i, ++tempOb) {
-		window->draw((*tempOb)->getSprite());
+	for (auto &ob : obList) {
+		window->draw(ob->getSprite());
 	}
 
-	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
-		window->draw((*tempCharIter)->getSprite());
+	for (auto &character : charactersList) {
+		window->draw(character->getSprite());
+	}
+
+	for (auto &bullet : bulletsList) {
+		window->draw(bullet->getSprite());
 	}
 	drawCursor();
 }
@@ -107,8 +108,8 @@ void game_t::keyController(sf::Event &event) {
 	//ATACK CONTROLLER
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
 		
-			obList.push_back(new bullet_t(clock.get(), 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, cursor->getPosition(), 10.f));
-			
+			//bulletsList.push_back(new bullet_t(clock.get(), 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, cursor->getPosition(), 10.f));
+		bulletsList.push_back(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition()));
 	}
 
 }
@@ -125,30 +126,28 @@ void game_t::checkAlive() {
 	std::list<physOb_t*>::iterator tempOb = obList.begin();
 	for (int i = 0; i < obList.size(); ++i, ++tempOb) {
 
-		(*tempOb)->checkTimer(clock.get(),(*tempOb)->getStartTime(), (*tempOb)->getTimer);
+		(*tempOb)->setAlive((*tempOb)->checkTimer(clock.get(),(*tempOb)->getStartTime(), (*tempOb)->getTimer()));
 
 		if (!(*tempOb)->getAlive()) {
 			delete (*tempOb);
 			obList.erase(tempOb);
 		}
 
-	}*/
-
-	for (auto &bullet : obList) {
-		bullet->checkTimer(clock.get(), bullet->getStartTime(), bullet->getTimer());
-
-		if (!bullet->getAlive()) {
-			bullet->~physOb_t();
-		}
 	}
-
+	//*/
+	//*
+	std::list<bullet_t*>::iterator tempOb = bulletsList.begin();
 	for (auto &bullet : bulletsList) {
-		bullet->checkTimer(clock.get(), bullet->getStartTime(), bullet->getTimer());
+		bullet->setAlive(bullet->checkTimer(clock.get(), bullet->getStartTime(), bullet->getTimer()));
 
 		if (!bullet->getAlive()) {
-			bullet->~bullet_t();
+			delete (*tempOb);
+			bulletsList.erase(tempOb);
 		}
+
+		++tempOb;
 	}
+	//*/
 }
 
 

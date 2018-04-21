@@ -36,7 +36,7 @@ public:
 	//GET
 
 
-	sf::Int32 getStartTime() const {
+	virtual sf::Int32 getStartTime() const {
 		return startTime;
 	}
 
@@ -44,7 +44,7 @@ public:
 		return stat.element;
 	}
 
-	sf::Int32 getTimer()const {
+	virtual sf::Int32 getTimer()const {
 		return timer;
 	}
 

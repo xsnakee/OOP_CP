@@ -26,7 +26,7 @@ public:
 		return sprite;
 	}
 
-	sf::Vector2f getPosition() const {
+	sf::Vector2f getPosition(){
 		sf::Vector2i mousePos(sf::Mouse::getPosition(*window));
 		sf::Vector2f globalPos = window->mapPixelToCoords(mousePos);
 		return globalPos;
