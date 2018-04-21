@@ -17,7 +17,7 @@ private:
 	sf :: RenderWindow *window;
 	cursor_t *cursor;
 
-	sf::Clock clock;
+	std::unique_ptr<sf::Clock> clock;
 	float curTime;
 	float speed;
 	float speedMultipple;
@@ -67,7 +67,7 @@ public:
 	}
 
 	float getCurTimeSec() const {
-		return clock.getElapsedTime().asSeconds();
+		return clock->getElapsedTime().asSeconds();
 	}
 
 	float getSpeedMultipple()const {

@@ -8,6 +8,7 @@ character_t::character_t():physOb_t()
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	fraction = 1;
 }
 
 character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
@@ -15,6 +16,7 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	fraction = 1;
 }
 
 //*
@@ -23,6 +25,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	fraction = 1;
 }
 
 
@@ -45,15 +48,6 @@ characterStats_t character_t::getStats() {
 
 void character_t::defaultStats() {
 	stat.defaultStats();
-}
-
-bool character_t::checkTimer(sf::Clock *clock) {
-
-	sf::Int32 tempTime = clock->getElapsedTime().asMilliseconds();
-
-	bool tempReuslt= (abs(tempTime - startTime) > timer) ? false : true;
-
-	return tempReuslt;
 }
 
 bool character_t::kill() {

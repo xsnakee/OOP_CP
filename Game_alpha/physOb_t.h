@@ -18,9 +18,11 @@ protected:
 	float hitsToDestroy;
 	bool collision;
 
+	int fraction;
 	animation::direction direction;
 
 	std::vector<int> dropList;
+
 public:
 
 	physOb_t();
@@ -35,11 +37,15 @@ public:
 	bool checkCollision(physOb_t *Object, float _borderError = 0.f);
 	virtual void collisionHandler(physOb_t *Object, float _speed, float _borderError = 0.f);
 
-	virtual bool checkTimer(sf::Clock *time);;
+	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 	
 	//GET
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
+	}
+
+	int getFraction() const {
+		return fraction;
 	}
 
 	float getdX() const {
@@ -74,6 +80,12 @@ public:
 		return hitsToDestroy;
 	}
 
+	sf::Int32 getStartTime() const {
+		return 0;
+	}
+	sf::Int32 getTimer()const {
+		return std::numeric_limits<sf::Int32>::max();
+	}
 	//SET
 	int setPosX(int _x){
 		posX = _x;
@@ -84,7 +96,10 @@ public:
 		posY = _y;
 		return posY;
 	}
-
+	int setFraction(int _fract) {
+		fraction = _fract;
+		return fraction;
+	}
 	bool setDestroyble(bool _d){
 		destroyble = _d;
 		return destroyble;

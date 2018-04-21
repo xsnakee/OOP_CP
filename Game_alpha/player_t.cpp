@@ -7,6 +7,7 @@ player_t::player_t() :character_t()
 	keyCooldown = 400;
 	startKeyPressTime = 0;
 	elemStatus = 0;
+	fraction = 0;
 }
 
 
@@ -17,6 +18,7 @@ player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _c
 	keyCooldown = 400;
 	startKeyPressTime = 0;
 	clock = _clock;
+	fraction = 0;
 }
 //*/
 

@@ -20,6 +20,8 @@ physOb_t::physOb_t()
 	hitsToDestroy = 1.f;
 	collision = true;
 	spritePref.setSpritePos(posX, posY);
+
+	fraction = -1;
 }
 
 physOb_t::physOb_t(float _posX, float _posY) {
@@ -32,6 +34,7 @@ physOb_t::physOb_t(float _posX, float _posY) {
 	hitsToDestroy = 1.f;
 	collision = true;
 	spritePref.setSpritePos(posX, posY);
+	fraction = -1;
 }
 //*
 
@@ -42,6 +45,7 @@ physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, 
 	alive = true;
 	hitsToDestroy = 1.f;
 	collision = true;
+	fraction = -1;
 
 	posX = _posX;
 	posY = _posY;
@@ -57,6 +61,7 @@ physOb_t::physOb_t(float _posX, float _posY, sf::Texture *_texture, int _coordX,
 	alive = true;
 	hitsToDestroy = 1.f;
 	collision = true;
+	fraction = -1;
 
 	posX = _posX;
 	posY = _posY;
@@ -161,6 +166,9 @@ void physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderErr
 
 
 
-bool physOb_t::checkTimer(sf::Clock *time) {
-	return true;
+bool physOb_t::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
+
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+
+	return (abs(curTime - startTime) > _time) ? false : true;
 }

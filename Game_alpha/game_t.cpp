@@ -2,8 +2,9 @@
 #include <iostream>
 
 
-game_t::game_t():clock()
+game_t::game_t()
 {
+	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 	window = nullptr;
 	view = new sf::View;
 
@@ -12,16 +13,16 @@ game_t::game_t():clock()
 
 	using namespace animation;
 
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,&clock)));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,clock.get())));
 }
 
-game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_levelName)
+game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelName)
 {
 	window = _window;
 	view = new sf::View;
 	view->reset(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
 	window->setMouseCursorVisible(false);
-
+	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 
 	cursor = new cursor_t("img/cursor_aim.png",20,20, window);
 
@@ -37,7 +38,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName):clock(), map(_
 	generateMapTiles(map.groundTilesList);
 
 	using namespace animation;
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, &clock)));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();
 }
 
@@ -106,7 +107,7 @@ void game_t::keyController(sf::Event &event) {
 	//ATACK CONTROLLER
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
 		
-			obList.push_back(new bullet_t(&clock, 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, sf::Mouse::getPosition(*window), 10.f));
+			obList.push_back(new bullet_t(clock.get(), 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, cursor->getPosition(), 10.f));
 			
 	}
 
@@ -120,16 +121,33 @@ void game_t::checkAlive() {
 			charactersList.erase(tempCharIter);		
 		}
 	}
-
+	/*
 	std::list<physOb_t*>::iterator tempOb = obList.begin();
 	for (int i = 0; i < obList.size(); ++i, ++tempOb) {
 
-		(*tempOb)->checkTimer(&clock);
+		(*tempOb)->checkTimer(clock.get(),(*tempOb)->getStartTime(), (*tempOb)->getTimer);
+
 		if (!(*tempOb)->getAlive()) {
 			delete (*tempOb);
 			obList.erase(tempOb);
 		}
 
+	}*/
+
+	for (auto &bullet : obList) {
+		bullet->checkTimer(clock.get(), bullet->getStartTime(), bullet->getTimer());
+
+		if (!bullet->getAlive()) {
+			bullet->~physOb_t();
+		}
+	}
+
+	for (auto &bullet : bulletsList) {
+		bullet->checkTimer(clock.get(), bullet->getStartTime(), bullet->getTimer());
+
+		if (!bullet->getAlive()) {
+			bullet->~bullet_t();
+		}
 	}
 }
 
