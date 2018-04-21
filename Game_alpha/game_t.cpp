@@ -135,16 +135,18 @@ void game_t::checkAlive() {
 
 
 void game_t::collisionEngine() {
-	float obColErr = 3.0f;
+	float obColErr = 0.0f;
 	for (auto &outerElement : charactersList) {
 		
 		for (auto &innerElement : charactersList) {
-			if (outerElement != innerElement) {
+			if ((outerElement != innerElement) && (outerElement->checkCollision(innerElement.get()))) {				
 				outerElement->collisionHandler(innerElement.get(), speed);
 			}
 		}
 		for (auto &innerElement : obList) {
-			outerElement->collisionHandler(innerElement, speed, obColErr);
+			if (outerElement->checkCollision(innerElement)){
+				outerElement->collisionHandler(innerElement, speed, obColErr);
+			}
 		}
 	}
 }

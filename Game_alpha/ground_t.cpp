@@ -9,7 +9,6 @@ ground_t::ground_t()
 	int width = tiles::SPRITE_WIDTH;
 	float posX = 0;
 	float posY = 0;
-
 	id = 0;
 
 }

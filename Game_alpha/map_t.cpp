@@ -13,13 +13,6 @@ map_t::map_t(std::string _levelName) {
 	levelName = _levelName;
 	//LOAD MAP BG
 	mapObjectsFile = MAP_PATH + levelName + MAP_OBJ_FILE_NAME;
-	/*
-	mapBgTextureFile = IMG_MAP_PATH + levelName + MAP_BG_FILE_NAME;
-	mapBgTexture = new sf::Texture;
-	mapBgTexture->loadFromFile(mapBgTextureFile);
-	mapBgSprite.setTexture(*mapBgTexture);
-	mapBgSprite.setPosition(.0f, .0f);
-	//*/
 	mapBgTilesFile = MAP_PATH + levelName + MAP_BG_TILES_FILE_NAME;
 	mapOutTilesFile = MAP_PATH + levelName + MAP_OUT_TILES_FILE_NAME;;
 
@@ -30,11 +23,11 @@ map_t::map_t(std::string _levelName) {
 	tile_texture->loadFromFile(tileFileName);
 
 	//CALC MAP SIZEs
-	tileAmountX = 272;// mapBgTexture->getSize().x / tiles::size;
-	tileAmountY = 143;// mapBgTexture->getSize().y / tiles::size;
+	tileAmountX = 272;
+	tileAmountY = 143;
 
-	sizeX = tileAmountX * tiles::size;//mapBgTexture->getSize().x;
-	sizeY = tileAmountY*tiles::size;// mapBgTexture->getSize().y;
+	sizeX = tileAmountX * tiles::size;
+	sizeY = tileAmountY*tiles::size;
 }
 
 map_t::~map_t()
