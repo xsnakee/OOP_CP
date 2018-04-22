@@ -34,6 +34,7 @@ public:
 	virtual bool attack(float _x, float _y) = 0;
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);
+	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	//virtual bool move();
 
 	bool kill();

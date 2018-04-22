@@ -141,7 +141,6 @@ void game_t::bulletEngine() {
 	// Bullet collision
 	std::list<bullet_t*>::iterator bullet = bulletsList.begin();
 	for (auto *outerElement : bulletsList) {
-
 		for (auto &innerElement : obList) {
 			if (outerElement->checkCollision(*innerElement)) {
 				outerElement->collisionHandler(*innerElement, speed);
@@ -160,7 +159,7 @@ void game_t::bulletEngine() {
 
 
 void game_t::collisionEngine() {
-
+	float characterBorderError = 10.f;
 	for (auto &outerElement : charactersList) {
 
 		for (auto &innerElement : charactersList) {
@@ -169,7 +168,7 @@ void game_t::collisionEngine() {
 			}
 		}
 		for (auto &innerElement : obList) {
-			if (outerElement->checkCollision(*innerElement)) {
+			if (outerElement->checkCollision(*innerElement,characterBorderError/2)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
