@@ -33,7 +33,7 @@ private:
 	float vectorLength;
 public:
 	bullet_t();
-	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords, bulletStats _stats);
+	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords);
 	virtual ~bullet_t();
 
 

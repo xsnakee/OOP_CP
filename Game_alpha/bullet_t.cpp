@@ -7,7 +7,7 @@ bullet_t::bullet_t():physOb_t()
 {
 }
 
-bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords, bulletStats _stats):physOb_t(genObj->getPosX(), genObj->getPosY()) {
+bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords):physOb_t(genObj->getPosX(), genObj->getPosY()) {
 
 	clock = time;
 
@@ -19,7 +19,8 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	
 	stat.speed = 0.001f;
-	stat.range = 150.0f;
+	stat.range = 200.0f;
+
 	stat.damage = 20.0f;
 	mass = false;
 	stat.AOE = 0.1f;

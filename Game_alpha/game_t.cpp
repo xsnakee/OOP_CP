@@ -153,6 +153,8 @@ void game_t::collisionEngine() {
 			}
 		}
 	}
+
+	// Bullet collision
 }
 
 
