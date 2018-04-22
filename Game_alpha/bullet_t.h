@@ -19,20 +19,21 @@ private:
 	sf::Clock *clock;
 	bulletStats stat;
 
-	float vectorLength;
+	
 
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
 
 	bool mass;
 	
+	float startPosX;
+	float startPosY;
+
 	sf::Vector2f targetCoords;
-	int k;
+	float vectorLength;
 public:
 	bullet_t();
-	bullet_t(float _posX, float _posY, float _speed, elements::element _element, float _AOE, sf::Vector2f _targetCoords);
-	bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, sf::Vector2f _targetCoords, float _AOE);
-	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords);
+	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords, bulletStats _stats);
 	virtual ~bullet_t();
 
 
@@ -74,6 +75,10 @@ public:
 	int setElement(elements::element _element){
 		stat.element = _element;
 		return stat.element;
+	}
+
+	bool setStats(bulletStats &_stats) {
+		stat = _stats;
 	}
 };
 
