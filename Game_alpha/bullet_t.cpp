@@ -7,7 +7,8 @@ bullet_t::bullet_t():physOb_t()
 {
 }
 
-bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords):physOb_t(genObj->getPosX(), genObj->getPosY()) {
+bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getPosX() + genObj->getWidth() / 2, genObj->getPosY() + genObj->getHeight() / 2) {
+	
 
 	genericObject = genObj;
 	fraction = genObj->getFraction();
