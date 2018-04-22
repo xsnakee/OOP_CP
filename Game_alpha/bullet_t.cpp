@@ -9,6 +9,8 @@ bullet_t::bullet_t():physOb_t()
 
 bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords):physOb_t(genObj->getPosX(), genObj->getPosY()) {
 
+	genericObject = genObj;
+	fraction = genObj->getFraction();
 	clock = time;
 
 	sf::Int32 _startTime = clock->getElapsedTime().asMilliseconds();
@@ -27,7 +29,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	stat.element = elements::NONE;
 	stat.type = false;
 
-	if (abs(stat.AOE - 1.f) < FLT_EPSILON) {
+	if (stat.AOE < FLT_EPSILON) {
 		mass = false;
 	}
 	else {
@@ -39,6 +41,10 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	float distanceX = targetCoords.x - posX;
 	float distanceY = targetCoords.y - posY;
+	float rotation = -(atan2(distanceX, distanceY)) * 180 / 3.14159265;
+	spritePref.setCenterWithOrigin();
+	spritePref.setRotation(rotation);
+
 	vectorLength = sqrt( pow(distanceX,2) + pow(distanceY,2));
 	
 	//CALC DISTANCE SPEED ERROR 
@@ -65,11 +71,28 @@ void bullet_t::update(float _speed) {
 }
 
 bool bullet_t::checkAlive() {
-	float distanceX = startPosX - posX;
-	float distanceY = startPosY - posY;
-	float tempVectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+	if (alive) {
+		float distanceX = startPosX - posX;
+		float distanceY = startPosY - posY;
+		float tempVectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
+		alive = (checkTimer(clock, startTime, timer) && (tempVectorLength < stat.range));//time is over or leave from range
+	}
 	
-	alive = (checkTimer(clock, startTime, timer) && (tempVectorLength < stat.range) );//time is over or leave from range
 
 	return alive;
+}
+
+bool bullet_t::collisionHandler(physOb_t *Object, float _speed, float _borderError) {
+	if (Object->getCollision() && Object->getFraction() != fraction && Object->getDestroyble()) {
+		std::cout << stat.damage << std::endl;
+		
+			Object->takeDamage(stat.damage, stat.type);
+
+			alive = false;
+		
+			return true;
+	}
+	return false;
+
 }

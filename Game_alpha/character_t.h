@@ -33,6 +33,7 @@ public:
 	virtual bool checkKeyCd(sf::Clock *clock) = 0;
 	virtual bool attack(float _x, float _y) = 0;
 	virtual bool checkAlive();
+	virtual float takeDamage(float _dmg, bool _dmgType);
 	//virtual bool move();
 
 	bool kill();

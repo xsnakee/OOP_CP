@@ -9,7 +9,7 @@ obPreference::obPreference() {
 
 	texture = new sf::Texture;
 
-	texture->loadFromFile("img/default.jpg");
+	texture->loadFromFile("img/default.png");
 	sprite.setTexture(*texture);
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY,width,height));
 }

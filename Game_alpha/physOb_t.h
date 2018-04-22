@@ -15,7 +15,7 @@ protected:
 	float dY;
 	bool destroyble;
 	bool alive;
-	float hitsToDestroy;
+	int hitsToDestroy;
 	bool collision;
 
 	int fraction;
@@ -35,10 +35,11 @@ public:
 	virtual bool kill();
 	virtual void update(float _speed);
 	bool checkCollision(physOb_t *Object, float _borderError = 0.f);
-	virtual void collisionHandler(physOb_t *Object, float _speed, float _borderError = 0.f);
+	virtual bool collisionHandler(physOb_t *Object, float _speed, float _borderError = 0.f);
 
 	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 	virtual bool checkAlive();
+	virtual float takeDamage(float _dmg, bool _dmgType);
 	//GET
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
@@ -81,7 +82,7 @@ public:
 		return collision;
 	}
 
-	float gethitsToDestroy() const {
+	int gethitsToDestroy() const {
 		return hitsToDestroy;
 	}
 
@@ -120,7 +121,7 @@ public:
 		return collision;
 	}
 
-	float sethitsToDestroy(float _hitsToDestroy){
+	int sethitsToDestroy(int _hitsToDestroy){
 		hitsToDestroy = _hitsToDestroy;
 		return hitsToDestroy;
 	}

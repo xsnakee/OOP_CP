@@ -53,6 +53,7 @@ void game_t::update() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
+	checkAlive();
 	collisionEngine();
 
 	for (auto &character : charactersList) {
@@ -134,12 +135,43 @@ void game_t::checkAlive() {
 
 		++tempOb;
 	}
+
+	std::list<physOb_t*>::iterator tempOb1 = obList.begin();
+	for (auto &bullet : obList) {
+		bullet->checkAlive();
+		if (!bullet->getAlive()) {
+			delete (*tempOb);
+			bulletsList.erase(tempOb);
+		}
+
+		++tempOb;
+	}
 	//*/
 }
 
 
 void game_t::collisionEngine() {
 	float obColErr = 0.0f;
+
+	// Bullet collision
+	std::list<bullet_t*>::iterator bullet = bulletsList.begin();
+	for (auto &outerElement : bulletsList) {
+
+		for (auto &innerElement : obList) {
+			if (outerElement->checkCollision(innerElement)) {
+				outerElement->collisionHandler(innerElement, speed, obColErr);
+			}
+		}
+		for (auto &innerElement : charactersList) {
+			if ((outerElement->checkCollision(innerElement.get()))) {
+				outerElement->collisionHandler(innerElement.get(), speed);
+
+			}
+		}
+
+		++bullet;
+	}
+
 	for (auto &outerElement : charactersList) {
 		
 		for (auto &innerElement : charactersList) {
@@ -154,7 +186,8 @@ void game_t::collisionEngine() {
 		}
 	}
 
-	// Bullet collision
+	
+
 }
 
 

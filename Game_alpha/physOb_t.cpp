@@ -15,9 +15,9 @@ physOb_t::physOb_t()
 	dY = 0.f;
 	posX = 0;
 	posY = 0;
-	destroyble = true;
+	destroyble = false;
 	alive = true;
-	hitsToDestroy = 1.f;
+	hitsToDestroy = 1;
 	collision = true;
 	spritePref.setSpritePos(posX, posY);
 
@@ -29,9 +29,9 @@ physOb_t::physOb_t(float _posX, float _posY) {
 	dY = 0.f;
 	posX = _posX;
 	posY = _posY;
-	destroyble = true;
+	destroyble = false;
 	alive = true;
-	hitsToDestroy = 1.f;
+	hitsToDestroy = 1;
 	collision = true;
 	spritePref.setSpritePos(posX, posY);
 	fraction = -1;
@@ -41,9 +41,9 @@ physOb_t::physOb_t(float _posX, float _posY) {
 physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height) :spritePref(fileName, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
 	dY = 0.f;
-	destroyble = true;
+	destroyble = false;
 	alive = true;
-	hitsToDestroy = 1.f;
+	hitsToDestroy = 1;
 	collision = true;
 	fraction = -1;
 
@@ -57,9 +57,9 @@ physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, 
 physOb_t::physOb_t(float _posX, float _posY, sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height) : spritePref(_texture, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
 	dY = 0.f;
-	destroyble = false;
+	destroyble = true;
 	alive = true;
-	hitsToDestroy = 1.f;
+	hitsToDestroy = 1;
 	collision = true;
 	fraction = -1;
 
@@ -124,7 +124,7 @@ bool physOb_t::checkCollision(physOb_t *Object, float _borderError) {
 	return false;
 }
 
-void physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderError) {
+bool physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderError) {
 	if (collision && Object->collision) {
 		
 		float zero = std::numeric_limits<float>::epsilon();
@@ -160,9 +160,10 @@ void physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderErr
 
 		dX = 0;
 		dY = 0;
+		return true;
 	}
-
-	}
+	return false;
+}
 
 
 
@@ -174,5 +175,17 @@ bool physOb_t::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time
 }
 
 bool physOb_t::checkAlive() {
-	return true;
+	if (alive) {
+		(hitsToDestroy > 0) ? true : false;
+	}
+	return false;
+}
+
+float physOb_t::takeDamage(float _dmg, bool _dmgType) {
+	if (alive) {
+		if (_dmg > FLT_EPSILON) {
+			--hitsToDestroy;
+		}
+	}
+	return _dmg;
 }

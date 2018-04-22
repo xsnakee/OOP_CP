@@ -56,6 +56,13 @@ public:
 		sprite.setPosition(coordX, coordY);
 	}
 
+	void setRotation(float _rotation) {
+		sprite.setRotation(_rotation);
+	}
+
+	void setCenterWithOrigin() {
+		sprite.setOrigin(width / 2, height / 2);
+	}
 	//FOR CHECK COLLISION
 	sf::FloatRect getRect()const {
 		sf::FloatRect rect(static_cast<float>(spriteCoordX), static_cast<float>(spriteCoordY), static_cast<float>(width), static_cast<float>(height));

@@ -9,6 +9,8 @@ character_t::character_t():physOb_t()
 	frame = .0f;
 	direction = animation::BOTTOM;
 	fraction = 1;
+	spritePref.setCenterWithOrigin();
+
 }
 
 character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
@@ -17,6 +19,7 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
 	frame = .0f;
 	direction = animation::BOTTOM;
 	fraction = 1;
+	spritePref.setCenterWithOrigin();
 }
 
 //*
@@ -26,6 +29,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	frame = .0f;
 	direction = animation::BOTTOM;
 	fraction = 1;
+	spritePref.setCenterWithOrigin();
 }
 
 
@@ -87,9 +91,20 @@ void character_t::updateFrame() {
 
 bool character_t::checkAlive() {
 
-	if (abs(stat.HP - 1.f) < FLT_EPSILON) {
+	if (stat.HP < FLT_EPSILON) {
 		alive = false;
 	}
 
 	return alive;
+}
+
+
+float character_t::takeDamage(float _dmg, bool _dmgType) {
+
+	if (alive) {
+		float tempDmg = (_dmgType) ? (_dmg - stat.physDef) : (_dmg - stat.magDef);
+		stat.HP -= tempDmg;
+		return tempDmg;
+	}
+	return 0.f;
 }

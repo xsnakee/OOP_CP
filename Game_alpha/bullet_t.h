@@ -9,8 +9,9 @@ struct bulletStats{
 	float damage;
 	float range;
 	elements::element element = elements::NONE;
-	float AOE;
+	float AOE = 0.1f;
 	bool type = false;
+	int fraction = -1;
 };
 
 class bullet_t:public physOb_t
@@ -18,7 +19,7 @@ class bullet_t:public physOb_t
 private:
 	sf::Clock *clock;
 	bulletStats stat;
-
+	physOb_t *genericObject;
 	
 
 	sf::Int32 startTime;
@@ -39,10 +40,14 @@ public:
 
 	virtual bool checkAlive();
 	virtual void update(float speed);
+	virtual bool collisionHandler(physOb_t *Object, float _speed, float _borderError = 0.f);
+
 public:
 
 	//GET
-
+	physOb_t * getGenericObject()const {
+		return genericObject;
+	}
 
 	virtual sf::Int32 getStartTime() const {
 		return startTime;
