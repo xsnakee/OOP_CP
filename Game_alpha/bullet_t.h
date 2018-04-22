@@ -24,7 +24,7 @@ private:
 	bool mass;
 	
 	sf::Vector2f targetCoords;
-	float k;
+	int k;
 public:
 	bullet_t();
 	bullet_t(float _posX, float _posY, float _speed, elements::element _element, float _AOE, sf::Vector2f _targetCoords);

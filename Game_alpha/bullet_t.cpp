@@ -66,7 +66,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
 	startTime = _startTime;
-	timer = 4000;
+	timer = 2000;
 
 	targetCoords = _targetCoords;
 
@@ -78,18 +78,15 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	stat.range = 50.0f;
 	stat.damage = 20.0f;
-	stat.speed = 0.1f;
+	stat.speed = 0.0005f;
 	mass = false;
 	stat.AOE = 0.1f;
 	stat.element = elements::NONE;
 	stat.type = false;
 
 
-	dX = stat.speed;
-
-	k = (targetCoords.x - posX) / (targetCoords.y - posY);
-
-	dY = stat.speed;
+	dX = (targetCoords.x - posX) *stat.speed;
+	dY = (targetCoords.y - posY) * stat.speed;
 	/*
 	float k = (targetCoords.x - posX) / (targetCoords.y - posY);
 
@@ -105,7 +102,7 @@ bullet_t::~bullet_t()
 void bullet_t::update(float _speed) {
 	if (alive){
 		posX += dX * _speed;
-		posY += k+(dY * _speed);
+		posY += dY * _speed;
 		spritePref.setSpritePos(posX, posY);
 	}
 }

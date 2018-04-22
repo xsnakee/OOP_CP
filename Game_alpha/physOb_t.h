@@ -43,7 +43,12 @@ public:
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
 	}
-
+	int getWidth() const {
+		return spritePref.getWidth();
+	}
+	int getHeight()const {
+		return spritePref.getHeight();
+	}
 	int getFraction() const {
 		return fraction;
 	}

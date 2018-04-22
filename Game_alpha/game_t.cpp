@@ -106,7 +106,7 @@ void game_t::keyController(sf::Event &event) {
 	
 
 	//ATACK CONTROLLER
-	if (Keyboard::isKeyPressed(Keyboard::Space)) {
+	if (Mouse::isButtonPressed(Mouse::Left)) {
 		
 			//bulletsList.push_back(new bullet_t(clock.get(), 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, cursor->getPosition(), 10.f));
 		bulletsList.push_back(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition()));
