@@ -5,7 +5,7 @@
 bullet_t::bullet_t():physOb_t()
 {
 }
-
+/*
 bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _element, float _AOE, sf::Vector2f _targetCoords) : physOb_t(_posX,_posY)
 {
 	clock = nullptr;
@@ -27,11 +27,11 @@ bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _e
 		mass = true;
 	}
 
-	k = 1;
-
+	passedDistance = stat.range;
 	spritePref.setSpritePos(posX, posY);
 }
-
+*/
+/*
 bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, sf::Vector2f _targetCoords, float _AOE = 1.f) : physOb_t(_posX, _posY) {
 
 	clock = time;
@@ -54,19 +54,19 @@ bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, floa
 		mass = true;
 	}
 
-	k = 1;
+	passedDistance = stat.range;
 
 	spritePref.setSpritePos(posX, posY);
 }
-
+*/
 
 bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords):physOb_t(genObj->getPosX(), genObj->getPosY()) {
 
 	clock = time;
 
-	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
+	sf::Int32 _startTime = clock->getElapsedTime().asMilliseconds();
 	startTime = _startTime;
-	timer = 2000;
+	timer = 1000;
 
 	targetCoords = _targetCoords;
 
@@ -76,7 +76,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	//stat.damage = tempStats.atackPower;
 
 
-	stat.range = 50.0f;
+	stat.range = 250.0f;
 	stat.damage = 20.0f;
 	stat.speed = 0.0005f;
 	mass = false;
@@ -84,14 +84,15 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	stat.element = elements::NONE;
 	stat.type = false;
 
+	float distanceX = targetCoords.x - posX;
+	float distanceY = targetCoords.y - posY;
 
-	dX = (targetCoords.x - posX) *stat.speed;
-	dY = (targetCoords.y - posY) * stat.speed;
-	/*
-	float k = (targetCoords.x - posX) / (targetCoords.y - posY);
+	vectorLength = sqrt( pow(distanceX,2) + pow(distanceY,2));
 
-	dY = k * stat.speed;
-	//*/
+	passedDistance = 0.f;
+
+	dX = distanceX * stat.speed;
+	dY = distanceY * stat.speed;
 }
 
 
@@ -104,10 +105,17 @@ void bullet_t::update(float _speed) {
 		posX += dX * _speed;
 		posY += dY * _speed;
 		spritePref.setSpritePos(posX, posY);
+
+		passedDistance += ((dX + dY)/2) * _speed;
 	}
 }
 
 bool bullet_t::checkAlive() {
-	alive = checkTimer(clock, startTime, timer);
+
+	float distanceX = targetCoords.x - posX;
+	float distanceY = targetCoords.y - posY;
+	float tempVectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
+	alive = (checkTimer(clock, startTime, timer) && (abs(vectorLength - tempVectorLength) < stat.range) );
 	return alive;
 }

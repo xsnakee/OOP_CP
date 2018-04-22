@@ -19,8 +19,12 @@ private:
 	sf::Clock *clock;
 	bulletStats stat;
 
+	float vectorLength;
+
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
+	float passedDistance;
+
 	bool mass;
 	
 	sf::Vector2f targetCoords;
