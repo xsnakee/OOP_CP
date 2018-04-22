@@ -23,7 +23,6 @@ private:
 
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
-	float passedDistance;
 
 	bool mass;
 	

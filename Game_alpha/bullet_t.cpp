@@ -89,8 +89,6 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	vectorLength = sqrt( pow(distanceX,2) + pow(distanceY,2));
 
-	passedDistance = 0.f;
-
 	dX = distanceX * stat.speed;
 	dY = distanceY * stat.speed;
 }
@@ -105,8 +103,6 @@ void bullet_t::update(float _speed) {
 		posX += dX * _speed;
 		posY += dY * _speed;
 		spritePref.setSpritePos(posX, posY);
-
-		passedDistance += ((dX + dY)/2) * _speed;
 	}
 }
 
