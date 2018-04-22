@@ -57,7 +57,7 @@ physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, 
 physOb_t::physOb_t(float _posX, float _posY, sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height) : spritePref(_texture, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
 	dY = 0.f;
-	destroyble = true;
+	destroyble = false;
 	alive = true;
 	hitsToDestroy = 1;
 	collision = true;
@@ -83,6 +83,22 @@ void physOb_t::update(float _speed) {
 	if (alive) {
 
 
+		if ((dX > 0) && (abs(dY) < FLT_EPSILON)) {
+			direction = animation::RIGHT;
+		}
+		else if ((dX < 0) && (abs(dY) < FLT_EPSILON)) {
+
+			direction = animation::LEFT;
+		}
+		else if ((dY > 0) && (abs(dX) < FLT_EPSILON)) {
+
+			direction = animation::BOTTOM;
+		}
+		else if ((dY < 0) && (abs(dX) < FLT_EPSILON)) {
+
+			direction = animation::TOP;
+		}
+
 		posX += dX * _speed;
 		posY += dY * _speed;
 
@@ -93,54 +109,41 @@ void physOb_t::update(float _speed) {
 	}
 }
 
-bool physOb_t::checkCollision(physOb_t *Object, float _borderError) {
+bool physOb_t::checkCollision(physOb_t &Object, float _borderError) {
 
-	float thisWidth = static_cast<float>(spritePref.getWidth())/2;
-	float thisHeight = static_cast<float>(spritePref.getHeight())/2;
-	float obWidth = static_cast<float>(Object->spritePref.getWidth()) / 2;
-	float obHeight = static_cast<float>(Object->spritePref.getWidth()) / 2;
+	float thisWidth = static_cast<float>(spritePref.getWidth()) / 2;
+	float thisHeight = static_cast<float>(spritePref.getHeight()) / 2;
+	float obWidth = static_cast<float>(Object.spritePref.getWidth()) / 2;
+	float obHeight = static_cast<float>(Object.spritePref.getWidth()) / 2;
 
-
-	float ObjectPosX = Object->getPosX();
-	float ObjectPosY = Object->getPosY();
-
-	float obCenterX = ObjectPosX + obWidth;
-	float obCenterY = ObjectPosY + obHeight;
+	float obCenterX = Object.getPosX() + obWidth;
+	float obCenterY = Object.getPosY() + obHeight;
 
 	float thisCenterX = posX + thisWidth;
 	float thisCenterY = posY + thisHeight;
 
-
-	float ObjectLeftBorder = ObjectPosX - thisWidth;
-	float ObjectTopBorder = ObjectPosY - thisHeight;
-	float ObjectRightBorder = ObjectPosX + static_cast<float>(Object->spritePref.getWidth());
-	float ObjectBottomBorder = ObjectPosY + static_cast<float>(Object->spritePref.getHeight()) - (thisHeight / 2);
-	//*
-
-	if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth)) && (abs(obCenterY - thisCenterY) < (thisHeight + obHeight))){
+	if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (abs(obCenterY - thisCenterY) < (thisHeight + obHeight - _borderError))){
 		return true;
 	}
-	//*/
+	
 	return false;
 }
 
-bool physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderError) {
-	if (collision && Object->collision) {
+bool physOb_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {
+	/*if (collision && Object.collision) {
 		
 		float zero = std::numeric_limits<float>::epsilon();
 		float speedX = abs(dX) * _speed;
 		float speedY = abs(dY) * _speed;
 
-		float errorVal = 1.0f + _borderError;
-		
-		
+		float errorVal = 1.0f + _borderError;	
 
 		if (dX > 0) {
 
 			std::cout << 1 << std::endl;
 			posX -= speedX  + errorVal;
 		}
-		else if (dX < 0) {
+		if (dX < 0) {
 
 			std::cout << 2 << std::endl;
 			posX += speedX + errorVal;
@@ -152,7 +155,7 @@ bool physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderErr
 			posY -= speedY + errorVal;
 
 		}
-		else if (dY < 0) {
+		if (dY < 0) {
 
 			std::cout << 4 << std::endl;
 			posY += speedY + errorVal;
@@ -160,6 +163,34 @@ bool physOb_t::collisionHandler(physOb_t *Object, float _speed, float _borderErr
 
 		dX = 0;
 		dY = 0;
+		return true;
+	}//*/
+
+
+	if (collision && Object.collision) {
+		float zero = std::numeric_limits<float>::epsilon();
+		float speedX = abs(dX) * _speed;
+		float speedY = abs(dY) * _speed;
+		
+		if (direction == animation::RIGHT) {
+			posX = Object.getPosX() - getWidth() - _borderError;
+		}
+
+		if (direction == animation::LEFT) {
+			posX = Object.getPosX() + Object.getWidth() + _borderError;
+		}
+
+		if (direction == animation::BOTTOM) {
+			posY = Object.getPosY() - getHeight() - _borderError;
+		}
+
+		if (direction == animation::TOP) {
+			posY = Object.getPosY() + Object.getHeight() + _borderError;
+		}
+
+		dX = 0;
+		dY = 0;
+
 		return true;
 	}
 	return false;
@@ -176,16 +207,16 @@ bool physOb_t::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time
 
 bool physOb_t::checkAlive() {
 	if (alive) {
-		(hitsToDestroy > 0) ? true : false;
+		alive = (hitsToDestroy > 0) ? true : false;
 	}
-	return false;
+	return alive;
 }
 
 float physOb_t::takeDamage(float _dmg, bool _dmgType) {
 	if (alive) {
-		if (_dmg > FLT_EPSILON) {
+		
 			--hitsToDestroy;
-		}
+		
 	}
 	return _dmg;
 }

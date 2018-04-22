@@ -50,6 +50,15 @@ namespace animation {
 		BOTTOM = 0,
 		LEFT = 1,
 		RIGHT = 2,
-		TOP = 3
+		TOP = 3,
+		LEFT_BOTTOM,
+		LEFT_TOP,
+		RIGHT_BOTTOM,
+		RIGHT_TOP
 	};
+}
+
+template <typename T> T getRand(T a, T b) {
+	T temp = static_cast<T>(a + (rand() % static_cast<int>(b - a)) );
+	return temp;
 }

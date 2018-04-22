@@ -24,7 +24,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	stat.speed = 0.001f;
 	stat.range = 200.0f;
 
-	stat.damage = 20.0f;
+	stat.damage = getRand(-40.f,50.f);// 20.0f;
 	mass = false;
 	stat.AOE = 0.1f;
 	stat.element = elements::NONE;
@@ -84,12 +84,13 @@ bool bullet_t::checkAlive() {
 	return alive;
 }
 
-bool bullet_t::collisionHandler(physOb_t *Object, float _speed, float _borderError) {
-	if (Object->getCollision() && Object->getFraction() != fraction && Object->getDestroyble()) {
+bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {
+	if (Object.getCollision() && Object.getFraction() != fraction) {
 		std::cout << stat.damage << std::endl;
 		
-			Object->takeDamage(stat.damage, stat.type);
-
+		if (Object.getDestroyble()) {
+			Object.takeDamage(stat.damage, stat.type);
+		}
 			alive = false;
 		
 			return true;

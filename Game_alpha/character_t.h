@@ -40,6 +40,7 @@ public:
 	void update(float _speed);
 	void animation();
 	void updateFrame();
+	float toHit ()const;
 
 public:
 	void setStats(characterStats_t &_stats);

@@ -99,9 +99,14 @@ bool character_t::checkAlive() {
 float character_t::takeDamage(float _dmg, bool _dmgType) {
 
 	if (alive) {
-		float tempDmg = (_dmgType) ? (_dmg - stat.physDef) : (_dmg - stat.magDef);
+		float tempDmg = (_dmgType) ? (abs(_dmg) - abs(stat.physDef)) : (abs(_dmg) - abs(stat.magDef));
 		stat.HP -= tempDmg;
 		return tempDmg;
 	}
 	return 0.f;
+}
+
+float character_t::toHit() const{
+
+	return stat.atackPower + getRand(-stat.damageRand, stat.damageRand);
 }

@@ -34,8 +34,8 @@ public:
 	
 	virtual bool kill();
 	virtual void update(float _speed);
-	bool checkCollision(physOb_t *Object, float _borderError = 0.f);
-	virtual bool collisionHandler(physOb_t *Object, float _speed, float _borderError = 0.f);
+	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
+	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 1.f);
 
 	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 	virtual bool checkAlive();

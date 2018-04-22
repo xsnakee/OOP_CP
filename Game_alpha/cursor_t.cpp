@@ -13,6 +13,7 @@ cursor_t::cursor_t(std::string fileName, int _height, int _width, sf::RenderWind
 	texture.loadFromFile("img/cursor_aim.png");
 	sprite.setTexture(texture);
 	sprite.setTextureRect(sf::IntRect(0, 0, width, height));
+	sprite.setOrigin(width / 2, height / 2);
 }
 
 

@@ -44,12 +44,13 @@ public:
 	void keyController(sf::Event &event);
 	void checkAlive();
 	void collisionEngine();
+	void bulletEngine();
 
 	void addOb(physOb_t *);
 	void addChar(character_t *);
 
-	void generateMapObjects(std::list<physOb_t*> _obTextureList);
-	void generateMapTiles(std::list<ground_t*> _mapTilesList);
+	void generateMapObjects(std::list<physOb_t*> &_obTextureList);
+	void generateMapTiles(std::list<ground_t*> &_mapTilesList);
 	void setCamera();
 
 	void drawCursor();

@@ -35,29 +35,23 @@ void player_t::update(float _speed) {
 void player_t::controller(sf::Event) {
 	using namespace sf;
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
-		direction = animation::TOP;
 		dY = -stat.speed;
 		updateFrame();
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::S)) {
-
-		direction = animation::BOTTOM;
 		dY = stat.speed;
 		updateFrame();
 
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::D)) {
-
-		direction = animation::RIGHT;
 		dX = stat.speed;
 		updateFrame();
 	}
 	
 
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
-		direction = animation::LEFT;
 		dX = -stat.speed;
 		updateFrame();
 	}

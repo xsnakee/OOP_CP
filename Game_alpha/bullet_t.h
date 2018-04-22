@@ -40,7 +40,7 @@ public:
 
 	virtual bool checkAlive();
 	virtual void update(float speed);
-	virtual bool collisionHandler(physOb_t *Object, float _speed, float _borderError = 0.f);
+	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 0.f);
 
 public:
 

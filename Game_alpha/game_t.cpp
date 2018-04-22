@@ -54,6 +54,7 @@ void game_t::update() {
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
 	checkAlive();
+	bulletEngine();
 	collisionEngine();
 
 	for (auto &character : charactersList) {
@@ -72,9 +73,6 @@ void game_t::update() {
 
 void game_t::draw() {
 	
-
-
-	//window->draw(map.mapBgSprite);
 
 	for (auto &texture : mapTilesList) {
 		window->draw(texture->getSprite());
@@ -129,18 +127,7 @@ void game_t::checkAlive() {
 	for (auto &bullet : bulletsList) {
 		bullet->checkAlive();
 		if (!bullet->getAlive()) {
-			delete (*tempOb);
-			bulletsList.erase(tempOb);
-		}
-
-		++tempOb;
-	}
-
-	std::list<physOb_t*>::iterator tempOb1 = obList.begin();
-	for (auto &bullet : obList) {
-		bullet->checkAlive();
-		if (!bullet->getAlive()) {
-			delete (*tempOb);
+			delete (bullet);
 			bulletsList.erase(tempOb);
 		}
 
@@ -149,45 +136,44 @@ void game_t::checkAlive() {
 	//*/
 }
 
-
-void game_t::collisionEngine() {
-	float obColErr = 0.0f;
+void game_t::bulletEngine() {
 
 	// Bullet collision
 	std::list<bullet_t*>::iterator bullet = bulletsList.begin();
-	for (auto &outerElement : bulletsList) {
+	for (auto *outerElement : bulletsList) {
 
 		for (auto &innerElement : obList) {
-			if (outerElement->checkCollision(innerElement)) {
-				outerElement->collisionHandler(innerElement, speed, obColErr);
+			if (outerElement->checkCollision(*innerElement)) {
+				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
 		for (auto &innerElement : charactersList) {
-			if ((outerElement->checkCollision(innerElement.get()))) {
-				outerElement->collisionHandler(innerElement.get(), speed);
+			if ((outerElement->checkCollision(*innerElement.get()))) {
+				outerElement->collisionHandler(*innerElement.get(), speed);
 
 			}
 		}
 
 		++bullet;
 	}
+}
+
+
+void game_t::collisionEngine() {
 
 	for (auto &outerElement : charactersList) {
-		
+
 		for (auto &innerElement : charactersList) {
-			if ((outerElement != innerElement) && (outerElement->checkCollision(innerElement.get()))) {				
-				outerElement->collisionHandler(innerElement.get(), speed);
+			if ((outerElement != innerElement) && (outerElement->checkCollision(*innerElement.get()))) {
+				outerElement->collisionHandler(*innerElement.get(), speed);
 			}
 		}
 		for (auto &innerElement : obList) {
-			if (outerElement->checkCollision(innerElement)){
-				outerElement->collisionHandler(innerElement, speed, obColErr);
+			if (outerElement->checkCollision(*innerElement)) {
+				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
 	}
-
-	
-
 }
 
 
@@ -199,14 +185,16 @@ void game_t::addChar(character_t *NPC) {
 	//charactersList.push_back(std::unique_ptr <character_t>(new ));
 }
 
-void game_t::generateMapObjects(std::list<physOb_t*> _obList) {
+void game_t::generateMapObjects(std::list<physOb_t*> &_obList) {
 
 	obList.insert(obList.end(), _obList.begin(), _obList.end());
+	map.mapObList.clear();
 }
 
-void game_t::generateMapTiles(std::list<ground_t*> _obList) {
+void game_t::generateMapTiles(std::list<ground_t*> &_obList) {
 
 	mapTilesList.insert(mapTilesList.end(), _obList.begin(), _obList.end());
+	map.groundTilesList.clear();
 }
 
 void game_t::setCamera() {
