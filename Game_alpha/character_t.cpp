@@ -61,6 +61,7 @@ void character_t::update(float _speed) {
 
 		physOb_t::update(_speed);
 
+		updateFrame();
 		animation();
 	}
 	

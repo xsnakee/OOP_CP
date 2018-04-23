@@ -102,12 +102,8 @@ void game_t::keyController(sf::Event &event) {
 			(*mainHero)->controller(event);
 		}
 	
-	
-
 	//ATACK CONTROLLER
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		
-			//bulletsList.push_back(new bullet_t(clock.get(), 1000, (*mainHero)->getPosX(), (*mainHero)->getPosY(), 0.1f, elements::WIND, cursor->getPosition(), 10.f));
 		bulletsList.push_back(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition()));
 	}
 
@@ -118,9 +114,19 @@ void game_t::checkAlive() {
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
 		(*tempCharIter)->checkAlive();
-		if (!(*tempCharIter)->getAlive()) {
-			charactersList.erase(tempCharIter);		
+
+		if (tempCharIter != mainHero) {
+			if (!(*tempCharIter)->getAlive()) {
+				charactersList.erase(tempCharIter);
+			}
 		}
+		else {
+			if (!(*tempCharIter)->getAlive()) {
+				std::cout << "GAME OVER";
+			}
+		}
+
+		
 	}
 
 	std::list<bullet_t*>::iterator tempOb = bulletsList.begin();

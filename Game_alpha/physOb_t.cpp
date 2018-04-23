@@ -1,5 +1,4 @@
 #include "physOb_t.h"
-#include <iostream>
 
 bool equal(float &a, float &b) {
 
@@ -36,7 +35,6 @@ physOb_t::physOb_t(float _posX, float _posY) {
 	spritePref.setSpritePos(posX, posY);
 	fraction = -1;
 }
-//*
 
 physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height) :spritePref(fileName, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
@@ -68,7 +66,8 @@ physOb_t::physOb_t(float _posX, float _posY, sf::Texture *_texture, int _coordX,
 
 	spritePref.setSpritePos(posX, posY);
 }
-//*/
+
+
 physOb_t::~physOb_t()
 {
 }

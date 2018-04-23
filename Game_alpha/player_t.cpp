@@ -36,26 +36,22 @@ void player_t::controller(sf::Event) {
 	using namespace sf;
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
 		dY = -stat.speed;
-		updateFrame();
 	}else
 
 	if (Keyboard::isKeyPressed(Keyboard::S)) {
 		dY = stat.speed;
-		updateFrame();
 
 	}
 	else
 
 	if (Keyboard::isKeyPressed(Keyboard::D)) {
 		dX = stat.speed;
-		updateFrame();
 	}
 	else
 	
 
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
 		dX = -stat.speed;
-		updateFrame();
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::E)) {

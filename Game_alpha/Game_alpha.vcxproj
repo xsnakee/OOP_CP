@@ -122,6 +122,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bullet_t.cpp" />
+    <ClCompile Include="characterTimers_t.cpp" />
     <ClCompile Include="character_t.cpp" />
     <ClCompile Include="cursor_t.cpp" />
     <ClCompile Include="effectSkill_t.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="additional.h" />
     <ClInclude Include="bullet_t.h" />
     <ClInclude Include="characterStats_t.h" />
+    <ClInclude Include="characterTimers_t.h" />
     <ClInclude Include="character_t.h" />
     <ClInclude Include="cursor_t.h" />
     <ClInclude Include="effectSkill_t.h" />

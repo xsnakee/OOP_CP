@@ -1,7 +1,4 @@
 #include "bullet_t.h"
-#include <iostream>
-
-
 
 bullet_t::bullet_t():physOb_t()
 {
@@ -86,7 +83,6 @@ bool bullet_t::checkAlive() {
 
 bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {
 	if (Object.getCollision() && Object.getFraction() != fraction) {
-		std::cout << stat.damage << std::endl;
 		
 		if (Object.getDestroyble()) {
 			Object.takeDamage(stat.damage, stat.type);
