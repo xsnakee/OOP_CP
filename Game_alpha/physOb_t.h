@@ -2,7 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "obPreference.h"
-
+#include "additional.h"
 
 class physOb_t
 {
@@ -15,10 +15,14 @@ protected:
 	float dY;
 	bool destroyble;
 	bool alive;
-	float hitsToDestroy;
+	int hitsToDestroy;
 	bool collision;
 
+	int fraction;
+	animation::direction direction;
+
 	std::vector<int> dropList;
+
 public:
 
 	physOb_t();
@@ -29,13 +33,25 @@ public:
 	virtual ~physOb_t();
 	
 	virtual bool kill();
-	void update(float _speed);
-	virtual bool checkCollision();
-	virtual bool checkTimer(sf::Clock *time);
-	
+	virtual void update(float _speed);
+	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
+	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 1.f);
+
+	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
+	virtual bool checkAlive();
+	virtual float takeDamage(float _dmg, bool _dmgType);
 	//GET
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
+	}
+	int getWidth() const {
+		return spritePref.getWidth();
+	}
+	int getHeight()const {
+		return spritePref.getHeight();
+	}
+	int getFraction() const {
+		return fraction;
 	}
 
 	float getdX() const {
@@ -66,21 +82,30 @@ public:
 		return collision;
 	}
 
-	float gethitsToDestroy() const {
+	int gethitsToDestroy() const {
 		return hitsToDestroy;
 	}
 
+	virtual sf::Int32 getStartTime() const {
+		return 0;
+	}
+	virtual sf::Int32 getTimer()const {
+		return std::numeric_limits<sf::Int32>::max();
+	}
 	//SET
-	int setPosX(int _x){
+	float setPosX(float _x){
 		posX = _x;
 		return posX;
 	}
 
-	int setPosY(int _y){
+	float setPosY(float _y){
 		posY = _y;
 		return posY;
 	}
-
+	int setFraction(int _fract) {
+		fraction = _fract;
+		return fraction;
+	}
 	bool setDestroyble(bool _d){
 		destroyble = _d;
 		return destroyble;
@@ -96,7 +121,7 @@ public:
 		return collision;
 	}
 
-	float sethitsToDestroy(float _hitsToDestroy){
+	int sethitsToDestroy(int _hitsToDestroy){
 		hitsToDestroy = _hitsToDestroy;
 		return hitsToDestroy;
 	}

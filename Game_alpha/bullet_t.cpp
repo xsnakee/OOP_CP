@@ -1,66 +1,96 @@
 #include "bullet_t.h"
 
-
-
 bullet_t::bullet_t():physOb_t()
 {
 }
 
-bullet_t::bullet_t(float _posX, float _posY, float _speed,  elements::element _element, float _AOE, sf::Vector2i _targetCoords) : physOb_t(_posX,_posY)
-{
-	startTime = 0.f;
-	timer = std::numeric_limits<float>::max();
-	targetCoords = _targetCoords;
+bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getPosX() + genObj->getWidth() / 2, genObj->getPosY() + genObj->getHeight() / 2) {
 
-	stat.range = 50.f;
-	stat.speed = _speed;
-	stat.AOE = _AOE;
 
-	stat.element = _element;
+	genericObject = genObj;
+	fraction = genObj->getFraction();
+	clock = time;
 
-	if (abs(stat.AOE - 1.f) < FLT_EPSILON) {
-		mass = false;
-	}
-	else {
-		mass = true;
-	}
-
-	spritePref.setSpritePos(posX, posY);
-}
-
-bullet_t::bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, sf::Vector2i _targetCoords, float _AOE = 1.f) : physOb_t(_posX, _posY) {
-
-	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
+	sf::Int32 _startTime = clock->getElapsedTime().asMilliseconds();
 	startTime = _startTime;
-	timer = _timer;
+	timer = 4000;
 
-	targetCoords = _targetCoords;
+	targetCoords = _targetCoords; \
 
-	stat.range = 50.f;
-	stat.speed = _speed;
-	stat.AOE = _AOE;
 
-	stat.element = _element;
+		stat.speed = 0.001f;
+	stat.range = 200.0f;
 
-	if (abs(stat.AOE - 1.f) < FLT_EPSILON) {
+	stat.damage = getRand(-40.f, 50.f);// 20.0f;
+	mass = false;
+	stat.AOE = 0.1f;
+	stat.element = elements::NONE;
+	stat.type = false;
+
+	if (stat.AOE < FLT_EPSILON) {
 		mass = false;
 	}
 	else {
 		mass = true;
 	}
-	spritePref.setSpritePos(posX, posY);
+
+	startPosX = posX;
+	startPosY = posY;
+
+	float distanceX = targetCoords.x - posX;
+	float distanceY = targetCoords.y - posY;
+	float rotation = -(atan2(distanceX, distanceY)) * 180.f / 3.14159265f;
+
+	spritePref.setCenterWithOrigin();
+	spritePref.setRotation(rotation);
+
+	vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
+	//CALC DISTANCE SPEED ERROR 
+	float k = vectorLength / stat.range;
+	distanceX /= k;
+	distanceY /= k;
+
+	//SET SPEED
+	dX = distanceX * stat.speed;
+	dY = distanceY * stat.speed;
 }
 
 bullet_t::~bullet_t()
 {
 }
 
+void bullet_t::update(float _speed) {
+	if (alive){
+		posX += dX * _speed;
+		posY += dY * _speed;
+		spritePref.setSpritePos(posX, posY);
+	}
+}
 
-bool bullet_t::checkTimer(sf::Clock *time) {
+bool bullet_t::checkAlive() {
+	if (alive) {
+		float distanceX = startPosX - posX;
+		float distanceY = startPosY - posY;
+		float tempVectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	sf::Int32 tempTime = time->getElapsedTime().asMilliseconds();
-
-	alive = (abs(tempTime - startTime) > timer) ? false : true;
+		alive = (checkTimer(clock, startTime, timer) && (tempVectorLength < stat.range));//time is over or leave from range
+	}
+	
 
 	return alive;
+}
+
+bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {
+	if (Object.getCollision() && Object.getFraction() != fraction) {
+		
+		if (Object.getDestroyble()) {
+			Object.takeDamage(stat.damage, stat.type);
+		}
+			alive = false;
+		
+			return true;
+	}
+	return false;
+
 }

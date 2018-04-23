@@ -1,17 +1,19 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-//#include "ground_t.h"
 #include "physOb_t.h"
+#include "ground_t.h"
 #include "additional.h"
 #include <memory>
 #include <list>
 
-const std::string IMG_MAP_PATH = "img/maps/";
-const std::string MAP_BG_FILE_NAME = "/bg.png";
+//const std::string IMG_MAP_PATH = "img/maps/";
+//const std::string MAP_BG_FILE_NAME = "/bg.png";
 
 const std::string MAP_PATH = "maps/";
-const std::string MAP_OBJ_FILE_NAME = "/map.csv";
+const std::string MAP_OBJ_FILE_NAME = "/obj.csv";
+const std::string MAP_BG_TILES_FILE_NAME = "/map_bg.csv";
+const std::string MAP_OUT_TILES_FILE_NAME = "/map_out.csv";
 
 const std::string TILE_FILE_PATH = "img/objects/TilesTexture.png";
 
@@ -25,16 +27,19 @@ private:
 	int tileAmountY;
 	std::string levelName;
 	std::string mapObjectsFile;
-	std::string mapBgTextureFile;
+	//std::string mapBgTextureFile;
+
+	std::string mapBgTilesFile;
+	std::string mapOutTilesFile;
 
 	std::string tileFileName;
 	sf::Texture *tile_texture;
-	sf::Texture *mapBgTexture;
+	//sf::Texture *mapBgTexture;
 	
 	
 public:
 	sf::Sprite mapBgSprite;
-	//std::list<ground_t*> groundTilesList; //If needed layers view
+	std::list<ground_t*> groundTilesList; //If needed layers view
 	std::list<physOb_t*> mapObList;
 
 	map_t();
@@ -42,7 +47,8 @@ public:
 	~map_t();
 	
 public:
-	void fillTheMap();
+	void fillTheMapObj();
+	void fillTheMapTiles();
 	void drawMap();
 
 public:

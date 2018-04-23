@@ -25,7 +25,7 @@ int main() {
 
 void START_GAME(sf::RenderWindow *window) {
 
-	game_t game(window, "level2");
+	game_t game(window, "level0");
 
 	Clock clock;
 
@@ -44,10 +44,10 @@ void START_GAME(sf::RenderWindow *window) {
 
 		game.keyController(event);
 
+
+		//game.checkAlive();
 		game.update();
 		window->clear();
-
-		game.checkAlive();
 		game.draw();
 
 		window->display();

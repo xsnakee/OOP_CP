@@ -41,12 +41,12 @@ public:
 	int getHeight() const {
 		return height;
 	}
-	int getWdith() const {
+	int getWidth() const {
 		return width;
 	}
 
 	//SET
-	void setTexturePos(float coordX, float coordY) {
+	void setTexturePos(int coordX, int coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;
 		sprite.setTextureRect(sf::IntRect(coordX,coordY,width,height));
@@ -56,6 +56,13 @@ public:
 		sprite.setPosition(coordX, coordY);
 	}
 
+	void setRotation(float _rotation) {
+		sprite.setRotation(_rotation);
+	}
+
+	void setCenterWithOrigin() {
+		sprite.setOrigin(static_cast<float>(width) / 2, static_cast<float>(height) / 2);
+	}
 	//FOR CHECK COLLISION
 	sf::FloatRect getRect()const {
 		sf::FloatRect rect(static_cast<float>(spriteCoordX), static_cast<float>(spriteCoordY), static_cast<float>(width), static_cast<float>(height));

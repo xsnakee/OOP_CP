@@ -7,6 +7,7 @@ player_t::player_t() :character_t()
 	keyCooldown = 400;
 	startKeyPressTime = 0;
 	elemStatus = 0;
+	fraction = 0;
 }
 
 
@@ -17,6 +18,7 @@ player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _c
 	keyCooldown = 400;
 	startKeyPressTime = 0;
 	clock = _clock;
+	fraction = 0;
 }
 //*/
 
@@ -33,32 +35,29 @@ void player_t::update(float _speed) {
 void player_t::controller(sf::Event) {
 	using namespace sf;
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
-		direction = animation::TOP;
 		dY = -stat.speed;
-		updateFrame();
-	}
+	}else
 
 	if (Keyboard::isKeyPressed(Keyboard::S)) {
-
-		direction = animation::BOTTOM;
 		dY = stat.speed;
-		updateFrame();
 
 	}
+	else
 
 	if (Keyboard::isKeyPressed(Keyboard::D)) {
-
-		direction = animation::RIGHT;
 		dX = stat.speed;
-		updateFrame();
 	}
+	else
+	
 
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
-		direction = animation::LEFT;
 		dX = -stat.speed;
-		updateFrame();
 	}
 
+	if (Keyboard::isKeyPressed(Keyboard::E)) {
+		posX = 100.0f;
+		posY = 100.0f;
+	}
 	
 
 	if (!checkKeyCd(clock))
@@ -99,12 +98,14 @@ bool player_t::checkSkillGenerator() {
 bool player_t::addElement(elements::element _elem) {
 	if (skillGeneratorArr.size() < 3) {
 		skillGeneratorArr.push_back(_elem);
+		return true;
 	}
 	else {
 		skillGeneratorArr.pop_back();
 		skillGeneratorArr.push_back(_elem);
+		return true;
 	}
-
+	return false;
 }
 
 size_t player_t::generateSkill() {

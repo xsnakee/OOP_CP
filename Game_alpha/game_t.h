@@ -9,6 +9,7 @@
 #include "bullet_t.h"
 #include "additional.h"
 #include "cursor_t.h"
+#include <memory>
 
 class game_t
 {
@@ -16,7 +17,7 @@ private:
 	sf :: RenderWindow *window;
 	cursor_t *cursor;
 
-	sf::Clock clock;
+	std::unique_ptr<sf::Clock> clock;
 	float curTime;
 	float speed;
 	float speedMultipple;
@@ -24,11 +25,12 @@ private:
 	
 	sf::View *view;
 
-	std::list<character_t*> charactersList;
-	std::list<character_t*>::iterator mainHero;
+	std::list<std::unique_ptr <character_t>> charactersList;
+	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 
 	std::list<physOb_t*> obList;
-
+	std::list<bullet_t*> bulletsList;
+	std::list<ground_t*> mapTilesList;
 public:
 	
 
@@ -41,12 +43,14 @@ public:
 
 	void keyController(sf::Event &event);
 	void checkAlive();
+	void collisionEngine();
+	void bulletEngine();
 
 	void addOb(physOb_t *);
 	void addChar(character_t *);
 
-	void generateMapObjects(std::list<physOb_t*> _obTextureList);
-
+	void generateMapObjects(std::list<physOb_t*> &_obTextureList);
+	void generateMapTiles(std::list<ground_t*> &_mapTilesList);
 	void setCamera();
 
 	void drawCursor();
@@ -64,7 +68,7 @@ public:
 	}
 
 	float getCurTimeSec() const {
-		return clock.getElapsedTime().asSeconds();
+		return clock->getElapsedTime().asSeconds();
 	}
 
 	float getSpeedMultipple()const {

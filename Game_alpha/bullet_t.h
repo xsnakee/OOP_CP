@@ -8,37 +8,56 @@ struct bulletStats{
 	float speed;
 	float damage;
 	float range;
-	elements::element element;
-	float AOE;
+	elements::element element = elements::NONE;
+	float AOE = 0.1f;
+	bool type = false;
+	int fraction = -1;
 };
 
 class bullet_t:public physOb_t
 {
 private:
+	sf::Clock *clock;
 	bulletStats stat;
+	physOb_t *genericObject;
+	
 
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
+
 	bool mass;
+	
+	float startPosX;
+	float startPosY;
 
-	sf::Vector2i targetCoords;
-
+	sf::Vector2f targetCoords;
+	float vectorLength;
 public:
 	bullet_t();
-	bullet_t(float _posX, float _posY, float _speed, elements::element _element, float _AOE, sf::Vector2i _targetCoords);
-	bullet_t(sf::Clock *time, float _timer, float _posX, float _posY, float _speed, elements::element _element, sf::Vector2i _targetCoords, float _AOE);
+	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords);
 	virtual ~bullet_t();
 
-public:
-	virtual bool checkTimer(sf::Clock *time);
+
+	virtual bool checkAlive();
+	virtual void update(float speed);
+	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 0.f);
+
 public:
 
 	//GET
+	physOb_t * getGenericObject()const {
+		return genericObject;
+	}
+
+	virtual sf::Int32 getStartTime() const {
+		return startTime;
+	}
+
 	int getElement()const {
 		return stat.element;
 	}
 
-	sf::Int32 getTimer()const {
+	virtual sf::Int32 getTimer()const {
 		return timer;
 	}
 
@@ -61,6 +80,10 @@ public:
 	int setElement(elements::element _element){
 		stat.element = _element;
 		return stat.element;
+	}
+
+	bool setStats(bulletStats &_stats) {
+		stat = _stats;
 	}
 };
 

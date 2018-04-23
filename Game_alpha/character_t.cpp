@@ -8,6 +8,8 @@ character_t::character_t():physOb_t()
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	fraction = 1;
+
 }
 
 character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
@@ -15,6 +17,7 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	fraction = 1;
 }
 
 //*
@@ -23,6 +26,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	fraction = 1;
 }
 
 
@@ -47,29 +51,20 @@ void character_t::defaultStats() {
 	stat.defaultStats();
 }
 
-bool character_t::checkTimer(sf::Clock *clock) {
-
-	sf::Int32 tempTime = clock->getElapsedTime().asMilliseconds();
-
-	bool tempReuslt= (abs(tempTime - startTime) > timer) ? false : true;
-
-	return tempReuslt;
-}
-
 bool character_t::kill() {
 	alive = false;
 	return false;
 };
 
 void character_t::update(float _speed) {
-	if (abs(stat.HP - 1.f) < FLT_EPSILON) {
-		alive = false;
-		return;
+	if (alive) {
+
+		physOb_t::update(_speed);
+
+		updateFrame();
+		animation();
 	}
-
-	physOb_t::update(_speed);
-
-	animation();	
+	
 }
 
 
@@ -80,8 +75,6 @@ void character_t::animation() {
 	int spriteCoordY = direction * animation::MAIN_HERO_SPRITE_HEIGHT;
 
 	spritePref.setTexturePos(spriteCoordX, spriteCoordY);
-	//spritePref.getSprite().setTextureRect(sf::IntRect(, animation::MAIN_HERO_SPRITE_HEIGHT, animation::MAIN_HERO_SPRITE_WIDTH));
-	//std::cout << "4";
 }
 
 void character_t::updateFrame() {
@@ -90,4 +83,54 @@ void character_t::updateFrame() {
 	if (frame > animation::frameRate) {
 		frame -= animation::frameRate;
 	}
+}
+
+bool character_t::checkAlive() {
+
+	if (stat.HP < FLT_EPSILON) {
+		alive = false;
+	}
+
+	return alive;
+}
+
+
+float character_t::takeDamage(float _dmg, bool _dmgType) {
+
+	if (alive) {
+		float tempDmg = (_dmgType) ? (abs(_dmg) - abs(stat.physDef)) : (abs(_dmg) - abs(stat.magDef));
+		stat.HP -= tempDmg;
+		return tempDmg;
+	}
+	return 0.f;
+}
+
+float character_t::toHit() const{
+
+	return stat.atackPower + getRand(-stat.damageRand, stat.damageRand);
+}
+
+bool character_t::checkCollision(physOb_t &Object, float _borderError) {
+	float borderError = static_cast<float>(getHeight());
+
+	float thisWidth = static_cast<float>(spritePref.getWidth()) / 2;
+	float thisHeight = static_cast<float>(spritePref.getHeight()) / 2;
+	float obWidth = static_cast<float>(Object.getWidth()) / 2;
+	float obHeight = static_cast<float>(Object.getHeight()) / 2;
+
+	float obCenterX = Object.getPosX() + obWidth;
+	float obCenterY = Object.getPosY() + obHeight;
+
+	float thisCenterX = posX + thisWidth;
+	float thisCenterY = posY + thisHeight;
+
+	if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (posY + getHeight() > Object.getPosY() + _borderError ) && 
+		(Object.getPosY() + Object.getHeight() - borderError > posY - 1.f)) {
+		return true;
+	}
+
+
+	return false;
+
+	//return physOb_t::checkCollision(Object, _borderError);
 }

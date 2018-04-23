@@ -7,9 +7,6 @@ struct characterStats_t
 	float MP = 5.f;
 	float stdMP = 5.f;
 
-	float stamina = 100.f;
-	float stdStamina = 100.f;
-
 	float atackPower = 1.f;
 	float stdAtackPower = 1.f;
 	
@@ -22,24 +19,22 @@ struct characterStats_t
 	float speed = 0.1f;
 	float stdSpeed = 0.1f;
 
-	float castSpeed = 1.f;
+	int castSpeed = 1;
+	int attackSpeed = 1;
+
 	float damageRand = 5.f;
 
-	float attackMultiple = 1.f;
-	float defMulttiple = 1.f;
 	float attackRange = 20.f;
 
 	void resetStats() {
-		HP = stdHP = MP = stdMP = stamina =
-			stdStamina = atackPower = stdAtackPower =
-			physDef = stdPhysDef = magDef = stdMagDef
-			= speed = stdSpeed = castSpeed = damageRand =
-			attackMultiple = defMulttiple = attackRange = 0.f;
+		HP = stdHP = MP = stdMP = atackPower = 
+			stdAtackPower = physDef = stdPhysDef = magDef =
+			stdMagDef = speed = stdSpeed = 0.f;
 	}
+
 	void defaultStats() {
 		HP = stdHP;
 		MP = stdMP;
-		stamina = stdStamina;
 		atackPower = stdAtackPower;
 		physDef = stdPhysDef;
 		magDef = stdMagDef;

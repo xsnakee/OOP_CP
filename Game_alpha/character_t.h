@@ -18,8 +18,6 @@ protected:
 	sf::Int32 startTime;
 	sf::Int32 cooldown;
 
-	animation::direction direction;
-
 	float frame;
 public:
 
@@ -32,15 +30,18 @@ public:
 
 	void defaultStats();
 	virtual void controller(sf::Event) = 0;
-	virtual bool checkTimer(sf::Clock *clock);
 	virtual bool checkKeyCd(sf::Clock *clock) = 0;
 	virtual bool attack(float _x, float _y) = 0;
+	virtual bool checkAlive();
+	virtual float takeDamage(float _dmg, bool _dmgType);
+	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	//virtual bool move();
 
 	bool kill();
 	void update(float _speed);
 	void animation();
 	void updateFrame();
+	float toHit ()const;
 
 public:
 	void setStats(characterStats_t &_stats);
