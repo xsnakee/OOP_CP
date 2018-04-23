@@ -74,8 +74,6 @@ void character_t::animation() {
 	int spriteCoordY = direction * animation::MAIN_HERO_SPRITE_HEIGHT;
 
 	spritePref.setTexturePos(spriteCoordX, spriteCoordY);
-	//spritePref.getSprite().setTextureRect(sf::IntRect(, animation::MAIN_HERO_SPRITE_HEIGHT, animation::MAIN_HERO_SPRITE_WIDTH));
-	//std::cout << "4";
 }
 
 void character_t::updateFrame() {

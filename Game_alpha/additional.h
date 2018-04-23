@@ -51,10 +51,6 @@ namespace animation {
 		LEFT = 1,
 		RIGHT = 2,
 		TOP = 3,
-		LEFT_BOTTOM,
-		LEFT_TOP,
-		RIGHT_BOTTOM,
-		RIGHT_TOP
 	};
 }
 
