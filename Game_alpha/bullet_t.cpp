@@ -8,7 +8,7 @@ bullet_t::bullet_t():physOb_t()
 }
 
 bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getPosX() + genObj->getWidth() / 2, genObj->getPosY() + genObj->getHeight() / 2) {
-	
+
 
 	genericObject = genObj;
 	fraction = genObj->getFraction();
@@ -18,13 +18,13 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	startTime = _startTime;
 	timer = 4000;
 
-	targetCoords = _targetCoords;\
+	targetCoords = _targetCoords; \
 
-	
-	stat.speed = 0.001f;
+
+		stat.speed = 0.001f;
 	stat.range = 200.0f;
 
-	stat.damage = getRand(-40.f,50.f);// 20.0f;
+	stat.damage = getRand(-40.f, 50.f);// 20.0f;
 	mass = false;
 	stat.AOE = 0.1f;
 	stat.element = elements::NONE;
@@ -36,18 +36,19 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	else {
 		mass = true;
 	}
-	
+
 	startPosX = posX;
 	startPosY = posY;
 
 	float distanceX = targetCoords.x - posX;
 	float distanceY = targetCoords.y - posY;
-	float rotation = -(atan2(distanceX, distanceY)) * 180 / 3.14159265;
+	float rotation = -(atan2(distanceX, distanceY)) * 180.f / 3.14159265f;
+
 	spritePref.setCenterWithOrigin();
 	spritePref.setRotation(rotation);
 
-	vectorLength = sqrt( pow(distanceX,2) + pow(distanceY,2));
-	
+	vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
 	//CALC DISTANCE SPEED ERROR 
 	float k = vectorLength / stat.range;
 	distanceX /= k;
@@ -57,7 +58,6 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	dX = distanceX * stat.speed;
 	dY = distanceY * stat.speed;
 }
-
 
 bullet_t::~bullet_t()
 {

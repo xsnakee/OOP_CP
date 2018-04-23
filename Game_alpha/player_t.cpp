@@ -102,12 +102,14 @@ bool player_t::checkSkillGenerator() {
 bool player_t::addElement(elements::element _elem) {
 	if (skillGeneratorArr.size() < 3) {
 		skillGeneratorArr.push_back(_elem);
+		return true;
 	}
 	else {
 		skillGeneratorArr.pop_back();
 		skillGeneratorArr.push_back(_elem);
+		return true;
 	}
-
+	return false;
 }
 
 size_t player_t::generateSkill() {

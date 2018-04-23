@@ -14,7 +14,7 @@ ground_t::ground_t()
 }
 
 
-ground_t::ground_t(sf::Texture *_texture, int _posX, int _posY, int _x, int _y, int _id)
+ground_t::ground_t(sf::Texture *_texture, float _posX, float _posY, int _x, int _y, int _id)
 {
 	texture = _texture;
 	sprite.setTexture(*texture);

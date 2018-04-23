@@ -46,7 +46,7 @@ public:
 	}
 
 	//SET
-	void setTexturePos(float coordX, float coordY) {
+	void setTexturePos(int coordX, int coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;
 		sprite.setTextureRect(sf::IntRect(coordX,coordY,width,height));
@@ -61,7 +61,7 @@ public:
 	}
 
 	void setCenterWithOrigin() {
-		sprite.setOrigin(width / 2, height / 2);
+		sprite.setOrigin(static_cast<float>(width) / 2, static_cast<float>(height) / 2);
 	}
 	//FOR CHECK COLLISION
 	sf::FloatRect getRect()const {

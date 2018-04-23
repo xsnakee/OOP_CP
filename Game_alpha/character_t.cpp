@@ -110,7 +110,7 @@ float character_t::toHit() const{
 }
 
 bool character_t::checkCollision(physOb_t &Object, float _borderError) {
-	float borderError = getHeight();
+	float borderError = static_cast<float>(getHeight());
 
 	float thisWidth = static_cast<float>(spritePref.getWidth()) / 2;
 	float thisHeight = static_cast<float>(spritePref.getHeight()) / 2;

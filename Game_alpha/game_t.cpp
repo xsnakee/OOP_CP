@@ -20,7 +20,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 {
 	window = _window;
 	view = new sf::View;
-	view->reset(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
+	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
 	window->setMouseCursorVisible(false);
 	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 
@@ -203,11 +203,11 @@ void game_t::setCamera() {
 	
 
 	//EDIT THIS FOR CAMERA CONTROLL
-	float leftBorder = window->getSize().x / 2;
-	float topBorder = window->getSize().y / 2;
+	float leftBorder = static_cast<float>(window->getSize().x) / 2;
+	float topBorder = static_cast<float>(window->getSize().y) / 2;
 	
-	float rightBorder = map.getSize().x - (window->getSize().x / 2);
-	float bottomBorder = map.getSize().y - (window->getSize().y / 2);
+	float rightBorder = map.getSize().x - (static_cast<float>(window->getSize().x) / 2);
+	float bottomBorder = map.getSize().y - (static_cast<float>(window->getSize().y) / 2);
 	
 	float error = 5.0f;
 	

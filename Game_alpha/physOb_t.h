@@ -93,12 +93,12 @@ public:
 		return std::numeric_limits<sf::Int32>::max();
 	}
 	//SET
-	int setPosX(int _x){
+	float setPosX(float _x){
 		posX = _x;
 		return posX;
 	}
 
-	int setPosY(int _y){
+	float setPosY(float _y){
 		posY = _y;
 		return posY;
 	}
