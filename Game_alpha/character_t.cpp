@@ -29,6 +29,14 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	fraction = 1;
 }
 
+character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height) {
+	destroyble = true;
+	skill = nullptr;
+	frame = .0f;
+	direction = animation::BOTTOM;
+	fraction = 1;
+}
+
 
 //*/
 character_t::~character_t()

@@ -130,6 +130,7 @@
     <ClCompile Include="ground_t.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_t.cpp" />
+    <ClCompile Include="Npc_t.cpp" />
     <ClCompile Include="obPreference.cpp" />
     <ClCompile Include="physOb_t.cpp" />
     <ClCompile Include="player_t.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="game_t.h" />
     <ClInclude Include="ground_t.h" />
     <ClInclude Include="map_t.h" />
+    <ClInclude Include="Npc_t.h" />
     <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
     <ClInclude Include="player_t.h" />
