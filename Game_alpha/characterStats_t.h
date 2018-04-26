@@ -9,7 +9,7 @@ struct characterStats_t
 
 	float atackPower = 1.f;
 	float stdAtackPower = 1.f;
-	
+
 	float physDef = 1.f;
 	float stdPhysDef = 1.f;
 
@@ -28,9 +28,8 @@ struct characterStats_t
 	float visionDistance = 100.f;
 
 	void resetStats() {
-		HP = stdHP = MP = stdMP = atackPower = 
-			stdAtackPower = physDef = stdPhysDef = magDef =
-			stdMagDef = speed = stdSpeed = 0.f;
+		HP = MP = atackPower =
+			physDef = magDef = speed = 0.f;
 	}
 
 	void defaultStats() {
@@ -40,6 +39,23 @@ struct characterStats_t
 		physDef = stdPhysDef;
 		magDef = stdMagDef;
 		speed = stdSpeed;
+	}
+
+	void statMiltipler(float _mult) {
+		float speedK = 0.02f;
+
+		HP *= _mult;
+		stdHP *= _mult;
+		MP *= _mult;
+		stdMP *= _mult;
+		atackPower *= _mult;
+		stdAtackPower *= _mult;
+		physDef *= _mult;
+		stdPhysDef *= _mult;
+		magDef *= _mult;
+		stdMagDef *= _mult;
+		speed += _mult * speedK;
+		stdSpeed += _mult * speedK;
 	}
 };
 
