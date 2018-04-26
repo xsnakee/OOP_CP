@@ -1,12 +1,13 @@
 #pragma once
 
 #include "SFML\Graphics.hpp"
+#include <memory>
 #include "physOb_t.h"
 #include "additional.h"
 
 class ground_t
 {
-	sf::Texture *texture;
+	std::shared_ptr<sf::Texture> texture;
 	sf::Sprite sprite;
 	int spriteCoordX;
 	int spriteCoordY;
@@ -25,7 +26,7 @@ public:
 
 	//GET
 	sf::Texture *getTexture() const {
-		return texture;
+		return texture.get();
 	}
 
 	sf::Sprite getSprite() const {

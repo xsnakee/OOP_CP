@@ -4,6 +4,7 @@ class Npc_t :
 	public character_t
 {
 	sf::Vector2f spotCoords;
+	sf::Vector2f spawnCoords;
 	int spawnDistance;
 
 	float moveRadius;

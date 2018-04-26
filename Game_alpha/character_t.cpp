@@ -108,6 +108,7 @@ float character_t::takeDamage(float _dmg, bool _dmgType) {
 	if (alive) {
 		float tempDmg = (_dmgType) ? (abs(_dmg) - abs(stat.physDef)) : (abs(_dmg) - abs(stat.magDef));
 		stat.HP -= tempDmg;
+		std::cout << tempDmg << " Dmg" << std::endl;
 		return tempDmg;
 	}
 	return 0.f;
