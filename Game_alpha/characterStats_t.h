@@ -25,6 +25,7 @@ struct characterStats_t
 	float damageRand = 5.f;
 
 	float attackRange = 20.f;
+	float visionDistance = 100.f;
 
 	void resetStats() {
 		HP = stdHP = MP = stdMP = atackPower = 
