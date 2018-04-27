@@ -18,7 +18,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	targetCoords = _targetCoords; 
 
 
-	stat.speed = 0.001f;
+	stat.speed = 0.1f;
 	stat.range = 200.0f;
 
 	stat.damage = getRand(-40.f, 50.f);// 20.0f;
@@ -48,8 +48,8 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	//CALC DISTANCE SPEED ERROR 
 	float k = vectorLength / stat.range;
-	distanceX /= k;
-	distanceY /= k;
+	distanceX /= k*100;
+	distanceY /= k*100;
 
 	//SET SPEED
 	dX = distanceX * stat.speed;
