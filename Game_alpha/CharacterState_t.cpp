@@ -1,5 +1,5 @@
 #include "CharacterState_t.h"
-
+#include <iostream>
 
 CharacterState_t::CharacterState_t()
 {
@@ -65,7 +65,7 @@ void CharacterStateMove_t::Action(std::list<std::unique_ptr<character_t>> &charL
 	float distanceX = tempSpawntVector.x - mainCharacter->getPosX();
 	float distanceY = tempSpawntVector.y - mainCharacter->getPosY();
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
-
+	std::cout << 1 << std::endl;
 	if (leaveFromSpot()) {
 		setTargetCoords(tempSpawntVector);
 	}
@@ -75,16 +75,16 @@ void CharacterStateMove_t::Action(std::list<std::unique_ptr<character_t>> &charL
 			if ((mainCharacter->getFraction() != i.get()->getFraction()) && (mainCharacter->checkEnemy(i.get()))) {
 				targetCoords = i.get()->getCoords();
 				mainCharacter->changeState(new CharacterStateFolow_t(*this));
-				delete this;
-				return;
 			}
 		}
-
+		/*
 		float  kX = distanceX / abs(distanceX);
 		float  kY = distanceY / abs(distanceY);
 
 		mainCharacter->setdX(kX * mainCharacter->getStats().speed);
-		mainCharacter->setdY(kY * mainCharacter->getStats().speed);
+		mainCharacter->setdY(kY * mainCharacter->getStats().speed);*/
+		mainCharacter->setdX(0.1f);
+		mainCharacter->setdY(0.1f);
 	}	
 }
 
@@ -113,17 +113,14 @@ void CharacterStateFolow_t::Action(std::list<std::unique_ptr<character_t>> &char
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 	float visionMultiple = 2.f;
 
+	std::cout << 2 << std::endl;
 	if (leaveFromSpot() || (vectorLength > mainCharacter->getStats().visionDistance * visionMultiple)) {
 		mainCharacter->changeState(new CharacterStateMove_t(*this));
-		delete this;
-		return;
 	}
 	else {
 
 		if (vectorLength < mainCharacter->getStats().attackRange) {
 			mainCharacter->changeState(new CharacterStateAttack_t(*this));
-			delete this;
-			return;
 		}
 
 		float  kX = distanceX / abs(distanceX);
@@ -151,6 +148,7 @@ CharacterStateAttack_t::~CharacterStateAttack_t()
 {
 }
 void CharacterStateAttack_t::Action(std::list<std::unique_ptr<character_t>> &charList) {
+	std::cout << 3<< std::endl;
 }
 
 void CharacterStateAttack_t::Action(std::list<bullet_t*> &obList) {

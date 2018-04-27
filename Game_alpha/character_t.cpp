@@ -72,7 +72,6 @@ void character_t::update(float _speed) {
 	if (alive) {
 
 		physOb_t::update(_speed);
-
 		updateFrame();
 		animation();
 	}
@@ -165,5 +164,6 @@ bool character_t::checkEnemy(character_t *ob) {
 
 
 void character_t::changeState(CharacterState_t *newState) {
+	state.reset();
 	state = std::unique_ptr<CharacterState_t>(newState);
 }

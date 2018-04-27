@@ -47,6 +47,7 @@ public:
 	void checkAlive();
 	void collisionEngine();
 	void bulletEngine();
+	void charsAction();
 	void observeEnemys();
 
 	void addOb(physOb_t *);

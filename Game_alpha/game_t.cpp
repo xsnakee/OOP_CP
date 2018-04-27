@@ -38,9 +38,13 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	generateMapTiles(map.groundTilesList);
 
 	using namespace animation;
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1900.f, 1900.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
-	mainHero = charactersList.begin();	
-
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1800.f, 1800.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	mainHero = charactersList.begin();
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1800.f, 1800.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	++mainHero;
+	(*mainHero)->changeState(new CharacterStateMove_t((*mainHero).get()));
+	(*mainHero)->setFraction(-2);
+	--mainHero;
 }
 
 	
@@ -59,6 +63,7 @@ void game_t::update() {
 	checkAlive();
 	bulletEngine();
 	collisionEngine();
+	charsAction();
 
 	for (auto &character : charactersList) {
 		(character)->update(speed);
@@ -72,6 +77,12 @@ void game_t::update() {
 	setCamera();//set Camera
 	window->setView(*view); // Set camera
 	cursor->setCursorPosition();
+}
+
+void game_t::charsAction() {
+	for (auto &i : charactersList) {
+		i.get()->getState()->Action(charactersList);
+	}
 }
 
 void game_t::draw() {
@@ -181,21 +192,6 @@ void game_t::collisionEngine() {
 		}
 	}
 }
-/*
-void game_t::observeEnemys() {
-
-	for (auto &i : charactersList) {
-		if (i != (*mainHero)) {
-			for (auto &j : charactersList) {
-				if ((i->getFraction() != j->getFraction()) && (i->checkEnemy(j.get()))) {
-					i->setTargetCoords(sf::Vector2f(j->getCoords()));
-				}
-			}
-		}
-	}
-
-}
-*/
 
 void game_t:: addOb(physOb_t *bullet) {
 	obList.push_back(bullet);
