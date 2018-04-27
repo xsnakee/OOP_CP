@@ -38,7 +38,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	generateMapTiles(map.groundTilesList);
 
 	using namespace animation;
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1900.f, 1900.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();	
 
 }
@@ -107,7 +107,8 @@ void game_t::keyController(sf::Event &event) {
 	
 	//ATACK CONTROLLER
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		bulletsList.push_back(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition()));
+		bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition())));
+
 	}
 
 }
@@ -132,11 +133,11 @@ void game_t::checkAlive() {
 		
 	}
 
-	std::list<bullet_t*>::iterator tempOb = bulletsList.begin();
+	
+	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = bulletsList.begin();
 	for (auto &bullet : bulletsList) {
 		bullet->checkAlive();
 		if (!bullet->getAlive()) {
-			delete (bullet);
 			bulletsList.erase(tempOb);
 		}
 
@@ -148,8 +149,7 @@ void game_t::checkAlive() {
 void game_t::bulletEngine() {
 
 	// Bullet collision
-	std::list<bullet_t*>::iterator bullet = bulletsList.begin();
-	for (auto *outerElement : bulletsList) {
+	for (auto &outerElement : bulletsList) {
 		for (auto &innerElement : obList) {
 			if (outerElement->checkCollision(*innerElement)) {
 				outerElement->collisionHandler(*innerElement, speed);
@@ -161,8 +161,6 @@ void game_t::bulletEngine() {
 
 			}
 		}
-
-		++bullet;
 	}
 }
 

@@ -31,7 +31,7 @@ private:
 	std::list<std::unique_ptr <Npc_t>> npcList;
 
 	std::list<physOb_t*> obList;
-	std::list<bullet_t*> bulletsList;
+	std::list<std::unique_ptr <bullet_t>> bulletsList;
 	std::list<ground_t*> mapTilesList;
 public:
 	
