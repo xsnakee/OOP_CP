@@ -19,13 +19,15 @@ protected:
 	sf::Int32 cooldown;
 
 	float frame;
-public:
+	sf::Vector2f targetCoords;
 
+protected:
 
 	character_t();
 	character_t(float _x, float _y);
 	character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height);
 	character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height);
+public:
 	virtual ~character_t();
 
 
@@ -36,6 +38,7 @@ public:
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
+	virtual bool checkEnemy(character_t *ob) = 0;
 	//virtual bool move();
 
 	bool kill();
@@ -45,7 +48,6 @@ public:
 	float toHit ()const;
 
 public:
-	void setStats(characterStats_t &_stats);
 
 	characterStats_t getStats();
 
@@ -53,9 +55,20 @@ public:
 		return frame;
 	}
 
+	sf::Vector2f getTargetCoords() const {
+		return targetCoords;
+	}
+
+
 	float setFrame(float _frame) {
 		frame = _frame;
 		return frame;
 	}
+	sf::Vector2f setTargetCoords(sf::Vector2f _targetCoords) {
+		targetCoords = _targetCoords;
+		return targetCoords;
+	}
+
+	void setStats(characterStats_t &_stats);
 };
 

@@ -92,6 +92,11 @@ public:
 	virtual sf::Int32 getTimer()const {
 		return std::numeric_limits<sf::Int32>::max();
 	}
+
+	sf::Vector2f getCoords() const {	
+		return sf::Vector2f (posX, posY);
+	}
+
 	//SET
 	float setPosX(float _x){
 		posX = _x;

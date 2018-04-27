@@ -40,6 +40,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	using namespace animation;
 	charactersList.push_back(std::unique_ptr <character_t>(new player_t(600.f, 600.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();	
+
 }
 
 	
@@ -182,7 +183,21 @@ void game_t::collisionEngine() {
 		}
 	}
 }
+/*
+void game_t::observeEnemys() {
 
+	for (auto &i : charactersList) {
+		if (i != (*mainHero)) {
+			for (auto &j : charactersList) {
+				if ((i->getFraction() != j->getFraction()) && (i->checkEnemy(j.get()))) {
+					i->setTargetCoords(sf::Vector2f(j->getCoords()));
+				}
+			}
+		}
+	}
+
+}
+*/
 
 void game_t:: addOb(physOb_t *bullet) {
 	obList.push_back(bullet);

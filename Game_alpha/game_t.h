@@ -5,6 +5,7 @@
 #include <list>
 #include "character_t.h"
 #include "player_t.h"
+#include "Npc_t.h"
 #include "map_t.h"
 #include "bullet_t.h"
 #include "additional.h"
@@ -27,6 +28,7 @@ private:
 
 	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
+	std::list<std::unique_ptr <Npc_t>> npcList;
 
 	std::list<physOb_t*> obList;
 	std::list<bullet_t*> bulletsList;
@@ -45,6 +47,7 @@ public:
 	void checkAlive();
 	void collisionEngine();
 	void bulletEngine();
+	void observeEnemys();
 
 	void addOb(physOb_t *);
 	void addChar(character_t *);

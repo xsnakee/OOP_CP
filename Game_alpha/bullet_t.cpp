@@ -15,10 +15,10 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	startTime = _startTime;
 	timer = 4000;
 
-	targetCoords = _targetCoords; \
+	targetCoords = _targetCoords; 
 
 
-		stat.speed = 0.001f;
+	stat.speed = 0.001f;
 	stat.range = 200.0f;
 
 	stat.damage = getRand(-40.f, 50.f);// 20.0f;
