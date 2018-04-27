@@ -83,6 +83,10 @@ public:
 		targetCoords = _targetCoords;
 		return targetCoords;
 	}
+	
+	CharacterState_t *getState() const {
+		return state.get();
+	}
 
 	void setStats(characterStats_t &_stats);
 };
