@@ -144,6 +144,26 @@ bool character_t::checkCollision(physOb_t &Object, float _borderError) {
 
 
 	return false;
+}
 
-	//return physOb_t::checkCollision(Object, _borderError);
+
+
+
+bool character_t::checkEnemy(character_t *ob) {
+
+
+	float distanceX = ob->getPosX() - posX;
+	float distanceY = ob->getPosY() - posY;
+	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
+	if (vectorLength < stat.visionDistance) {
+		return true;
+	}
+
+	return false;
+}
+
+
+void character_t::changeState(CharacterState_t *newState) {
+	state = std::unique_ptr<CharacterState_t>(newState);
 }

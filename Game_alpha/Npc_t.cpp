@@ -11,13 +11,16 @@ Npc_t::Npc_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY
 {
 	spotCoords = sf::Vector2f(_x,_y);
 	spawnCoords = spotCoords;
-	spawnDistance = 0;
+	spawnDistance = 0.f;
 	moveRadius = 0.f;
 	powerMultiple = _statMultiple;
 	setPowerMultiple(powerMultiple);
 }
 
 
+
 Npc_t::~Npc_t()
 {
+	
 }
+

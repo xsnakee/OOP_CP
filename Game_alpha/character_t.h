@@ -3,15 +3,20 @@
 #include <SFML\Graphics.hpp>
 
 #include "characterStats_t.h"
+#include "CharacterState_t.h"
 #include "physOb_t.h"
 #include "skills_t.h"
 #include "additional.h"
+
+class CharacterState_t;
 
 class character_t : public physOb_t
 {
 
 protected:
 	characterStats_t stat;
+	std::unique_ptr<CharacterState_t> state;
+
 	skills_t *skill;
 
 	sf::Int32 timer;
@@ -30,6 +35,7 @@ protected:
 public:
 	virtual ~character_t();
 
+	void changeState(CharacterState_t *newState);
 
 	void defaultStats();
 	virtual void controller(sf::Event) = 0;
@@ -38,7 +44,7 @@ public:
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
-	virtual bool checkEnemy(character_t *ob) = 0;
+	virtual bool checkEnemy(character_t *ob);
 	//virtual bool move();
 
 	bool kill();
@@ -59,6 +65,15 @@ public:
 		return targetCoords;
 	}
 
+	sf::Vector2f getSpotCoords() const {
+		return sf::Vector2f(posX,posY);
+	}
+	sf::Vector2f getSpawnCoords() const {
+		return sf::Vector2f(posX, posY);
+	}
+	float getMoveRadius() const {
+		return 0.f;
+	}
 
 	float setFrame(float _frame) {
 		frame = _frame;

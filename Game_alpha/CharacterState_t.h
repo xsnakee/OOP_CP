@@ -1,33 +1,103 @@
 #pragma once
 
 #include "character_t.h"
+#include "bullet_t.h"
 #include <list>
 #include <memory>
 
+class character_t;
 
 class CharacterState_t
 {
-	character_t *mainCharacter;
-	std::shared_ptr<character_t> targetOb;
+protected:
 	int stateNum;
+	character_t *mainCharacter;
+	sf::Vector2f targetCoords;
+
+	CharacterState_t();
+	CharacterState_t(character_t *_targetOb);
+	CharacterState_t(CharacterState_t &_state);
 
 public:
-	CharacterState_t(character_t *_targetOb);
-	virtual ~CharacterState_t();
 
-	character_t *getTargetObPtr()const {
-		return targetOb.get();
+	virtual ~CharacterState_t();
+	virtual void Action(std::list<std::unique_ptr<character_t>> &charList) = 0;
+	
+	bool leaveFromSpot();
+
+
+
+
+	character_t *getCharacterPtr() const {
+		return mainCharacter;
 	}
 
 	int getStateNum() const {
 		return stateNum;
 	}
+	sf::Vector2f getTargetCoords() const {
+		return targetCoords;
+	}
 
-
-
-	virtual void Action(std::list<std::unique_ptr<character_t>> &charList) = 0;
-	virtual void changeState(CharacterState_t *_state) = 0;
-	bool leaveFromSpot();
+	sf::Vector2f setTargetCoords(sf::Vector2f _targetCoords) {
+		targetCoords = _targetCoords;
+		return targetCoords;
+	}
 
 };
 
+
+
+
+class CharacterStateMove_t :
+	public CharacterState_t
+{
+public:
+	CharacterStateMove_t(character_t *__mainCharacter);
+	CharacterStateMove_t(CharacterState_t &_state);
+	virtual ~CharacterStateMove_t();
+
+	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+};
+
+
+
+class CharacterStateFolow_t :
+	public CharacterState_t
+{
+public:
+	CharacterStateFolow_t(character_t *__mainCharacter);
+	CharacterStateFolow_t(CharacterState_t &_state);
+	virtual ~CharacterStateFolow_t();
+
+	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+};
+
+
+
+
+class CharacterStateAttack_t :
+	public CharacterState_t
+{
+public:
+	CharacterStateAttack_t(character_t *__mainCharacter);
+	CharacterStateAttack_t(CharacterState_t &_state);
+	virtual ~CharacterStateAttack_t();
+
+	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+	void Action(std::list<bullet_t*> &obList);
+};
+
+
+//PLAYER
+
+class CharacterPlayerControll_t :
+	public CharacterState_t
+{
+public:
+	CharacterPlayerControll_t(character_t *__mainCharacter);
+	virtual ~CharacterPlayerControll_t();
+
+	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+};
+//*/

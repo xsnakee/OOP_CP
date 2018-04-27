@@ -1,11 +1,14 @@
 #pragma once
 #include "character_t.h"
+
+
 class Npc_t :
 	public character_t
 {
+protected:
 	sf::Vector2f spotCoords;
 	sf::Vector2f spawnCoords;
-	int spawnDistance;
+	float spawnDistance;
 
 	float moveRadius;
 	float powerMultiple;
@@ -19,6 +22,9 @@ public:
 	sf::Vector2f getSpotCoords() const{
 		return spotCoords;
 	}
+	sf::Vector2f getSpawnCoords() const {
+		return spawnCoords;
+	}
 
 	float getMoveRadius() const {
 		return moveRadius;
@@ -28,10 +34,14 @@ public:
 		return powerMultiple;
 	}
 
+	float getSpawnDistance() const {
+		return spawnDistance;
+	}
 
 	float setPowerMultiple(float _mult) {
 		stat.statMiltipler(_mult);
 		return powerMultiple;
 	}
+	
 };
 
