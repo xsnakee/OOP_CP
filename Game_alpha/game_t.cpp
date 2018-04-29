@@ -40,7 +40,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	using namespace animation;
 	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1800.f, 1800.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1800.f, 1800.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1900.f, 1900.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	++mainHero;
 	(*mainHero)->changeState(new CharacterStateMove_t((*mainHero).get()));
 	(*mainHero)->setFraction(-2);

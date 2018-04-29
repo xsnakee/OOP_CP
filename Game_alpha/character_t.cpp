@@ -9,7 +9,8 @@ character_t::character_t():physOb_t()
 	frame = .0f;
 	direction = animation::BOTTOM;
 	fraction = 1;
-	targetCoords = sf::Vector2f(getPosX(), getPosY());
+	targetCoords = sf::Vector2f(0.f,0.f);
+	spawnCoords = sf::Vector2f(0.f, 0.f);
 
 }
 
@@ -19,7 +20,8 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
 	frame = .0f;
 	direction = animation::BOTTOM;
 	fraction = 1;
-	targetCoords = sf::Vector2f(getPosX(), getPosY());
+	targetCoords = sf::Vector2f(_x, _y);
+	spawnCoords = sf::Vector2f(_x, _y);
 }
 
 //*
@@ -29,7 +31,8 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	frame = .0f;
 	direction = animation::BOTTOM;
 	fraction = 1;
-	targetCoords = sf::Vector2f(getPosX(), getPosY());
+	targetCoords = sf::Vector2f(_x, _y);
+	spawnCoords = sf::Vector2f(_x, _y);
 }
 
 character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height) {
@@ -38,7 +41,8 @@ character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX,
 	frame = .0f;
 	direction = animation::BOTTOM;
 	fraction = 1;
-	targetCoords = sf::Vector2f(getPosX(), getPosY());
+	targetCoords = sf::Vector2f(_x, _y);
+	spawnCoords = sf::Vector2f(_x, _y);
 }
 
 

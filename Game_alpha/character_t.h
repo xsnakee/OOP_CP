@@ -25,6 +25,7 @@ protected:
 
 	float frame;
 	sf::Vector2f targetCoords;
+	sf::Vector2f spawnCoords;
 
 protected:
 
@@ -66,13 +67,14 @@ public:
 	}
 
 	sf::Vector2f getSpotCoords() const {
-		return sf::Vector2f(posX,posY);
+		return sf::Vector2f(1800.f,1800.f);
 	}
+
 	sf::Vector2f getSpawnCoords() const {
-		return sf::Vector2f(posX, posY);
+		return spawnCoords;
 	}
 	float getMoveRadius() const {
-		return 0.f;
+		return 300.f;
 	}
 
 	float setFrame(float _frame) {

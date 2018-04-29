@@ -7,8 +7,7 @@ class Npc_t :
 {
 protected:
 	sf::Vector2f spotCoords;
-	sf::Vector2f spawnCoords;
-	float spawnDistance;
+	float spawnRandomDistance;
 
 	float moveRadius;
 	float powerMultiple;
@@ -16,14 +15,12 @@ protected:
 public:
 	Npc_t();
 	Npc_t(sf::Texture *_texture,float  _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple = 1.f);
+	Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, float _multiple, float _moveRadius, int _spawnRandDist = 0);
 	virtual ~Npc_t();
 
 
 	sf::Vector2f getSpotCoords() const{
 		return spotCoords;
-	}
-	sf::Vector2f getSpawnCoords() const {
-		return spawnCoords;
 	}
 
 	float getMoveRadius() const {
@@ -35,7 +32,7 @@ public:
 	}
 
 	float getSpawnDistance() const {
-		return spawnDistance;
+		return spawnRandomDistance;
 	}
 
 	float setPowerMultiple(float _mult) {

@@ -12,6 +12,7 @@ class CharacterState_t
 protected:
 	int stateNum;
 	character_t *mainCharacter;
+	character_t *targetCharacter;
 	sf::Vector2f targetCoords;
 
 	CharacterState_t();
@@ -31,7 +32,9 @@ public:
 	character_t *getCharacterPtr() const {
 		return mainCharacter;
 	}
-
+	character_t *getTargetCharacterPtr()const {
+		return targetCharacter;
+	}
 	int getStateNum() const {
 		return stateNum;
 	}
