@@ -15,6 +15,8 @@ protected:
 	character_t *targetCharacter;
 	sf::Vector2f targetCoords;
 
+	float moveXdistanceFromSpawn;
+
 	CharacterState_t();
 	CharacterState_t(character_t *_targetOb);
 	CharacterState_t(CharacterState_t &_state);
@@ -23,8 +25,9 @@ public:
 
 	virtual ~CharacterState_t();
 	virtual void Action(std::list<std::unique_ptr<character_t>> &charList) = 0;
-	
+
 	bool leaveFromSpot();
+	void reversXTrajectory();
 
 
 

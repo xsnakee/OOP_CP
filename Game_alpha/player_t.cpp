@@ -8,6 +8,7 @@ player_t::player_t() :character_t()
 	startKeyPressTime = 0;
 	elemStatus = 0;
 	fraction = 0;
+	collision = true;
 }
 
 
@@ -19,6 +20,7 @@ player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _c
 	startKeyPressTime = 0;
 	clock = _clock;
 	fraction = 0;
+	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
 }
 //*/

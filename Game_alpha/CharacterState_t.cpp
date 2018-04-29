@@ -14,6 +14,7 @@ CharacterState_t::CharacterState_t(character_t *__mainCharacter)
 	targetCharacter = nullptr;
 	stateNum = 0;
 	targetCoords = mainCharacter->getSpawnCoords();
+	moveXdistanceFromSpawn = 200.f;
 }
 
 CharacterState_t::CharacterState_t(CharacterState_t &_state)
@@ -22,6 +23,7 @@ CharacterState_t::CharacterState_t(CharacterState_t &_state)
 	targetCharacter = _state.getTargetCharacterPtr();
 	stateNum = _state.stateNum;
 	targetCoords = _state.targetCoords;
+	moveXdistanceFromSpawn = _state.moveXdistanceFromSpawn;
 }
 
 CharacterState_t::~CharacterState_t()
@@ -42,6 +44,9 @@ bool CharacterState_t::leaveFromSpot() {
 	return false;
 }
 
+void CharacterState_t::reversXTrajectory() {
+	moveXdistanceFromSpawn = -moveXdistanceFromSpawn;
+}
 
 
 
@@ -62,21 +67,14 @@ CharacterStateMove_t::~CharacterStateMove_t()
 }
 
 void CharacterStateMove_t::Action(std::list<std::unique_ptr<character_t>> &charList) {
-	sf::Vector2f tempSpawntVector = mainCharacter->getSpawnCoords();
+	sf::Vector2f tempSpawntVector = targetCoords;
 
-	float distanceX = tempSpawntVector.x - mainCharacter->getPosX();
-	float distanceY = tempSpawntVector.y - mainCharacter->getPosY();
+	float distanceX = targetCoords.x - mainCharacter->getPosX();
+	float distanceY = targetCoords.y - mainCharacter->getPosY();
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
 	std::cout << 1 << std::endl;
-	if (leaveFromSpot()) {
-		setTargetCoords(tempSpawntVector);
-		targetCoords = tempSpawntVector;
-		targetCharacter = nullptr;
-	}
-	else {
 
-
-		targetCoords = tempSpawntVector;
 		for (auto &i : charList) {
 			if ((mainCharacter->getFraction() != i.get()->getFraction()) && (mainCharacter->checkEnemy(i.get()))) {
 				targetCharacter = i.get();
@@ -84,23 +82,24 @@ void CharacterStateMove_t::Action(std::list<std::unique_ptr<character_t>> &charL
 				mainCharacter->changeState(new CharacterStateFolow_t(*this));
 			}
 		}
-		
-		float distanceXToTarget = targetCoords.x - mainCharacter->getPosX();
-		float distanceYToTarget = targetCoords.y - mainCharacter->getPosY();
-		float vectorLengthToTarget = sqrt(pow(distanceXToTarget, 2) + pow(distanceYToTarget, 2));
 
-		if (vectorLengthToTarget > 1.f ) {
+		if (vectorLength > 1.f ) {
 
 			std::cout << mainCharacter->getPosX() << " " << mainCharacter->getPosY() << std::endl;
 			float  kX = distanceX / abs(distanceX);
 			float  kY = distanceY / abs(distanceY);
-
-			mainCharacter->setdX(kX);// *mainCharacter->getStats().speed);
-			mainCharacter->setdY(kY);// *mainCharacter->getStats().speed);
+			if (abs(kX) > FLT_EPSILON) {
+				mainCharacter->setdX(kX * mainCharacter->getStats().speed);
+			}
+			if (abs(kY) > FLT_EPSILON) {
+				mainCharacter->setdY(kY * mainCharacter->getStats().speed);
+			}
 		}
-		//mainCharacter->setdX(0.1f);
-		//mainCharacter->setdY(0.1f);
-	}	
+
+		if (leaveFromSpot()) {
+			setTargetCoords(mainCharacter->getSpawnCoords());
+			targetCharacter = nullptr;
+		}
 }
 
 //CHARACTER STATE FOLOW
@@ -143,11 +142,16 @@ void CharacterStateFolow_t::Action(std::list<std::unique_ptr<character_t>> &char
 			mainCharacter->changeState(new CharacterStateAttack_t(*this));
 		}
 
-		float  kX = distanceX / abs(distanceX);
-		float  kY = distanceY / abs(distanceY);
+		float  kX = (distanceX / abs(distanceX)) * mainCharacter->getStats().speed;
+		float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
 
-		mainCharacter->setdX(kX * mainCharacter->getStats().speed);
-		mainCharacter->setdY(kY * mainCharacter->getStats().speed);
+		
+		if (abs(distanceX) > mainCharacter->getWidth()/2) {
+			if (abs(kX) > FLT_EPSILON) mainCharacter->setdX(kX);
+		} else 
+		if (abs(distanceY) > mainCharacter->getHeight() / 2) {
+			if (abs(kY) > FLT_EPSILON) mainCharacter->setdY(kY);
+		}
 	}
 }
 

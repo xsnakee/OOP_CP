@@ -8,6 +8,7 @@ character_t::character_t():physOb_t()
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	collision = false;
 	fraction = 1;
 	targetCoords = sf::Vector2f(0.f,0.f);
 	spawnCoords = sf::Vector2f(0.f, 0.f);
@@ -19,6 +20,7 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	collision = false;
 	fraction = 1;
 	targetCoords = sf::Vector2f(_x, _y);
 	spawnCoords = sf::Vector2f(_x, _y);
@@ -30,6 +32,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	collision = false;
 	fraction = 1;
 	targetCoords = sf::Vector2f(_x, _y);
 	spawnCoords = sf::Vector2f(_x, _y);
@@ -40,6 +43,7 @@ character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX,
 	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	collision = false;
 	fraction = 1;
 	targetCoords = sf::Vector2f(_x, _y);
 	spawnCoords = sf::Vector2f(_x, _y);
