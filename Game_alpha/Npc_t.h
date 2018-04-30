@@ -7,7 +7,8 @@ class Npc_t :
 {
 protected:
 	sf::Vector2f spotCoords;
-	float spawnRandomDistance;
+	float spawnRandomDistanceX;
+	float spawnRandomDistanceY;
 
 	float moveRadius;
 	float powerMultiple;
@@ -15,9 +16,12 @@ protected:
 public:
 	Npc_t();
 	Npc_t(sf::Texture *_texture,float  _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple = 1.f);
-	Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, float _multiple, float _moveRadius, int _spawnRandDist = 0);
+	Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, float _multiple, float randDistX, float randDistY);
 	virtual ~Npc_t();
 
+	virtual void controller(sf::Event);
+	virtual bool checkKeyCd(sf::Clock *clock) ;
+	virtual bool attack(float _x, float _y);
 
 	sf::Vector2f getSpotCoords() const{
 		return spotCoords;
@@ -31,13 +35,22 @@ public:
 		return powerMultiple;
 	}
 
-	float getSpawnDistance() const {
-		return spawnRandomDistance;
+	sf::Vector2f getSpawnDistance() const {
+		return sf::Vector2f(spawnRandomDistanceX,spawnRandomDistanceY);
 	}
 
 	float setPowerMultiple(float _mult) {
 		stat.statMiltipler(_mult);
 		return powerMultiple;
+	}
+
+	float setSpawnDistanceX(float _dist) {
+		spawnRandomDistanceX = _dist;
+		return spawnRandomDistanceX;
+	}
+	float setSpawnDistanceY(float _dist) {
+		spawnRandomDistanceY = _dist;
+		return spawnRandomDistanceY;
 	}
 	
 };

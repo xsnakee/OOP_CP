@@ -33,6 +33,8 @@ protected:
 	character_t(float _x, float _y);
 	character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height);
 	character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height);
+	character_t(sf::Texture *_texture, float _x, float _y);
+
 public:
 	virtual ~character_t();
 
@@ -41,6 +43,7 @@ public:
 	void defaultStats();
 	virtual void controller(sf::Event) = 0;
 	virtual bool checkKeyCd(sf::Clock *clock) = 0;
+
 	virtual bool attack(float _x, float _y) = 0;
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);

@@ -49,6 +49,15 @@ character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX,
 	spawnCoords = sf::Vector2f(_x, _y);
 }
 
+character_t::character_t(sf::Texture *_texture, float _x, float _y) : physOb_t(_x, _y) {
+	destroyble = true;
+	skill = nullptr;
+	frame = .0f;
+	direction = animation::BOTTOM;
+	collision = false;
+	targetCoords = sf::Vector2f(_x, _y);
+	spawnCoords = sf::Vector2f(_x, _y);
+}
 
 //*/
 character_t::~character_t()
