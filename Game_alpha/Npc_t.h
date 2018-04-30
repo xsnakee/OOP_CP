@@ -16,7 +16,7 @@ protected:
 public:
 	Npc_t();
 	Npc_t(sf::Texture *_texture,float  _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple = 1.f);
-	Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, float _multiple, float randDistX, float randDistY);
+	Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY);
 	virtual ~Npc_t();
 
 	virtual void controller(sf::Event);

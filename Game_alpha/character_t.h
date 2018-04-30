@@ -33,7 +33,6 @@ protected:
 	character_t(float _x, float _y);
 	character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height);
 	character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height);
-	character_t(sf::Texture *_texture, float _x, float _y);
 
 public:
 	virtual ~character_t();

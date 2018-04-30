@@ -20,8 +20,9 @@ Npc_t::Npc_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY
 
 //REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-Npc_t::Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, float _multiple, float randDistX, float randDistY) :character_t(texture, _spotCoords.x, _spotCoords.y)
-{
+Npc_t::Npc_t(sf::Texture *_texture, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY) :
+	character_t(_texture, _spotCoords.x, _spotCoords.y, _coordX, _coordY, _width, _height)
+{	
 	spotCoords = _spotCoords;
 
 
@@ -31,7 +32,7 @@ Npc_t::Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, float _multiple, fl
 	spawnCoords.x = spotCoords.x + spawnRandomDistanceX;
 	spawnCoords.y = spotCoords.y + spawnRandomDistanceY;
 
-	moveRadius = moveRadius;
+	moveRadius = 0.f;
 	powerMultiple = _multiple;
 	setPowerMultiple(powerMultiple);
 }

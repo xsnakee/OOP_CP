@@ -26,7 +26,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 
 	cursor = new cursor_t("img/cursor_aim.png",20,20, window);
 
-	speedMultipple = 900.f; //formula (gameSpped = time/speedMultipple)
+	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
 	
 	
@@ -40,7 +40,12 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	using namespace animation;
 	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1700.f, 1700.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1800.f, 1800.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	sf::Texture *temp = new sf::Texture;
+
+	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
+
+	charactersList.push_back(std::unique_ptr <character_t>(new Npc_t(temp,sf::Vector2f(1800.f, 1800.f), SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, 10.f, 10.f)));
+
 	++mainHero;
 	(*mainHero)->changeState(new CharacterStateMove_t((*mainHero).get()));
 	(*mainHero)->setFraction(-2);
@@ -180,12 +185,12 @@ void game_t::bulletEngine() {
 void game_t::collisionEngine() {
 	float characterBorderError = 10.f;
 	for (auto &outerElement : charactersList) {
-
+		/*
 		for (auto &innerElement : charactersList) {
 			if ((outerElement != innerElement) && (outerElement->checkCollision(*innerElement.get()))) {
 				outerElement->collisionHandler(*innerElement.get(), speed);
 			}
-		}
+		}*/
 		for (auto &innerElement : obList) {
 			if (outerElement->checkCollision(*innerElement,characterBorderError/2)) {
 				outerElement->collisionHandler(*innerElement, speed);
