@@ -185,7 +185,8 @@ void game_t::bulletEngine() {
 		for (auto &innerElement : charactersList) {
 			if ((outerElement->checkCollision(*innerElement.get()))) {
 				outerElement->collisionHandler(*innerElement.get(), speed);
-
+				innerElement.get()->setTargetCoords(outerElement.get()->getGenericObject()->getCoords());
+				//innerElement.get()->getState()->setTargetCharacter((outerElement.get()->getGenericObject()));
 			}
 		}
 	}

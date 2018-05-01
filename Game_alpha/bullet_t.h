@@ -2,6 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "physOb_t.h"
+//#include "character_t.h"
 #include "additional.h"
 
 struct bulletStats{
