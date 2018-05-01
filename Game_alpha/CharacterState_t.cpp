@@ -86,7 +86,6 @@ void CharacterStateMove_t::Action() {
 	}
 
 		if (vectorLength > 1.f ) {
-
 			float  kX = (distanceX / abs(distanceX)) * mainCharacter->getStats().speed;
 			float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
 			
@@ -98,13 +97,9 @@ void CharacterStateMove_t::Action() {
 					if (abs(kY) > FLT_EPSILON) mainCharacter->setdY(kY);
 			}
 			else {
+				targetCharacter = nullptr;
 				readyToFight = true;
 			}
-		}
-
-		if (leaveFromSpot()) {
-			mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
-			targetCharacter = nullptr;
 		}
 }
 
@@ -128,13 +123,11 @@ CharacterStateFolow_t::~CharacterStateFolow_t()
 
 void CharacterStateFolow_t::Action() 
 {
-
-	mainCharacter->setTargetCoords(targetCharacter->getCoordsOfCenter());
 	float distanceX = targetCharacter->getCoordsOfCenter().x - mainCharacter->getCoordsOfCenter().x;
 	float distanceY = targetCharacter->getCoordsOfCenter().y - mainCharacter->getCoordsOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	if (leaveFromSpot() ||  (vectorLength > mainCharacter->getStats().visionDistance )) {
+	if (leaveFromSpot() ) {//||  (vectorLength > mainCharacter->getStats().visionDistance )
 		mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
 		mainCharacter->changeState(new CharacterStateMove_t(*this));
 	}
@@ -179,16 +172,14 @@ void CharacterStateAttack_t::Action() {
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 	float visionMultiple = 2.f;
 
-	mainCharacter->setTargetCoords(targetCharacter->getCoords());
 
 	if (vectorLength > mainCharacter->getStats().visionDistance) {
-			mainCharacter->changeState(new CharacterStateMove_t(*this));
+		mainCharacter->changeState(new CharacterStateMove_t(*this));
 	}
 	else if (vectorLength > mainCharacter->getStats().attackRange){
 		mainCharacter->changeState(new CharacterStateFolow_t(*this));
 	}
 	else {
-		//std::cout << "So attacK!!!" << std::endl;
 		mainCharacter->attack();
 	}
 }

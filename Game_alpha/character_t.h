@@ -20,7 +20,7 @@ protected:
 	sf::Clock *clock;
 	characterTimers_t timer;
 
-	skills_t *skill;
+	//skills_t *skill;
 
 	float frame;
 	sf::Vector2f targetCoords;

@@ -4,7 +4,7 @@ bullet_t::bullet_t():physOb_t()
 {
 }
 
-bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getPosX() + genObj->getWidth() / 2, genObj->getPosY() + genObj->getHeight() / 2) {
+bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getCoordsOfCenter().x, genObj->getCoordsOfCenter().y) {
 
 
 	genericObject = genObj;

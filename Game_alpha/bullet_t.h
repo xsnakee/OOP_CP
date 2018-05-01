@@ -2,9 +2,9 @@
 
 #include <SFML\Graphics.hpp>
 #include "physOb_t.h"
-//#include "character_t.h"
+#include "character_t.h"
 #include "additional.h"
-
+class character_t;
 struct bulletStats{
 	float speed;
 	float damage;
@@ -20,7 +20,7 @@ class bullet_t:public physOb_t
 private:
 	sf::Clock *clock;
 	bulletStats stat;
-	physOb_t *genericObject;
+	character_t *genericObject;
 	
 
 	sf::Int32 startTime;
@@ -35,7 +35,7 @@ private:
 	float vectorLength;
 public:
 	bullet_t();
-	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords);
+	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords);
 	virtual ~bullet_t();
 
 
@@ -46,7 +46,7 @@ public:
 public:
 
 	//GET
-	physOb_t * getGenericObject()const {
+	character_t *getGenericObject()const {
 		return genericObject;
 	}
 

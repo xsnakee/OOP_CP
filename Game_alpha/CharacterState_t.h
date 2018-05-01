@@ -6,6 +6,7 @@
 #include <memory>
 
 class character_t;
+class bullet_t;
 
 class CharacterState_t
 {
