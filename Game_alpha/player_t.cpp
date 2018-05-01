@@ -104,7 +104,7 @@ bool player_t::addElement(elements::element _elem) {
 }
 
 size_t player_t::generateSkill() {
-
+	return 0;
 }
 
 bool player_t::checkKeyCd(sf::Clock *clock) {

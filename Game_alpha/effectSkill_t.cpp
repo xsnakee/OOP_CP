@@ -49,6 +49,7 @@ bool effectSkill_t::update() {
 		target->defaultStats();
 	}
 
+	return true;
 }
 
 bool  effectSkill_t::checkTimer(sf::Clock *time) {
