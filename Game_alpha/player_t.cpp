@@ -30,48 +30,6 @@ void player_t::update(float _speed) {
 
 }
 
-void player_t::controller(sf::Event) {
-	using namespace sf;
-	if (Keyboard::isKeyPressed(Keyboard::W)) {
-		dY = -stat.speed;
-	}else
-
-	if (Keyboard::isKeyPressed(Keyboard::S)) {
-		dY = stat.speed;
-
-	}
-	else
-
-	if (Keyboard::isKeyPressed(Keyboard::D)) {
-		dX = stat.speed;
-	}
-	else
-	
-
-	if (Keyboard::isKeyPressed(Keyboard::A)) {
-		dX = -stat.speed;
-	}
-
-	if (Keyboard::isKeyPressed(Keyboard::E)) {
-		posX = 100.0f;
-		posY = 100.0f;
-	}
-	
-
-	if (!checkKeyCd(clock))
-	{
-		if (Keyboard::isKeyPressed(Keyboard::Space)) {
-
-
-			addElement(elements::FIRE);
-			checkSkillGenerator();
-			std::cout << elements::FIRE;
-
-		}
-
-	}
-	
-}
 
 
 bool player_t::checkSkillGenerator() {
@@ -105,9 +63,4 @@ bool player_t::addElement(elements::element _elem) {
 
 size_t player_t::generateSkill() {
 	return 0;
-}
-
-bool player_t::checkKeyCd(sf::Clock *clock) {
-
-	return false;
 }

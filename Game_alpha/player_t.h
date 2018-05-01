@@ -23,11 +23,8 @@ public:
 
 	void update(float _speed);
 
-	void controller(sf::Event);
 	bool checkSkillGenerator();
 	bool addElement(elements::element _elem);
-
-	bool checkKeyCd(sf::Clock *clock);
 
 
 	size_t generateSkill();

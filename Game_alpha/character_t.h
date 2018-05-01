@@ -39,8 +39,6 @@ public:
 	void changeState(CharacterState_t *newState);
 
 	void defaultStats();
-	virtual void controller(sf::Event) = 0;
-	virtual bool checkKeyCd(sf::Clock *clock) = 0;
 
 	virtual bullet_t *attack();
 
@@ -48,7 +46,6 @@ public:
 	virtual float takeDamage(float _dmg, bool _dmgType);
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	virtual bool checkEnemy(character_t *ob);
-	//virtual bool move();
 
 	bool kill();
 	void update(float _speed);

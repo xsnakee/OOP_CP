@@ -126,7 +126,46 @@ void game_t::keyController(sf::Event &event) {
 	sf::Keyboard::Key tempKey = event.key.code;
 	//NAVIGATION CONTROLLER	{
 		if ((*mainHero)->getAlive()) {
-			(*mainHero)->controller(event);
+			using namespace sf;
+			if (Keyboard::isKeyPressed(Keyboard::W)) {
+				(*mainHero)->setdY(-(*mainHero)->getStats().speed);
+			}
+			else
+
+				if (Keyboard::isKeyPressed(Keyboard::S)) {
+					(*mainHero)->setdY((*mainHero)->getStats().speed);
+
+				}
+				else
+
+					if (Keyboard::isKeyPressed(Keyboard::D)) {
+						(*mainHero)->setdX((*mainHero)->getStats().speed);
+					}
+					else
+
+
+						if (Keyboard::isKeyPressed(Keyboard::A)) {
+							(*mainHero)->setdX(-(*mainHero)->getStats().speed);
+						}
+
+			if (Keyboard::isKeyPressed(Keyboard::E)) {
+				(*mainHero)->setPosX(1000.0f);
+				(*mainHero)->setPosY(1000.0f);
+			}
+
+			/*
+			if (Keyboard::isKeyPressed(Keyboard::Space)) {
+
+
+				addElement(elements::FIRE);
+				checkSkillGenerator();
+				std::cout << elements::FIRE;
+
+			}
+			*/
+
+
+
 		}
 	
 	//ATACK CONTROLLER
