@@ -82,13 +82,10 @@ void CharacterStateMove_t::Action() {
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
 	if ((targetCharacter != nullptr) && (readyToFight)) {
-		std::cout << readyToFight << std::endl;
 		mainCharacter->changeState(new CharacterStateFolow_t(*this));
 	}
 
 		if (vectorLength > 1.f ) {
-
-			std::cout << mainCharacter->getPosX() << " " << mainCharacter->getPosY() << std::endl;
 
 			float  kX = (distanceX / abs(distanceX)) * mainCharacter->getStats().speed;
 			float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
@@ -182,7 +179,6 @@ void CharacterStateAttack_t::Action() {
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 	float visionMultiple = 2.f;
 
-	std::cout << 3;
 	mainCharacter->setTargetCoords(targetCharacter->getCoords());
 
 	if (vectorLength > mainCharacter->getStats().visionDistance) {
@@ -192,8 +188,8 @@ void CharacterStateAttack_t::Action() {
 		mainCharacter->changeState(new CharacterStateFolow_t(*this));
 	}
 	else {
-		std::cout << "So attacK!!!" << std::endl;
-		//mainCharacter->attack();
+		//std::cout << "So attacK!!!" << std::endl;
+		mainCharacter->attack();
 	}
 }
 

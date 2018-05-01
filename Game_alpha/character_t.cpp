@@ -174,8 +174,19 @@ void character_t::changeState(CharacterState_t *newState) {
 }
 
 bullet_t *character_t::attack() {
+
+	if (!timer.castReady()) {
+		if (timer.attackReady()) {
+			timer.updateAttackCD();
+			std::cout << "Attacked!!" << std::endl;
+		}
+	}
+
+	timer.updateCastCD();
+
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
-		return new bullet_t (clock, this, getTargetCoords());
+		bullet_t * temp = new bullet_t(clock, this, getTargetCoords());
+		return temp;
 	}
 }

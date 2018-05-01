@@ -9,6 +9,7 @@ class characterTimers_t
 	struct timerStats {
 		sf::Int32 startTime;
 		sf::Int32 cooldown;
+		bool ready = true;
 	};
 	//get init time in Milliseconds
 	sf::Clock *clock;
@@ -18,9 +19,9 @@ class characterTimers_t
 	std::string swapDirectionTimerkey = "swapDirectionTimer";
 
 
-	bool setAttackStartTimer(sf::Int32 _curTime);
-	bool setcastDelayStartTimer(sf::Int32 _curTime);
-	bool setswapDirectionTimerStartTimer(sf::Int32 _curTime);
+	void setAttackStartTimer(sf::Int32 _curTime);
+	void setcastDelayStartTimer(sf::Int32 _curTime);
+	void setswapDirectionTimerStartTimer(sf::Int32 _curTime);
 public:
 	characterTimers_t();
 	characterTimers_t(sf::Clock *_clock, int _castSpeed = 1, int _attackSpeed = 1);
@@ -33,9 +34,9 @@ public:
 	sf::Int32 getDirectionSwapTime(int _time);
 
 
-	bool setAttackCD(int _attackCD);
-	bool setCastDelay(int _castDelay);
-	bool setDirectionSwapTime(int _time);
+	void setAttackCD(int _attackCD);
+	void setCastDelay(int _castDelay);
+	void setDirectionSwapTime(int _time);
 
 	bool attackReady();
 	bool castReady();

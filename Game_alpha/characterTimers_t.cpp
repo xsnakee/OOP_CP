@@ -36,63 +36,61 @@ sf::Int32 characterTimers_t::getDirectionSwapTime(int _time) {
 
 
 
-bool characterTimers_t::setAttackCD(int _attackCD) {
+void characterTimers_t::setAttackCD(int _attackCD) {
 	timersList[attackCDkey].cooldown = abs(_attackCD);
-	return true;
 }
-bool characterTimers_t::setCastDelay(int _castDelay) {
+void characterTimers_t::setCastDelay(int _castDelay) {
 	timersList[castDelaykey].cooldown = abs(_castDelay);
-	return true;
 }
-bool characterTimers_t::setDirectionSwapTime(int _time) { 
-	timersList[swapDirectionTimerkey].cooldown = abs(_time);
-	return true; 
-}
+void characterTimers_t::setDirectionSwapTime(int _time) {
+	timersList[swapDirectionTimerkey].cooldown = abs(_time);}
 
 
-bool characterTimers_t::setAttackStartTimer(sf::Int32 _curTime) {
+void characterTimers_t::setAttackStartTimer(sf::Int32 _curTime) {
 	timersList[attackCDkey].startTime = _curTime;
-	return true;
 }
 
-bool characterTimers_t::setcastDelayStartTimer(sf::Int32 _curTime) {
+void characterTimers_t::setcastDelayStartTimer(sf::Int32 _curTime) {
 	timersList[castDelaykey].startTime = _curTime;
-	return true;
 }
 
-bool characterTimers_t::setswapDirectionTimerStartTimer(sf::Int32 _curTime) {
+void characterTimers_t::setswapDirectionTimerStartTimer(sf::Int32 _curTime) {
 	timersList[swapDirectionTimerkey].startTime = _curTime;
-	return true;
 }
 
 
 bool characterTimers_t::attackReady() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
-
-	return (abs(curTime - timersList[attackCDkey].startTime) > timersList[attackCDkey].cooldown) ? true: false;
+	timersList[attackCDkey].ready = (abs(curTime - timersList[attackCDkey].startTime) > timersList[attackCDkey].cooldown) ? true : false;
+	return timersList[attackCDkey].ready;
 }
 bool characterTimers_t::castReady() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
 
-	return (abs(curTime - timersList[castDelaykey].startTime) > timersList[castDelaykey].cooldown) ? true : false;
+	timersList[castDelaykey].ready = (abs(curTime - timersList[castDelaykey].startTime) > timersList[castDelaykey].cooldown) ? true : false;
+	return timersList[castDelaykey].ready;
 }
 bool characterTimers_t::swapDirectionReady() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
 
-	return (abs(curTime - timersList[swapDirectionTimerkey].startTime) > timersList[swapDirectionTimerkey].cooldown) ? true : false;
+	timersList[swapDirectionTimerkey].ready = (abs(curTime - timersList[swapDirectionTimerkey].startTime) > timersList[swapDirectionTimerkey].cooldown) ? true : false;
+	return timersList[swapDirectionTimerkey].ready;
 }
 
 
 void characterTimers_t::updateAttackCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+	timersList[attackCDkey].ready = false;
 	setAttackStartTimer(curTime);
-
 }
+
 void characterTimers_t::updateCastCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
-	setcastDelayStartTimer(curTime);
+	timersList[castDelaykey].ready = false;
 }
 void characterTimers_t::updateSwapDirectionCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+
+	timersList[swapDirectionTimerkey].ready = false;
 	setswapDirectionTimerStartTimer(curTime);
 }

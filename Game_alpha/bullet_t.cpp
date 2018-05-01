@@ -21,7 +21,7 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	stat.speed = 0.1f;
 	stat.range = 200.0f;
 
-	stat.damage = getRand(-40.f, 50.f);// 20.0f;
+	stat.damage = getRand(-5.f, 5.f);// 20.0f;
 	mass = false;
 	stat.AOE = 0.1f;
 	stat.element = elements::NONE;
