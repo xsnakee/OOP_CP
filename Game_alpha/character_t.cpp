@@ -10,8 +10,7 @@ character_t::character_t():physOb_t(), timer(NULL)
 	direction = animation::BOTTOM;
 	collision = true;
 	fraction = 1;
-	targetCoords = sf::Vector2f(0.f,0.f);
-	spawnCoords = sf::Vector2f(0.f, 0.f);
+	targetCoords = spawnCoords = sf::Vector2f(0.f, 0.f);
 
 }
 
@@ -22,8 +21,7 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y), timer(NULL) {
 	direction = animation::BOTTOM;
 	collision = true;
 	fraction = 1;
-	targetCoords = sf::Vector2f(_x, _y);
-	spawnCoords = sf::Vector2f(_x, _y);
+	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
 }
 
 //*
@@ -34,8 +32,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	direction = animation::BOTTOM;
 	collision = true;
 	fraction = 1;
-	targetCoords = sf::Vector2f(_x, _y);
-	spawnCoords = sf::Vector2f(_x, _y);
+	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
 }
 
@@ -46,8 +43,7 @@ character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX,
 	direction = animation::BOTTOM;
 	collision = true;
 	fraction = 1;
-	targetCoords = sf::Vector2f(_x, _y);
-	spawnCoords = sf::Vector2f(_x, _y);
+	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
 }
 
@@ -180,6 +176,6 @@ void character_t::changeState(CharacterState_t *newState) {
 bullet_t *character_t::attack() {
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
-		return new bullet_t (clock, this, state.get()->getTargetCoords());
+		return new bullet_t (clock, this, getTargetCoords());
 	}
 }

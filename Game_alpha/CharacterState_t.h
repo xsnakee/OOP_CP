@@ -13,7 +13,7 @@ protected:
 	int stateNum;
 	character_t *mainCharacter;
 	character_t *targetCharacter;
-	sf::Vector2f targetCoords;
+
 	bool readyToFight;
 	float moveXdistanceFromSpawn;
 
@@ -40,14 +40,6 @@ public:
 	}
 	int getStateNum() const {
 		return stateNum;
-	}
-	sf::Vector2f getTargetCoords() const {
-		return targetCoords;
-	}
-
-	sf::Vector2f setTargetCoords(sf::Vector2f _targetCoords) {
-		targetCoords = _targetCoords;
-		return targetCoords;
 	}
 	void setTargetCharacter(character_t *character) {
 		targetCharacter = character;

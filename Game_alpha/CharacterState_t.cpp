@@ -13,7 +13,6 @@ CharacterState_t::CharacterState_t(character_t *__mainCharacter)
 	mainCharacter = __mainCharacter;
 	targetCharacter = nullptr;
 	stateNum = 0;
-	targetCoords = mainCharacter->getSpawnCoords();
 	moveXdistanceFromSpawn = 200.f;
 	readyToFight = true;
 }
@@ -23,7 +22,7 @@ CharacterState_t::CharacterState_t(CharacterState_t &_state)
 	mainCharacter = _state.getCharacterPtr();
 	targetCharacter = _state.getTargetCharacterPtr();
 	stateNum = _state.stateNum;
-	targetCoords = _state.targetCoords;
+	mainCharacter->setTargetCoords(_state.getCharacterPtr()->getTargetCoords());
 	moveXdistanceFromSpawn = _state.moveXdistanceFromSpawn;
 	readyToFight = true;
 }
@@ -59,7 +58,7 @@ CharacterStateMove_t::CharacterStateMove_t(character_t *__mainCharacter) :Charac
 	stateNum = 0;
 	targetCharacter = nullptr;
 
-	targetCoords = mainCharacter->getSpawnCoords();
+	mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
 	readyToFight = false;
 }
 
@@ -67,7 +66,7 @@ CharacterStateMove_t::CharacterStateMove_t(CharacterState_t &_state) : Character
 	stateNum = 0;
 	targetCharacter = nullptr;
 
-	targetCoords = mainCharacter->getSpawnCoords();
+	mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
 	readyToFight = false;
 }
 
@@ -78,8 +77,8 @@ CharacterStateMove_t::~CharacterStateMove_t()
 
 void CharacterStateMove_t::Action() {
 
-	float distanceX = targetCoords.x - mainCharacter->getPosX();
-	float distanceY = targetCoords.y - mainCharacter->getPosY();
+	float distanceX = mainCharacter->getTargetCoords().x - mainCharacter->getPosX();
+	float distanceY = mainCharacter->getTargetCoords().y - mainCharacter->getPosY();
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
 	if ((targetCharacter != nullptr) && (readyToFight)) {
@@ -107,7 +106,7 @@ void CharacterStateMove_t::Action() {
 		}
 
 		if (leaveFromSpot()) {
-			setTargetCoords(mainCharacter->getSpawnCoords());
+			mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
 			targetCharacter = nullptr;
 		}
 }
@@ -133,13 +132,13 @@ CharacterStateFolow_t::~CharacterStateFolow_t()
 void CharacterStateFolow_t::Action() 
 {
 
-	targetCoords = targetCharacter->getCoordsOfCenter();
-	float distanceX = targetCoords.x - mainCharacter->getCoordsOfCenter().x;
-	float distanceY = targetCoords.y - mainCharacter->getCoordsOfCenter().y;
+	mainCharacter->setTargetCoords(targetCharacter->getCoordsOfCenter());
+	float distanceX = targetCharacter->getCoordsOfCenter().x - mainCharacter->getCoordsOfCenter().x;
+	float distanceY = targetCharacter->getCoordsOfCenter().y - mainCharacter->getCoordsOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
 	if (leaveFromSpot() ||  (vectorLength > mainCharacter->getStats().visionDistance )) {
-		targetCoords = mainCharacter->getSpawnCoords();
+		mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
 		mainCharacter->changeState(new CharacterStateMove_t(*this));
 	}
 	else {
@@ -178,13 +177,13 @@ CharacterStateAttack_t::~CharacterStateAttack_t()
 }
 void CharacterStateAttack_t::Action() {
 
-	float distanceX = targetCoords.x - mainCharacter->getPosX();
-	float distanceY = targetCoords.y - mainCharacter->getPosY();
+	float distanceX = targetCharacter->getCoordsOfCenter().x - mainCharacter->getCoordsOfCenter().x;
+	float distanceY = targetCharacter->getCoordsOfCenter().y - mainCharacter->getCoordsOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 	float visionMultiple = 2.f;
 
 	std::cout << 3;
-	targetCoords = targetCharacter->getCoords();
+	mainCharacter->setTargetCoords(targetCharacter->getCoords());
 
 	if (vectorLength > mainCharacter->getStats().visionDistance) {
 			mainCharacter->changeState(new CharacterStateMove_t(*this));
