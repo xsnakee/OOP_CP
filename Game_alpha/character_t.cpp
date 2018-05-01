@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-character_t::character_t():physOb_t()
+character_t::character_t():physOb_t(), timer(NULL)
 {
 	destroyble = true;
 	skill = nullptr;
@@ -15,7 +15,7 @@ character_t::character_t():physOb_t()
 
 }
 
-character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
+character_t::character_t(float _x, float _y) :physOb_t(_x, _y), timer(NULL) {
 	destroyble = true;
 	skill = nullptr;
 	frame = .0f;
@@ -27,7 +27,7 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
 }
 
 //*
-character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height){
+character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
 	destroyble = true;
 	skill = nullptr;
 	frame = .0f;
@@ -36,9 +36,10 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	fraction = 1;
 	targetCoords = sf::Vector2f(_x, _y);
 	spawnCoords = sf::Vector2f(_x, _y);
+	clock = _clock;
 }
 
-character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height) {
+character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
 	destroyble = true;
 	skill = nullptr;
 	frame = .0f;
@@ -47,6 +48,7 @@ character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX,
 	fraction = 1;
 	targetCoords = sf::Vector2f(_x, _y);
 	spawnCoords = sf::Vector2f(_x, _y);
+	clock = _clock;
 }
 
 //*/
@@ -158,8 +160,8 @@ bool character_t::checkCollision(physOb_t &Object, float _borderError) {
 bool character_t::checkEnemy(character_t *ob) {
 
 
-	float distanceX = ob->getPosX() - posX;
-	float distanceY = ob->getPosY() - posY;
+	float distanceX = (ob->getCoordsOfCenter().x )- (getCoordsOfCenter().x);
+	float distanceY = (ob->getCoordsOfCenter().y) - (getCoordsOfCenter().y);
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
 	if (vectorLength < stat.visionDistance) {
@@ -173,4 +175,11 @@ bool character_t::checkEnemy(character_t *ob) {
 void character_t::changeState(CharacterState_t *newState) {
 	state.reset();
 	state = std::unique_ptr<CharacterState_t>(newState);
+}
+
+std::unique_ptr<bullet_t> character_t::attack() {
+	if (timer.attackReady()) {
+		timer.updateAttackCD();
+		return std::unique_ptr<bullet_t>(new bullet_t (clock, this, state.get()->getTargetCoords()));
+	}
 }

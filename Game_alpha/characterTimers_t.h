@@ -15,8 +15,14 @@ class characterTimers_t
 	std::map<std::string, timerStats> timersList;
 	std::string attackCDkey = "attackCD";
 	std::string castDelaykey = "castDelay";
-		std::string swapDirectionTimerkey = "swapDirectionTimer";
+	std::string swapDirectionTimerkey = "swapDirectionTimer";
+
+
+	bool setAttackStartTimer(sf::Int32 _curTime);
+	bool setcastDelayStartTimer(sf::Int32 _curTime);
+	bool setswapDirectionTimerStartTimer(sf::Int32 _curTime);
 public:
+	characterTimers_t();
 	characterTimers_t(sf::Clock *_clock, int _castSpeed = 1, int _attackSpeed = 1);
 	~characterTimers_t();
 
@@ -31,13 +37,12 @@ public:
 	bool setCastDelay(int _castDelay);
 	bool setDirectionSwapTime(int _time);
 
-	bool setAttackStartTimer( sf::Int32 _curTime);
-	bool setcastDelayStartTimer(sf::Int32 _curTime);
-	bool setswapDirectionTimerStartTimer(sf::Int32 _curTime);
-
-
 	bool attackReady();
 	bool castReady();
 	bool swapDirectionReady();
+
+	void updateAttackCD();
+	void updateCastCD();
+	void updateSwapDirectionCD();
 };
 

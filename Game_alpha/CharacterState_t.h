@@ -24,7 +24,7 @@ protected:
 public:
 
 	virtual ~CharacterState_t();
-	virtual void Action(std::list<std::unique_ptr<character_t>> &charList) = 0;
+	virtual void Action() = 0;
 
 	bool leaveFromSpot();
 	void reversXTrajectory();
@@ -49,6 +49,9 @@ public:
 		targetCoords = _targetCoords;
 		return targetCoords;
 	}
+	void setTargetCharacter(character_t *character) {
+		targetCharacter = character;
+	}
 
 };
 
@@ -63,7 +66,7 @@ public:
 	CharacterStateMove_t(CharacterState_t &_state);
 	virtual ~CharacterStateMove_t();
 
-	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+	virtual void Action();
 };
 
 
@@ -76,7 +79,7 @@ public:
 	CharacterStateFolow_t(CharacterState_t &_state);
 	virtual ~CharacterStateFolow_t();
 
-	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+	virtual void Action();
 };
 
 
@@ -90,7 +93,7 @@ public:
 	CharacterStateAttack_t(CharacterState_t &_state);
 	virtual ~CharacterStateAttack_t();
 
-	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+	virtual void Action();
 	void Action(std::list<bullet_t*> &obList);
 };
 
@@ -104,6 +107,6 @@ public:
 	CharacterPlayerControll_t(character_t *__mainCharacter);
 	virtual ~CharacterPlayerControll_t();
 
-	virtual void Action(std::list<std::unique_ptr<character_t>> &charList);
+	virtual void Action();
 };
 //*/

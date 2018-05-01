@@ -97,6 +97,9 @@ public:
 		return sf::Vector2f (posX, posY);
 	}
 
+	sf::Vector2f getCoordsOfCenter() const {
+		return sf::Vector2f(posX + getWidth()/2, posY + getHeight() / 2);
+	}
 	//SET
 	float setPosX(float _x){
 		posX = _x;

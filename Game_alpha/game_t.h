@@ -45,10 +45,10 @@ public:
 
 	void keyController(sf::Event &event);
 	void checkAlive();
+	void visionEngine();
 	void collisionEngine();
 	void bulletEngine();
 	void charsAction();
-	void observeEnemys();
 
 	void addOb(physOb_t *);
 	void addChar(character_t *);

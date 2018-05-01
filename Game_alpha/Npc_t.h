@@ -15,13 +15,12 @@ protected:
 
 public:
 	Npc_t();
-	Npc_t(sf::Texture *_texture,float  _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple = 1.f);
-	Npc_t(sf::Texture *texture, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY);
+	Npc_t(sf::Texture *_texture, sf::Clock *_clock,float  _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple = 1.f);
+	Npc_t(sf::Texture *texture, sf::Clock *_clock, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY);
 	virtual ~Npc_t();
 
 	virtual void controller(sf::Event);
-	virtual bool checkKeyCd(sf::Clock *clock) ;
-	virtual bool attack(float _x, float _y);
+	virtual bool checkKeyCd(sf::Clock *clock);
 
 	sf::Vector2f getSpotCoords() const{
 		return spotCoords;

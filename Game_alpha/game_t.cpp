@@ -44,7 +44,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
 
-	charactersList.push_back(std::unique_ptr <character_t>(new Npc_t(temp,sf::Vector2f(1800.f, 1800.f), SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, 10.f, 10.f)));
+	charactersList.push_back(std::unique_ptr <character_t>(new Npc_t(temp, clock.get(),sf::Vector2f(1800.f, 1800.f), SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, 10.f, 10.f)));
 
 	++mainHero;
 	(*mainHero)->changeState(new CharacterStateMove_t((*mainHero).get()));
@@ -67,6 +67,7 @@ void game_t::update() {
 
 	checkAlive();
 	bulletEngine();
+	visionEngine();
 	charsAction();
 	collisionEngine();
 
@@ -87,7 +88,7 @@ void game_t::update() {
 
 void game_t::charsAction() {
 	for (auto &i : charactersList) {
-		i.get()->getState()->Action(charactersList);
+		i.get()->getState()->Action();
 	}
 }
 
@@ -124,7 +125,9 @@ void game_t::keyController(sf::Event &event) {
 	
 	//ATACK CONTROLLER
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition())));
+		//bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition())));
+
+		bulletsList.push_back((std::unique_ptr <bullet_t>((*mainHero)->attack())));
 
 	}
 
@@ -152,6 +155,7 @@ void game_t::checkAlive() {
 
 	
 	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = bulletsList.begin();
+
 	for (auto &bullet : bulletsList) {
 		bullet->checkAlive();
 		if (!bullet->getAlive()) {
@@ -181,6 +185,22 @@ void game_t::bulletEngine() {
 	}
 }
 
+void game_t::visionEngine() {
+
+	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
+
+	for (auto &outerElement : charactersList) {
+		if (tempCharIter++ != mainHero) {
+			for (auto &innerElement : charactersList) {
+				if ((outerElement != innerElement) && (outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
+					outerElement->getState()->setTargetCharacter(innerElement.get());
+					outerElement->changeState(new CharacterStateFolow_t(*(outerElement->getState())));
+				}
+			}
+		}
+		
+	}
+}
 
 void game_t::collisionEngine() {
 	float characterBorderError = 10.f;

@@ -4,8 +4,6 @@
 
 player_t::player_t() :character_t()
 {
-	keyCooldown = 400;
-	startKeyPressTime = 0;
 	elemStatus = 0;
 	fraction = 0;
 	collision = true;
@@ -14,14 +12,12 @@ player_t::player_t() :character_t()
 
 
 //*
-player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : character_t(_x, _y, fileName, _coordX, _coordY, _width, _height) {
-
-	keyCooldown = 400;
-	startKeyPressTime = 0;
-	clock = _clock;
+player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : character_t(_x, _y, fileName, _coordX, _coordY, _width, _height, _clock)
+{
 	fraction = 0;
 	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
+	clock = _clock;
 }
 //*/
 
@@ -120,9 +116,4 @@ bool player_t::checkKeyCd(sf::Clock *clock) {
 	sf::Int32 temptime = clock->getElapsedTime().asMilliseconds();
 
 	return (temptime - startKeyPressTime) >= keyCooldown ? false : true;
-}
-
-
-bool player_t::attack(float _x, float _y) {
-	return false;
 }

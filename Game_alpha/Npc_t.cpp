@@ -7,7 +7,7 @@ Npc_t::Npc_t()
 }
 
 
-Npc_t::Npc_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple) :character_t(_texture, _x, _y, _coordX, _coordY, _width, _height)
+Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, float _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple) :character_t(_texture, _x, _y, _coordX, _coordY, _width, _height,_clock)
 {
 	spotCoords = sf::Vector2f(_x,_y);
 	spawnCoords = spotCoords;
@@ -20,8 +20,8 @@ Npc_t::Npc_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY
 
 //REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-Npc_t::Npc_t(sf::Texture *_texture, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY) :
-	character_t(_texture, _spotCoords.x, _spotCoords.y, _coordX, _coordY, _width, _height)
+Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY) :
+	character_t(_texture, _spotCoords.x, _spotCoords.y, _coordX, _coordY, _width, _height, _clock)
 {	
 	spotCoords = _spotCoords;
 
@@ -47,10 +47,5 @@ void Npc_t::controller(sf::Event) {
 }
 
 bool Npc_t::checkKeyCd(sf::Clock *clock) {
-	return true;
-}
-
-bool Npc_t::attack(float _x, float _y) {
-
 	return true;
 }

@@ -1,6 +1,8 @@
 #include "characterTimers_t.h"
 
-
+characterTimers_t::characterTimers_t()
+{
+}
 
 characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _attackSpeed)
 {
@@ -78,4 +80,19 @@ bool characterTimers_t::swapDirectionReady() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
 
 	return (abs(curTime - timersList[swapDirectionTimerkey].startTime) > timersList[swapDirectionTimerkey].cooldown) ? true : false;
+}
+
+
+void characterTimers_t::updateAttackCD() {
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+	setAttackStartTimer(curTime);
+
+}
+void characterTimers_t::updateCastCD() {
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+	setcastDelayStartTimer(curTime);
+}
+void characterTimers_t::updateSwapDirectionCD() {
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+	setswapDirectionTimerStartTimer(curTime);
 }

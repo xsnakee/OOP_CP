@@ -59,6 +59,7 @@ CharacterStateMove_t::CharacterStateMove_t(character_t *__mainCharacter) :Charac
 
 CharacterStateMove_t::CharacterStateMove_t(CharacterState_t &_state) : CharacterState_t(_state) {
 	stateNum = 0;
+	targetCharacter = nullptr;
 }
 
 
@@ -66,22 +67,13 @@ CharacterStateMove_t::~CharacterStateMove_t()
 {
 }
 
-void CharacterStateMove_t::Action(std::list<std::unique_ptr<character_t>> &charList) {
+void CharacterStateMove_t::Action() {
+
 	sf::Vector2f tempSpawntVector = targetCoords;
 
 	float distanceX = targetCoords.x - mainCharacter->getPosX();
 	float distanceY = targetCoords.y - mainCharacter->getPosY();
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
-
-	std::cout << 1 << std::endl;
-
-		for (auto &i : charList) {
-			if ((mainCharacter->getFraction() != i.get()->getFraction()) && (mainCharacter->checkEnemy(i.get()))) {
-				targetCharacter = i.get();
-				targetCoords = i.get()->getCoords();
-				mainCharacter->changeState(new CharacterStateFolow_t(*this));
-			}
-		}
 
 		if (vectorLength > 1.f ) {
 
@@ -120,7 +112,9 @@ CharacterStateFolow_t::~CharacterStateFolow_t()
 {
 }
 
-void CharacterStateFolow_t::Action(std::list<std::unique_ptr<character_t>> &charList) {
+void CharacterStateFolow_t::Action() 
+{
+	targetCoords = targetCharacter->getCoords();
 	
 	float distanceX = targetCoords.x - mainCharacter->getPosX();
 	float distanceY = targetCoords.y - mainCharacter->getPosY();
@@ -171,7 +165,7 @@ CharacterStateAttack_t::CharacterStateAttack_t(CharacterState_t &_state) : Chara
 CharacterStateAttack_t::~CharacterStateAttack_t()
 {
 }
-void CharacterStateAttack_t::Action(std::list<std::unique_ptr<character_t>> &charList) {
+void CharacterStateAttack_t::Action() {
 
 	float distanceX = targetCoords.x - mainCharacter->getPosX();
 	float distanceY = targetCoords.y - mainCharacter->getPosY();
@@ -187,8 +181,8 @@ void CharacterStateAttack_t::Action(std::list<std::unique_ptr<character_t>> &cha
 		mainCharacter->changeState(new CharacterStateFolow_t(*this));
 	}
 	else {
-
-		std::cout << 3 << std::endl;
+		mainCharacter->attack();
+		std::cout << 3;
 	}
 }
 
@@ -207,6 +201,6 @@ CharacterPlayerControll_t::CharacterPlayerControll_t(character_t *__mainCharacte
 CharacterPlayerControll_t::~CharacterPlayerControll_t()
 {
 }
-void CharacterPlayerControll_t::Action(std::list<std::unique_ptr<character_t>> &charList) {
+void CharacterPlayerControll_t::Action() {
 }
 //*/
