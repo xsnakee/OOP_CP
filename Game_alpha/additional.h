@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML\Graphics.hpp>
 
 
 
@@ -19,7 +18,7 @@ struct skillStats {
 	float range;
 	elements::element element = elements::NONE;
 	float AOE = 0.1f;
-	bool type = false;
+	bool type = false;//0 - phys, 1 - magic
 	int fraction = -1;
 };
 

@@ -23,11 +23,11 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 
 	stat.damage = getRand(-5.f, 5.f);// 20.0f;
 	mass = false;
-	stat.AOE = 0.1f;
+	stat.AOE = 0.f;
 	stat.element = elements::NONE;
 	stat.type = false;
 
-	if (stat.AOE < FLT_EPSILON) {
+	if (abs(stat.AOE) < FLT_EPSILON) {
 		mass = false;
 	}
 	else {
@@ -37,6 +37,8 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	startPosX = posX;
 	startPosY = posY;
 
+
+	//CALC SPEED
 	float distanceX = targetCoords.x - posX;
 	float distanceY = targetCoords.y - posY;
 	float rotation = -(atan2(distanceX, distanceY)) * 180.f / 3.14159265f;
@@ -87,7 +89,9 @@ bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 		if (Object.getDestroyble()) {
 			Object.takeDamage(stat.damage, stat.type);
 		}
+		if (!mass) {
 			alive = false;
+		}
 		
 			return true;
 	}

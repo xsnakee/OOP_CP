@@ -135,6 +135,8 @@
     <ClCompile Include="obPreference.cpp" />
     <ClCompile Include="physOb_t.cpp" />
     <ClCompile Include="player_t.cpp" />
+    <ClCompile Include="skillAOE_t.cpp" />
+    <ClCompile Include="skillShot_t.cpp" />
     <ClCompile Include="skills_t.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +155,8 @@
     <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
     <ClInclude Include="player_t.h" />
+    <ClInclude Include="skillAOE_t.h" />
+    <ClInclude Include="skillShot_t.h" />
     <ClInclude Include="skills_t.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

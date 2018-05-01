@@ -3,31 +3,19 @@
 #include <SFML\Graphics.hpp>
 #include "skills_t.h"
 #include "character_t.h"
+#include "physOb_t.h"
 
 class effectSkill_t: public skills_t
 {
-private:
-	
-	character_t * target;
-	characterStats_t stats;
-
-	sf::Int32 startTime;
-	sf::Int32 timer; //live time as Milliseconds
 
 public:
 	effectSkill_t();
-	effectSkill_t(characterStats_t _stats);
-	effectSkill_t(sf::Clock *time, sf::Int32 _timer = 10);
 	~effectSkill_t();
 public:
-	virtual bool castSkill(sf::Clock *time, sf::Int32 _timer);
-	virtual bool checkTimer(sf::Clock *time);
-	virtual bool update();
+	virtual void cast();
+	virtual bool checkEffectTimer();
+	bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 
 public:
-
-	characterStats_t getStats() const {
-		return stats;
-	}
 };
 

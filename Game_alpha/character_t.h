@@ -54,8 +54,8 @@ public:
 	float toHit ()const;
 
 public:
-
-	characterStats_t getStats();
+	//GET
+	characterStats_t &getStats();
 
 	float getFrame() const {
 		return frame;
@@ -75,7 +75,12 @@ public:
 	float getMoveRadius() const {
 		return 300.f;
 	}
+	sf::Clock *getClockPtr() const {
+		return clock;
+	}
 
+
+	//SET
 	float setFrame(float _frame) {
 		frame = _frame;
 		return frame;

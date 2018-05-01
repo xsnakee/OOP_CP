@@ -6,57 +6,33 @@ effectSkill_t::effectSkill_t()
 {
 	startTime = 0;
 	timer = std::numeric_limits<sf::Int32>::max();
-
-	stats.resetStats();
 	active = false;
 }
-
-
-effectSkill_t::effectSkill_t(sf::Clock *time, sf::Int32 _timer) {
-	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
-	startTime = _startTime;
-	timer = _timer;
-	stats.resetStats();
-}
-
-
-effectSkill_t::effectSkill_t(characterStats_t _stats) {
-	startTime = 0;
-	timer = std::numeric_limits<sf::Int32>::max();
-
-	stats.resetStats();
-	active = false;
-	stats = _stats;
-
-}
-
 effectSkill_t::~effectSkill_t()
 {
 }
 
-bool effectSkill_t::castSkill(sf::Clock *time, sf::Int32 _timer) {
-
-	sf::Int32 _startTime = time->getElapsedTime().asMilliseconds();
-	startTime = _startTime;
-	timer = _timer;
+void effectSkill_t::cast() {
+	skills_t::cast();
+	startTime = genericObject->getClockPtr()->getElapsedTime().asMilliseconds();;
 	active = true;
-	return active;
 }
 
 
-bool effectSkill_t::update() {
+
+bool effectSkill_t:: checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
+
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+
+	return (abs(curTime - startTime) > _time) ? false : true;
+}
+
+bool effectSkill_t::checkEffectTimer() {
 	if (!active) {
-		target->defaultStats();
+		if (checkTimer(clock, startTime, timer)) {
+			return false;
+		}
 	}
 
 	return true;
-}
-
-bool  effectSkill_t::checkTimer(sf::Clock *time) {
-
-	sf::Int32 tempTime = time->getElapsedTime().asMilliseconds();
-
-	active = (abs(tempTime - startTime) > timer) ? false : true;
-
-	return active;
 }

@@ -60,7 +60,7 @@ void character_t::setStats(characterStats_t &_stats) {
 
 }
 
-characterStats_t character_t::getStats() {
+characterStats_t &character_t::getStats() {
 	return stat;
 }
 

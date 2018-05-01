@@ -4,6 +4,8 @@
 #include "physOb_t.h"
 #include "character_t.h"
 #include "additional.h"
+
+
 class character_t;
 
 

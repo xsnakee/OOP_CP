@@ -43,7 +43,6 @@ bool player_t::checkSkillGenerator() {
 	}
 
 	elemStatus = tempStatus;
-	//sprite.setColor(sf::Color::Green);
 
 	return true;
 }
