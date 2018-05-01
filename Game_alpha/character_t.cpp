@@ -177,9 +177,9 @@ void character_t::changeState(CharacterState_t *newState) {
 	state = std::unique_ptr<CharacterState_t>(newState);
 }
 
-std::unique_ptr<bullet_t> character_t::attack() {
+bullet_t *character_t::attack() {
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
-		return std::unique_ptr<bullet_t>(new bullet_t (clock, this, state.get()->getTargetCoords()));
+		return new bullet_t (clock, this, state.get()->getTargetCoords());
 	}
 }

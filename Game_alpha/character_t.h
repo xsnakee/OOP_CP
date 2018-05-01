@@ -42,7 +42,7 @@ public:
 	virtual void controller(sf::Event) = 0;
 	virtual bool checkKeyCd(sf::Clock *clock) = 0;
 
-	virtual  std::unique_ptr<bullet_t> attack();
+	virtual bullet_t *attack();
 
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);
