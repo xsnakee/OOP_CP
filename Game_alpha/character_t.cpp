@@ -175,14 +175,12 @@ void character_t::changeState(CharacterState_t *newState) {
 
 bullet_t *character_t::attack() {
 
-	if (!timer.castReady()) {
-		if (timer.attackReady()) {
-			timer.updateAttackCD();
-			std::cout << "Attacked!!" << std::endl;
-		}
+	//*start cast
+	if (timer.attackReady()) {
+		timer.updateAttackCD();
+		std::cout << "Attacked!!" << std::endl;
 	}
 
-	timer.updateCastCD();
 
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
