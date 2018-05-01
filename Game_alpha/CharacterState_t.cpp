@@ -15,6 +15,7 @@ CharacterState_t::CharacterState_t(character_t *__mainCharacter)
 	stateNum = 0;
 	targetCoords = mainCharacter->getSpawnCoords();
 	moveXdistanceFromSpawn = 200.f;
+	readyToFight = true;
 }
 
 CharacterState_t::CharacterState_t(CharacterState_t &_state)
@@ -24,6 +25,7 @@ CharacterState_t::CharacterState_t(CharacterState_t &_state)
 	stateNum = _state.stateNum;
 	targetCoords = _state.targetCoords;
 	moveXdistanceFromSpawn = _state.moveXdistanceFromSpawn;
+	readyToFight = true;
 }
 
 CharacterState_t::~CharacterState_t()
@@ -55,11 +57,18 @@ void CharacterState_t::reversXTrajectory() {
 CharacterStateMove_t::CharacterStateMove_t(character_t *__mainCharacter) :CharacterState_t(__mainCharacter)
 {
 	stateNum = 0;
+	targetCharacter = nullptr;
+
+	targetCoords = mainCharacter->getSpawnCoords();
+	readyToFight = false;
 }
 
 CharacterStateMove_t::CharacterStateMove_t(CharacterState_t &_state) : CharacterState_t(_state) {
 	stateNum = 0;
 	targetCharacter = nullptr;
+
+	targetCoords = mainCharacter->getSpawnCoords();
+	readyToFight = false;
 }
 
 
@@ -69,22 +78,31 @@ CharacterStateMove_t::~CharacterStateMove_t()
 
 void CharacterStateMove_t::Action() {
 
-	sf::Vector2f tempSpawntVector = targetCoords;
-
 	float distanceX = targetCoords.x - mainCharacter->getPosX();
 	float distanceY = targetCoords.y - mainCharacter->getPosY();
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
+	if ((targetCharacter != nullptr) && (readyToFight)) {
+		std::cout << readyToFight << std::endl;
+		mainCharacter->changeState(new CharacterStateFolow_t(*this));
+	}
+
 		if (vectorLength > 1.f ) {
 
 			std::cout << mainCharacter->getPosX() << " " << mainCharacter->getPosY() << std::endl;
-			float  kX = distanceX / abs(distanceX);
-			float  kY = distanceY / abs(distanceY);
-			if (abs(kX) > FLT_EPSILON) {
-				mainCharacter->setdX(kX * mainCharacter->getStats().speed);
+
+			float  kX = (distanceX / abs(distanceX)) * mainCharacter->getStats().speed;
+			float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
+			
+			
+			if (abs(distanceX) > mainCharacter->getWidth() / 2) {
+				if (abs(kX) > FLT_EPSILON) mainCharacter->setdX(kX);
 			}
-			if (abs(kY) > FLT_EPSILON) {
-				mainCharacter->setdY(kY * mainCharacter->getStats().speed);
+			else if (abs(distanceY) > mainCharacter->getHeight() / 2) {
+					if (abs(kY) > FLT_EPSILON) mainCharacter->setdY(kY);
+			}
+			else {
+				readyToFight = true;
 			}
 		}
 
@@ -114,25 +132,18 @@ CharacterStateFolow_t::~CharacterStateFolow_t()
 
 void CharacterStateFolow_t::Action() 
 {
-	targetCoords = targetCharacter->getCoords();
-	
-	float distanceX = targetCoords.x - mainCharacter->getPosX();
-	float distanceY = targetCoords.y - mainCharacter->getPosY();
+
+	targetCoords = targetCharacter->getCoordsOfCenter();
+	float distanceX = targetCoords.x - mainCharacter->getCoordsOfCenter().x;
+	float distanceY = targetCoords.y - mainCharacter->getCoordsOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
-	float visionMultiple = 2.f;
 
-
-	targetCoords = targetCharacter->getCoords();
-
-	std::cout << 2 << std::endl;
-	if (leaveFromSpot() ||  vectorLength > mainCharacter->getStats().visionDistance * visionMultiple) {
-
+	if (leaveFromSpot() ||  (vectorLength > mainCharacter->getStats().visionDistance )) {
 		targetCoords = mainCharacter->getSpawnCoords();
 		mainCharacter->changeState(new CharacterStateMove_t(*this));
 	}
 	else {
-
-		if (vectorLength < mainCharacter->getStats().attackRange) {
+		if (vectorLength < (mainCharacter->getStats().attackRange)) {
 			mainCharacter->changeState(new CharacterStateAttack_t(*this));
 		}
 
@@ -140,7 +151,7 @@ void CharacterStateFolow_t::Action()
 		float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
 
 		
-		if (abs(distanceX) > mainCharacter->getWidth()/2) {
+		if (abs(distanceX) > mainCharacter->getWidth() / 2) {
 			if (abs(kX) > FLT_EPSILON) mainCharacter->setdX(kX);
 		} else 
 		if (abs(distanceY) > mainCharacter->getHeight() / 2) {
@@ -172,17 +183,18 @@ void CharacterStateAttack_t::Action() {
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 	float visionMultiple = 2.f;
 
+	std::cout << 3;
 	targetCoords = targetCharacter->getCoords();
 
-	if (vectorLength > mainCharacter->getStats().visionDistance * visionMultiple) {
+	if (vectorLength > mainCharacter->getStats().visionDistance) {
 			mainCharacter->changeState(new CharacterStateMove_t(*this));
 	}
 	else if (vectorLength > mainCharacter->getStats().attackRange){
 		mainCharacter->changeState(new CharacterStateFolow_t(*this));
 	}
 	else {
-		mainCharacter->attack();
-		std::cout << 3;
+		std::cout << "So attacK!!!" << std::endl;
+		//mainCharacter->attack();
 	}
 }
 
@@ -192,7 +204,7 @@ void CharacterStateAttack_t::Action(std::list<bullet_t*> &obList) {
 
 //CHARACTER STATE PLAYER CONTROLL
 
-CharacterPlayerControll_t::CharacterPlayerControll_t(character_t *__mainCharacter) :CharacterState_t(__mainCharacter)
+CharacterPlayerControll_t::CharacterPlayerControll_t(character_t *__mainCharacter): CharacterState_t(__mainCharacter)
 {
 	stateNum = 3;
 }

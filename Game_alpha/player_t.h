@@ -13,11 +13,6 @@ private:
 	std::list<elements::element> skillGeneratorArr;
 	size_t elemStatus;
 
-
-	sf::Clock *clock;
-	sf::Int32 keyCooldown; //as millisec
-	sf::Int32 startKeyPressTime;
-
 public:
 
 	player_t();

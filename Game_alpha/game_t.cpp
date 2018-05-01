@@ -127,7 +127,7 @@ void game_t::keyController(sf::Event &event) {
 	if (Mouse::isButtonPressed(Mouse::Left)) {
 		//bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(),(*mainHero).get(), cursor->getPosition())));
 
-		bulletsList.push_back((std::unique_ptr <bullet_t>((*mainHero)->attack())));
+	//	bulletsList.push_back((std::unique_ptr <bullet_t>((*mainHero)->attack())));
 
 	}
 
@@ -192,9 +192,8 @@ void game_t::visionEngine() {
 	for (auto &outerElement : charactersList) {
 		if (tempCharIter++ != mainHero) {
 			for (auto &innerElement : charactersList) {
-				if ((outerElement != innerElement) && (outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
+				if ((outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
 					outerElement->getState()->setTargetCharacter(innerElement.get());
-					outerElement->changeState(new CharacterStateFolow_t(*(outerElement->getState())));
 				}
 			}
 		}

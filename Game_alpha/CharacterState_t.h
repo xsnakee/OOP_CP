@@ -14,7 +14,7 @@ protected:
 	character_t *mainCharacter;
 	character_t *targetCharacter;
 	sf::Vector2f targetCoords;
-
+	bool readyToFight;
 	float moveXdistanceFromSpawn;
 
 	CharacterState_t();
@@ -52,7 +52,6 @@ public:
 	void setTargetCharacter(character_t *character) {
 		targetCharacter = character;
 	}
-
 };
 
 
@@ -97,6 +96,16 @@ public:
 	void Action(std::list<bullet_t*> &obList);
 };
 
+class CharacterPlayerCast_t :
+	public CharacterState_t
+{
+public:
+	CharacterPlayerCast_t(character_t *__mainCharacter);
+	virtual ~CharacterPlayerCast_t();
+
+	virtual void Action();
+};
+
 
 //PLAYER
 
@@ -109,4 +118,6 @@ public:
 
 	virtual void Action();
 };
+
+
 //*/

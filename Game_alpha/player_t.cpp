@@ -17,7 +17,6 @@ player_t::player_t(float _x, float _y, std::string fileName, int _coordX, int _c
 	fraction = 0;
 	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
-	clock = _clock;
 }
 //*/
 
@@ -70,9 +69,6 @@ void player_t::controller(sf::Event) {
 
 		}
 
-		
-		startKeyPressTime = clock->getElapsedTime().asMilliseconds();
-
 	}
 	
 }
@@ -113,7 +109,5 @@ size_t player_t::generateSkill() {
 
 bool player_t::checkKeyCd(sf::Clock *clock) {
 
-	sf::Int32 temptime = clock->getElapsedTime().asMilliseconds();
-
-	return (temptime - startKeyPressTime) >= keyCooldown ? false : true;
+	return false;
 }
