@@ -9,3 +9,9 @@ skills_t::skills_t()
 skills_t::~skills_t()
 {
 }
+
+
+
+void skills_t::cast() {
+
+}

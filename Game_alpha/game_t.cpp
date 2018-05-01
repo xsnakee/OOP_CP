@@ -75,6 +75,7 @@ void game_t::update() {
 	visionEngine();
 	charsAction();
 	collisionEngine();
+
 	(*mainHero)->setTargetCoords(cursor->getPosition());
 
 	for (auto &character : charactersList) {

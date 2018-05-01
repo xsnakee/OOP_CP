@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 
+
+
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
@@ -11,6 +13,15 @@ namespace elements {
 	};
 }
 
+struct skillStats {
+	float speed;
+	float damage;
+	float range;
+	elements::element element = elements::NONE;
+	float AOE = 0.1f;
+	bool type = false;
+	int fraction = -1;
+};
 
 namespace tiles {
 

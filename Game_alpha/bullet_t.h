@@ -5,21 +5,13 @@
 #include "character_t.h"
 #include "additional.h"
 class character_t;
-struct bulletStats{
-	float speed;
-	float damage;
-	float range;
-	elements::element element = elements::NONE;
-	float AOE = 0.1f;
-	bool type = false;
-	int fraction = -1;
-};
+
 
 class bullet_t:public physOb_t
 {
 private:
 	sf::Clock *clock;
-	bulletStats stat;
+	skillStats stat;
 	character_t *genericObject;
 	
 
@@ -83,7 +75,7 @@ public:
 		return stat.element;
 	}
 
-	bool setStats(bulletStats &_stats) {
+	bool setStats(skillStats &_stats) {
 		stat = _stats;
 	}
 };
