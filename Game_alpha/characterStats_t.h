@@ -7,8 +7,8 @@ struct characterStats_t
 	float MP = 5.f;
 	float stdMP = 5.f;
 
-	float atackPower = 1.f;
-	float stdAtackPower = 1.f;
+	float attackPower = 1.f;
+	float stdattackPower = 1.f;
 
 	float physDef = 1.f;
 	float stdPhysDef = 1.f;
@@ -28,14 +28,14 @@ struct characterStats_t
 	float visionDistance = 100.f;
 
 	void resetStats() {
-		HP = MP = atackPower =
+		HP = MP = attackPower =
 			physDef = magDef = speed = 0.f;
 	}
 
 	void defaultStats() {
 		HP = stdHP;
 		MP = stdMP;
-		atackPower = stdAtackPower;
+		attackPower = stdattackPower;
 		physDef = stdPhysDef;
 		magDef = stdMagDef;
 		speed = stdSpeed;
@@ -48,8 +48,8 @@ struct characterStats_t
 		stdHP *= _mult;
 		MP *= _mult;
 		stdMP *= _mult;
-		atackPower *= _mult;
-		stdAtackPower *= _mult;
+		attackPower *= _mult;
+		stdattackPower *= _mult;
 		physDef *= _mult;
 		stdPhysDef *= _mult;
 		magDef *= _mult;

@@ -17,7 +17,7 @@ skills_t::skills_t(character_t *_genericCharacter)
 	skillStats.speed = 0.1f;
 	skillStats.range = genericObject->getStats().attackRange;
 	float dmgRand = getRand(-genericObject->getStats().damageRand, genericObject->getStats().damageRand);
-	skillStats.damage = genericObject->getStats().atackPower + dmgRand;
+	skillStats.damage = genericObject->getStats().attackPower + dmgRand;
 	skillStats.AOE = 0.f;
 	skillStats.element = elements::NONE;
 	skillStats.type = false;

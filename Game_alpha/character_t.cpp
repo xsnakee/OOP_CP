@@ -128,7 +128,7 @@ float character_t::takeDamage(float _dmg, bool _dmgType) {
 
 float character_t::toHit() const{
 
-	return stat.atackPower + getRand(-stat.damageRand, stat.damageRand);
+	return stat.attackPower + getRand(-stat.damageRand, stat.damageRand);
 }
 
 bool character_t::checkCollision(physOb_t &Object, float _borderError) {
