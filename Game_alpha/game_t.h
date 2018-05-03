@@ -1,8 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+
 #include <list>
+#include <memory>
 #include "character_t.h"
 #include "player_t.h"
 #include "Npc_t.h"
@@ -10,7 +11,7 @@
 #include "bullet_t.h"
 #include "additional.h"
 #include "cursor_t.h"
-#include <memory>
+#include "skillObGenerator_t.h"
 
 class game_t
 {

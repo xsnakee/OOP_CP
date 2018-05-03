@@ -3,6 +3,7 @@
 #include "character_t.h"
 #include <list>
 #include <iterator>
+#include <numeric>
 
 
 
@@ -25,8 +26,11 @@ public:
 
 	bool checkSkillGenerator();
 	bool addElement(elements::element _elem);
+	
+	size_t getElemStatus() const {
+		return elemStatus;
+	}
 
-
-	size_t generateSkill();
+	void generateSkillAndClearElemList();
 };
 

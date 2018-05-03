@@ -13,7 +13,7 @@ class bullet_t:public physOb_t
 {
 private:
 	sf::Clock *clock;
-	skillStats stat;
+	bulletStats stat;
 	character_t *genericObject;
 	
 
@@ -29,6 +29,7 @@ private:
 	float vectorLength;
 public:
 	bullet_t();
+	bullet_t(bullet_t &bullet);
 	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords);
 	virtual ~bullet_t();
 
@@ -46,6 +47,10 @@ public:
 
 	virtual sf::Int32 getStartTime() const {
 		return startTime;
+	}
+
+	bulletStats getStats() {
+		return stat;
 	}
 
 	int getElement()const {
@@ -77,8 +82,33 @@ public:
 		return stat.element;
 	}
 
-	bool setStats(skillStats &_stats) {
+	bool setStats(bulletStats &_stats) {
+		mass = (_stats.AOE > FLT_EPSILON) ? true : false;
 		stat = _stats;
 	}
+
+	void setTimer(sf::Int32 _timer) {
+		timer = _timer;
+	}
+
+	void setDmg(float _val) {
+		stat.damage = _val;
+	}
+	void setSpeed(float _val) {
+		stat.speed = _val;
+	}
+	void setRng(float _val) {
+		stat.range = _val;
+	}
+
+	void setAOE(float _val)  {
+		mass = (_val > FLT_EPSILON) ? true : false;
+		stat.AOE = _val;
+	}
+
+	void setType(bool _val) {
+		stat.type = _val;
+	}
+
 };
 

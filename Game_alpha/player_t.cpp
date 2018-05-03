@@ -60,6 +60,8 @@ bool player_t::addElement(elements::element _elem) {
 	return false;
 }
 
-size_t player_t::generateSkill() {
-	return 0;
+void player_t::generateSkillAndClearElemList() {
+	elemStatus = std::accumulate(skillGeneratorArr.begin(),skillGeneratorArr.end(),0);
+	skillGeneratorArr.clear();
+	elemStatus = 0;
 }

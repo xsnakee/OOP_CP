@@ -12,7 +12,7 @@ namespace elements {
 	};
 }
 
-struct skillStats {
+struct bulletStats {
 	float speed;
 	float damage;
 	float range;
@@ -21,6 +21,7 @@ struct skillStats {
 	bool type = false;//0 - phys, 1 - magic
 	int fraction = -1;
 };
+
 
 namespace tiles {
 
@@ -40,7 +41,11 @@ namespace tiles {
 }
 
 namespace animation {
+	//BULLETS IMGS
+	const std::string BULLET_FIRE_BALL_TEXTURE_FILE = "img/skills/bullets.png";
 
+
+	//CHARACTER IMGS
 	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/enemy_warrior.png";// "img/characters/mainHero.png";
 
 	const std::string ENEMY_DEMON_FILE = "img/characters/enemy_demon.png";

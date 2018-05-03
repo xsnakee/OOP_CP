@@ -16,7 +16,7 @@ class characterTimers_t
 	std::map<std::string, timerStats> timersList;
 	std::string attackCDkey = "attackCD";
 	std::string castDelaykey = "castDelay";
-	std::string swapDirectionTimerkey = "swapDirectionTimer";
+	std::string skillGenerationCDkey = "skillGenerationCD";
 
 
 	void setAttackStartTimer(sf::Int32 _curTime);

@@ -15,8 +15,8 @@ characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _att
 	timerStats castDelay = { startTime, 1500 / _castSpeed};
 	timersList.insert(std::pair<std::string, timerStats>(castDelaykey, castDelay));
 
-	timerStats swapDirectionTimer = { startTime, 2000 };
-	timersList.insert(std::pair<std::string, timerStats>(swapDirectionTimerkey, swapDirectionTimer));
+	timerStats swapDirectionTimer = { startTime, 4000 };
+	timersList.insert(std::pair<std::string, timerStats>(skillGenerationCDkey, swapDirectionTimer));
 }
 
 characterTimers_t::~characterTimers_t()
@@ -31,7 +31,7 @@ sf::Int32 characterTimers_t::getCastDelay(int _castDelay) {
 	return timersList[castDelaykey].cooldown;
 }
 sf::Int32 characterTimers_t::getDirectionSwapTime(int _time) {
-	return timersList[swapDirectionTimerkey].cooldown;
+	return timersList[skillGenerationCDkey].cooldown;
 }
 
 
@@ -43,7 +43,7 @@ void characterTimers_t::setCastDelay(int _castDelay) {
 	timersList[castDelaykey].cooldown = abs(_castDelay);
 }
 void characterTimers_t::setDirectionSwapTime(int _time) {
-	timersList[swapDirectionTimerkey].cooldown = abs(_time);}
+	timersList[skillGenerationCDkey].cooldown = abs(_time);}
 
 
 void characterTimers_t::setAttackStartTimer(sf::Int32 _curTime) {
@@ -55,7 +55,7 @@ void characterTimers_t::setcastDelayStartTimer(sf::Int32 _curTime) {
 }
 
 void characterTimers_t::setswapDirectionTimerStartTimer(sf::Int32 _curTime) {
-	timersList[swapDirectionTimerkey].startTime = _curTime;
+	timersList[skillGenerationCDkey].startTime = _curTime;
 }
 
 
@@ -73,8 +73,8 @@ bool characterTimers_t::castReady() {
 bool characterTimers_t::swapDirectionReady() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
 
-	timersList[swapDirectionTimerkey].ready = (abs(curTime - timersList[swapDirectionTimerkey].startTime) > timersList[swapDirectionTimerkey].cooldown) ? true : false;
-	return timersList[swapDirectionTimerkey].ready;
+	timersList[skillGenerationCDkey].ready = (abs(curTime - timersList[skillGenerationCDkey].startTime) > timersList[skillGenerationCDkey].cooldown) ? true : false;
+	return timersList[skillGenerationCDkey].ready;
 }
 
 
@@ -91,6 +91,6 @@ void characterTimers_t::updateCastCD() {
 void characterTimers_t::updateSwapDirectionCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
 
-	timersList[swapDirectionTimerkey].ready = false;
+	timersList[skillGenerationCDkey].ready = false;
 	setswapDirectionTimerStartTimer(curTime);
 }

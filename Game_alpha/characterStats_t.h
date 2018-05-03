@@ -40,6 +40,14 @@ struct characterStats_t
 		magDef = stdMagDef;
 		speed = stdSpeed;
 	}
+	void upStat(characterStats_t &stat) {
+		HP += stat.HP;
+		MP += stat.MP;
+		attackPower += stat.attackPower;
+		physDef += stat.physDef;
+		magDef += stat.magDef;
+		speed += stat.speed;
+	}
 
 	void statMiltipler(float _mult) {
 		float speedK = 0.02f;

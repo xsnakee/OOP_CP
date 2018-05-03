@@ -48,6 +48,9 @@ public:
 	}
 
 	//SET
+	void setTexturePtr(sf::Texture *newTexture) {
+		texture = std::shared_ptr<sf::Texture>(newTexture);
+	}
 	void setTexturePos(int coordX, int coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;

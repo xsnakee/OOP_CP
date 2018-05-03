@@ -4,6 +4,11 @@ bullet_t::bullet_t():physOb_t()
 {
 }
 
+bullet_t::bullet_t(bullet_t &bullet)
+{
+
+}
+
 bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getCoordsOfCenter().x, genObj->getCoordsOfCenter().y) {
 
 
@@ -17,12 +22,10 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 
 	targetCoords = _targetCoords; 
 
-
 	stat.speed = 0.1f;
 	stat.range = 200.0f;
 
 	stat.damage = getRand(-5.f, 5.f);// 20.0f;
-	mass = false;
 	stat.AOE = 0.f;
 	stat.element = elements::NONE;
 	stat.type = false;

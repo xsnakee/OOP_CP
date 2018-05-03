@@ -134,6 +134,11 @@ public:
 		return hitsToDestroy;
 	}
 
+	void setTexturePtr(sf::Texture *newTexture) {
+		spritePref.setTexturePtr(newTexture);
+	}
+
+
 	float setdX(float _x) {
 		dX = _x;
 		return dX;
