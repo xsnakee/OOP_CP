@@ -2,13 +2,17 @@
 
 #include <SFML\Graphics.hpp>
 
+#include <list>
+#include <numeric>
 #include "characterStats_t.h"
 #include "CharacterState_t.h"
 #include "characterTimers_t.h"
 #include "physOb_t.h"
 #include "additional.h"
+#include "skillObGenerator_t.h"
 
 class CharacterState_t;
+class skillObGenerator_t;
 
 class character_t : public physOb_t
 {
@@ -16,6 +20,11 @@ class character_t : public physOb_t
 protected:
 	characterStats_t stat;
 	std::unique_ptr<CharacterState_t> state;
+
+	std::list<elements::element> skillGeneratorArr;
+	size_t elemStatus;
+	std::unique_ptr<skillObGenerator_t> skill;
+
 	sf::Clock *clock;
 	characterTimers_t timer;
 
@@ -28,9 +37,8 @@ protected:
 protected:
 
 	character_t();
-	character_t(float _x, float _y);
-	character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock);
-	character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock);
+	character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList);
+	character_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock);
 
 public:
 	virtual ~character_t();
@@ -45,6 +53,13 @@ public:
 	virtual float takeDamage(float _dmg, bool _dmgType);
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	virtual bool checkEnemy(character_t *ob);
+
+
+	virtual bool checkSkillGenerator();
+	virtual bool addElement(elements::element _elem);
+	virtual void generateSkillAndClearElemList();
+
+
 
 	bool kill();
 	void update(float _speed);
@@ -79,6 +94,9 @@ public:
 	}
 
 
+	size_t getElemStatus() const {
+		return elemStatus;
+	}
 	//SET
 	float setFrame(float _frame) {
 		frame = _frame;

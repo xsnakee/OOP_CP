@@ -47,7 +47,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
 
-	charactersList.push_back(std::unique_ptr <character_t>(new Npc_t(temp, clock.get(),sf::Vector2f(1800.f, 1800.f), SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, 10.f, 10.f)));
+	charactersList.push_back(std::unique_ptr <character_t>(new Npc_t(temp, bulletsList, clock.get(),sf::Vector2f(1800.f, 1800.f), SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, 10.f, 10.f)));
 
 	++mainHero;
 	(*mainHero)->changeState(new CharacterStateMove_t((*mainHero).get()));

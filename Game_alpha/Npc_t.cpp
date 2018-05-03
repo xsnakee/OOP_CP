@@ -2,12 +2,8 @@
 
 
 
-Npc_t::Npc_t()
-{
-}
 
-
-Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, float _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple) :character_t(_texture, _x, _y, _coordX, _coordY, _width, _height,_clock)
+Npc_t::Npc_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, float _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple) :character_t(_texture, _bulletList, _x, _y, _coordX, _coordY, _width, _height,_clock)
 {
 	spotCoords = sf::Vector2f(_x,_y);
 	spawnCoords = spotCoords;
@@ -15,15 +11,16 @@ Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, float _x, float _y, int _
 	spawnRandomDistanceY = 0.f;
 	moveRadius = 0.f;
 	powerMultiple = _statMultiple;
-	setPowerMultiple(powerMultiple);
+
+	stat.statMiltipler(powerMultiple);
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 }
 
 //REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY) :
-	character_t(_texture, _spotCoords.x, _spotCoords.y, _coordX, _coordY, _width, _height, _clock)
+Npc_t::Npc_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY) :
+	character_t(_texture, _bulletList,_spotCoords.x, _spotCoords.y, _coordX, _coordY, _width, _height, _clock)
 {	
 	spotCoords = _spotCoords;
 
@@ -36,7 +33,7 @@ Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, sf::Vector2f _spotCoords,
 
 	moveRadius = 0.f;
 	powerMultiple = _multiple;
-	setPowerMultiple(powerMultiple);
+	stat.statMiltipler(powerMultiple);
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 }

@@ -2,28 +2,11 @@
 #include <iostream>
 
 
-character_t::character_t():physOb_t(), timer(NULL)
-{
-	destroyble = true;
-	frame = .0f;
-	direction = animation::BOTTOM;
-	collision = true;
-	fraction = 1;
-	targetCoords = spawnCoords = sf::Vector2f(0.f, 0.f);
-
-}
-
-character_t::character_t(float _x, float _y) :physOb_t(_x, _y), timer(NULL) {
-	destroyble = true;
-	frame = .0f;
-	direction = animation::BOTTOM;
-	collision = true;
-	fraction = 1;
-	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
-}
 
 //*
-character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
+character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
+
+	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -33,7 +16,9 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	clock = _clock;
 }
 
-character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
+character_t::character_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
+	
+	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -186,4 +171,36 @@ void character_t::attack() {
 		timer.updateAttackCD();
 		bullet_t * temp = new bullet_t(clock, this, getTargetCoords());
 	}
+}
+
+
+bool character_t::checkSkillGenerator() {
+	std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
+
+	size_t tempStatus = 0;
+
+	for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
+		if ((*temp) == elements::NONE) return false;
+		tempStatus += (*temp);
+	}
+
+	elemStatus = tempStatus;
+
+	return true;
+}
+
+bool character_t::addElement(elements::element _elem) {
+	if (skillGeneratorArr.size() < 3) {
+		skillGeneratorArr.push_back(_elem);
+		return true;
+	}
+	else {
+		skillGeneratorArr.pop_back();
+		skillGeneratorArr.push_back(_elem);
+		return true;
+	}
+	return false;
+}
+
+void character_t::generateSkillAndClearElemList() {
 }

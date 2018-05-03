@@ -1,6 +1,6 @@
 #pragma once
 #include "character_t.h"
-
+#include "additional.h"
 
 class Npc_t :
 	public character_t
@@ -15,9 +15,9 @@ protected:
 	float powerMultiple;
 
 public:
-	Npc_t();
-	Npc_t(sf::Texture *_texture, sf::Clock *_clock,float  _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple = 1.f);
-	Npc_t(sf::Texture *texture, sf::Clock *_clock, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY);
+
+	Npc_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock,float  _x, float _y, int _coordX, int _coordY, int _width, int _height, float _statMultiple = 1.f);
+	Npc_t(sf::Texture *texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY);
 	virtual ~Npc_t();
 
 	virtual void controller(sf::Event);
@@ -39,10 +39,6 @@ public:
 		return sf::Vector2f(spawnRandomDistanceX,spawnRandomDistanceY);
 	}
 
-	float setPowerMultiple(float _mult) {
-		stat.statMiltipler(_mult);
-		return powerMultiple;
-	}
 
 	float setSpawnDistanceX(float _dist) {
 		spawnRandomDistanceX = _dist;

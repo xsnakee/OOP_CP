@@ -29,7 +29,7 @@ private:
 
 	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
-	std::list<std::unique_ptr <Npc_t>> npcList;
+//	std::list<std::unique_ptr <Npc_t>> npcList;
 
 	std::list<physOb_t*> obList;
 	std::list<std::unique_ptr <bullet_t>> bulletsList;

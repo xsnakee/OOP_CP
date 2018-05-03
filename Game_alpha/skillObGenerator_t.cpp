@@ -2,7 +2,7 @@
 
 
 
-skillObGenerator_t::skillObGenerator_t(player_t *_character, std::list<std::unique_ptr <bullet_t>> &_bulletList):skillGeneratorBulletList(_bulletList)
+skillObGenerator_t::skillObGenerator_t(character_t *_character, std::list<std::unique_ptr <bullet_t>> &_bulletList):skillGeneratorBulletList(_bulletList)
 {
 	character = _character;
 }
@@ -208,4 +208,9 @@ void skillObGenerator_t::useSkill() {
 	}
 	}
 }
+
+
+
+void skillObGenerator_t::upCharacterStat(characterStats_t &_stats) {
+	character->getStats().upStat(_stats);
 }
