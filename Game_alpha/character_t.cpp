@@ -171,14 +171,9 @@ void character_t::attack() {
 bool character_t::checkSkillGenerator() {
 	std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
 
-	size_t tempStatus = 0;
-
 	for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
 		if ((*temp) == elements::NONE) return false;
-		tempStatus += (*temp);
 	}
-
-	elemStatus = tempStatus;
 
 	return true;
 }
@@ -197,4 +192,6 @@ bool character_t::addElement(elements::element _elem) {
 }
 
 void character_t::generateSkillAndClearElemList() {
+	elemStatus = std::accumulate(skillGeneratorArr.begin(), skillGeneratorArr.end(), 0);
+	skillGeneratorArr.clear();
 }

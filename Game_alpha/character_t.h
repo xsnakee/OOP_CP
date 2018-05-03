@@ -97,6 +97,10 @@ public:
 	size_t getElemStatus() const {
 		return elemStatus;
 	}
+
+	characterTimers_t getTimers() const {
+		return timer;
+	}
 	//SET
 	float setFrame(float _frame) {
 		frame = _frame;

@@ -12,12 +12,15 @@
 #include "additional.h"
 #include "cursor_t.h"
 #include "skillObGenerator_t.h"
+#include "keyboardController.h"
 
 class game_t
 {
 private:
 	sf :: RenderWindow *window;
+
 	cursor_t *cursor;
+	std::unique_ptr<keyboardController> controller;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;

@@ -54,6 +54,8 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	(*mainHero)->setFraction(-2);
 	--mainHero;
 
+	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(),(*mainHero).get()));
+
 	//*/
 }
 
@@ -71,6 +73,9 @@ void game_t::update() {
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
 	checkAlive();
+
+	controller->eventHandler();
+
 	bulletEngine();
 	visionEngine();
 	charsAction();
@@ -125,54 +130,9 @@ void game_t::keyController(sf::Event &event) {
 
 	std::list<std::unique_ptr <character_t>>::iterator mainHero = charactersList.begin();
 	sf::Keyboard::Key tempKey = event.key.code;
-	//NAVIGATION CONTROLLER	{
+
 		if ((*mainHero)->getAlive()) {
-			using namespace sf;
-			if (Keyboard::isKeyPressed(Keyboard::W)) {
-				(*mainHero)->setdY(-(*mainHero)->getStats().speed);
-			}
-			else
-
-				if (Keyboard::isKeyPressed(Keyboard::S)) {
-					(*mainHero)->setdY((*mainHero)->getStats().speed);
-
-				}
-				else
-
-					if (Keyboard::isKeyPressed(Keyboard::D)) {
-						(*mainHero)->setdX((*mainHero)->getStats().speed);
-					}
-					else
-
-
-						if (Keyboard::isKeyPressed(Keyboard::A)) {
-							(*mainHero)->setdX(-(*mainHero)->getStats().speed);
-						}
-
-			if (Keyboard::isKeyPressed(Keyboard::E)) {
-				(*mainHero)->setPosX(1000.0f);
-				(*mainHero)->setPosY(1000.0f);
-			}
-
-			/*
-			if (Keyboard::isKeyPressed(Keyboard::Space)) {
-
-
-				addElement(elements::FIRE);
-				checkSkillGenerator();
-				std::cout << elements::FIRE;
-
-			}
-			*/
-
-
-			//ATACK CONTROLLER
-			if (Mouse::isButtonPressed(Mouse::Left)) {
-				//bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(), (*mainHero).get(), cursor->getPosition())));
-				(*mainHero)->attack();
-				//bulletsList.push_back((std::unique_ptr<bullet_t>((*mainHero)->attack())));
-
-			}
+			controller->takeKey(event);
 
 		}
 	

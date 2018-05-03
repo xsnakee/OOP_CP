@@ -1,11 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "player_t.h"
+#include "character_t.h"
 
 class keyboardController
 {
 protected:
-	sf::Keyboard::Key key;
+	int controllerMode;
+	int key;//mouse click code = 55
 	sf::Clock *clock;
 	sf::Int32 startTime;
 	sf::Int32 keysCD;
@@ -18,7 +19,7 @@ public:
 	virtual void eventHandler() = 0;
 
 	//GET
-	sf::Keyboard::Key getKey() const {
+	int getKey() const {
 		return key;
 	}
 	
@@ -29,19 +30,28 @@ public:
 	sf::Int32 getkeyCD() const {
 		return keysCD;
 	}
+
+	int getControllerMode() const {
+		return controllerMode;
+	}
 };
 
 
 class PlayerController :public keyboardController {
-	player_t *character;
+	character_t *character;
 
+
+	void setDefaultCharacterState();
 public:
-	PlayerController(sf::Clock *_clock, player_t *_mainHero);
+	PlayerController(sf::Clock *_clock, character_t *_mainHero);
 	virtual ~PlayerController();
 
-	player_t * getPlayerCharPtr()const {
+	character_t * getPlayerCharPtr()const {
 		return character;
 	}
+
+
+	virtual void eventHandler();
 };
 
 
