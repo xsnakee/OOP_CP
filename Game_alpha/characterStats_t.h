@@ -7,8 +7,8 @@ struct characterStats_t
 	float MP = 5.f;
 	float stdMP = 5.f;
 
-	float attackPower = 1.f;
-	float stdattackPower = 1.f;
+	float attackPower = 5.f;
+	float stdattackPower = 5.f;
 
 	float physDef = 1.f;
 	float stdPhysDef = 1.f;

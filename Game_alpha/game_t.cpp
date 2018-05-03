@@ -18,6 +18,7 @@ game_t::game_t()
 
 game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelName)
 {
+	//skillObGenerator_t::setBulletList(&bulletsList);
 	window = _window;
 	view = new sf::View;
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));

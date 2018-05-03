@@ -134,6 +134,7 @@
     <ClCompile Include="obPreference.cpp" />
     <ClCompile Include="physOb_t.cpp" />
     <ClCompile Include="player_t.cpp" />
+    <ClCompile Include="skillObGenerator_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="additional.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
     <ClInclude Include="player_t.h" />
+    <ClInclude Include="skillObGenerator_t.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

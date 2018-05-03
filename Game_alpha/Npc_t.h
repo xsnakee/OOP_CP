@@ -9,6 +9,7 @@ protected:
 	sf::Vector2f spotCoords;
 	float spawnRandomDistanceX;
 	float spawnRandomDistanceY;
+	sf::Int32 spawnTime;
 
 	float moveRadius;
 	float powerMultiple;

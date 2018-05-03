@@ -17,6 +17,7 @@ Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, float _x, float _y, int _
 	powerMultiple = _statMultiple;
 	setPowerMultiple(powerMultiple);
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
+	spawnTime = std::numeric_limits<sf::Int32>::max();
 }
 
 //REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -37,6 +38,7 @@ Npc_t::Npc_t(sf::Texture *_texture, sf::Clock *_clock, sf::Vector2f _spotCoords,
 	powerMultiple = _multiple;
 	setPowerMultiple(powerMultiple);
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
+	spawnTime = std::numeric_limits<sf::Int32>::max();
 }
 
 Npc_t::~Npc_t()

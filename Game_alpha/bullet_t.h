@@ -29,7 +29,6 @@ private:
 	float vectorLength;
 public:
 	bullet_t();
-	bullet_t(bullet_t &bullet);
 	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords);
 	virtual ~bullet_t();
 
@@ -97,6 +96,11 @@ public:
 	void setSpeed(float _val) {
 		stat.speed = _val;
 	}
+
+	void speedMultiple(float _val) {
+		stat.speed *= _val;
+	}
+
 	void setRng(float _val) {
 		stat.range = _val;
 	}

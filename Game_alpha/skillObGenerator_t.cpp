@@ -12,6 +12,10 @@ skillObGenerator_t::~skillObGenerator_t()
 {
 }
 
+/*
+void skillObGenerator_t::setBulletList(std::list<std::unique_ptr<bullet_t>> *_bulletList) {
+	//bulletList = _bulletList;
+}*/
 
 void skillObGenerator_t::useSkill() {
 	
@@ -50,7 +54,7 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
-		tempBullet->setSpeed(0.2f);
+		tempBullet->speedMultiple(2.f);
 		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(2000);
@@ -59,7 +63,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList.push_back(tempBullet);
+		bulletList->push_back(tempBullet.get());
 
 		break;
 	}
@@ -74,7 +78,7 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
-		tempBullet->setSpeed(0.2f);
+		tempBullet->speedMultiple(2.f);
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(2000);
@@ -83,7 +87,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList.push_back(tempBullet);
+		bulletList->push_back(tempBullet.get());
 
 		break;
 	}
@@ -96,7 +100,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(true);
-		tempBullet->setSpeed(0.2f);
+		tempBullet->speedMultiple(2.f);
 		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
@@ -105,7 +109,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList.push_back(tempBullet);
+		bulletList->push_back(tempBullet.get());
 
 		break;
 	}
@@ -118,7 +122,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(true);
-		tempBullet->setSpeed(0.05f);
+		tempBullet->speedMultiple(0.5f);
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(4000);
@@ -127,7 +131,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList.push_back(tempBullet);
+		bulletList->push_back(tempBullet.get());
 
 		break;
 	}
@@ -143,7 +147,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setPosX(character->getTargetCoords().x);
 		tempBullet->setPosY(character->getTargetCoords().y);
 
-		tempBullet->setRng(0.f);
+		tempBullet->setRng(100.f);
 		tempBullet->setCollision(false);
 		tempBullet->setSpeed(0.f);
 		tempBullet->setType(true);
@@ -156,7 +160,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList.push_back(tempBullet);
+		bulletList->push_back(tempBullet.get());
 
 		break;
 	}
@@ -169,12 +173,12 @@ void skillObGenerator_t::useSkill() {
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
 		tempBullet->setTexturePtr(tempTexture);
 
-		tempBullet->setRng(0.f);
+		tempBullet->setRng(100.f);
 		tempBullet->setCollision(false);
 		tempBullet->setSpeed(0.f);
 		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
-		tempBullet->setTimer(4000);
+		tempBullet->setTimer(500);
 		tempBullet->setAOE(50.f);
 
 
@@ -182,7 +186,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList.push_back(tempBullet);
+		bulletList->push_back(tempBullet.get());
 
 		break;
 	}
@@ -195,7 +199,6 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(false);
-		tempBullet->setSpeed(0.1f);
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::WIND);
 		tempBullet->setTimer(4000);
@@ -204,8 +207,7 @@ void skillObGenerator_t::useSkill() {
 		float tempDmg = 10.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
-
-		bulletList.push_back(tempBullet);
+		bulletList->push_back(tempBullet.get());
 
 		break;
 	}
