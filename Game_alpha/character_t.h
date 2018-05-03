@@ -23,6 +23,8 @@ protected:
 	sf::Vector2f targetCoords;
 	sf::Vector2f spawnCoords;
 
+	
+
 protected:
 
 	character_t();

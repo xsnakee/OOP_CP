@@ -1,8 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
+#include <list>
+#include <memory>
+#include "game_t.h"
 #include "player_t.h"
 #include "bullet_t.h"
-#include <list>
+#include "additional.h"
 
 class player_t;
 
@@ -10,15 +14,19 @@ class skillObGenerator_t
 {
 
 	player_t *character;
-	std::list<bullet_t *> *bulletList;//std::unique_ptr<bullet_t>
-
+	std::list<std::unique_ptr <bullet_t>> &skillGeneratorBulletList;
+	
 public:
-	skillObGenerator_t(player_t *_character);
+	//skillObGenerator_t();
+	skillObGenerator_t(player_t *_character, std::list<std::unique_ptr <bullet_t>> &_bulletList);
 	virtual ~skillObGenerator_t();
 
 	void useSkill();
 	void upCharacterStat(characterStats_t &_stats);
 	void generateBullet(bullet_t *bullet);
-	static void setBulletList(std::list<std::unique_ptr<bullet_t>> *_bulletList);
+
+	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
+		return skillGeneratorBulletList;
+	}
 };
 

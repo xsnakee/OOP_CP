@@ -2,7 +2,7 @@
 
 
 
-skillObGenerator_t::skillObGenerator_t(player_t *_character)
+skillObGenerator_t::skillObGenerator_t(player_t *_character, std::list<std::unique_ptr <bullet_t>> &_bulletList):skillGeneratorBulletList(_bulletList)
 {
 	character = _character;
 }
@@ -11,11 +11,6 @@ skillObGenerator_t::skillObGenerator_t(player_t *_character)
 skillObGenerator_t::~skillObGenerator_t()
 {
 }
-
-/*
-void skillObGenerator_t::setBulletList(std::list<std::unique_ptr<bullet_t>> *_bulletList) {
-	//bulletList = _bulletList;
-}*/
 
 void skillObGenerator_t::useSkill() {
 	
@@ -63,7 +58,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList->push_back(tempBullet.get());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
@@ -87,7 +82,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList->push_back(tempBullet.get());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
@@ -109,7 +104,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList->push_back(tempBullet.get());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
@@ -131,7 +126,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList->push_back(tempBullet.get());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
@@ -160,7 +155,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList->push_back(tempBullet.get());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
@@ -186,7 +181,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
-		bulletList->push_back(tempBullet.get());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
@@ -207,7 +202,7 @@ void skillObGenerator_t::useSkill() {
 		float tempDmg = 10.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
-		bulletList->push_back(tempBullet.get());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}

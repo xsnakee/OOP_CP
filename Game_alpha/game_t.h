@@ -80,5 +80,8 @@ public:
 		return speedMultipple;
 	}
 
+	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
+		return bulletsList;
+	}
 };
 

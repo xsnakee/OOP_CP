@@ -13,12 +13,11 @@ game_t::game_t()
 
 	using namespace animation;
 
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,clock.get())));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,clock.get(),bulletsList)));
 }
 
 game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelName)
 {
-	//skillObGenerator_t::setBulletList(&bulletsList);
 	window = _window;
 	view = new sf::View;
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
@@ -39,7 +38,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	generateMapTiles(map.groundTilesList);
 
 	using namespace animation;
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1700.f, 1700.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1700.f, 1700.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get(), bulletsList)));
 	mainHero = charactersList.begin();
 	
 	
@@ -170,7 +169,7 @@ void game_t::keyController(sf::Event &event) {
 			//ATACK CONTROLLER
 			if (Mouse::isButtonPressed(Mouse::Left)) {
 				bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(), (*mainHero).get(), cursor->getPosition())));
-
+			
 				//bulletsList.push_back((std::unique_ptr<bullet_t>((*mainHero)->attack())));
 
 			}
