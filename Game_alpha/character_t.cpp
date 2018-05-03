@@ -5,7 +5,6 @@
 character_t::character_t():physOb_t(), timer(NULL)
 {
 	destroyble = true;
-	//skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
 	collision = true;
@@ -16,7 +15,6 @@ character_t::character_t():physOb_t(), timer(NULL)
 
 character_t::character_t(float _x, float _y) :physOb_t(_x, _y), timer(NULL) {
 	destroyble = true;
-	//skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
 	collision = true;
@@ -27,7 +25,6 @@ character_t::character_t(float _x, float _y) :physOb_t(_x, _y), timer(NULL) {
 //*
 character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
 	destroyble = true;
-	//skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
 	collision = true;
@@ -38,7 +35,6 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 
 character_t::character_t(sf::Texture *_texture, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
 	destroyble = true;
-	//skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
 	collision = true;
@@ -177,7 +173,7 @@ void character_t::changeState(CharacterState_t *newState) {
 	state = std::unique_ptr<CharacterState_t>(newState);
 }
 
-bullet_t *character_t::attack() {
+void character_t::attack() {
 
 	//*start cast
 	if (timer.attackReady()) {
@@ -189,6 +185,5 @@ bullet_t *character_t::attack() {
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
 		bullet_t * temp = new bullet_t(clock, this, getTargetCoords());
-		return temp;
 	}
 }

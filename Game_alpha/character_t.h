@@ -6,7 +6,6 @@
 #include "CharacterState_t.h"
 #include "characterTimers_t.h"
 #include "physOb_t.h"
-#include "skills_t.h"
 #include "additional.h"
 
 class CharacterState_t;
@@ -19,8 +18,6 @@ protected:
 	std::unique_ptr<CharacterState_t> state;
 	sf::Clock *clock;
 	characterTimers_t timer;
-
-	//skills_t *skill;
 
 	float frame;
 	sf::Vector2f targetCoords;
@@ -40,7 +37,7 @@ public:
 
 	void defaultStats();
 
-	virtual bullet_t *attack();
+	virtual void attack();
 
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);

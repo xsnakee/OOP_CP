@@ -126,7 +126,6 @@
     <ClCompile Include="characterTimers_t.cpp" />
     <ClCompile Include="character_t.cpp" />
     <ClCompile Include="cursor_t.cpp" />
-    <ClCompile Include="effectSkill_t.cpp" />
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="ground_t.cpp" />
     <ClCompile Include="main.cpp" />
@@ -135,9 +134,6 @@
     <ClCompile Include="obPreference.cpp" />
     <ClCompile Include="physOb_t.cpp" />
     <ClCompile Include="player_t.cpp" />
-    <ClCompile Include="skillAOE_t.cpp" />
-    <ClCompile Include="skillShot_t.cpp" />
-    <ClCompile Include="skills_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="additional.h" />
@@ -147,7 +143,6 @@
     <ClInclude Include="characterTimers_t.h" />
     <ClInclude Include="character_t.h" />
     <ClInclude Include="cursor_t.h" />
-    <ClInclude Include="effectSkill_t.h" />
     <ClInclude Include="game_t.h" />
     <ClInclude Include="ground_t.h" />
     <ClInclude Include="map_t.h" />
@@ -155,9 +150,6 @@
     <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
     <ClInclude Include="player_t.h" />
-    <ClInclude Include="skillAOE_t.h" />
-    <ClInclude Include="skillShot_t.h" />
-    <ClInclude Include="skills_t.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
