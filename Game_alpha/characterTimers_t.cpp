@@ -12,7 +12,7 @@ characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _att
 	timerStats attackCD = { startTime, 1000/ _attackSpeed};
 	timersList.insert(std::pair<std::string,timerStats>(attackCDkey, attackCD));
 
-	timerStats castDelay = { startTime, 1500 / _castSpeed};
+	timerStats castDelay = { startTime, 4000 / _castSpeed};
 	timersList.insert(std::pair<std::string, timerStats>(castDelaykey, castDelay));
 
 	timerStats swapDirectionTimer = { startTime, 4000 };
@@ -87,6 +87,7 @@ void characterTimers_t::updateAttackCD() {
 void characterTimers_t::updateCastCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
 	timersList[castDelaykey].ready = false;
+	setcastDelayStartTimer(curTime);
 }
 void characterTimers_t::updateSwapDirectionCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();

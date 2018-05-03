@@ -15,9 +15,9 @@ public:
 	keyboardController(sf::Clock *_clock);
 	virtual ~keyboardController();
 
-	void takeKey(sf::Event &event);
-	virtual void eventHandler() = 0;
+	bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 
+	virtual void eventHandler(sf::Event &event) = 0;
 	//GET
 	int getKey() const {
 		return key;
@@ -41,7 +41,7 @@ class PlayerController :public keyboardController {
 	character_t *character;
 
 
-	void setDefaultCharacterState();
+	void checkCharacterStateAndChangeDefault();
 public:
 	PlayerController(sf::Clock *_clock, character_t *_mainHero);
 	virtual ~PlayerController();
@@ -51,7 +51,7 @@ public:
 	}
 
 
-	virtual void eventHandler();
+	virtual void eventHandler(sf::Event &event);//virtual void eventHandler();
 };
 
 

@@ -74,14 +74,18 @@ void game_t::update() {
 
 	checkAlive();
 
-	controller->eventHandler();
-
 	bulletEngine();
 	visionEngine();
 	charsAction();
 	collisionEngine();
 
 	(*mainHero)->setTargetCoords(cursor->getPosition());
+	//*
+	if (((*mainHero)->getState()->getStateNum() == 4) && (*mainHero)->checkSkillGenerator() && ((*mainHero)->getTimers().castReady())) {
+		(*mainHero)->generateSkillAndClearElemList();
+		(*mainHero)->changeState(new CharacterPlayerControll_t(mainHero->get()));
+	}
+	//*/
 
 	for (auto &character : charactersList) {
 		(character)->update(speed);
@@ -126,17 +130,9 @@ void game_t::draw() {
 }
 
 void game_t::keyController(sf::Event &event) {
-	using namespace sf;
-
-	std::list<std::unique_ptr <character_t>>::iterator mainHero = charactersList.begin();
-	sf::Keyboard::Key tempKey = event.key.code;
-
 		if ((*mainHero)->getAlive()) {
-			controller->takeKey(event);
-
+			controller->eventHandler(event);
 		}
-	
-
 }
 
 void game_t::checkAlive() {
