@@ -2,33 +2,31 @@
 #include <iostream>
 
 
-character_t::character_t():physOb_t()
-{
-	destroyble = true;
-	skill = nullptr;
-	frame = .0f;
-	direction = animation::BOTTOM;
-	fraction = 1;
-
-}
-
-character_t::character_t(float _x, float _y) :physOb_t(_x, _y) {
-	destroyble = true;
-	skill = nullptr;
-	frame = .0f;
-	direction = animation::BOTTOM;
-	fraction = 1;
-}
 
 //*
-character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height){
+character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
+
+	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
 	destroyble = true;
-	skill = nullptr;
 	frame = .0f;
 	direction = animation::BOTTOM;
+	collision = true;
 	fraction = 1;
+	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
+	clock = _clock;
 }
 
+character_t::character_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
+	
+	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
+	destroyble = true;
+	frame = .0f;
+	direction = animation::BOTTOM;
+	collision = true;
+	fraction = 1;
+	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
+	clock = _clock;
+}
 
 //*/
 character_t::~character_t()
@@ -43,7 +41,7 @@ void character_t::setStats(characterStats_t &_stats) {
 
 }
 
-characterStats_t character_t::getStats() {
+characterStats_t &character_t::getStats() {
 	return stat;
 }
 
@@ -60,7 +58,6 @@ void character_t::update(float _speed) {
 	if (alive) {
 
 		physOb_t::update(_speed);
-
 		updateFrame();
 		animation();
 	}
@@ -98,8 +95,13 @@ bool character_t::checkAlive() {
 float character_t::takeDamage(float _dmg, bool _dmgType) {
 
 	if (alive) {
-		float tempDmg = (_dmgType) ? (abs(_dmg) - abs(stat.physDef)) : (abs(_dmg) - abs(stat.magDef));
+		float tempDmg = (_dmgType) ? (_dmg - abs(stat.physDef)) : (_dmg - abs(stat.magDef));
+		if (tempDmg < 0){
+			tempDmg = 0.f;
+		}
+		
 		stat.HP -= tempDmg;
+		std::cout << tempDmg << " Dmg" << std::endl;
 		return tempDmg;
 	}
 	return 0.f;
@@ -107,7 +109,7 @@ float character_t::takeDamage(float _dmg, bool _dmgType) {
 
 float character_t::toHit() const{
 
-	return stat.atackPower + getRand(-stat.damageRand, stat.damageRand);
+	return stat.attackPower + getRand(-stat.damageRand, stat.damageRand);
 }
 
 bool character_t::checkCollision(physOb_t &Object, float _borderError) {
@@ -131,6 +133,68 @@ bool character_t::checkCollision(physOb_t &Object, float _borderError) {
 
 
 	return false;
+}
 
-	//return physOb_t::checkCollision(Object, _borderError);
+
+
+
+bool character_t::checkEnemy(character_t *ob) {
+
+
+	float distanceX = (ob->getCoordsOfCenter().x )- (getCoordsOfCenter().x);
+	float distanceY = (ob->getCoordsOfCenter().y) - (getCoordsOfCenter().y);
+	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+
+	if (vectorLength < stat.visionDistance) {
+		return true;
+	}
+
+	return false;
+}
+
+
+void character_t::changeState(CharacterState_t *newState) {
+	state.reset();
+	state = std::unique_ptr<CharacterState_t>(newState);
+}
+
+void character_t::attack() {
+
+	//*start cast
+	if (timer.attackReady()) {
+		timer.updateAttackCD();
+		std::cout << "Attacked!!" << std::endl;
+	}
+}
+
+
+bool character_t::checkSkillGenerator() {
+	std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
+
+	size_t tempStatus = 0;
+
+	for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
+		if ((*temp) == elements::NONE) return false;
+		tempStatus += (*temp);
+	}
+
+	elemStatus = tempStatus;
+
+	return true;
+}
+
+bool character_t::addElement(elements::element _elem) {
+	if (skillGeneratorArr.size() < 3) {
+		skillGeneratorArr.push_back(_elem);
+		return true;
+	}
+	else {
+		skillGeneratorArr.pop_back();
+		skillGeneratorArr.push_back(_elem);
+		return true;
+	}
+	return false;
+}
+
+void character_t::generateSkillAndClearElemList() {
 }

@@ -9,14 +9,21 @@ class characterTimers_t
 	struct timerStats {
 		sf::Int32 startTime;
 		sf::Int32 cooldown;
+		bool ready = true;
 	};
 	//get init time in Milliseconds
 	sf::Clock *clock;
 	std::map<std::string, timerStats> timersList;
 	std::string attackCDkey = "attackCD";
 	std::string castDelaykey = "castDelay";
-		std::string swapDirectionTimerkey = "swapDirectionTimer";
+	std::string skillGenerationCDkey = "skillGenerationCD";
+
+
+	void setAttackStartTimer(sf::Int32 _curTime);
+	void setcastDelayStartTimer(sf::Int32 _curTime);
+	void setswapDirectionTimerStartTimer(sf::Int32 _curTime);
 public:
+	characterTimers_t();
 	characterTimers_t(sf::Clock *_clock, int _castSpeed = 1, int _attackSpeed = 1);
 	~characterTimers_t();
 
@@ -27,17 +34,16 @@ public:
 	sf::Int32 getDirectionSwapTime(int _time);
 
 
-	bool setAttackCD(int _attackCD);
-	bool setCastDelay(int _castDelay);
-	bool setDirectionSwapTime(int _time);
-
-	bool setAttackStartTimer( sf::Int32 _curTime);
-	bool setcastDelayStartTimer(sf::Int32 _curTime);
-	bool setswapDirectionTimerStartTimer(sf::Int32 _curTime);
-
+	void setAttackCD(int _attackCD);
+	void setCastDelay(int _castDelay);
+	void setDirectionSwapTime(int _time);
 
 	bool attackReady();
 	bool castReady();
 	bool swapDirectionReady();
+
+	void updateAttackCD();
+	void updateCastCD();
+	void updateSwapDirectionCD();
 };
 

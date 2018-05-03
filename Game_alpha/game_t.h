@@ -1,15 +1,17 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+
 #include <list>
+#include <memory>
 #include "character_t.h"
 #include "player_t.h"
+#include "Npc_t.h"
 #include "map_t.h"
 #include "bullet_t.h"
 #include "additional.h"
 #include "cursor_t.h"
-#include <memory>
+#include "skillObGenerator_t.h"
 
 class game_t
 {
@@ -27,9 +29,10 @@ private:
 
 	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
+//	std::list<std::unique_ptr <Npc_t>> npcList;
 
 	std::list<physOb_t*> obList;
-	std::list<bullet_t*> bulletsList;
+	std::list<std::unique_ptr <bullet_t>> bulletsList;
 	std::list<ground_t*> mapTilesList;
 public:
 	
@@ -43,8 +46,10 @@ public:
 
 	void keyController(sf::Event &event);
 	void checkAlive();
+	void visionEngine();
 	void collisionEngine();
 	void bulletEngine();
+	void charsAction();
 
 	void addOb(physOb_t *);
 	void addChar(character_t *);
@@ -75,5 +80,8 @@ public:
 		return speedMultipple;
 	}
 
+	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
+		return bulletsList;
+	}
 };
 

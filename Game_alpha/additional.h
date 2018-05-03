@@ -1,5 +1,6 @@
 #pragma once
-#include <SFML\Graphics.hpp>
+
+
 
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
@@ -10,6 +11,16 @@ namespace elements {
 		EARTH = 8
 	};
 }
+
+struct bulletStats {
+	float speed;
+	float damage;
+	float range;
+	elements::element element = elements::NONE;
+	float AOE = 0.1f;
+	bool type = false;//0 - phys, 1 - magic
+	int fraction = -1;
+};
 
 
 namespace tiles {
@@ -30,7 +41,18 @@ namespace tiles {
 }
 
 namespace animation {
+	//BULLETS IMGS
+	const std::string SWORD_ATTACK_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_SMALL_EARTH_BALL_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_FIRE_BALL_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_EARTH_BALL_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_LAVA_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_FIREWALL_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_EARTH_SLAM_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_COMBO_BALL_TEXTURE_FILE = "img/skills/bullets.png";
 
+	//CHARACTER IMGS
 	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/enemy_warrior.png";// "img/characters/mainHero.png";
 
 	const std::string ENEMY_DEMON_FILE = "img/characters/enemy_demon.png";

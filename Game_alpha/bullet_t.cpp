@@ -1,10 +1,11 @@
 #include "bullet_t.h"
-
+#include <iostream>
 bullet_t::bullet_t():physOb_t()
 {
 }
 
-bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getPosX() + genObj->getWidth() / 2, genObj->getPosY() + genObj->getHeight() / 2) {
+
+bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getCoordsOfCenter().x, genObj->getCoordsOfCenter().y) {
 
 
 	genericObject = genObj;
@@ -15,19 +16,19 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	startTime = _startTime;
 	timer = 4000;
 
-	targetCoords = _targetCoords; \
+	targetCoords = _targetCoords; 
+	stat.range = genericObject->getStats().attackRange;
+	stat.damage = genericObject->getStats().attackPower;
+
+	float speed = 15.f;
+	stat.speed = speed / stat.range;
 
 
-		stat.speed = 0.001f;
-	stat.range = 200.0f;
-
-	stat.damage = getRand(-40.f, 50.f);// 20.0f;
-	mass = false;
-	stat.AOE = 0.1f;
+	stat.AOE = 0.f;
 	stat.element = elements::NONE;
 	stat.type = false;
 
-	if (stat.AOE < FLT_EPSILON) {
+	if (abs(stat.AOE) < FLT_EPSILON) {
 		mass = false;
 	}
 	else {
@@ -37,6 +38,8 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 	startPosX = posX;
 	startPosY = posY;
 
+
+	//CALC SPEED
 	float distanceX = targetCoords.x - posX;
 	float distanceY = targetCoords.y - posY;
 	float rotation = -(atan2(distanceX, distanceY)) * 180.f / 3.14159265f;
@@ -48,8 +51,8 @@ bullet_t::bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords
 
 	//CALC DISTANCE SPEED ERROR 
 	float k = vectorLength / stat.range;
-	distanceX /= k;
-	distanceY /= k;
+	distanceX /= k*100;
+	distanceY /= k*100;
 
 	//SET SPEED
 	dX = distanceX * stat.speed;
@@ -73,8 +76,9 @@ bool bullet_t::checkAlive() {
 		float distanceX = startPosX - posX;
 		float distanceY = startPosY - posY;
 		float tempVectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+		float minRange = 0.5;
 
-		alive = (checkTimer(clock, startTime, timer) && (tempVectorLength < stat.range));//time is over or leave from range
+		alive = (checkTimer(clock, startTime, timer) && (tempVectorLength < stat.range));//time is over or leave from range //  abs(tempVectorLength - stat.range) < (minRange))
 	}
 	
 
@@ -87,7 +91,9 @@ bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 		if (Object.getDestroyble()) {
 			Object.takeDamage(stat.damage, stat.type);
 		}
+		if (!mass) {
 			alive = false;
+		}
 		
 			return true;
 	}

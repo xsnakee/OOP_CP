@@ -2,24 +2,19 @@
 
 #include <SFML\Graphics.hpp>
 #include "physOb_t.h"
+#include "character_t.h"
 #include "additional.h"
 
-struct bulletStats{
-	float speed;
-	float damage;
-	float range;
-	elements::element element = elements::NONE;
-	float AOE = 0.1f;
-	bool type = false;
-	int fraction = -1;
-};
+
+class character_t;
+
 
 class bullet_t:public physOb_t
 {
 private:
 	sf::Clock *clock;
 	bulletStats stat;
-	physOb_t *genericObject;
+	character_t *genericObject;
 	
 
 	sf::Int32 startTime;
@@ -34,7 +29,7 @@ private:
 	float vectorLength;
 public:
 	bullet_t();
-	bullet_t(sf::Clock *time, physOb_t *genObj, sf::Vector2f _targetCoords);
+	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords);
 	virtual ~bullet_t();
 
 
@@ -45,19 +40,23 @@ public:
 public:
 
 	//GET
-	physOb_t * getGenericObject()const {
+	character_t *getGenericObject()const {
 		return genericObject;
 	}
 
-	virtual sf::Int32 getStartTime() const {
+	sf::Int32 getStartTime() const {
 		return startTime;
+	}
+
+	bulletStats getStats() {
+		return stat;
 	}
 
 	int getElement()const {
 		return stat.element;
 	}
 
-	virtual sf::Int32 getTimer()const {
+	sf::Int32 getTimer()const {
 		return timer;
 	}
 
@@ -83,7 +82,37 @@ public:
 	}
 
 	bool setStats(bulletStats &_stats) {
+		mass = (_stats.AOE > FLT_EPSILON) ? true : false;
 		stat = _stats;
 	}
+
+	void setTimer(sf::Int32 _timer) {
+		timer = _timer;
+	}
+
+	void setDmg(float _val) {
+		stat.damage = _val;
+	}
+	void setSpeed(float _val) {
+		stat.speed = _val;
+	}
+
+	void speedMultiple(float _val) {
+		stat.speed *= _val;
+	}
+
+	void setRng(float _val) {
+		stat.range = _val;
+	}
+
+	void setAOE(float _val)  {
+		mass = (_val > FLT_EPSILON) ? true : false;
+		stat.AOE = _val;
+	}
+
+	void setType(bool _val) {
+		stat.type = _val;
+	}
+
 };
 

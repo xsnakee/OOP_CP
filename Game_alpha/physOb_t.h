@@ -92,6 +92,14 @@ public:
 	virtual sf::Int32 getTimer()const {
 		return std::numeric_limits<sf::Int32>::max();
 	}
+
+	sf::Vector2f getCoords() const {	
+		return sf::Vector2f (posX, posY);
+	}
+
+	sf::Vector2f getCoordsOfCenter() const {
+		return sf::Vector2f(posX + getWidth()/2, posY + getHeight() / 2);
+	}
 	//SET
 	float setPosX(float _x){
 		posX = _x;
@@ -125,6 +133,11 @@ public:
 		hitsToDestroy = _hitsToDestroy;
 		return hitsToDestroy;
 	}
+
+	void setTexturePtr(sf::Texture *newTexture) {
+		spritePref.setTexturePtr(newTexture);
+	}
+
 
 	float setdX(float _x) {
 		dX = _x;

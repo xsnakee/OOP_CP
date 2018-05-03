@@ -1,13 +1,15 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-const int DEFAULT_HEIGHT = 31;
-const int DEFAULT_WIDTH = 27;
+#include <memory>
+
+const int DEFAULT_HEIGHT = 32;
+const int DEFAULT_WIDTH = 32;
 
 class obPreference
 {
 private:
-	sf::Texture *texture;
+	std::shared_ptr<sf::Texture> texture;
 	sf::Sprite sprite;
 
 	int spriteCoordX;
@@ -46,6 +48,9 @@ public:
 	}
 
 	//SET
+	void setTexturePtr(sf::Texture *newTexture) {
+		texture = std::shared_ptr<sf::Texture>(newTexture);
+	}
 	void setTexturePos(int coordX, int coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;

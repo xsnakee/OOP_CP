@@ -16,7 +16,7 @@ ground_t::ground_t()
 
 ground_t::ground_t(sf::Texture *_texture, float _posX, float _posY, int _x, int _y, int _id)
 {
-	texture = _texture;
+	texture = std::shared_ptr<sf::Texture>(_texture);
 	sprite.setTexture(*texture);
 	spriteCoordX = _x;
 	spriteCoordY = _y;
