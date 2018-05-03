@@ -23,9 +23,9 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	targetCoords = _targetCoords; 
 
 	stat.speed = 0.1f;
-	stat.range = 200.0f;
+	stat.range = genericObject->getStats().attackRange;
 
-	stat.damage = getRand(-5.f, 5.f);// 20.0f;
+	stat.damage = genericObject->getStats().attackPower;
 	stat.AOE = 0.f;
 	stat.element = elements::NONE;
 	stat.type = false;
@@ -78,8 +78,9 @@ bool bullet_t::checkAlive() {
 		float distanceX = startPosX - posX;
 		float distanceY = startPosY - posY;
 		float tempVectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+		float minRange = 0.5;
 
-		alive = (checkTimer(clock, startTime, timer) && (tempVectorLength < stat.range));//time is over or leave from range
+		alive = (checkTimer(clock, startTime, timer) && (abs(tempVectorLength - stat.range) < (minRange)));//time is over or leave from range
 	}
 	
 

@@ -43,7 +43,7 @@ void skillObGenerator_t::useSkill() {
 	case 4: {//SMALL FIRE BALLS
 		
 		sf::Texture *tempTexture = new sf::Texture();
-		tempTexture->loadFromFile(animation::BULLET_FIRE_BALL_TEXTURE_FILE);
+		tempTexture->loadFromFile(animation::BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
 		tempBullet->setTexturePtr(tempTexture);
@@ -64,7 +64,30 @@ void skillObGenerator_t::useSkill() {
 		break;
 	}
 
-	case 10: {//SMALL FIRE BALLS
+	case 10: {//SMALL EARTH BALLS
+
+		sf::Texture *tempTexture = new sf::Texture();
+		tempTexture->loadFromFile(animation::BULLET_SMALL_EARTH_BALL_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setAOE(50.f);
+		tempBullet->setCollision(false);
+		tempBullet->setSpeed(0.2f);
+		tempBullet->setType(false);
+		tempBullet->setElement(elements::EARTH);
+		tempBullet->setTimer(2000);
+
+		float tempDmg = 5.f + character->getStats().attackPower;
+		tempBullet->setDmg(tempDmg);
+
+
+		bulletList.push_back(tempBullet);
+
+		break;
+	}
+	case 5: {//FIRE BALL
 
 		sf::Texture *tempTexture = new sf::Texture();
 		tempTexture->loadFromFile(animation::BULLET_FIRE_BALL_TEXTURE_FILE);
@@ -72,14 +95,35 @@ void skillObGenerator_t::useSkill() {
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
 		tempBullet->setTexturePtr(tempTexture);
 
-		tempBullet->setAOE(50.f);
-		tempBullet->setCollision(false);
+		tempBullet->setCollision(true);
 		tempBullet->setSpeed(0.2f);
 		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
-		tempBullet->setTimer(2000);
+		tempBullet->setTimer(4000);
 
-		float tempDmg = 5.f + character->getStats().attackPower;
+		float tempDmg = 15.f + character->getStats().attackPower;
+		tempBullet->setDmg(tempDmg);
+
+
+		bulletList.push_back(tempBullet);
+
+		break;
+	}
+	case 17: {//EARTH BALL
+
+		sf::Texture *tempTexture = new sf::Texture();
+		tempTexture->loadFromFile(animation::BULLET_EARTH_BALL_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setCollision(true);
+		tempBullet->setSpeed(0.05f);
+		tempBullet->setType(false);
+		tempBullet->setElement(elements::EARTH);
+		tempBullet->setTimer(4000);
+
+		float tempDmg = 30.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
 
@@ -88,6 +132,83 @@ void skillObGenerator_t::useSkill() {
 		break;
 	}
 
+	case 12: {//LAVA POOL
+
+		sf::Texture *tempTexture = new sf::Texture();
+		tempTexture->loadFromFile(animation::BULLET_LAVA_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setPosX(character->getTargetCoords().x);
+		tempBullet->setPosY(character->getTargetCoords().y);
+
+		tempBullet->setRng(0.f);
+		tempBullet->setCollision(false);
+		tempBullet->setSpeed(0.f);
+		tempBullet->setType(true);
+		tempBullet->setElement(elements::FIRE);
+		tempBullet->setTimer(4000);
+		tempBullet->setAOE(60.f);
+		
+
+		float tempDmg = 30.f + character->getStats().attackPower;
+		tempBullet->setDmg(tempDmg);
+
+
+		bulletList.push_back(tempBullet);
+
+		break;
+	}
+
+	case 18: {//EARTH SLAM
+
+		sf::Texture *tempTexture = new sf::Texture();
+		tempTexture->loadFromFile(animation::BULLET_EARTH_SLAM_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setRng(0.f);
+		tempBullet->setCollision(false);
+		tempBullet->setSpeed(0.f);
+		tempBullet->setType(true);
+		tempBullet->setElement(elements::FIRE);
+		tempBullet->setTimer(4000);
+		tempBullet->setAOE(50.f);
+
+
+		float tempDmg = 20.f + character->getStats().attackPower;
+		tempBullet->setDmg(tempDmg);
+
+
+		bulletList.push_back(tempBullet);
+
+		break;
+	}
+	case 11: {//COMBO BALL
+
+		sf::Texture *tempTexture = new sf::Texture();
+		tempTexture->loadFromFile(animation::BULLET_COMBO_BALL_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setCollision(false);
+		tempBullet->setSpeed(0.1f);
+		tempBullet->setType(false);
+		tempBullet->setElement(elements::WIND);
+		tempBullet->setTimer(4000);
+		tempBullet->setAOE(10.f);
+
+		float tempDmg = 10.f + character->getStats().attackPower;
+		tempBullet->setDmg(tempDmg);
+
+
+		bulletList.push_back(tempBullet);
+
+		break;
+	}
 	}
 }
 
