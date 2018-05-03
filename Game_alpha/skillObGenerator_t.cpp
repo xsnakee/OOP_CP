@@ -208,12 +208,4 @@ void skillObGenerator_t::useSkill() {
 	}
 	}
 }
-
-
-
-void skillObGenerator_t::upCharacterStat(characterStats_t &_stats) {
-	character->getStats().upStat(_stats);
-}
-void skillObGenerator_t::generateBullet(bullet_t *bullet) {
-
 }

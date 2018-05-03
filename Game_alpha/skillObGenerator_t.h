@@ -22,8 +22,6 @@ public:
 	virtual ~skillObGenerator_t();
 
 	void useSkill();
-	void upCharacterStat(characterStats_t &_stats);
-	void generateBullet(bullet_t *bullet);
 
 	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
 		return skillGeneratorBulletList;
