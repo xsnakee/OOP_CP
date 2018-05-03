@@ -22,38 +22,10 @@ void player_t::update(float _speed) {
 
 }
 
-
-
-bool player_t::checkSkillGenerator() {
-	std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
-
-	size_t tempStatus = 0;
-
-	for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
-		if ((*temp) == elements::NONE) return false;
-		tempStatus += (*temp);
+void player_t::attack() {
+	if (timer.attackReady()) {
+		timer.updateAttackCD();
+		skill->useSkill();
+		std::cout << "Attacked!!" << std::endl;
 	}
-
-	elemStatus = tempStatus;
-
-	return true;
-}
-
-bool player_t::addElement(elements::element _elem) {
-	if (skillGeneratorArr.size() < 3) {
-		skillGeneratorArr.push_back(_elem);
-		return true;
-	}
-	else {
-		skillGeneratorArr.pop_back();
-		skillGeneratorArr.push_back(_elem);
-		return true;
-	}
-	return false;
-}
-
-void player_t::generateSkillAndClearElemList() {
-	elemStatus = std::accumulate(skillGeneratorArr.begin(),skillGeneratorArr.end(),0);
-	skillGeneratorArr.clear();
-	elemStatus = 0;
 }

@@ -102,5 +102,14 @@ public:
 	virtual void Action();
 };
 
+class CharacterPlayerCast_t :
+	public CharacterState_t
+{
+public:
+	CharacterPlayerCast_t(character_t *__mainCharacter);
+	virtual ~CharacterPlayerCast_t();
+
+	virtual void Action();
+};
 
 //*/

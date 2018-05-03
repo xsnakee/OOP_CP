@@ -42,7 +42,7 @@ namespace tiles {
 
 namespace animation {
 	//BULLETS IMGS
-
+	const std::string SWORD_ATTACK_TEXTURE_FILE = "img/skills/bullets.png";
 	const std::string BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE = "img/skills/bullets.png";
 	const std::string BULLET_SMALL_EARTH_BALL_TEXTURE_FILE = "img/skills/bullets.png";
 	const std::string BULLET_FIRE_BALL_TEXTURE_FILE = "img/skills/bullets.png";

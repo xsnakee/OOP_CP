@@ -168,8 +168,8 @@ void game_t::keyController(sf::Event &event) {
 
 			//ATACK CONTROLLER
 			if (Mouse::isButtonPressed(Mouse::Left)) {
-				bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(), (*mainHero).get(), cursor->getPosition())));
-			
+				//bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(), (*mainHero).get(), cursor->getPosition())));
+				(*mainHero)->attack();
 				//bulletsList.push_back((std::unique_ptr<bullet_t>((*mainHero)->attack())));
 
 			}

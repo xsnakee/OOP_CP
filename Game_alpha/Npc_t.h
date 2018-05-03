@@ -20,8 +20,7 @@ public:
 	Npc_t(sf::Texture *texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _coordX, int _coordY, int _width, int _height, float _multiple, float randDistX, float randDistY);
 	virtual ~Npc_t();
 
-	virtual void controller(sf::Event);
-	virtual bool checkKeyCd(sf::Clock *clock);
+	virtual void attack();
 
 	sf::Vector2f getSpotCoords() const{
 		return spotCoords;

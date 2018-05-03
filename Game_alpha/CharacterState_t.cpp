@@ -202,3 +202,17 @@ CharacterPlayerControll_t::~CharacterPlayerControll_t()
 void CharacterPlayerControll_t::Action() {
 }
 //*/
+
+//CHARACTER STATE PLAYER CONTROLL
+
+CharacterPlayerCast_t::CharacterPlayerCast_t(character_t *__mainCharacter) : CharacterState_t(__mainCharacter)
+{
+	stateNum = 4;
+}
+
+
+CharacterPlayerCast_t::~CharacterPlayerCast_t()
+{
+}
+void CharacterPlayerCast_t::Action() {
+}

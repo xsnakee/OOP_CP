@@ -165,12 +165,6 @@ void character_t::attack() {
 		timer.updateAttackCD();
 		std::cout << "Attacked!!" << std::endl;
 	}
-
-
-	if (timer.attackReady()) {
-		timer.updateAttackCD();
-		bullet_t * temp = new bullet_t(clock, this, getTargetCoords());
-	}
 }
 
 

@@ -39,6 +39,29 @@ void skillObGenerator_t::useSkill() {
 		upCharacterStat(tempStat);
 		break;
 	}
+
+	case 1: {//PhysAttack
+
+		sf::Texture *tempTexture = new sf::Texture();
+		tempTexture->loadFromFile(animation::SWORD_ATTACK_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setCollision(true);
+		tempBullet->speedMultiple(2.f);
+		tempBullet->setType(false);
+		tempBullet->setElement(elements::NONE);
+		tempBullet->setTimer(4000);
+
+		float tempDmg = 30.f + character->getStats().attackPower;
+		tempBullet->setDmg(tempDmg);
+
+
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
+
+		break;
+	}
 	case 4: {//SMALL FIRE BALLS
 		
 		sf::Texture *tempTexture = new sf::Texture();
@@ -151,7 +174,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(60.f);
 		
 
-		float tempDmg = 30.f + character->getStats().attackPower;
+		float tempDmg = 5.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
 

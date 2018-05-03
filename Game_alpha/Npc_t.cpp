@@ -15,6 +15,7 @@ Npc_t::Npc_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bull
 	stat.statMiltipler(powerMultiple);
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
+	elemStatus = 1;
 }
 
 //REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -36,6 +37,7 @@ Npc_t::Npc_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bull
 	stat.statMiltipler(powerMultiple);
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
+	elemStatus = 1;
 }
 
 Npc_t::~Npc_t()
@@ -43,10 +45,7 @@ Npc_t::~Npc_t()
 	
 }
 
-void Npc_t::controller(sf::Event) {
-	
-}
 
-bool Npc_t::checkKeyCd(sf::Clock *clock) {
-	return true;
+void Npc_t::attack() {
+
 }
