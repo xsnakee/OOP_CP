@@ -115,7 +115,7 @@ void bullet_t::updateFrame() {
 void bullet_t::animation() {
 
 
-	int spriteCoordX = static_cast<int>(frame) * animation::MAIN_HERO_SPRITE_WIDTH;
+	int spriteCoordX = static_cast<int>(frame) * getWidth();
 
 	spritePref.setTexturePos(spriteCoordX, spritePref.getCoordY());
 }

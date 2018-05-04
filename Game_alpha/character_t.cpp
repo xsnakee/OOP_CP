@@ -64,8 +64,8 @@ void character_t::update(float _speed) {
 void character_t::animation() {
 
 
-	int spriteCoordX = static_cast<int>(frame) * animation::MAIN_HERO_SPRITE_WIDTH;
-	int spriteCoordY = direction * animation::MAIN_HERO_SPRITE_HEIGHT;
+	int spriteCoordX = static_cast<int>(frame) * getWidth();
+	int spriteCoordY = direction * getHeight();
 
 	spritePref.setTexturePos(spriteCoordX, spriteCoordY);
 }

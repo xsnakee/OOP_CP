@@ -147,7 +147,7 @@ void skillObGenerator_t::useSkill() {
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
 		tempBullet->setTexturePtr(tempTexture);
 
-		tempBullet->setCollision(false);
+		tempBullet->setCollision(true);
 		tempBullet->speedMultiple(0.5f);
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
@@ -170,7 +170,6 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_LAVA_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
-		tempBullet->setRotation(0.f);
 		tempBullet->setPosX(character->getTargetCoords().x);
 		tempBullet->setPosY(character->getTargetCoords().y);
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
@@ -201,14 +200,17 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_EARTH_SLAM_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setRng(100.f);
 		tempBullet->setCollision(false);
+		tempBullet->setdX(0.f);
+		tempBullet->setdY(0.f);
 		tempBullet->setSpeed(0.f);
 		tempBullet->setType(true);
-		tempBullet->setElement(elements::FIRE);
-		tempBullet->setTimer(500);
+		tempBullet->setElement(elements::EARTH);
+		tempBullet->setTimer(2000);
 		tempBullet->setAOE(50.f);
 
 
@@ -226,12 +228,15 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_COMBO_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setRotation(0.f);
+		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(false);
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::WIND);
 		tempBullet->setTimer(4000);
+		tempBullet->setRng(200.f);
 		tempBullet->setAOE(10.f);
 
 		float tempDmg = 10.f + character->getStats().attackPower;
