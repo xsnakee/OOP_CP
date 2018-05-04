@@ -100,3 +100,12 @@ bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 	return false;
 
 }
+
+
+void bullet_t::animation() {
+
+
+	int spriteCoordX = static_cast<int>(frame) * animation::MAIN_HERO_SPRITE_WIDTH;
+
+	spritePref.setTexturePos(spriteCoordX, spritePref.getCoordY());
+}

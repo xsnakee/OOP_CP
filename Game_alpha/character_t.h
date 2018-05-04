@@ -28,7 +28,6 @@ protected:
 	sf::Clock *clock;
 	characterTimers_t timer;
 
-	float frame;
 	sf::Vector2f targetCoords;
 	sf::Vector2f spawnCoords;
 
@@ -36,7 +35,6 @@ protected:
 
 protected:
 
-	character_t();
 	character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList);
 	character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock);
 
@@ -63,17 +61,13 @@ public:
 
 	bool kill();
 	void update(float _speed);
-	void animation();
-	void updateFrame();
+	virtual void animation();
 	float toHit ()const;
 
 public:
 	//GET
 	characterStats_t &getStats();
 
-	float getFrame() const {
-		return frame;
-	}
 
 	sf::Vector2f getTargetCoords() const {
 		return targetCoords;

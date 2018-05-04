@@ -106,6 +106,9 @@ void physOb_t::update(float _speed) {
 
 		spritePref.setSpritePos(posX, posY);
 	}
+
+	updateFrame();
+	animation();
 }
 
 bool physOb_t::checkCollision(physOb_t &Object, float _borderError) {
@@ -172,4 +175,15 @@ float physOb_t::takeDamage(float _dmg, bool _dmgType) {
 		
 	}
 	return _dmg;
+}
+
+void physOb_t::updateFrame() {
+
+	frame += animation::frameSpeed;
+	if (frame > animation::frameRate) {
+		frame -= animation::frameRate;
+	}
+}
+void physOb_t::animation() {
+
 }

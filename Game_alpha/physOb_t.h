@@ -23,6 +23,7 @@ protected:
 
 	std::vector<int> dropList;
 
+	float frame;
 public:
 
 	physOb_t();
@@ -40,7 +41,17 @@ public:
 	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);
+
+
+	virtual void animation();
+	virtual void updateFrame();
+
 	//GET
+
+	float getFrame() const {
+		return frame;
+	}
+
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
 	}
@@ -134,7 +145,7 @@ public:
 		return hitsToDestroy;
 	}
 
-	void setTexturePtr(std::shared_ptr<sf::Texture>newTexture) {
+	void setTexturePtr(std::shared_ptr<sf::Texture> &newTexture) {
 		spritePref.setTexturePtr(newTexture);
 	}
 

@@ -56,8 +56,6 @@ void character_t::update(float _speed) {
 	if (alive) {
 
 		physOb_t::update(_speed);
-		updateFrame();
-		animation();
 	}
 	
 }
@@ -72,13 +70,6 @@ void character_t::animation() {
 	spritePref.setTexturePos(spriteCoordX, spriteCoordY);
 }
 
-void character_t::updateFrame() {
-
-	frame += animation::frameSpeed;
-	if (frame > animation::frameRate) {
-		frame -= animation::frameRate;
-	}
-}
 
 bool character_t::checkAlive() {
 

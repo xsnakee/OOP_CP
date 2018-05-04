@@ -42,7 +42,7 @@ obPreference::obPreference(std::string _fileTexturePath, int _coordX, int _coord
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
 }
 
-obPreference::obPreference(std::shared_ptr<sf::Texture>&_texture, int _coordX, int _coordY, int _width, int _height) {
+obPreference::obPreference(std::shared_ptr<sf::Texture> &_texture, int _coordX, int _coordY, int _width, int _height) {
 
 	spriteCoordX = _coordX;
 	spriteCoordY = _coordY;
