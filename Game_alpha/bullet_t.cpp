@@ -105,7 +105,7 @@ bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 }
 
 void bullet_t::updateFrame() {
-	float AnimationSpeedMultiple = 4.f;
+	float AnimationSpeedMultiple = 3.f;
 	frame += animation::frameSpeed * AnimationSpeedMultiple;
 	if (frame > animation::frameRate) {
 		frame -= animation::frameRate;

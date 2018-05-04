@@ -46,10 +46,10 @@ namespace tiles {
 namespace animation {
 	//BULLETS IMGS
 	const std::string SWORD_ATTACK_TEXTURE_FILE = "img/skills/bullet_sword.png";
-	const std::string BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE = "img/skills/bullets.png";
-	const std::string BULLET_SMALL_EARTH_BALL_TEXTURE_FILE = "img/skills/bullets.png";
-	const std::string BULLET_FIRE_BALL_TEXTURE_FILE = "img/skills/bullets.png";
-	const std::string BULLET_EARTH_BALL_TEXTURE_FILE = "img/skills/bullets.png";
+	const std::string BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE = "img/skills/bullet_small_fire_balls.png";
+	const std::string BULLET_SMALL_EARTH_BALL_TEXTURE_FILE = "img/skills/bullet_small_earth_balls.png";
+	const std::string BULLET_FIRE_BALL_TEXTURE_FILE = "img/skills/bullet_fire_ball.png";
+	const std::string BULLET_EARTH_BALL_TEXTURE_FILE = "img/skills/bullet_earth_ball.png";
 	const std::string BULLET_LAVA_TEXTURE_FILE = "img/skills/bullets.png";
 	const std::string BULLET_FIREWALL_TEXTURE_FILE = "img/skills/bullets.png";
 	const std::string BULLET_EARTH_SLAM_TEXTURE_FILE = "img/skills/bullets.png";
@@ -68,6 +68,9 @@ namespace animation {
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
 	const int SPRITE_X = 0;
 	const int SPRITE_Y = 0;
+
+	const int LARGE_SKILL_WIDTH = 64;
+	const int LARGE_SKILL_HEIGHT = 64;
 
 	const float frameRate = 3.f;
 	const float frameSpeed = 0.05f;

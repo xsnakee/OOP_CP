@@ -51,6 +51,12 @@ public:
 	float getFrame() const {
 		return frame;
 	}
+	obPreference getSpritePref() {
+		return spritePref;
+	}
+	void setSpriteSize(int _x, int _y) {
+		spritePref.setSize(_x, _y);
+	}
 
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
