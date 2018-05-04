@@ -127,7 +127,7 @@ void CharacterStateFolow_t::Action()
 	float distanceY = targetCharacter->getCoordsOfCenter().y - mainCharacter->getCoordsOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	if (leaveFromSpot() ) {//||  (vectorLength > mainCharacter->getStats().visionDistance )
+	if (leaveFromSpot() ) {
 		mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
 		mainCharacter->changeState(new CharacterStateMove_t(*this));
 	}

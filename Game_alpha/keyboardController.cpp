@@ -107,7 +107,6 @@ void PlayerController::eventHandler(sf::Event &event) {
 	
 
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		//bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(), character.get(), cursor->getPosition())));
 		character->attack();
 		std::cout << character->getElemStatus() << std::endl;
 		checkCharacterStateAndChangeDefault();

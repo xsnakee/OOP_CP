@@ -3,7 +3,6 @@
 
 
 
-//*
 character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
 
 	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
@@ -28,7 +27,6 @@ character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	clock = _clock;
 }
 
-//*/
 character_t::~character_t()
 {
 }
@@ -160,7 +158,7 @@ void character_t::changeState(CharacterState_t *newState) {
 
 void character_t::attack() {
 
-	//*start cast
+	//start cast
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
 		std::cout << "Attacked!!" << std::endl;
