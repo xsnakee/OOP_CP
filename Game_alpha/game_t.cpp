@@ -19,7 +19,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
 	
-	generateTextureList();
+	//generateTextureList();
 
 	map.fillTheMapObj();
 	map.fillTheMapTiles();
@@ -27,11 +27,13 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	generateMapObjects(map.mapObList);
 	generateMapTiles(map.groundTilesList);
 
+	animation::generateTextureList();
+
 	using namespace animation;
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
 
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(animation::textureList[9], bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();
 
 	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
@@ -254,11 +256,7 @@ void game_t::setCamera() {
 }
 
 void game_t::generateTextureList() {
-	for (auto &i : animation::textureFileNames) {
-		std::string temp = i;
-		textureList.push_back(std::make_shared<sf::Texture>());
-		(textureList.back())->loadFromFile(temp);
-	}
+	
 }
 
 void game_t::drawCursor() {

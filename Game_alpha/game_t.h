@@ -33,8 +33,6 @@ private:
 	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 
-	std::list<std::shared_ptr<sf::Texture>> textureList;
-
 
 	std::list<physOb_t*> obList;
 	std::list<std::unique_ptr <bullet_t>> bulletsList;
