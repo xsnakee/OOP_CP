@@ -48,11 +48,13 @@ void skillObGenerator_t::useSkill() {
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
 		tempBullet->setTexturePtr(tempTexture);
 
-		tempBullet->setCollision(true);
-		tempBullet->speedMultiple(2.f);
+		tempBullet->setCollision(false);
+		tempBullet->speedMultiple(0.5f);
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::NONE);
-		tempBullet->setTimer(4000);
+		tempBullet->setTimer(500);
+		tempBullet->setAOE(20.f);
+		tempBullet->setRng(10.f);
 
 		float tempDmg = 30.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);

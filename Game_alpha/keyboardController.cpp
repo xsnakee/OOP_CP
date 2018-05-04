@@ -49,7 +49,11 @@ void PlayerController::eventHandler(sf::Event &event) {
 	using namespace sf;
 
 
-
+	if (Mouse::isButtonPressed(Mouse::Left)) {
+		character->attack();
+		std::cout << character->getElemStatus() << std::endl;
+		checkCharacterStateAndChangeDefault();
+	}else 
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
 		character->setdY(-character->getStats().speed);
 		checkCharacterStateAndChangeDefault();
@@ -106,9 +110,5 @@ void PlayerController::eventHandler(sf::Event &event) {
 	}
 	
 
-	if (Mouse::isButtonPressed(Mouse::Left)) {
-		character->attack();
-		std::cout << character->getElemStatus() << std::endl;
-		checkCharacterStateAndChangeDefault();
-	}	
+	
 }

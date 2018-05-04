@@ -67,8 +67,11 @@ void bullet_t::update(float _speed) {
 	if (alive){
 		posX += dX * _speed;
 		posY += dY * _speed;
+		updateFrame();
+		animation();
 		spritePref.setSpritePos(posX, posY);
 	}
+
 }
 
 bool bullet_t::checkAlive() {
@@ -101,7 +104,13 @@ bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 
 }
 
-
+void bullet_t::updateFrame() {
+	float AnimationSpeedMultiple = 4.f;
+	frame += animation::frameSpeed * AnimationSpeedMultiple;
+	if (frame > animation::frameRate) {
+		frame -= animation::frameRate;
+	}
+}
 void bullet_t::animation() {
 
 

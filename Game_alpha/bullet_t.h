@@ -37,7 +37,7 @@ public:
 	virtual void update(float speed);
 	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 0.f);
 
-
+	virtual void updateFrame();
 	virtual void animation();
 public:
 
@@ -101,6 +101,8 @@ public:
 
 	void speedMultiple(float _val) {
 		stat.speed *= _val;
+		dX *= _val;
+		dY *= _val;
 	}
 
 	void setRng(float _val) {

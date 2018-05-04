@@ -105,10 +105,10 @@ void physOb_t::update(float _speed) {
 		dY = 0.f;
 
 		spritePref.setSpritePos(posX, posY);
+		updateFrame();
+		animation();
 	}
 
-	updateFrame();
-	animation();
 }
 
 bool physOb_t::checkCollision(physOb_t &Object, float _borderError) {
