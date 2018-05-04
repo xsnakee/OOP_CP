@@ -33,8 +33,8 @@ private:
 	std::string mapOutTilesFile;
 
 	std::string tileFileName;
-	sf::Texture *tile_texture;
-	//sf::Texture *mapBgTexture;
+	std::shared_ptr<sf::Texture>tile_texture;
+	//std::shared_ptr<sf::Texture>mapBgTexture;
 	
 	
 public:

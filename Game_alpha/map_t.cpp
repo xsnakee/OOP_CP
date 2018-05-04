@@ -19,7 +19,7 @@ map_t::map_t(std::string _levelName) {
 
 	//LOAD MAP OBJECTS
 	tileFileName = TILE_FILE_PATH;
-	tile_texture = new sf::Texture;
+	tile_texture = std::make_shared<sf::Texture>();
 	tile_texture->loadFromFile(tileFileName);
 
 	//CALC MAP SIZEs

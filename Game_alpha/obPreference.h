@@ -10,6 +10,7 @@ class obPreference
 {
 private:
 	std::shared_ptr<sf::Texture> texture;
+	//std::shared_ptr<sf::Texture>texture;
 	sf::Sprite sprite;
 
 	int spriteCoordX;
@@ -21,7 +22,7 @@ public:
 	obPreference();
 	obPreference(std::string _fileTexturePath);
 	obPreference(std::string _fileTexturePath, int _coordX, int _coordY, int _width, int _height);
-	obPreference::obPreference(sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height);
+	obPreference::obPreference(std::shared_ptr<sf::Texture>&_texture, int _coordX, int _coordY, int _width, int _height);
 
 	virtual ~obPreference();
 
@@ -48,8 +49,9 @@ public:
 	}
 
 	//SET
-	void setTexturePtr(sf::Texture *newTexture) {
+	void setTexturePtr(std::shared_ptr<sf::Texture>newTexture) {
 		texture = std::shared_ptr<sf::Texture>(newTexture);
+		//texture = newTexture;
 	}
 	void setTexturePos(int coordX, int coordY) {
 		spriteCoordX = coordX;

@@ -43,7 +43,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	
 	
 	/*
-	sf::Texture *temp = new sf::Texture;
+	std::shared_ptr<sf::Texture>temp = new sf::Texture;
 
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
 
@@ -290,42 +290,44 @@ void game_t::generateNpc() {
 	while (tempCounter++ < NpcTypeAmount) {
 		using namespace animation;
 		switch (tempCounter) {
-		case 0: {
+		case 1: {
 			size_t demonsAmount = 1;
 			size_t temp = 0;
 
 			sf::Vector2f spawnCoords(1800.f, 1800.f);
 
-			sf::Texture * demonText = new sf::Texture();
+			std::shared_ptr<sf::Texture> demonText = std::make_shared<sf::Texture>();
 
 			demonText->loadFromFile(ENEMY_DEMON_FILE);
 
 			while (temp++ < demonsAmount) {
-				//charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
 			}
+
 			break;
 		}
-		case 1: {
-			size_t warriorsAmount = 1;
+		case 2: {
+			size_t warriorsAmount = 20;
 			size_t temp = 0;
 
 			sf::Vector2f spawnCoords(1900.f, 1800.f);
 
-			sf::Texture * WarriorText = new sf::Texture();
+			std::shared_ptr<sf::Texture> WarriorText = std::make_shared<sf::Texture>();
 
 			WarriorText->loadFromFile(ENEMY_WARRIOR_FILE);
 			while (temp++ < warriorsAmount) {
 				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
 			}
+
 			break;
 		}
-		case 2: {
-			size_t magesAmount = 1;
+		case 3: {
+			size_t magesAmount = 20;
 			size_t temp = 0;
 
 			sf::Vector2f spawnCoords(1700.f, 1500.f);
 
-			sf::Texture * magesText(new sf::Texture());
+			std::shared_ptr<sf::Texture> magesText(new sf::Texture());
 
 			magesText->loadFromFile(ENEMY_MAGE_FILE);
 			while (temp++ < magesAmount) {

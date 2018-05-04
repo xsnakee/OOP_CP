@@ -28,7 +28,7 @@ public:
 	physOb_t();
 	physOb_t(float _posX, float _posY);	
 	physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height);
-	physOb_t(float _posX, float _posY, sf::Texture *_texture,  int _coordX, int _coordY, int _width, int _height);
+	physOb_t(float _posX, float _posY, std::shared_ptr<sf::Texture>_texture,  int _coordX, int _coordY, int _width, int _height);
 
 	virtual ~physOb_t();
 	
@@ -134,7 +134,7 @@ public:
 		return hitsToDestroy;
 	}
 
-	void setTexturePtr(sf::Texture *newTexture) {
+	void setTexturePtr(std::shared_ptr<sf::Texture>newTexture) {
 		spritePref.setTexturePtr(newTexture);
 	}
 

@@ -42,7 +42,7 @@ void skillObGenerator_t::useSkill() {
 
 	case 1: {//PhysAttack
 
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::SWORD_ATTACK_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
@@ -64,7 +64,7 @@ void skillObGenerator_t::useSkill() {
 	}
 	case 4: {//SMALL FIRE BALLS
 		
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
@@ -88,7 +88,7 @@ void skillObGenerator_t::useSkill() {
 
 	case 10: {//SMALL EARTH BALLS
 
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_SMALL_EARTH_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
@@ -111,7 +111,7 @@ void skillObGenerator_t::useSkill() {
 	}
 	case 5: {//FIRE BALL
 
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_FIRE_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
@@ -133,7 +133,7 @@ void skillObGenerator_t::useSkill() {
 	}
 	case 17: {//EARTH BALL
 
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_EARTH_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
@@ -156,7 +156,7 @@ void skillObGenerator_t::useSkill() {
 
 	case 12: {//LAVA POOL
 
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_LAVA_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
@@ -185,7 +185,7 @@ void skillObGenerator_t::useSkill() {
 
 	case 18: {//EARTH SLAM
 
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_EARTH_SLAM_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
@@ -210,7 +210,7 @@ void skillObGenerator_t::useSkill() {
 	}
 	case 11: {//COMBO BALL
 
-		sf::Texture *tempTexture = new sf::Texture();
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_COMBO_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
