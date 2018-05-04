@@ -23,7 +23,6 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 
 	map.fillTheMapObj();
 	map.fillTheMapTiles();
-	fillTextureMap();
 
 	generateMapObjects(map.mapObList);
 	generateMapTiles(map.groundTilesList);
@@ -266,12 +265,7 @@ void game_t::drawCursor() {
 	window->draw(cursor->getSprite());
 }
 
-void game_t::fillTextureMap() {
-	for (auto &i = animation::textureFileNamesMap.begin(); i != animation::textureFileNamesMap.end(); ++i) {
-		textureList.insert(std::pair<std::string, std::shared_ptr<sf::Texture>>(i->first,std::make_shared<sf::Texture>()));
-		textureList.end()->second->loadFromFile(i->second);
-	}
-}
+
 
 void game_t::generateNpc() {
 	size_t NpcTypeAmount = 3;

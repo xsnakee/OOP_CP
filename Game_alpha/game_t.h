@@ -66,6 +66,7 @@ public:
 	void setCamera();
 
 	void drawCursor();
+	void generateNpc();
 
 
 	//GET
