@@ -42,7 +42,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	mainHero = charactersList.begin();
 	
 	
-	//*
+	/*
 	sf::Texture *temp = new sf::Texture;
 
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
@@ -54,9 +54,11 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	(*mainHero)->setFraction(-2);
 	--mainHero;
 
-	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(),(*mainHero).get()));
-
 	//*/
+
+
+	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
+	generateNpc();
 }
 
 	
@@ -143,7 +145,9 @@ void game_t::checkAlive() {
 
 		if (tempCharIter != mainHero) {
 			if (!(*tempCharIter)->getAlive()) {
+				tempCharIter->reset();
 				charactersList.erase(tempCharIter);
+				//(*tempCharIter)->getSprite().scale(0.1f,0.1f);
 			}
 		}
 		else {
@@ -276,4 +280,59 @@ void game_t::setCamera() {
 
 void game_t::drawCursor() {
 	window->draw(cursor->getSprite());
+}
+
+
+
+void game_t::generateNpc() {
+	size_t NpcTypeAmount = 3;
+	size_t tempCounter = 0;
+	while (tempCounter++ < NpcTypeAmount) {
+		using namespace animation;
+		switch (tempCounter) {
+		case 0: {
+			size_t demonsAmount = 1;
+			size_t temp = 0;
+
+			sf::Vector2f spawnCoords(1800.f, 1800.f);
+
+			sf::Texture * demonText = new sf::Texture();
+
+			demonText->loadFromFile(ENEMY_DEMON_FILE);
+
+			while (temp++ < demonsAmount) {
+				//charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+			}
+			break;
+		}
+		case 1: {
+			size_t warriorsAmount = 1;
+			size_t temp = 0;
+
+			sf::Vector2f spawnCoords(1900.f, 1800.f);
+
+			sf::Texture * WarriorText = new sf::Texture();
+
+			WarriorText->loadFromFile(ENEMY_WARRIOR_FILE);
+			while (temp++ < warriorsAmount) {
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+			}
+			break;
+		}
+		case 2: {
+			size_t magesAmount = 1;
+			size_t temp = 0;
+
+			sf::Vector2f spawnCoords(1700.f, 1500.f);
+
+			sf::Texture * magesText(new sf::Texture());
+
+			magesText->loadFromFile(ENEMY_MAGE_FILE);
+			while (temp++ < magesAmount) {
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+			}
+			break;
+		}
+		}
+	}
 }

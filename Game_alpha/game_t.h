@@ -62,7 +62,7 @@ public:
 	void setCamera();
 
 	void drawCursor();
-	
+	void game_t::generateNpc();
 
 
 	//GET

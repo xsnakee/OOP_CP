@@ -57,5 +57,5 @@ obPreference::obPreference(sf::Texture *_texture, int _coordX, int _coordY, int 
 
 obPreference::~obPreference()
 {
-	//delete texture;
+
 }
