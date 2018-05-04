@@ -47,6 +47,7 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	spritePref.setCenterWithOrigin();
 	spritePref.setRotation(rotation);
 
+
 	vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
 	//CALC DISTANCE SPEED ERROR 

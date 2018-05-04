@@ -57,7 +57,9 @@ public:
 	void setSpriteSize(int _x, int _y) {
 		spritePref.setSize(_x, _y);
 	}
-
+	void setRotation(float _val) {
+		spritePref.setRotation(_val);
+	}
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
 	}
