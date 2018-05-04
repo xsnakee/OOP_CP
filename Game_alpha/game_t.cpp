@@ -4,16 +4,6 @@
 
 game_t::game_t()
 {
-	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
-	window = nullptr;
-	view = new sf::View;
-
-	speedMultipple = 800.f;
-	speed = 10.f;
-
-	using namespace animation;
-
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,clock.get(),bulletsList)));
 }
 
 game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelName)
@@ -33,12 +23,16 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 
 	map.fillTheMapObj();
 	map.fillTheMapTiles();
+	fillTextureMap();
 
 	generateMapObjects(map.mapObList);
 	generateMapTiles(map.groundTilesList);
 
 	using namespace animation;
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1700.f, 1700.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get(), bulletsList)));
+	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
+	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
+
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();
 
 	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
@@ -266,7 +260,12 @@ void game_t::drawCursor() {
 	window->draw(cursor->getSprite());
 }
 
-
+void game_t::fillTextureMap() {
+	for (auto &i = animation::textureFileNamesMap.begin(); i != animation::textureFileNamesMap.end(); ++i) {
+		textureList.insert(std::pair<std::string, std::shared_ptr<sf::Texture>>(i->first,std::make_shared<sf::Texture>()));
+		textureList.end()->second->loadFromFile(i->second);
+	}
+}
 
 void game_t::generateNpc() {
 	size_t NpcTypeAmount = 3;

@@ -61,7 +61,7 @@ namespace animation {
 	const std::string ENEMY_WARRIOR_FILE = "img/characters/enemy_warrior.png";
 	const std::string ENEMY_MAGE_FILE = "img/characters/enemy_mage.png";
 
-	const std::map<std::string, std::string> textureFileNames = {
+	const std::map<const std::string, const std::string> textureFileNamesMap = {
 		{ "SWORD_ATTACK_TEXTURE_FILE" , "img/skills/bullets.png" },
 	{ "BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE" , "img/skills/bullets1.png" },
 	{ "BULLET_SMALL_EARTH_BALL_TEXTURE_FILE" , "img/skills/bullets2.png" },

@@ -32,7 +32,7 @@ private:
 
 	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
-//	std::list<std::unique_ptr <Npc_t>> npcList;
+	std::map<std::string, std::shared_ptr<sf::Texture>> textureList;
 
 	std::list<physOb_t*> obList;
 	std::list<std::unique_ptr <bullet_t>> bulletsList;
@@ -59,10 +59,11 @@ public:
 
 	void generateMapObjects(std::list<physOb_t*> &_obTextureList);
 	void generateMapTiles(std::list<ground_t*> &_mapTilesList);
+	void generateNpc();
+	void fillTextureMap();
 	void setCamera();
 
 	void drawCursor();
-	void game_t::generateNpc();
 
 
 	//GET
