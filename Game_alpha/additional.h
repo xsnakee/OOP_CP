@@ -3,6 +3,8 @@
 #include <vector>
 #include <iterator>
 
+const std::shared_ptr<sf::Texture> MAIN_HERO_TEXTURE = std::make_shared<sf::Texture>();
+
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
@@ -62,24 +64,6 @@ namespace animation {
 	const std::string ENEMY_MAGE_FILE = "img/characters/enemy_mage.png";
 
 
-	const std::list<std::string> textureFileNames = {
-	SWORD_ATTACK_TEXTURE_FILE , //0
-	BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE , //1
-	BULLET_SMALL_EARTH_BALL_TEXTURE_FILE , //2
-	BULLET_FIRE_BALL_TEXTURE_FILE ,//3
-	BULLET_EARTH_BALL_TEXTURE_FILE , //4
-	BULLET_LAVA_TEXTURE_FILE , //5
-	BULLET_FIREWALL_TEXTURE_FILE , //6
-	BULLET_EARTH_SLAM_TEXTURE_FILE , //7
-	BULLET_COMBO_BALL_TEXTURE_FILE , //8
-	MAIN_HERO_TEXTURE_FILE ,//9
-	ENEMY_SLENDER_DEMON_FILE ,// 10
-	ENEMY_WARRIOR_FILE , //11
-	ENEMY_MAGE_FILE ,//12
-	ENEMY_DEMON_FILE //13
-	};
-
-
 	const int MAIN_HERO_SPRITE_WIDTH = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
 	const int SPRITE_X = 0;
@@ -95,21 +79,8 @@ namespace animation {
 		TOP = 3,
 	};
 
-	static std::vector<std::shared_ptr<sf::Texture>> textureList;
 
-	static void generateTextureList() {
-		for (auto &i : animation::textureFileNames) {
-			std::string temp = i;
-			animation::textureList.push_back(std::make_shared<sf::Texture>());
-			(animation::textureList.back())->loadFromFile(temp);
-		}
-	}
-
-	
 }
-
-
-
 template <typename T> T getRand(T a, T b) {
 	T temp = static_cast<T>(a + (rand() % static_cast<int>(b - a)));
 	return temp;

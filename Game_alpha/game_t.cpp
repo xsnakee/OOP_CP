@@ -32,7 +32,9 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
 
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(textureList[9], bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	//animation::generateTextureList();
+
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();
 
 	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
@@ -271,7 +273,7 @@ void game_t::generateNpc() {
 		using namespace animation;
 		switch (tempCounter) {
 		case 1: {
-			size_t demonsAmount = 1;
+			size_t demonsAmount = 20;
 			size_t temp = 0;
 
 			sf::Vector2f spawnCoords(1800.f, 1800.f);

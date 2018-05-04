@@ -49,10 +49,10 @@ public:
 
 	//SET
 	void setTexturePtr(std::shared_ptr<sf::Texture> &newTexture) {
-		texture.reset();
 		texture = newTexture;
-		//texture = newTexture;
+		sprite.setTexture(*texture);
 	}
+
 	void setTexturePos(int coordX, int coordY) {
 		spriteCoordX = coordX;
 		spriteCoordY = coordY;
