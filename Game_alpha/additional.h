@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <list>
 
 
 namespace elements {
@@ -61,21 +61,21 @@ namespace animation {
 	const std::string ENEMY_WARRIOR_FILE = "img/characters/enemy_warrior.png";
 	const std::string ENEMY_MAGE_FILE = "img/characters/enemy_mage.png";
 
-	const std::map<std::string, std::string> textureFileNames = {
-		{ "SWORD_ATTACK_TEXTURE_FILE" , "img/skills/bullets.png" },
-	{ "BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE" , "img/skills/bullets1.png" },
-	{ "BULLET_SMALL_EARTH_BALL_TEXTURE_FILE" , "img/skills/bullets2.png" },
-	{ "BULLET_FIRE_BALL_TEXTURE_FILE" , "img/skills/bullets3.png" },
-	{ "BULLET_EARTH_BALL_TEXTURE_FILE" , "img/skills/bullets4.png" },
-	{ "BULLET_LAVA_TEXTURE_FILE" , "img/skills/bullets5.png" },
-	{ "BULLET_FIREWALL_TEXTURE_FILE" , "img/skills/bullets6.png" },
-	{ "BULLET_EARTH_SLAM_TEXTURE_FILE" , "img/skills/bullets7.png" },
-	{ "BULLET_COMBO_BALL_TEXTURE_FILE" , "img/skills/bullets8.png" },
-	{ "MAIN_HERO_TEXTURE_FILE" , "img/characters/mainHero.png" },
-	{ "ENEMY_SLENDER_DEMON_FILE" , "img/characters/enemy_slenderDemon.png" },
-	{ "ENEMY_WARRIOR_FILE" , "img/characters/enemy_warrior.png" },
-	{ "ENEMY_MAGE_FILE" , "img/characters/enemy_mage.png" },
-	{ "ENEMY_DEMON_FILE" , "img/characters/enemy_demon.png" }
+	const std::list<std::string> textureFileNames = {
+	SWORD_ATTACK_TEXTURE_FILE ,
+	BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE , 
+	BULLET_SMALL_EARTH_BALL_TEXTURE_FILE , 
+	BULLET_FIRE_BALL_TEXTURE_FILE ,
+	BULLET_EARTH_BALL_TEXTURE_FILE , 
+	BULLET_LAVA_TEXTURE_FILE , 
+	BULLET_FIREWALL_TEXTURE_FILE , 
+	BULLET_EARTH_SLAM_TEXTURE_FILE , 
+	BULLET_COMBO_BALL_TEXTURE_FILE , 
+	MAIN_HERO_TEXTURE_FILE ,
+	ENEMY_SLENDER_DEMON_FILE , 
+	ENEMY_WARRIOR_FILE , 
+	ENEMY_MAGE_FILE ,
+	ENEMY_DEMON_FILE 
 	};
 
 	const int MAIN_HERO_SPRITE_WIDTH = 32;

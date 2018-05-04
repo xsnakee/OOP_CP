@@ -29,7 +29,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
 	
-	
+	generateTextureList();
 
 	map.fillTheMapObj();
 	map.fillTheMapTiles();
@@ -260,7 +260,13 @@ void game_t::setCamera() {
 	view->setCenter(_x, _y);
 }
 
-
+void game_t::generateTextureList() {
+	for (auto &i : animation::textureFileNames) {
+		std::string temp = i;
+		textureList.push_back(std::make_shared<sf::Texture>());
+		(textureList.back())->loadFromFile(temp);
+	}
+}
 
 void game_t::drawCursor() {
 	window->draw(cursor->getSprite());
