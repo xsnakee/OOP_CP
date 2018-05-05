@@ -127,7 +127,6 @@ void game_t::checkAlive() {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				charactersList.erase(tempCharIter);
-				//(*tempCharIter)->getSprite().scale(0.1f,0.1f);
 			}
 		}
 		else {
@@ -178,7 +177,7 @@ void game_t::visionEngine() {
 	for (auto &outerElement : charactersList) {
 		if (tempCharIter++ != mainHero) {
 			for (auto &innerElement : charactersList) {
-				if ((outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
+				if ( (innerElement->getAlive() && outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
 					outerElement->getState()->setTargetCharacter(innerElement.get());
 				}
 			}
@@ -314,6 +313,7 @@ void game_t::generateNpc() {
 			magesText->loadFromFile(ENEMY_MAGE_FILE);
 			while (temp++ < magesAmount) {
 				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+				charactersList.back()->setElemStatus(12);
 			}
 			break;
 		}

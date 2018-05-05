@@ -17,7 +17,7 @@ player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_
 	fraction = 0;
 	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
-	elemStatus = 11;
+	elemStatus = 12;
 }
 //*/
 

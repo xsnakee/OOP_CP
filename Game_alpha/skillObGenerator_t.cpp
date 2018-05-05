@@ -54,7 +54,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setElement(elements::NONE);
 		tempBullet->setTimer(500);
 		tempBullet->setAOE(20.f);
-		tempBullet->setRng(10.f);
+		tempBullet->setRng(15.f);
 
 		float tempDmg = 30.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
@@ -170,6 +170,7 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_LAVA_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setRotation(0.f);
 		tempBullet->setPosX(character->getTargetCoords().x);
 		tempBullet->setPosY(character->getTargetCoords().y);
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);

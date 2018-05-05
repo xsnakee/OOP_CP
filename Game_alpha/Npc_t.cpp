@@ -47,5 +47,5 @@ Npc_t::~Npc_t()
 
 
 void Npc_t::attack() {
-
+	character_t::attack();
 }

@@ -110,5 +110,10 @@ public:
 	}
 
 	void setStats(characterStats_t &_stats);
+
+	size_t setElemStatus(size_t _elemStatus) {
+		elemStatus = _elemStatus;
+		return elemStatus;
+	}
 };
 

@@ -51,7 +51,7 @@ public:
 	float getFrame() const {
 		return frame;
 	}
-	obPreference getSpritePref() {
+	obPreference &getSpritePref() {
 		return spritePref;
 	}
 	void setSpriteSize(int _x, int _y) {
