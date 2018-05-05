@@ -64,7 +64,7 @@ public:
 	void setRotation(float _val) {
 		spritePref.setRotation(_val);
 	}
-	sf::Sprite getSprite() const {
+	sf::Sprite &getSprite() {
 		return spritePref.getSprite();
 	}
 	int getWidth() const {

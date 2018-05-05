@@ -27,6 +27,8 @@ character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	fraction = 1;
 	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 }
 
 character_t::~character_t()
@@ -155,7 +157,7 @@ void character_t::attack() {
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
 		std::cout << "Attacked!!Npc" << std::endl;
-		skill->useSkill();
+		//skill->useSkill();
 	}
 }
 

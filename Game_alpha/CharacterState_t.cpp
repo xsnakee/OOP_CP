@@ -87,8 +87,8 @@ void CharacterStateMove_t::Action() {
 	else {
 		resetTargetCharacter();
 	}
-
 		if (vectorLength > 1.f ) {
+
 			float  kX = (distanceX / abs(distanceX)) * mainCharacter->getStats().speed;
 			float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
 			
@@ -104,6 +104,11 @@ void CharacterStateMove_t::Action() {
 				readyToFight = true;
 			}
 		}
+		else {
+			targetCharacter = nullptr;
+			readyToFight = true;
+		}
+		
 }
 
 //CHARACTER STATE FOLOW
