@@ -24,6 +24,11 @@ protected:
 	std::vector<int> dropList;
 
 	float frame;
+
+
+	virtual void animation();
+	virtual void updateFrame();
+	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 public:
 
 	physOb_t();
@@ -38,15 +43,14 @@ public:
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 1.f);
 
-	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);
 
 
-	virtual void animation();
-	virtual void updateFrame();
-
 	//GET
+	physOb_t *getPtr() {
+		return this;
+	}
 
 	float getFrame() const {
 		return frame;

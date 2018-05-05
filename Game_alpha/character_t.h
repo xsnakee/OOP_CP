@@ -31,7 +31,8 @@ protected:
 	sf::Vector2f targetCoords;
 	sf::Vector2f spawnCoords;
 
-	
+
+	virtual void animation();
 
 protected:
 
@@ -61,13 +62,15 @@ public:
 
 	bool kill();
 	void update(float _speed);
-	virtual void animation();
 	float toHit ()const;
 
 public:
 	//GET
 	characterStats_t &getStats();
 
+	character_t *getPtr() {
+		return this;
+	}
 
 	sf::Vector2f getTargetCoords() const {
 		return targetCoords;

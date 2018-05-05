@@ -155,7 +155,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setRng(200.f);
 		tempBullet->setAOE(10.f);
 
-		float tempDmg = 30.f + character->getStats().attackPower;
+		float tempDmg = 0.f;// 30.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
 

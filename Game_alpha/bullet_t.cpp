@@ -1,6 +1,6 @@
 #include "bullet_t.h"
 #include <iostream>
-bullet_t::bullet_t():physOb_t()
+bullet_t::bullet_t() :physOb_t()
 {
 }
 
@@ -16,7 +16,7 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	startTime = _startTime;
 	timer = 4000;
 
-	targetCoords = _targetCoords; 
+	targetCoords = _targetCoords;
 	stat.range = genericObject->getStats().attackRange;
 	stat.damage = genericObject->getStats().attackPower;
 
@@ -52,8 +52,8 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 
 	//CALC DISTANCE SPEED ERROR 
 	float k = vectorLength / stat.range;
-	distanceX /= k*100;
-	distanceY /= k*100;
+	distanceX /= k * 100;
+	distanceY /= k * 100;
 
 	//SET SPEED
 	dX = distanceX * stat.speed;
@@ -65,7 +65,7 @@ bullet_t::~bullet_t()
 }
 
 void bullet_t::update(float _speed) {
-	if (alive){
+	if (alive) {
 		posX += dX * _speed;
 		posY += dY * _speed;
 		updateFrame();
@@ -84,23 +84,47 @@ bool bullet_t::checkAlive() {
 
 		alive = (checkTimer(clock, startTime, timer) && (tempVectorLength < stat.range));//time is over or leave from range //  abs(tempVectorLength - stat.range) < (minRange))
 	}
-	
+
 
 	return alive;
 }
 
 bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {
-	if (Object.getCollision() && Object.getFraction() != fraction) {
-		
-		if (Object.getDestroyble()) {
-			Object.takeDamage(stat.damage, stat.type);
+	dmgInterval_t &temp = checkObInList(Object);//if ob exist startDmgTime != 0
+
+	if (temp.startDmgTime) {
+		temp.startDmgTime = clock->getElapsedTime().asMilliseconds();
+		if (checkTimer(clock, temp.startDmgTime, temp.dmgInterval)){
+
+			std::cout << 1 << std::endl;
+			if (Object.getCollision() && Object.getFraction() != fraction) {
+				if (Object.getDestroyble()) {
+					Object.takeDamage(stat.damage, stat.type);
+				}
+				if (!mass) {
+					alive = false;
+				}
+
+				return true;
+			}
 		}
-		if (!mass) {
-			alive = false;
-		}
 		
+	} else {
+		temp.startDmgTime = clock->getElapsedTime().asMilliseconds();
+		obList.push_back(temp);
+
+		if (Object.getCollision() && Object.getFraction() != fraction) {
+			if (Object.getDestroyble()) {
+				Object.takeDamage(stat.damage, stat.type);
+			}
+			if (!mass) {
+				alive = false;
+			}
+
 			return true;
+		}
 	}
+	
 	return false;
 
 }
@@ -118,4 +142,17 @@ void bullet_t::animation() {
 	int spriteCoordX = static_cast<int>(frame) * getWidth();
 
 	spritePref.setTexturePos(spriteCoordX, spritePref.getCoordY());
+}
+
+
+dmgInterval_t &bullet_t::checkObInList(physOb_t &Object) {
+	dmgInterval_t temp(Object);
+
+	for (auto &i : obList) {
+		if (Object.getPtr() == i.ob.getPtr()) {
+			return i;
+		}
+	}
+
+	return temp;
 }
