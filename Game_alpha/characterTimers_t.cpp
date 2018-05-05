@@ -12,25 +12,40 @@ characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _att
 	timerStats attackCD = { startTime, 1000/ _attackSpeed};
 	timersList.insert(std::pair<std::string,timerStats>(attackCDkey, attackCD));
 
-	timerStats castDelay = { startTime, 1500 / _castSpeed};
+	timerStats castDelay = { startTime, 1000 / _castSpeed};
 	timersList.insert(std::pair<std::string, timerStats>(castDelaykey, castDelay));
 
-	timerStats swapDirectionTimer = { startTime, 4000 };
-	timersList.insert(std::pair<std::string, timerStats>(skillGenerationCDkey, swapDirectionTimer));
+	timerStats skillGenerationCD = { startTime, 4000 };
+	timersList.insert(std::pair<std::string, timerStats>(skillGenerationCDkey, skillGenerationCD));
 }
 
 characterTimers_t::~characterTimers_t()
 {
 }
 
-
-sf::Int32 characterTimers_t::getAttackCD(int _attackCD) {
+sf::Int32 characterTimers_t::getAttackCD() {
 	return timersList[attackCDkey].cooldown;
 }
-sf::Int32 characterTimers_t::getCastDelay(int _castDelay) {
+sf::Int32 characterTimers_t::getCastDelay() {
 	return timersList[castDelaykey].cooldown;
 }
-sf::Int32 characterTimers_t::getDirectionSwapTime(int _time) {
+sf::Int32 characterTimers_t::getDirectionSwapTime() {
+	return timersList[skillGenerationCDkey].cooldown;
+}
+
+
+sf::Int32 characterTimers_t::attackCDcorrection(int _attackCD) {
+	timersList[attackCDkey].cooldown /= _attackCD;
+	return timersList[attackCDkey].cooldown;
+}
+sf::Int32 characterTimers_t::castDelayCorrection(int _castDelay) {
+
+	timersList[castDelaykey].cooldown /= _castDelay;
+	return timersList[castDelaykey].cooldown;
+}
+sf::Int32 characterTimers_t::directionSwapTimeCorrection(int _time) {
+
+	timersList[skillGenerationCDkey].cooldown /= _time;
 	return timersList[skillGenerationCDkey].cooldown;
 }
 
@@ -87,6 +102,7 @@ void characterTimers_t::updateAttackCD() {
 void characterTimers_t::updateCastCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
 	timersList[castDelaykey].ready = false;
+	setcastDelayStartTimer(curTime);
 }
 void characterTimers_t::updateSwapDirectionCD() {
 	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();

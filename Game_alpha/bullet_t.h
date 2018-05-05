@@ -3,8 +3,22 @@
 #include <SFML\Graphics.hpp>
 #include "physOb_t.h"
 #include "character_t.h"
+#include <list>
 #include "additional.h"
 
+class dmgInterval_t {
+public:
+	physOb_t &ob;
+	sf::Int32 startDmgTime;
+
+	dmgInterval_t(physOb_t &_ob):ob (_ob){
+		startDmgTime = 0;
+	}
+
+	~dmgInterval_t() {
+
+	}
+};
 
 class character_t;
 
@@ -16,9 +30,12 @@ private:
 	bulletStats stat;
 	character_t *genericObject;
 	
+	std::list<dmgInterval_t> obList;
 
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
+
+	sf::Int32 dmgInterval;
 
 	bool mass;
 	
@@ -27,6 +44,10 @@ private:
 
 	sf::Vector2f targetCoords;
 	float vectorLength;
+
+	virtual void updateFrame();
+	virtual void animation();
+	dmgInterval_t &checkObInList(physOb_t &Object);
 public:
 	bullet_t();
 	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords);
@@ -99,6 +120,8 @@ public:
 
 	void speedMultiple(float _val) {
 		stat.speed *= _val;
+		dX *= _val;
+		dY *= _val;
 	}
 
 	void setRng(float _val) {
@@ -112,6 +135,10 @@ public:
 
 	void setType(bool _val) {
 		stat.type = _val;
+	}
+
+	void setDmgDelay(sf::Int32 _time) {
+		dmgInterval = _time;
 	}
 
 };

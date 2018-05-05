@@ -3,7 +3,6 @@
 
 
 
-//*
 character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
 
 	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
@@ -14,9 +13,11 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	fraction = 1;
 	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 }
 
-character_t::character_t(sf::Texture *_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
+character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
 	
 	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
 	destroyble = true;
@@ -28,7 +29,6 @@ character_t::character_t(sf::Texture *_texture, std::list<std::unique_ptr <bulle
 	clock = _clock;
 }
 
-//*/
 character_t::~character_t()
 {
 }
@@ -58,8 +58,6 @@ void character_t::update(float _speed) {
 	if (alive) {
 
 		physOb_t::update(_speed);
-		updateFrame();
-		animation();
 	}
 	
 }
@@ -68,19 +66,12 @@ void character_t::update(float _speed) {
 void character_t::animation() {
 
 
-	int spriteCoordX = static_cast<int>(frame) * animation::MAIN_HERO_SPRITE_WIDTH;
-	int spriteCoordY = direction * animation::MAIN_HERO_SPRITE_HEIGHT;
+	int spriteCoordX = static_cast<int>(frame) * getWidth();
+	int spriteCoordY = direction * getHeight();
 
 	spritePref.setTexturePos(spriteCoordX, spriteCoordY);
 }
 
-void character_t::updateFrame() {
-
-	frame += animation::frameSpeed;
-	if (frame > animation::frameRate) {
-		frame -= animation::frameRate;
-	}
-}
 
 bool character_t::checkAlive() {
 
@@ -145,7 +136,7 @@ bool character_t::checkEnemy(character_t *ob) {
 	float distanceY = (ob->getCoordsOfCenter().y) - (getCoordsOfCenter().y);
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	if (vectorLength < stat.visionDistance) {
+	if (vectorLength < stat.visionDistance && ob->getAlive()) {
 		return true;
 	}
 
@@ -160,27 +151,34 @@ void character_t::changeState(CharacterState_t *newState) {
 
 void character_t::attack() {
 
-	//*start cast
+	//start cast
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
-		std::cout << "Attacked!!" << std::endl;
+		std::cout << "Attacked!!Npc" << std::endl;
+		skill->useSkill();
 	}
 }
 
 
 bool character_t::checkSkillGenerator() {
-	std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
-
-	size_t tempStatus = 0;
-
-	for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
-		if ((*temp) == elements::NONE) return false;
-		tempStatus += (*temp);
+	for (auto &i : skillGeneratorArr) {
+		std::cout << i;
 	}
+	std::cout << std::endl;
+	if (skillGeneratorArr.size() == 3) {
+		std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
 
-	elemStatus = tempStatus;
+		
+		for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
+			if ((*temp) == elements::NONE) return false;
+		}
 
-	return true;
+		return true;
+	}
+	else {
+		return false;
+	}
+	
 }
 
 bool character_t::addElement(elements::element _elem) {
@@ -189,7 +187,7 @@ bool character_t::addElement(elements::element _elem) {
 		return true;
 	}
 	else {
-		skillGeneratorArr.pop_back();
+		skillGeneratorArr.pop_front();
 		skillGeneratorArr.push_back(_elem);
 		return true;
 	}
@@ -197,4 +195,7 @@ bool character_t::addElement(elements::element _elem) {
 }
 
 void character_t::generateSkillAndClearElemList() {
+	std::cout << "generated" << std:: endl;
+	elemStatus = std::accumulate(skillGeneratorArr.begin(), skillGeneratorArr.end(), 0);
+	skillGeneratorArr.clear();
 }

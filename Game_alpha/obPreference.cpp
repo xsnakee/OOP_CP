@@ -7,8 +7,7 @@ obPreference::obPreference() {
 	height = DEFAULT_HEIGHT;
 	width = DEFAULT_WIDTH;
 
-	texture = std::shared_ptr<sf::Texture>(new sf::Texture());
-
+	texture = std::make_shared<sf::Texture>();
 	texture->loadFromFile("img/default.png");
 	sprite.setTexture(*texture);
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY,width,height));
@@ -22,8 +21,9 @@ obPreference::obPreference(std::string _fileTexturePath)
 	height = DEFAULT_HEIGHT;
 	width = DEFAULT_WIDTH;
 
-	texture = std::shared_ptr<sf::Texture>(new sf::Texture());
+	texture = std::make_shared<sf::Texture>();
 	texture->loadFromFile(_fileTexturePath);
+
 	sprite.setTexture(*texture);
 
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
@@ -36,20 +36,20 @@ obPreference::obPreference(std::string _fileTexturePath, int _coordX, int _coord
 	height = _height;
 	width = _width;
 
-	texture = std::shared_ptr<sf::Texture>(new sf::Texture());
+	texture = std::make_shared<sf::Texture>();
 	texture->loadFromFile(_fileTexturePath);
 	sprite.setTexture(*texture);
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
 }
 
-obPreference::obPreference(sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height) {
+obPreference::obPreference(std::shared_ptr<sf::Texture> &_texture, int _coordX, int _coordY, int _width, int _height) {
 
 	spriteCoordX = _coordX;
 	spriteCoordY = _coordY;
 	height = _height;
 	width = _width;
 
-	texture = std::shared_ptr<sf::Texture>(_texture);
+	texture = _texture;
 
 	sprite.setTexture(*texture);
 	sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
@@ -57,5 +57,7 @@ obPreference::obPreference(sf::Texture *_texture, int _coordX, int _coordY, int 
 
 obPreference::~obPreference()
 {
-	//delete texture;
+	if (texture.use_count() < 2) {
+		texture.~shared_ptr();
+	}
 }

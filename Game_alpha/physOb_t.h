@@ -23,12 +23,18 @@ protected:
 
 	std::vector<int> dropList;
 
+	float frame;
+
+
+	virtual void animation();
+	virtual void updateFrame();
+	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 public:
 
 	physOb_t();
 	physOb_t(float _posX, float _posY);	
 	physOb_t(float _posX, float _posY, std::string fileName, int _coordX, int _coordY, int _width, int _height);
-	physOb_t(float _posX, float _posY, sf::Texture *_texture,  int _coordX, int _coordY, int _width, int _height);
+	physOb_t(float _posX, float _posY, std::shared_ptr<sf::Texture>_texture,  int _coordX, int _coordY, int _width, int _height);
 
 	virtual ~physOb_t();
 	
@@ -37,10 +43,27 @@ public:
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 1.f);
 
-	virtual bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);
+
+
 	//GET
+	physOb_t *getPtr() {
+		return this;
+	}
+
+	float getFrame() const {
+		return frame;
+	}
+	obPreference &getSpritePref() {
+		return spritePref;
+	}
+	void setSpriteSize(int _x, int _y) {
+		spritePref.setSize(_x, _y);
+	}
+	void setRotation(float _val) {
+		spritePref.setRotation(_val);
+	}
 	sf::Sprite getSprite() const {
 		return spritePref.getSprite();
 	}
@@ -134,7 +157,7 @@ public:
 		return hitsToDestroy;
 	}
 
-	void setTexturePtr(sf::Texture *newTexture) {
+	void setTexturePtr(std::shared_ptr<sf::Texture> &newTexture) {
 		spritePref.setTexturePtr(newTexture);
 	}
 

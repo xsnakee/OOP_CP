@@ -4,16 +4,6 @@
 
 game_t::game_t()
 {
-	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
-	window = nullptr;
-	view = new sf::View;
-
-	speedMultipple = 800.f;
-	speed = 10.f;
-
-	using namespace animation;
-
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(200.f,200.f,MAIN_HERO_TEXTURE_FILE,SPRITE_X,SPRITE_Y,MAIN_HERO_SPRITE_WIDTH,MAIN_HERO_SPRITE_HEIGHT,clock.get(),bulletsList)));
 }
 
 game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelName)
@@ -29,7 +19,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
 	
-	
+	//generateTextureList();
 
 	map.fillTheMapObj();
 	map.fillTheMapTiles();
@@ -37,24 +27,18 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	generateMapObjects(map.mapObList);
 	generateMapTiles(map.groundTilesList);
 
-	using namespace animation;
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(1700.f, 1700.f, MAIN_HERO_TEXTURE_FILE, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get(), bulletsList)));
-	mainHero = charactersList.begin();
-	
-	
-	//*
-	sf::Texture *temp = new sf::Texture;
 
+	using namespace animation;
+	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);
 
-	charactersList.push_back(std::unique_ptr <character_t>(new Npc_t(temp, bulletsList, clock.get(),sf::Vector2f(1800.f, 1800.f), SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, 10.f, 10.f)));
+	//animation::generateTextureList();
 
-	++mainHero;
-	(*mainHero)->changeState(new CharacterStateMove_t((*mainHero).get()));
-	(*mainHero)->setFraction(-2);
-	--mainHero;
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	mainHero = charactersList.begin();
 
-	//*/
+	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
+	generateNpc();
 }
 
 	
@@ -71,6 +55,7 @@ void game_t::update() {
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
 
 	checkAlive();
+
 	bulletEngine();
 	visionEngine();
 	charsAction();
@@ -121,62 +106,9 @@ void game_t::draw() {
 }
 
 void game_t::keyController(sf::Event &event) {
-	using namespace sf;
-
-	std::list<std::unique_ptr <character_t>>::iterator mainHero = charactersList.begin();
-	sf::Keyboard::Key tempKey = event.key.code;
-	//NAVIGATION CONTROLLER	{
 		if ((*mainHero)->getAlive()) {
-			using namespace sf;
-			if (Keyboard::isKeyPressed(Keyboard::W)) {
-				(*mainHero)->setdY(-(*mainHero)->getStats().speed);
-			}
-			else
-
-				if (Keyboard::isKeyPressed(Keyboard::S)) {
-					(*mainHero)->setdY((*mainHero)->getStats().speed);
-
-				}
-				else
-
-					if (Keyboard::isKeyPressed(Keyboard::D)) {
-						(*mainHero)->setdX((*mainHero)->getStats().speed);
-					}
-					else
-
-
-						if (Keyboard::isKeyPressed(Keyboard::A)) {
-							(*mainHero)->setdX(-(*mainHero)->getStats().speed);
-						}
-
-			if (Keyboard::isKeyPressed(Keyboard::E)) {
-				(*mainHero)->setPosX(1000.0f);
-				(*mainHero)->setPosY(1000.0f);
-			}
-
-			/*
-			if (Keyboard::isKeyPressed(Keyboard::Space)) {
-
-
-				addElement(elements::FIRE);
-				checkSkillGenerator();
-				std::cout << elements::FIRE;
-
-			}
-			*/
-
-
-			//ATACK CONTROLLER
-			if (Mouse::isButtonPressed(Mouse::Left)) {
-				//bulletsList.push_back(std::unique_ptr <bullet_t>(new bullet_t(clock.get(), (*mainHero).get(), cursor->getPosition())));
-				(*mainHero)->attack();
-				//bulletsList.push_back((std::unique_ptr<bullet_t>((*mainHero)->attack())));
-
-			}
-
+			controller->eventHandler(event);
 		}
-	
-
 }
 
 void game_t::checkAlive() {
@@ -187,6 +119,7 @@ void game_t::checkAlive() {
 
 		if (tempCharIter != mainHero) {
 			if (!(*tempCharIter)->getAlive()) {
+				tempCharIter->reset();
 				charactersList.erase(tempCharIter);
 			}
 		}
@@ -238,7 +171,7 @@ void game_t::visionEngine() {
 	for (auto &outerElement : charactersList) {
 		if (tempCharIter++ != mainHero) {
 			for (auto &innerElement : charactersList) {
-				if ((outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
+				if ( (innerElement->getAlive() && outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
 					outerElement->getState()->setTargetCharacter(innerElement.get());
 				}
 			}
@@ -316,8 +249,69 @@ void game_t::setCamera() {
 	view->setCenter(_x, _y);
 }
 
-
+void game_t::generateTextureList() {
+	
+}
 
 void game_t::drawCursor() {
 	window->draw(cursor->getSprite());
+}
+
+
+
+void game_t::generateNpc() {
+	size_t NpcTypeAmount = 3;
+	size_t tempCounter = 0;
+	while (tempCounter++ < NpcTypeAmount) {
+		using namespace animation;
+		switch (tempCounter) {
+		case 1: {
+			size_t demonsAmount = 20;
+			size_t temp = 0;
+
+			sf::Vector2f spawnCoords(1800.f, 1800.f);
+
+			std::shared_ptr<sf::Texture> demonText = std::make_shared<sf::Texture>();
+
+			demonText->loadFromFile(ENEMY_DEMON_FILE);
+
+			while (temp++ < demonsAmount) {
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+			}
+
+			break;
+		}
+		case 2: {
+			size_t warriorsAmount = 20;
+			size_t temp = 0;
+
+			sf::Vector2f spawnCoords(1900.f, 1800.f);
+
+			std::shared_ptr<sf::Texture> WarriorText = std::make_shared<sf::Texture>();
+
+			WarriorText->loadFromFile(ENEMY_WARRIOR_FILE);
+			while (temp++ < warriorsAmount) {
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+			}
+
+			break;
+		}
+		case 3: {
+			size_t magesAmount = 20;
+			size_t temp = 0;
+
+			sf::Vector2f spawnCoords(1700.f, 1500.f);
+
+			std::shared_ptr<sf::Texture> magesText(new sf::Texture());
+
+			magesText->loadFromFile(ENEMY_MAGE_FILE);
+			while (temp++ < magesAmount) {
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
+				charactersList.back()->setElemStatus(5);
+				charactersList.back()->getStats().attackRange = 150.f;
+			}
+			break;
+		}
+		}
+	}
 }
