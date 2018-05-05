@@ -34,7 +34,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 
 	//animation::generateTextureList();
 
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, COMMON_CHARACTER_SPRITE, MAIN_HERO_SPRITE_HEIGHT, clock.get())));
 	mainHero = charactersList.begin();
 
 	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
@@ -276,7 +276,8 @@ void game_t::generateNpc() {
 
 			while (temp++ < demonsAmount) {
 				sf::Vector2f spawnCoords(1800.f+temp*10, 1800.f + temp * 10);
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f))));
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, COMMON_CHARACTER_SPRITE, MAIN_HERO_SPRITE_HEIGHT, 1.f))));
+
 			}
 
 			break;
@@ -291,7 +292,7 @@ void game_t::generateNpc() {
 			WarriorText->loadFromFile(ENEMY_WARRIOR_FILE);
 			sf::Vector2f spawnCoords(1900.f + temp * 10, 1800.f + temp * 10);
 			while (temp++ < warriorsAmount) {
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f))));
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, COMMON_CHARACTER_SPRITE, MAIN_HERO_SPRITE_HEIGHT, 1.f))));
 			}
 
 			break;
@@ -306,7 +307,7 @@ void game_t::generateNpc() {
 			magesText->loadFromFile(ENEMY_MAGE_FILE);
 			while (temp++ < magesAmount) {
 				sf::Vector2f spawnCoords(1700.f + temp * 10, 1500.f + temp * 10);
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f))));
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, COMMON_CHARACTER_SPRITE, MAIN_HERO_SPRITE_HEIGHT, 1.f))));
 				charactersList.back()->setElemStatus(5);
 				charactersList.back()->getStats().attackRange = 150.f;
 			}

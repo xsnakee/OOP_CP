@@ -62,7 +62,7 @@ namespace animation {
 	const std::string ENEMY_MAGE_FILE = "img/characters/enemy_mage.png";
 
 
-	const int MAIN_HERO_SPRITE_WIDTH = 32;
+	const int COMMON_CHARACTER_SPRITE = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
 	const int SPRITE_X = 0;
 	const int SPRITE_Y = 0;
