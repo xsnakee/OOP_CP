@@ -29,10 +29,13 @@ public:
 
 
 
-	sf::Int32 getAttackCD(int _attackCD);
-	sf::Int32 getCastDelay(int _castDelay);
-	sf::Int32 getDirectionSwapTime(int _time);
+	sf::Int32 getAttackCD();
+	sf::Int32 getCastDelay();
+	sf::Int32 getDirectionSwapTime();
 
+	sf::Int32 attackCDcorrection(int _attackSpeed);
+	sf::Int32 castDelayCorrection(int _castDelay);
+	sf::Int32 directionSwapTimeCorrection(int _time);
 
 	void setAttackCD(int _attackCD);
 	void setCastDelay(int _castDelay);

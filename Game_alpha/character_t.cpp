@@ -13,6 +13,8 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	fraction = 1;
 	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 }
 
 character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {

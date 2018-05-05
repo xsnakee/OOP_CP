@@ -307,7 +307,8 @@ void game_t::generateNpc() {
 			magesText->loadFromFile(ENEMY_MAGE_FILE);
 			while (temp++ < magesAmount) {
 				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, MAIN_HERO_SPRITE_WIDTH, MAIN_HERO_SPRITE_HEIGHT, 1.f, temp*10.f, temp*10.f))));
-				charactersList.back()->setElemStatus(12);
+				charactersList.back()->setElemStatus(5);
+				charactersList.back()->getStats().attackRange = 150.f;
 			}
 			break;
 		}
