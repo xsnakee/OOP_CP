@@ -26,7 +26,7 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 
 	stat.AOE = 0.f;
 	stat.element = elements::NONE;
-	stat.type = false;
+	stat.type = true;
 
 	if (abs(stat.AOE) < FLT_EPSILON) {
 		mass = false;
@@ -90,37 +90,40 @@ bool bullet_t::checkAlive() {
 	return alive;
 }
 
+bool bullet_t::hitting(physOb_t &Object, float _speed, float _borderError) {
+	if (Object.getCollision()){
+		if (stat.type && Object.getFraction() != fraction) {
+			Object.takeDamage(stat.damage, stat.type, stat.element);
+			if (!mass) {
+				alive = false;
+			}
+		}
+		else if (!stat.type && Object.getFraction() == fraction) {
+			Object.takeHeal(stat.damage);
+			if (!mass) {
+				alive = false;
+			}
+		}
+		return true;
+	}
+}
+
 bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {
 	dmgInterval_t &temp = checkObInList(Object);//if ob exist startDmgTime != 0
 
 	if (temp.startDmgTime) {
 		if (!checkTimer(clock, temp.startDmgTime, dmgInterval)){
 			temp.startDmgTime = clock->getElapsedTime().asMilliseconds();
-			std::cout << 1 << std::endl;
-			if (Object.getCollision() && Object.getFraction() != fraction) {
-				if (Object.getDestroyble()) {
-					Object.takeDamage(stat.damage, stat.type);
-				}
-				if (!mass) {
-					alive = false;
-				}
-
-				return true;
-			}
+			hitting(Object, _speed, _borderError);
 		}
 		
 	} else {
 
-		if (Object.getCollision() && Object.getFraction() != fraction) {
+		if (Object.getCollision() && Object.getDestroyble()) {
 
 			temp.startDmgTime = clock->getElapsedTime().asMilliseconds();
 			obList.push_back(temp);
-			if (Object.getDestroyble()) {
-				Object.takeDamage(stat.damage, stat.type);
-			}
-			if (!mass) {
-				alive = false;
-			}
+			hitting(Object, _speed, _borderError);
 
 			return true;
 		}

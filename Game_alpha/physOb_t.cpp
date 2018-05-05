@@ -184,7 +184,7 @@ bool physOb_t::checkAlive() {
 	return alive;
 }
 
-float physOb_t::takeDamage(float _dmg, bool _dmgType) {
+float physOb_t::takeDamage(float _dmg, bool _dmgType, elements::element _elem) {
 	if (alive) {
 		
 			--hitsToDestroy;
@@ -192,6 +192,14 @@ float physOb_t::takeDamage(float _dmg, bool _dmgType) {
 	}
 	return _dmg;
 }
+
+float physOb_t::takeHeal(float _heal) {
+	if (alive) {
+		++hitsToDestroy;
+	}
+	return _heal;
+}
+
 
 void physOb_t::updateFrame() {
 

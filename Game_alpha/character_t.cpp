@@ -89,19 +89,30 @@ bool character_t::checkAlive() {
 }
 
 
-float character_t::takeDamage(float _dmg, bool _dmgType) {
+float character_t::takeDamage(float _dmg, bool _dmgType, elements::element _elem) {
 
 	if (alive) {
-		float tempDmg = (_dmgType) ? (_dmg - abs(stat.physDef)) : (_dmg - abs(stat.magDef));
-		if (tempDmg < 0){
-			tempDmg = 0.f;
+		float tempDmg = 0.f;
+
+		if (_dmgType) {
+			tempDmg = (_elem == elements::NONE) ? (_dmg - abs(stat.physDef)) : (_dmg - abs(stat.magDef));
+			if (tempDmg < 0) {
+				tempDmg = 0.f;
+			}
+
+			stat.HP -= tempDmg;
+			std::cout << tempDmg << " Dmg" << std::endl;
 		}
 		
-		stat.HP -= tempDmg;
-		std::cout << tempDmg << " Dmg" << std::endl;
 		return tempDmg;
 	}
 	return 0.f;
+}
+float character_t::takeHeal(float _heal) {
+	if (alive && stat.HP<stat.stdHP) {
+		stat.HP += _heal;
+	}
+	return _heal;
 }
 
 float character_t::toHit() const{

@@ -50,7 +50,6 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(0.5f);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::NONE);
 		tempBullet->setTimer(500);
 		tempBullet->setAOE(20.f);
@@ -77,7 +76,6 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(0.8f);
-		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(2000);
 		tempBullet->setRng(50.f + character->getStats().attackRange);
@@ -103,7 +101,6 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(0.8f);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(2000);
 		tempBullet->setRng(character->getStats().attackRange);
@@ -126,7 +123,6 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setCollision(true);
 		tempBullet->speedMultiple(1.f);
-		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(100.f + character->getStats().attackRange);
@@ -149,7 +145,6 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setCollision(true);
 		tempBullet->speedMultiple(0.5f);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(100.f + character->getStats().attackRange);
@@ -180,7 +175,6 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setdX(0.f);
 		tempBullet->setdY(0.f);
 
-		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(1000.f);
@@ -210,7 +204,6 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setdX(0.f);
 		tempBullet->setdY(0.f);
 		tempBullet->setSpeed(0.f);
-		tempBullet->setType(true);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(2000);
 		tempBullet->setAOE(50.f);
@@ -235,7 +228,6 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(false);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::WIND);
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(150.f + character->getStats().attackRange);

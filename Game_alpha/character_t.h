@@ -51,7 +51,9 @@ public:
 	virtual void attack();
 
 	virtual bool checkAlive();
-	virtual float takeDamage(float _dmg, bool _dmgType);
+	virtual float takeDamage(float _dmg, bool _dmgType, elements::element _elem);
+	float takeHeal(float _heal);
+
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	virtual bool checkEnemy(character_t *ob);
 

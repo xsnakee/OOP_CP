@@ -20,7 +20,7 @@ struct bulletStats {
 	float range;
 	elements::element element = elements::NONE;
 	float AOE = 0.1f;
-	bool type = false;//0 - phys, 1 - magic
+	bool type = true;//0 - heal, 1 - dmg
 	int fraction = -1;
 };
 
