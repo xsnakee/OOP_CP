@@ -120,7 +120,12 @@ template <typename T> T getRand(T a, T b) {
 }
 
 
+static bool timerIsOver(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
 
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+
+	return (abs(curTime - startTime) > _time) ? true : false;
+}
 
 
 

@@ -171,8 +171,7 @@ void character_t::attack() {
 	//start cast
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
-		std::cout << "Attacked!!Npc" << std::endl;
-		//skill->useSkill();
+		skill->useSkill();
 	}
 }
 

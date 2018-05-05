@@ -33,8 +33,6 @@ struct characterStats_t
 	}
 
 	void defaultStats() {
-		HP = stdHP;
-		MP = stdMP;
 		attackPower = stdattackPower;
 		physDef = stdPhysDef;
 		magDef = stdMagDef;

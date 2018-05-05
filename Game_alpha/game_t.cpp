@@ -33,7 +33,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);
 	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
 
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
+	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1350.f, 1550.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
 	mainHero = charactersList.begin();
 
 	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
