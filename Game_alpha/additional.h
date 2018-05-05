@@ -3,7 +3,6 @@
 #include <vector>
 #include <iterator>
 
-const std::shared_ptr<sf::Texture> MAIN_HERO_TEXTURE = std::make_shared<sf::Texture>();
 
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
