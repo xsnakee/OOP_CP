@@ -41,7 +41,7 @@ public:
 	virtual bool kill();
 	virtual void update(float _speed);
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
-	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 1.f);
+	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 5.f);
 
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType);

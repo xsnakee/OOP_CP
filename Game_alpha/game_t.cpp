@@ -190,7 +190,7 @@ void game_t::collisionEngine() {
 			}
 		}*/
 		for (auto &innerElement : obList) {
-			if (outerElement->checkCollision(*innerElement,characterBorderError/2)) {
+			if (outerElement->checkCollision(*innerElement)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
