@@ -10,11 +10,9 @@ class dmgInterval_t {
 public:
 	physOb_t &ob;
 	sf::Int32 startDmgTime;
-	sf::Int32 dmgInterval;
 
 	dmgInterval_t(physOb_t &_ob):ob (_ob){
 		startDmgTime = 0;
-		dmgInterval = 500;
 	}
 
 	~dmgInterval_t() {
@@ -36,6 +34,8 @@ private:
 
 	sf::Int32 startTime;
 	sf::Int32 timer; //live time as Milliseconds
+
+	sf::Int32 dmgInterval;
 
 	bool mass;
 	
@@ -135,6 +135,10 @@ public:
 
 	void setType(bool _val) {
 		stat.type = _val;
+	}
+
+	void setDmgDelay(sf::Int32 _time) {
+		dmgInterval = _time;
 	}
 
 };

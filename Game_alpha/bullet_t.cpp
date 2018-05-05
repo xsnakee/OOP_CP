@@ -34,6 +34,7 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	else {
 		mass = true;
 	}
+	dmgInterval = timer;
 
 	startPosX = posX;
 	startPosY = posY;
@@ -93,10 +94,7 @@ bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 	dmgInterval_t &temp = checkObInList(Object);//if ob exist startDmgTime != 0
 
 	if (temp.startDmgTime) {
-		//std::cout << clock->getElapsedTime().asMilliseconds() << " " << temp.startDmgTime << " " << temp.dmgInterval << " " << checkTimer(clock, temp.startDmgTime, temp.dmgInterval) << std::endl;
-		
-		
-		if (!checkTimer(clock, temp.startDmgTime, temp.dmgInterval)){
+		if (!checkTimer(clock, temp.startDmgTime, dmgInterval)){
 			temp.startDmgTime = clock->getElapsedTime().asMilliseconds();
 			std::cout << 1 << std::endl;
 			if (Object.getCollision() && Object.getFraction() != fraction) {
