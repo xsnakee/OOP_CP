@@ -68,8 +68,10 @@ namespace animation {
 	const std::string BULLET_FIRE_BALL_TEXTURE_FILE = "img/skills/bullet_fire_ball.png";
 	const std::string BULLET_EARTH_BALL_TEXTURE_FILE = "img/skills/bullet_earth_ball.png";
 	const std::string BULLET_LAVA_TEXTURE_FILE = "img/skills/bullet_lava_pool.png";
+	const std::string BULLET_BANG_BALL_TEXTURE_FILE = "img/skills/bullet_bang_ball.png";
 	const std::string BULLET_EARTH_SLAM_TEXTURE_FILE = "img/skills/bullet_earth_slam.png";
 	const std::string BULLET_COMBO_BALL_TEXTURE_FILE = "img/skills/bullet_combo.png";
+	const std::string BULLET_CRYSTAL_HEAL_TEXTURE_FILE = "img/skills/bullet_crystal_heal.png";
 
 	//CHARACTER IMGS
 	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero_32_32.png";
