@@ -12,12 +12,15 @@
 #include "additional.h"
 #include "cursor_t.h"
 #include "skillObGenerator_t.h"
+#include "keyboardController.h"
 
 class game_t
 {
 private:
 	sf :: RenderWindow *window;
+
 	cursor_t *cursor;
+	std::unique_ptr<keyboardController> controller;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;
@@ -29,7 +32,7 @@ private:
 
 	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
-//	std::list<std::unique_ptr <Npc_t>> npcList;
+
 
 	std::list<physOb_t*> obList;
 	std::list<std::unique_ptr <bullet_t>> bulletsList;
@@ -56,10 +59,12 @@ public:
 
 	void generateMapObjects(std::list<physOb_t*> &_obTextureList);
 	void generateMapTiles(std::list<ground_t*> &_mapTilesList);
+
+	void generateTextureList();
 	void setCamera();
 
 	void drawCursor();
-	
+	void generateNpc();
 
 
 	//GET

@@ -45,6 +45,9 @@ public:
 	void setTargetCharacter(character_t *character) {
 		targetCharacter = character;
 	}
+	void resetTargetCharacter() {
+		targetCharacter = NULL;
+	}
 };
 
 

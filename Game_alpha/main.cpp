@@ -44,8 +44,6 @@ void START_GAME(sf::RenderWindow *window) {
 
 		game.keyController(event);
 
-
-		//game.checkAlive();
 		game.update();
 		window->clear();
 		game.draw();

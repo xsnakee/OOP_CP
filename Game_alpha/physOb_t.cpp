@@ -52,7 +52,7 @@ physOb_t::physOb_t(float _posX, float _posY, std::string fileName, int _coordX, 
 
 }
 
-physOb_t::physOb_t(float _posX, float _posY, sf::Texture *_texture, int _coordX, int _coordY, int _width, int _height) : spritePref(_texture, _coordX, _coordY, _width, _height) {
+physOb_t::physOb_t(float _posX, float _posY, std::shared_ptr<sf::Texture>_texture, int _coordX, int _coordY, int _width, int _height) : spritePref(_texture, _coordX, _coordY, _width, _height) {
 	dX = 0.f;
 	dY = 0.f;
 	destroyble = false;
@@ -105,7 +105,10 @@ void physOb_t::update(float _speed) {
 		dY = 0.f;
 
 		spritePref.setSpritePos(posX, posY);
+		updateFrame();
+		animation();
 	}
+
 }
 
 bool physOb_t::checkCollision(physOb_t &Object, float _borderError) {
@@ -172,4 +175,15 @@ float physOb_t::takeDamage(float _dmg, bool _dmgType) {
 		
 	}
 	return _dmg;
+}
+
+void physOb_t::updateFrame() {
+
+	frame += animation::frameSpeed;
+	if (frame > animation::frameRate) {
+		frame -= animation::frameRate;
+	}
+}
+void physOb_t::animation() {
+
 }
