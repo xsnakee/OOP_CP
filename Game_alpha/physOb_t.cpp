@@ -161,6 +161,8 @@ bool physOb_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 			posY += Object.getdY() * _speed + _borderError;
 		}
 
+		dX = 0;
+		dY = 0;
 		return true;
 	}
 	return false;
