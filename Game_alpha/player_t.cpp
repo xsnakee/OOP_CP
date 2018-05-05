@@ -29,12 +29,17 @@ player_t::~player_t()
 void player_t::update(float _speed) {
 	character_t::update(_speed);
 
+
+	if (((this)->getState()->getStateNum() == 4) && (this)->checkSkillGenerator() && ((this)->getTimers().castReady())) {
+		(this)->generateSkillAndClearElemList();
+		(this)->changeState(new CharacterPlayerControll_t(this));
+	}
+
 }
 
 void player_t::attack() {
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
 		skill->useSkill();
-		std::cout << "Attacked!!" << std::endl;
 	}
 }

@@ -134,7 +134,7 @@ bool character_t::checkEnemy(character_t *ob) {
 	float distanceY = (ob->getCoordsOfCenter().y) - (getCoordsOfCenter().y);
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	if (vectorLength < stat.visionDistance) {
+	if (vectorLength < stat.visionDistance && ob->getAlive()) {
 		return true;
 	}
 
@@ -159,9 +159,14 @@ void character_t::attack() {
 
 
 bool character_t::checkSkillGenerator() {
+	for (auto &i : skillGeneratorArr) {
+		std::cout << i;
+	}
+	std::cout << std::endl;
 	if (skillGeneratorArr.size() == 3) {
 		std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
 
+		
 		for (size_t i = 0; i < skillGeneratorArr.size(); ++i, ++temp) {
 			if ((*temp) == elements::NONE) return false;
 		}

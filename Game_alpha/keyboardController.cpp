@@ -49,35 +49,39 @@ void PlayerController::eventHandler(sf::Event &event) {
 	using namespace sf;
 
 
-	if (Mouse::isButtonPressed(Mouse::Left)) {
+	if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
 		character->attack();
 		std::cout << character->getElemStatus() << std::endl;
 		checkCharacterStateAndChangeDefault();
-	}else 
-	if (Keyboard::isKeyPressed(Keyboard::W)) {
-		character->setdY(-character->getStats().speed);
-		checkCharacterStateAndChangeDefault();
-	} 
-	else if (Keyboard::isKeyPressed(Keyboard::A)) {
-		character->setdX(-character->getStats().speed);
-		checkCharacterStateAndChangeDefault();
-
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::S)) {
-		character->setdY(character->getStats().speed);
-		checkCharacterStateAndChangeDefault();
+	else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Space) {
 
-
+		character->getTimers().updateCastCD();
+		character->changeState(new CharacterPlayerCast_t(character));
+		std::cout << "kyky" << std::endl;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::D)) {
-		character->setdX(character->getStats().speed);
-		checkCharacterStateAndChangeDefault();
-	}
+	else
+		if (Keyboard::isKeyPressed(Keyboard::W)) {
+			character->setdY(-character->getStats().speed);
+			checkCharacterStateAndChangeDefault();
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::A)) {
+			character->setdX(-character->getStats().speed);
+			checkCharacterStateAndChangeDefault();
 
-	if (!checkTimer(clock, startTime, keysCD)) {
-		startTime = clock->getElapsedTime().asMilliseconds();
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::S)) {
+			character->setdY(character->getStats().speed);
+			checkCharacterStateAndChangeDefault();
 
-		if (Keyboard::isKeyPressed(Keyboard::E)) {
+
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::D)) {
+			character->setdX(character->getStats().speed);
+			checkCharacterStateAndChangeDefault();
+		}
+
+		if (event.key.code == (Keyboard::E)) {
 
 			character->setPosX(1000.0f);
 			character->setPosY(1000.0f);
@@ -85,30 +89,24 @@ void PlayerController::eventHandler(sf::Event &event) {
 		}
 
 
-		if (Keyboard::isKeyPressed(Keyboard::Num1)) {
-			character->addElement(elements:: WIND);
+		if (event.key.code == (Keyboard::Num1)) {
+			character->addElement(elements::WIND);
 			checkCharacterStateAndChangeDefault();
 
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+		if (event.key.code == (Keyboard::Num2)) {
 
 			character->addElement(elements::FIRE);
 			checkCharacterStateAndChangeDefault();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Num3)) {
+		if (event.key.code == (Keyboard::Num3)) {
 
-			character->addElement(elements:: EARTH);
+			character->addElement(elements::EARTH);
 			checkCharacterStateAndChangeDefault();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Space)) {
-			character->changeState(new CharacterPlayerCast_t(character));
-			std::cout << 4 << std::endl;
-			character->getTimers().updateCastCD();
-		}
-	}
-	
 
-	
+		event.key.code = Keyboard::Unknown;
+
 }

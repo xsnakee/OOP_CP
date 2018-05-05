@@ -12,11 +12,11 @@ characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _att
 	timerStats attackCD = { startTime, 1000/ _attackSpeed};
 	timersList.insert(std::pair<std::string,timerStats>(attackCDkey, attackCD));
 
-	timerStats castDelay = { startTime, 4000 / _castSpeed};
+	timerStats castDelay = { startTime, 1000 / _castSpeed};
 	timersList.insert(std::pair<std::string, timerStats>(castDelaykey, castDelay));
 
-	timerStats swapDirectionTimer = { startTime, 4000 };
-	timersList.insert(std::pair<std::string, timerStats>(skillGenerationCDkey, swapDirectionTimer));
+	timerStats skillGenerationCD = { startTime, 4000 };
+	timersList.insert(std::pair<std::string, timerStats>(skillGenerationCDkey, skillGenerationCD));
 }
 
 characterTimers_t::~characterTimers_t()

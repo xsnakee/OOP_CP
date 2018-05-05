@@ -62,12 +62,6 @@ void game_t::update() {
 	collisionEngine();
 
 	(*mainHero)->setTargetCoords(cursor->getPosition());
-	//*
-	if (((*mainHero)->getState()->getStateNum() == 4) && (*mainHero)->checkSkillGenerator() && ((*mainHero)->getTimers().castReady())) {
-		(*mainHero)->generateSkillAndClearElemList();
-		(*mainHero)->changeState(new CharacterPlayerControll_t(mainHero->get()));
-	}
-	//*/
 
 	for (auto &character : charactersList) {
 		(character)->update(speed);

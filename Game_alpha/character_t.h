@@ -92,7 +92,7 @@ public:
 		return elemStatus;
 	}
 
-	characterTimers_t getTimers() const {
+	characterTimers_t &getTimers() {
 		return timer;
 	}
 	//SET
