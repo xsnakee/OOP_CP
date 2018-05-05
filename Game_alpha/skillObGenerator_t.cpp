@@ -80,7 +80,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(2000);
-		tempBullet->setRng(100.f);
+		tempBullet->setRng(50.f + character->getStats().attackRange);
 
 		float tempDmg = 5.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
@@ -106,7 +106,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(2000);
-		tempBullet->setRng(100.f);
+		tempBullet->setRng(character->getStats().attackRange);
 
 		float tempDmg = 7.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
@@ -129,7 +129,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
-		tempBullet->setRng(200.f);
+		tempBullet->setRng(100.f + character->getStats().attackRange);
 
 		float tempDmg = 15.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
@@ -152,7 +152,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(4000);
-		tempBullet->setRng(200.f);
+		tempBullet->setRng(100.f + character->getStats().attackRange);
 		tempBullet->setAOE(10.f);
 
 		float tempDmg = 30.f + character->getStats().attackPower;
@@ -205,7 +205,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 
-		tempBullet->setRng(100.f);
+		tempBullet->setRng(character->getStats().attackRange);
 		tempBullet->setCollision(false);
 		tempBullet->setdX(0.f);
 		tempBullet->setdY(0.f);
@@ -238,7 +238,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setType(false);
 		tempBullet->setElement(elements::WIND);
 		tempBullet->setTimer(4000);
-		tempBullet->setRng(200.f);
+		tempBullet->setRng(150.f + character->getStats().attackRange);
 		tempBullet->setAOE(10.f);
 
 		float tempDmg = 10.f + character->getStats().attackPower;

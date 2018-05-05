@@ -32,7 +32,6 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);
 	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
-	//animation::generateTextureList();
 
 	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1700.f, 1700.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
 	mainHero = charactersList.begin();
@@ -190,7 +189,7 @@ void game_t::collisionEngine() {
 			}
 		}*/
 		for (auto &innerElement : obList) {
-			if (outerElement->checkCollision(*innerElement)) {
+			if (outerElement->checkCollision(*innerElement, 10.f)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
