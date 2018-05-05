@@ -7,7 +7,6 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 {
 	spotCoords = sf::Vector2f(_x,_y);
 	spawnCoords = spotCoords;
-	moveRadius = 0.f;
 	powerMultiple = _statMultiple;
 
 	stat.statMiltipler(powerMultiple);
@@ -25,8 +24,6 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 
 	spawnCoords.x = spotCoords.x;
 	spawnCoords.y = spotCoords.y;
-
-	moveRadius = 200.f;
 	powerMultiple = _multiple;
 	stat.statMiltipler(powerMultiple);
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));

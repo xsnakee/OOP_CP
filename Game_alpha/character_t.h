@@ -32,6 +32,8 @@ protected:
 	sf::Vector2f spawnCoords;
 
 
+
+	float moveRadius;
 	virtual void animation();
 
 protected:
@@ -83,8 +85,10 @@ public:
 	sf::Vector2f getSpawnCoords() const {
 		return spawnCoords;
 	}
+
+
 	float getMoveRadius() const {
-		return 300.f;
+		return moveRadius;
 	}
 	sf::Clock *getClockPtr() const {
 		return clock;
@@ -117,6 +121,10 @@ public:
 	size_t setElemStatus(size_t _elemStatus) {
 		elemStatus = _elemStatus;
 		return elemStatus;
+	}
+
+	void setMoveRadius(float _radius) {
+		moveRadius = _radius;
 	}
 };
 

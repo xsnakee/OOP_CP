@@ -134,8 +134,9 @@ void CharacterStateFolow_t::Action()
 	float distanceX = targetCharacter->getCoordsOfCenter().x - mainCharacter->getCoordsOfCenter().x;
 	float distanceY = targetCharacter->getCoordsOfCenter().y - mainCharacter->getCoordsOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+	float visionMultiple = 2.f;
 
-	if (leaveFromSpot() ) {
+	if (leaveFromSpot() || vectorLength > mainCharacter->getStats().visionDistance * visionMultiple) {
 		mainCharacter->setTargetCoords(mainCharacter->getSpawnCoords());
 		mainCharacter->changeState(new CharacterStateMove_t(*this));
 	}
@@ -144,8 +145,8 @@ void CharacterStateFolow_t::Action()
 			mainCharacter->changeState(new CharacterStateAttack_t(*this));
 		}
 
-		float  kX = (distanceX / abs(distanceX)) * mainCharacter->getStats().speed;
-		float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
+		float  kX = (distanceX / abs(distanceX) - FLT_EPSILON) * mainCharacter->getStats().speed;
+		float  kY = (distanceY / abs(distanceY) - FLT_EPSILON) * mainCharacter->getStats().speed;
 
 		
 		if (abs(distanceX) > mainCharacter->getWidth() / 2) {

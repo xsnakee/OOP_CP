@@ -8,8 +8,6 @@ class Npc_t :
 protected:
 	sf::Vector2f spotCoords;
 	sf::Int32 spawnTime;
-
-	float moveRadius;
 	float powerMultiple;
 
 public:
@@ -22,10 +20,6 @@ public:
 
 	sf::Vector2f getSpotCoords() const{
 		return spotCoords;
-	}
-
-	float getMoveRadius() const {
-		return moveRadius;
 	}
 
 	float getPowerMultiple() const {
