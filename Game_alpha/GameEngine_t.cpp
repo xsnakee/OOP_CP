@@ -1,9 +1,9 @@
- #include "game_t.h"
+ #include "GameEngine_t.h"
 #include <iostream>
 
 //, level.charactersList(level.level.charactersList),level.bulletsList(level.level.bulletsList), level.mapTilesList(level.level.mapTilesList), level.obList(level.level.obList)
 
-game_t::game_t(sf::RenderWindow *_window, Level_t &_level):level(_level)
+GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level):level(_level)
 {
 	window = _window;
 	view = new sf::View;
@@ -29,14 +29,14 @@ game_t::game_t(sf::RenderWindow *_window, Level_t &_level):level(_level)
 
 	
 
-game_t::~game_t()
+GameEngine_t::~GameEngine_t()
 {
 	delete view;
 	delete cursor;
 }
 
 
-void game_t::update() {
+void GameEngine_t::update() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 
@@ -64,13 +64,13 @@ void game_t::update() {
 	cursor->setCursorPosition();
 }
 
-void game_t::charsAction() {
+void GameEngine_t::charsAction() {
 	for (auto &i : level.charactersList) {
 		i.get()->getState()->Action();
 	}
 }
 
-void game_t::draw() {
+void GameEngine_t::draw() {
 	
 
 	for (auto &texture : level.mapTilesList) {
@@ -91,13 +91,13 @@ void game_t::draw() {
 	drawCursor();
 }
 
-void game_t::keyController(sf::Event &event) {
+void GameEngine_t::keyController(sf::Event &event) {
 		if (mainHero->get()->getAlive()) {
 			controller->eventHandler(event);
 		}
 }
 
-void game_t::checkAlive() {
+void GameEngine_t::checkAlive() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 	for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {
@@ -132,7 +132,7 @@ void game_t::checkAlive() {
 	//*/
 }
 
-void game_t::bulletEngine() {
+void GameEngine_t::bulletEngine() {
 
 	// Bullet collision
 	for (auto &outerElement : level.bulletsList) {
@@ -150,7 +150,7 @@ void game_t::bulletEngine() {
 	}
 }
 
-void game_t::visionEngine() {
+void GameEngine_t::visionEngine() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 
@@ -166,7 +166,7 @@ void game_t::visionEngine() {
 	}
 }
 
-void game_t::collisionEngine() {
+void GameEngine_t::collisionEngine() {
 	float characterBorderError = 10.f;
 	for (auto &outerElement : level.charactersList) {
 		
@@ -181,7 +181,7 @@ void game_t::collisionEngine() {
 
 
 
-void game_t::setCamera() {
+void GameEngine_t::setCamera() {
 
 	float _x = mainHero->get()->getPosX();
 	float _y = mainHero->get()->getPosY();
@@ -215,13 +215,13 @@ void game_t::setCamera() {
 
 
 
-void game_t::drawCursor() {
+void GameEngine_t::drawCursor() {
 	window->draw(cursor->getSprite());
 }
 
 
 
-void game_t::generateNpc() {
+void GameEngine_t::generateNpc() {
 	size_t NpcTypeAmount = 3;
 	size_t tempCounter = 0;
 	tiles::sizes tempSizes;

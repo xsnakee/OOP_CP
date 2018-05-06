@@ -13,7 +13,7 @@
 #include "keyboardController.h"
 #include "Level_t.h"
 
-class game_t
+class GameEngine_t
 {
 private:
 	sf :: RenderWindow *window;
@@ -32,8 +32,8 @@ private:
 
 public:
 	
-	game_t(sf::RenderWindow *_window, Level_t &_level);
-	~game_t();
+	GameEngine_t(sf::RenderWindow *_window, Level_t &_level);
+	~GameEngine_t();
 
 	void update();
 	void draw();
