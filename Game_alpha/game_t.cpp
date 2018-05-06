@@ -278,7 +278,7 @@ void game_t::generateNpc() {
 
 			while (temp++ < demonsAmount) {
 				sf::Vector2f spawnCoords(1800.f+temp*10, 1800.f + temp * 10);
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, 1.f))));
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
 
 			}
 
@@ -295,7 +295,7 @@ void game_t::generateNpc() {
 			tempSizes = tiles::getSizesFromStr(ENEMY_WARRIOR_FILE);
 			sf::Vector2f spawnCoords(1900.f + temp * 10, 1800.f + temp * 10);
 			while (temp++ < warriorsAmount) {
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, 1.f))));
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
 			}
 
 			break;
@@ -311,7 +311,7 @@ void game_t::generateNpc() {
 			tempSizes = tiles::getSizesFromStr(ENEMY_MAGE_FILE);
 			while (temp++ < magesAmount) {
 				sf::Vector2f spawnCoords(1700.f + temp * 10, 1500.f + temp * 10);
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, 1.f))));
+				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
 				charactersList.back()->setElemStatus(5);
 				charactersList.back()->getStats().attackRange = 150.f;
 			}

@@ -47,21 +47,25 @@ struct characterStats_t
 		speed += stat.speed;
 	}
 
-	void statMiltipler(float _mult) {
-		float speedK = 0.02f;
+	void statMiltipler(float _mult = 1.f) {
+		float speedK = 0.01f;
+		float tempMult = abs(_mult);
 
-		HP *= _mult;
-		stdHP *= _mult;
-		MP *= _mult;
-		stdMP *= _mult;
-		attackPower *= _mult;
-		stdattackPower *= _mult;
-		physDef *= _mult;
-		stdPhysDef *= _mult;
-		magDef *= _mult;
-		stdMagDef *= _mult;
-		speed += _mult * speedK;
-		stdSpeed += _mult * speedK;
+		HP *= tempMult;
+		stdHP *= tempMult;
+		MP *= tempMult;
+		stdMP *= tempMult;
+		attackPower *= tempMult;
+		stdattackPower *= tempMult;
+		physDef *= tempMult;
+		stdPhysDef *= tempMult;
+		magDef *= tempMult;
+		stdMagDef *= tempMult;
+
+		if (tempMult > 1.f) {
+			speed += speedK * tempMult;
+			stdSpeed += speedK * tempMult;
+		}
 	}
 };
 
