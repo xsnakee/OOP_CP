@@ -8,13 +8,15 @@ class Effect_t
 public:
 	sf::Int32 startTime;
 	sf::Int32 duration;
+	characterStats_t stat;
 	bool activity;
 
-	Effect_t(character_t *_character, characterStats_t stat, sf::Int32 _duration = 5000);
-	void useEffect(characterStats_t &stat);
+	Effect_t(character_t *_character, characterStats_t _stats, sf::Int32 _duration = 5000);
 	virtual ~Effect_t();
 
-	bool timeIsOver();
+	void useEffect();
+	bool timerIsOver();
 	void cancelEffect();
+	void checkActivity();
 };
 

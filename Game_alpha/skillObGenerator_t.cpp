@@ -20,8 +20,10 @@ void skillObGenerator_t::useSkill() {
 	case 3: {
 		characterStats_t tempStat;
 		tempStat.resetStats();
-		tempStat.speed += 0.1f;
+		tempStat.speed += 0.05f;
 		upCharacterStat(tempStat);
+		character->changeEffect(new Effect_t(character, tempStat));
+		character->getEffectPtr()->useEffect();
 		break;
 	}
 	case 6: {
@@ -29,6 +31,7 @@ void skillObGenerator_t::useSkill() {
 		tempStat.resetStats();
 		tempStat.attackPower += 20.f;
 		upCharacterStat(tempStat);
+		character->getEffectPtr()->useEffect();
 		break;
 	}
 	case 24: {//HEAL BALL

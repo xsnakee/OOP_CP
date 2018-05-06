@@ -10,9 +10,11 @@
 #include "physOb_t.h"
 #include "additional.h"
 #include "skillObGenerator_t.h"
+#include "Effect_t.h"
 
 class CharacterState_t;
 class skillObGenerator_t;
+class Effect_t;
 
 class character_t : public physOb_t
 {
@@ -20,6 +22,7 @@ class character_t : public physOb_t
 protected:
 	characterStats_t stat;
 	std::unique_ptr<CharacterState_t> state;
+	std::unique_ptr<Effect_t> buff;
 
 	std::list<elements::element> skillGeneratorArr;
 	size_t elemStatus;
@@ -45,6 +48,7 @@ public:
 	virtual ~character_t();
 
 	void changeState(CharacterState_t *newState);
+	void changeEffect(Effect_t *newEffect);
 
 	void defaultStats();
 
@@ -70,6 +74,10 @@ public:
 
 public:
 	//GET
+
+	Effect_t *getEffectPtr() {
+		return buff.get();
+	}
 	characterStats_t &getStats();
 
 	character_t *getPtr() {
