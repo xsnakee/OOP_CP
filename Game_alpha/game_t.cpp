@@ -1,12 +1,9 @@
  #include "game_t.h"
 #include <iostream>
 
+//, level.charactersList(level.level.charactersList),level.bulletsList(level.level.bulletsList), level.mapTilesList(level.level.mapTilesList), level.obList(level.level.obList)
 
-game_t::game_t()
-{
-}
-
-game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelName)
+game_t::game_t(sf::RenderWindow *_window, Level_t &_level):level(_level)
 {
 	window = _window;
 	view = new sf::View;
@@ -15,28 +12,18 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 
 	cursor = new cursor_t("img/cursor_aim.png",20,20, window);
-
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
-	
-	//generateTextureList();
-
-	map.fillTheMapObj();
-	map.fillTheMapTiles();
-
-	generateMapObjects(map.mapObList);
-	generateMapTiles(map.groundTilesList);
 
 
 	using namespace animation;
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);//
 	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
+	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
+	mainHero = level.charactersList.begin();
 
-	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1350.f, 1550.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
-	mainHero = charactersList.begin();
-
-	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), (*mainHero).get()));
+	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), mainHero->get()));
 	generateNpc();
 }
 
@@ -51,7 +38,7 @@ game_t::~game_t()
 
 void game_t::update() {
 
-	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
+	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 
 	checkAlive();
 
@@ -60,14 +47,14 @@ void game_t::update() {
 	charsAction();
 	collisionEngine();
 
-	(*mainHero)->setTargetCoords(cursor->getPosition());
+	mainHero->get()->setTargetCoords(cursor->getPosition());
 
-	for (auto &character : charactersList) {
+	for (auto &character : level.charactersList) {
 		(character)->update(speed);
 	}
 
 	
-	for (auto &bullet : bulletsList) {
+	for (auto &bullet : level.bulletsList) {
 		bullet->update(speed);
 	}
 	
@@ -78,7 +65,7 @@ void game_t::update() {
 }
 
 void game_t::charsAction() {
-	for (auto &i : charactersList) {
+	for (auto &i : level.charactersList) {
 		i.get()->getState()->Action();
 	}
 }
@@ -86,40 +73,40 @@ void game_t::charsAction() {
 void game_t::draw() {
 	
 
-	for (auto &texture : mapTilesList) {
+	for (auto &texture : level.mapTilesList) {
 		window->draw(texture->getSprite());
 	}
 
-	for (auto &ob : obList) {
+	for (auto &ob : level.obList) {
 		window->draw(ob->getSprite());
 	}
 
-	for (auto &character : charactersList) {
+	for (auto &character : level.charactersList) {
 		window->draw(character->getSprite());
 	}
 
-	for (auto &bullet : bulletsList) {
+	for (auto &bullet : level.bulletsList) {
 		window->draw(bullet->getSprite());
 	}
 	drawCursor();
 }
 
 void game_t::keyController(sf::Event &event) {
-		if ((*mainHero)->getAlive()) {
+		if (mainHero->get()->getAlive()) {
 			controller->eventHandler(event);
 		}
 }
 
 void game_t::checkAlive() {
 
-	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
-	for (int i = 0; i < charactersList.size(); ++i, ++tempCharIter) {
+	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
+	for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {
 		(*tempCharIter)->checkAlive();
 
 		if (tempCharIter != mainHero) {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
-				charactersList.erase(tempCharIter);
+				level.charactersList.erase(tempCharIter);
 			}
 		}
 		else {
@@ -132,12 +119,12 @@ void game_t::checkAlive() {
 	}
 
 	
-	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = bulletsList.begin();
+	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = level.bulletsList.begin();
 
-	for (auto &bullet : bulletsList) {
+	for (auto &bullet : level.bulletsList) {
 		bullet->checkAlive();
 		if (!bullet->getAlive()) {
-			bulletsList.erase(tempOb);
+			level.bulletsList.erase(tempOb);
 		}
 
 		++tempOb;
@@ -148,13 +135,13 @@ void game_t::checkAlive() {
 void game_t::bulletEngine() {
 
 	// Bullet collision
-	for (auto &outerElement : bulletsList) {
-		for (auto &innerElement : obList) {
+	for (auto &outerElement : level.bulletsList) {
+		for (auto &innerElement : level.obList) {
 			if (outerElement->checkCollision(*innerElement)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
-		for (auto &innerElement : charactersList) {
+		for (auto &innerElement : level.charactersList) {
 			if ((outerElement->checkCollision(*innerElement.get()))) {
 				outerElement->collisionHandler(*innerElement.get(), speed);
 				innerElement.get()->getState()->setTargetCharacter((outerElement.get()->getGenericObject()));
@@ -165,11 +152,11 @@ void game_t::bulletEngine() {
 
 void game_t::visionEngine() {
 
-	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = charactersList.begin();
+	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 
-	for (auto &outerElement : charactersList) {
+	for (auto &outerElement : level.charactersList) {
 		if (tempCharIter++ != mainHero) {
-			for (auto &innerElement : charactersList) {
+			for (auto &innerElement : level.charactersList) {
 				if ( (innerElement->getAlive() && outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
 					outerElement->getState()->setTargetCharacter(innerElement.get());
 				}
@@ -181,14 +168,9 @@ void game_t::visionEngine() {
 
 void game_t::collisionEngine() {
 	float characterBorderError = 10.f;
-	for (auto &outerElement : charactersList) {
-		/*
-		for (auto &innerElement : charactersList) {
-			if ((outerElement != innerElement) && (outerElement->checkCollision(*innerElement.get()))) {
-				outerElement->collisionHandler(*innerElement.get(), speed);
-			}
-		}*/
-		for (auto &innerElement : obList) {
+	for (auto &outerElement : level.charactersList) {
+		
+		for (auto &innerElement : level.obList) {
 			if (outerElement->checkCollision(*innerElement, 10.f)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
@@ -196,38 +178,21 @@ void game_t::collisionEngine() {
 	}
 }
 
-void game_t:: addOb(physOb_t *bullet) {
-	obList.push_back(bullet);
-}
 
-void game_t::addChar(character_t *NPC) {
-	//charactersList.push_back(std::unique_ptr <character_t>(new ));
-}
 
-void game_t::generateMapObjects(std::list<physOb_t*> &_obList) {
-
-	obList.insert(obList.end(), _obList.begin(), _obList.end());
-	map.mapObList.clear();
-}
-
-void game_t::generateMapTiles(std::list<ground_t*> &_obList) {
-
-	mapTilesList.insert(mapTilesList.end(), _obList.begin(), _obList.end());
-	map.groundTilesList.clear();
-}
 
 void game_t::setCamera() {
 
-	float _x = (*mainHero)->getPosX();
-	float _y = (*mainHero)->getPosY();
+	float _x = mainHero->get()->getPosX();
+	float _y = mainHero->get()->getPosY();
 	
 
 	//EDIT THIS FOR CAMERA CONTROLL
 	float leftBorder = static_cast<float>(window->getSize().x) / 2;
 	float topBorder = static_cast<float>(window->getSize().y) / 2;
 	
-	float rightBorder = map.getSize().x - (static_cast<float>(window->getSize().x) / 2);
-	float bottomBorder = map.getSize().y - (static_cast<float>(window->getSize().y) / 2);
+	float rightBorder = level.map.getSize().x - (static_cast<float>(window->getSize().x) / 2);
+	float bottomBorder = level.map.getSize().y - (static_cast<float>(window->getSize().y) / 2);
 	
 	float error = 5.0f;
 	
@@ -248,9 +213,7 @@ void game_t::setCamera() {
 	view->setCenter(_x, _y);
 }
 
-void game_t::generateTextureList() {
-	
-}
+
 
 void game_t::drawCursor() {
 	window->draw(cursor->getSprite());
@@ -278,7 +241,7 @@ void game_t::generateNpc() {
 
 			while (temp++ < demonsAmount) {
 				sf::Vector2f spawnCoords(1800.f+temp*10, 1800.f + temp * 10);
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, level.bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
 
 			}
 
@@ -295,7 +258,7 @@ void game_t::generateNpc() {
 			tempSizes = tiles::getSizesFromStr(ENEMY_WARRIOR_FILE);
 			sf::Vector2f spawnCoords(1900.f + temp * 10, 1800.f + temp * 10);
 			while (temp++ < warriorsAmount) {
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, level.bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
 			}
 
 			break;
@@ -311,9 +274,9 @@ void game_t::generateNpc() {
 			tempSizes = tiles::getSizesFromStr(ENEMY_MAGE_FILE);
 			while (temp++ < magesAmount) {
 				sf::Vector2f spawnCoords(1700.f + temp * 10, 1500.f + temp * 10);
-				charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
-				charactersList.back()->setElemStatus(5);
-				charactersList.back()->getStats().attackRange = 150.f;
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, level.bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
+				level.charactersList.back()->setElemStatus(5);
+				level.charactersList.back()->getStats().attackRange = 150.f;
 			}
 			break;
 		}

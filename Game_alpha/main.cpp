@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <memory>
+#include "Level_t.h"
 #include "game_t.h"
 
 using namespace sf;
@@ -25,7 +26,9 @@ int main() {
 
 void START_GAME(sf::RenderWindow *window) {
 
-	game_t game(window, "level0");
+	Level_t level("level0");
+
+	game_t game(window, level);
 
 	Clock clock;
 

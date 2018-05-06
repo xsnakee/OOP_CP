@@ -7,12 +7,11 @@
 #include "character_t.h"
 #include "player_t.h"
 #include "Npc_t.h"
-#include "map_t.h"
 #include "bullet_t.h"
 #include "additional.h"
 #include "cursor_t.h"
-#include "skillObGenerator_t.h"
 #include "keyboardController.h"
+#include "Level_t.h"
 
 class game_t
 {
@@ -21,27 +20,19 @@ private:
 
 	cursor_t *cursor;
 	std::unique_ptr<keyboardController> controller;
+	Level_t &level;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;
 	float speed;
 	float speedMultipple;
-	map_t map;
-	
 	sf::View *view;
 
-	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 
-
-	std::list<physOb_t*> obList;
-	std::list<std::unique_ptr <bullet_t>> bulletsList;
-	std::list<ground_t*> mapTilesList;
 public:
 	
-
-	game_t();
-	game_t(sf::RenderWindow *_window, std::string _levelName);
+	game_t(sf::RenderWindow *_window, Level_t &_level);
 	~game_t();
 
 	void update();
@@ -53,16 +44,8 @@ public:
 	void collisionEngine();
 	void bulletEngine();
 	void charsAction();
-
-	void addOb(physOb_t *);
-	void addChar(character_t *);
-
-	void generateMapObjects(std::list<physOb_t*> &_obTextureList);
-	void generateMapTiles(std::list<ground_t*> &_mapTilesList);
-
-	void generateTextureList();
+	
 	void setCamera();
-
 	void drawCursor();
 	void generateNpc();
 
@@ -86,7 +69,7 @@ public:
 	}
 
 	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
-		return bulletsList;
+		return level.bulletsList;
 	}
 };
 

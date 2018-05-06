@@ -133,6 +133,7 @@
     <ClCompile Include="InterfaceContent.cpp" />
     <ClCompile Include="InterfaceOb_t.cpp" />
     <ClCompile Include="keyboardController.cpp" />
+    <ClCompile Include="Level_t.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_t.cpp" />
     <ClCompile Include="Npc_t.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="InterfaceContent.h" />
     <ClInclude Include="InterfaceOb_t.h" />
     <ClInclude Include="keyboardController.h" />
+    <ClInclude Include="Level_t.h" />
     <ClInclude Include="map_t.h" />
     <ClInclude Include="Npc_t.h" />
     <ClInclude Include="obPreference.h" />
