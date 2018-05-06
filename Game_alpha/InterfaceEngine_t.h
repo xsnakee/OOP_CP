@@ -10,7 +10,7 @@ class InterfaceEngine_t
 	sf::RenderWindow *window;
 	Level_t &level;
 
-	std::list<std::unique_ptr<LifeBar>> HPbarsList;
+	std::list<std::unique_ptr<InterfaceBar>> barsList;
 
 public:
 	InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level);

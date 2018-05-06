@@ -14,25 +14,25 @@ InterfaceEngine_t::~InterfaceEngine_t()
 }
 void InterfaceEngine_t::update() {
 
-	for (auto i = HPbarsList.begin(); i != HPbarsList.end(); ++i) {
+	for (auto i = barsList.begin(); i != barsList.end(); ++i) {
 		if (i->get()->getDisplay()) {
 			i->get()->update();
 		}
 		else {
-			HPbarsList.erase(i);
+			barsList.erase(i);
 		}
 	}
 
 }
 
 void InterfaceEngine_t::draw() {
-	for (auto &i : HPbarsList) {
+	for (auto &i : barsList) {
 		i->draw();
 	}
 }
 
 void InterfaceEngine_t::generateHPbars() {
 	for (auto &i : level.charactersList) {
-		HPbarsList.push_back(std::unique_ptr<LifeBar>(new LifeBar(window, i.get())));
+		barsList.push_back(std::unique_ptr<LifeBar>(new LifeBar(window, i.get())));
 	}
 }

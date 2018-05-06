@@ -9,7 +9,7 @@ characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _att
 	clock = _clock;
 	sf::Int32 startTime = clock->getElapsedTime().asMilliseconds();
 
-	timerStats attackCD = { startTime, 1000/ _attackSpeed};
+	timerStats attackCD = { startTime, 3000 / _attackSpeed};
 	timersList.insert(std::pair<std::string,timerStats>(attackCDkey, attackCD));
 
 	timerStats castDelay = { startTime, 1000 / _castSpeed};
