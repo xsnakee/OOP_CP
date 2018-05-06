@@ -10,9 +10,9 @@ InterfaceOb_t::InterfaceOb_t(sf::RenderWindow *_window, sf::Vector2f _coords, sf
 	coords = _coords;
 	sizes = _sizes;
 
-	text.setFont(*font);
+	font.loadFromFile(textSettings::MAIN_FONT_FILE);
 	text.setCharacterSize(20);
-	//text.setColor(sf::Color::White);
+	text.setFont(font);
 
 	text.setPosition(coords.x + borders.x, coords.y + borders.y);
 	text.setString(title);

@@ -161,6 +161,7 @@
     <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
     <ClInclude Include="player_t.h" />
+    <ClInclude Include="settings.h" />
     <ClInclude Include="skillObGenerator_t.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

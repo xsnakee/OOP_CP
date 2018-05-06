@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "settings.h"
 
 const sf::Vector2f STD_BORDERS_SIZE(10.f,10.f);
 
@@ -15,7 +16,7 @@ protected:
 	sf::RenderWindow *window;
 	sf::Vector2f borders;
 
-	sf::Font *font;
+	sf::Font font;
 	sf::Text text;
 	std::string title;
 
@@ -76,6 +77,13 @@ public:
 	void setTitle(std::string newTitle) {
 		title = newTitle;
 		text.setString(title);
+	}
+	void setTextFontSize(size_t size) {
+		text.setCharacterSize(size);
+	}
+
+	void setFont(std::string _path) {
+		font.loadFromFile(_path);
 	}
 };
 

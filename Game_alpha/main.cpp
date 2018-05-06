@@ -12,7 +12,7 @@ const int windowHeight = 768;
 void START_GAME(sf::RenderWindow *window);
 int main() {
 
-	std::unique_ptr<RenderWindow> window (new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));
+	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));// , sf::Style::Fullscreen));
 
 	START_GAME(window.get());
 

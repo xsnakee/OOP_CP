@@ -30,7 +30,7 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName): map(_levelNam
 
 	using namespace animation;
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
-	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);
+	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);//
 	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
 
 	charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, bulletsList,1350.f, 1550.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
