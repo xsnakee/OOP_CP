@@ -129,6 +129,9 @@
     <ClCompile Include="Effect_t.cpp" />
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="ground_t.cpp" />
+    <ClCompile Include="InterfaceButton.cpp" />
+    <ClCompile Include="InterfaceContent.cpp" />
+    <ClCompile Include="InterfaceOb_t.cpp" />
     <ClCompile Include="keyboardController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_t.cpp" />
@@ -149,6 +152,9 @@
     <ClInclude Include="Effect_t.h" />
     <ClInclude Include="game_t.h" />
     <ClInclude Include="ground_t.h" />
+    <ClInclude Include="InterfaceButton.h" />
+    <ClInclude Include="InterfaceContent.h" />
+    <ClInclude Include="InterfaceOb_t.h" />
     <ClInclude Include="keyboardController.h" />
     <ClInclude Include="map_t.h" />
     <ClInclude Include="Npc_t.h" />

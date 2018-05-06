@@ -104,8 +104,8 @@ bool bullet_t::hitting(physOb_t &Object, float _speed, float _borderError) {
 				alive = false;
 			}
 		}
-		return true;
 	}
+	return true;
 }
 
 bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {
