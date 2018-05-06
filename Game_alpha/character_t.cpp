@@ -63,6 +63,7 @@ bool character_t::kill() {
 };
 
 void character_t::update(float _speed) {
+	checkAlive();
 	if (alive) {
 
 		physOb_t::update(_speed);

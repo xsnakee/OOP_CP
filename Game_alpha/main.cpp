@@ -4,6 +4,7 @@
 #include <memory>
 #include "Level_t.h"
 #include "GameEngine_t.h"
+#include "InterfaceEngine_t.h"
 
 using namespace sf;
 
@@ -29,6 +30,7 @@ void START_GAME(sf::RenderWindow *window) {
 	Level_t level("level0");
 
 	GameEngine_t game(window, level);
+	InterfaceEngine_t interface(window, level);
 
 	Clock clock;
 
@@ -48,8 +50,10 @@ void START_GAME(sf::RenderWindow *window) {
 		game.keyController(event);
 
 		game.update();
+		interface.update();
 		window->clear();
 		game.draw();
+		interface.draw();
 
 		window->display();
 	}

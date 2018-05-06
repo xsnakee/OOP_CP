@@ -101,7 +101,6 @@ void GameEngine_t::checkAlive() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 	for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {
-		(*tempCharIter)->checkAlive();
 
 		if (tempCharIter != mainHero) {
 			if (!(*tempCharIter)->getAlive()) {
