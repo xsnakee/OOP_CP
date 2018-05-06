@@ -78,7 +78,7 @@ public:
 		title = newTitle;
 		text.setString(title);
 	}
-	void setTextFontSize(size_t size) {
+	void setTextFontSize(unsigned int size) {
 		text.setCharacterSize(size);
 	}
 

@@ -187,10 +187,7 @@ void character_t::attack() {
 
 
 bool character_t::checkSkillGenerator() {
-	for (auto &i : skillGeneratorArr) {
-		std::cout << i;
-	}
-	std::cout << std::endl;
+
 	if (skillGeneratorArr.size() == 3) {
 		std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
 

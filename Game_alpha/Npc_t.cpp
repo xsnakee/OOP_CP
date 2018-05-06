@@ -29,7 +29,6 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 	elemStatus = 1;
-	std::cout << stat.speed << std::endl;
 }
 
 Npc_t::~Npc_t()
