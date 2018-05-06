@@ -33,6 +33,7 @@ void InterfaceEngine_t::draw() {
 
 void InterfaceEngine_t::generateHPbars() {
 	for (auto &i : level.charactersList) {
-		barsList.push_back(std::unique_ptr<LifeBar>(new LifeBar(window, i.get())));
+		barsList.push_back(std::unique_ptr<InterfaceBar>(new LifeBar(window, i.get())));
+		barsList.push_back(std::unique_ptr<InterfaceBar>(new castTimeBar(window, i.get())));
 	}
 }

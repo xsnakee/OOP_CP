@@ -97,3 +97,15 @@ public:
 
 	//GET
 };
+
+
+class castTimeBar : public InterfaceBar {
+	character_t *character;
+
+public:
+	castTimeBar(sf::RenderWindow *_window, character_t *character);
+	virtual ~castTimeBar();
+
+	virtual void draw();
+	virtual void update();
+};

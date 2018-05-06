@@ -23,6 +23,17 @@ characterTimers_t::~characterTimers_t()
 {
 }
 
+sf::Int32 characterTimers_t::getAttackStartTime() {
+	return timersList[castDelaykey].startTime;
+}
+sf::Int32 characterTimers_t::getCastStartTime() {
+	return timersList[attackCDkey].startTime;
+}
+sf::Int32 characterTimers_t::getSwapDirStartTime() {
+	return timersList[skillGenerationCDkey].startTime;
+}
+
+
 sf::Int32 characterTimers_t::getAttackCD() {
 	return timersList[attackCDkey].cooldown;
 }

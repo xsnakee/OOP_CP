@@ -26,8 +26,12 @@ public:
 	characterTimers_t();
 	characterTimers_t(sf::Clock *_clock, int _castSpeed = 1, int _attackSpeed = 1);
 	~characterTimers_t();
-
-
+	
+	
+	//GET
+	sf::Int32 getAttackStartTime();
+	sf::Int32 getCastStartTime();
+	sf::Int32 getSwapDirStartTime();
 
 	sf::Int32 getAttackCD();
 	sf::Int32 getCastDelay();
