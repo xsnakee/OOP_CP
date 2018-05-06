@@ -10,9 +10,11 @@
 #include "physOb_t.h"
 #include "additional.h"
 #include "skillObGenerator_t.h"
+#include "Effect_t.h"
 
 class CharacterState_t;
 class skillObGenerator_t;
+class Effect_t;
 
 class character_t : public physOb_t
 {
@@ -20,6 +22,7 @@ class character_t : public physOb_t
 protected:
 	characterStats_t stat;
 	std::unique_ptr<CharacterState_t> state;
+	std::unique_ptr<Effect_t> buff;
 
 	std::list<elements::element> skillGeneratorArr;
 	size_t elemStatus;
@@ -32,6 +35,8 @@ protected:
 	sf::Vector2f spawnCoords;
 
 
+
+	float moveRadius;
 	virtual void animation();
 
 protected:
@@ -43,13 +48,16 @@ public:
 	virtual ~character_t();
 
 	void changeState(CharacterState_t *newState);
+	void changeEffect(Effect_t *newEffect);
 
 	void defaultStats();
 
 	virtual void attack();
 
 	virtual bool checkAlive();
-	virtual float takeDamage(float _dmg, bool _dmgType);
+	virtual float takeDamage(float _dmg, bool _dmgType, elements::element _elem);
+	float takeHeal(float _heal);
+
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	virtual bool checkEnemy(character_t *ob);
 
@@ -66,6 +74,10 @@ public:
 
 public:
 	//GET
+
+	Effect_t *getEffectPtr() {
+		return buff.get();
+	}
 	characterStats_t &getStats();
 
 	character_t *getPtr() {
@@ -83,8 +95,10 @@ public:
 	sf::Vector2f getSpawnCoords() const {
 		return spawnCoords;
 	}
+
+
 	float getMoveRadius() const {
-		return 300.f;
+		return moveRadius;
 	}
 	sf::Clock *getClockPtr() const {
 		return clock;
@@ -117,6 +131,10 @@ public:
 	size_t setElemStatus(size_t _elemStatus) {
 		elemStatus = _elemStatus;
 		return elemStatus;
+	}
+
+	void setMoveRadius(float _radius) {
+		moveRadius = _radius;
 	}
 };
 

@@ -6,6 +6,7 @@
 character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
 
 	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
+	buff = std::unique_ptr<Effect_t>(new Effect_t(this,this->getStats()));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -15,11 +16,14 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	clock = _clock;
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
+
+	moveRadius = 500.f;
 }
 
 character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
 	
 	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
+	buff = std::unique_ptr<Effect_t>(new Effect_t(this, this->getStats()));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -27,6 +31,10 @@ character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	fraction = 1;
 	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
+
+	moveRadius = 500.f;
 }
 
 character_t::~character_t()
@@ -58,6 +66,10 @@ void character_t::update(float _speed) {
 	if (alive) {
 
 		physOb_t::update(_speed);
+
+		if (buff.get()) {
+			buff->checkActivity();
+		}
 	}
 	
 }
@@ -83,19 +95,30 @@ bool character_t::checkAlive() {
 }
 
 
-float character_t::takeDamage(float _dmg, bool _dmgType) {
+float character_t::takeDamage(float _dmg, bool _dmgType, elements::element _elem) {
 
 	if (alive) {
-		float tempDmg = (_dmgType) ? (_dmg - abs(stat.physDef)) : (_dmg - abs(stat.magDef));
-		if (tempDmg < 0){
-			tempDmg = 0.f;
+		float tempDmg = 0.f;
+
+		if (_dmgType) {
+			tempDmg = (_elem == elements::NONE) ? (_dmg - abs(stat.physDef)) : (_dmg - abs(stat.magDef));
+			if (tempDmg < 0) {
+				tempDmg = 0.f;
+			}
+
+			stat.HP -= tempDmg;
+			std::cout << tempDmg << " Dmg" << std::endl;
 		}
 		
-		stat.HP -= tempDmg;
-		std::cout << tempDmg << " Dmg" << std::endl;
 		return tempDmg;
 	}
 	return 0.f;
+}
+float character_t::takeHeal(float _heal) {
+	if (alive && stat.HP<stat.stdHP) {
+		stat.HP += _heal;
+	}
+	return _heal;
 }
 
 float character_t::toHit() const{
@@ -148,13 +171,16 @@ void character_t::changeState(CharacterState_t *newState) {
 	state.reset();
 	state = std::unique_ptr<CharacterState_t>(newState);
 }
+void character_t::changeEffect(Effect_t *newEffect) {
+	buff.reset();
+	buff = std::unique_ptr<Effect_t>(newEffect);
+}
 
 void character_t::attack() {
 
 	//start cast
 	if (timer.attackReady()) {
 		timer.updateAttackCD();
-		std::cout << "Attacked!!Npc" << std::endl;
 		skill->useSkill();
 	}
 }

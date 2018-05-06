@@ -30,7 +30,7 @@ public:
 		return *texture;
 	}
 
-	sf::Sprite getSprite() const{
+	sf::Sprite &getSprite() {
 		return sprite;
 	}
 

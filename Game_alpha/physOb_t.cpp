@@ -137,7 +137,7 @@ bool physOb_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 		float zero = std::numeric_limits<float>::epsilon();
 		float speedX = abs(dX) * _speed;
 		float speedY = abs(dY) * _speed;
-		
+		/*
 		if (direction == animation::RIGHT) {
 			posX = Object.getPosX() - getWidth() - _borderError;
 		} else if (direction == animation::LEFT) {
@@ -147,6 +147,22 @@ bool physOb_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 		} else if (direction == animation::TOP) {
 			posY = Object.getPosY() + Object.getHeight() + _borderError;
 		}
+		*/
+		if (direction == animation::RIGHT) {
+			posX -= Object.getdX() * _speed + _borderError;
+		}
+		else if (direction == animation::LEFT) {
+			posX += Object.getdX() * _speed + _borderError;
+		}
+		else if (direction == animation::BOTTOM) {
+			posY -= Object.getdY() * _speed + _borderError;
+		}
+		else if (direction == animation::TOP) {
+			posY += Object.getdY() * _speed + _borderError;
+		}
+
+		dX = 0;
+		dY = 0;
 		return true;
 	}
 	return false;
@@ -168,7 +184,7 @@ bool physOb_t::checkAlive() {
 	return alive;
 }
 
-float physOb_t::takeDamage(float _dmg, bool _dmgType) {
+float physOb_t::takeDamage(float _dmg, bool _dmgType, elements::element _elem) {
 	if (alive) {
 		
 			--hitsToDestroy;
@@ -176,6 +192,14 @@ float physOb_t::takeDamage(float _dmg, bool _dmgType) {
 	}
 	return _dmg;
 }
+
+float physOb_t::takeHeal(float _heal) {
+	if (alive) {
+		++hitsToDestroy;
+	}
+	return _heal;
+}
+
 
 void physOb_t::updateFrame() {
 

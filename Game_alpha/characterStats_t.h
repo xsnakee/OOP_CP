@@ -25,7 +25,7 @@ struct characterStats_t
 	float damageRand = 5.f;
 
 	float attackRange = 40.f;
-	float visionDistance = 100.f;
+	float visionDistance = 300.f;
 
 	void resetStats() {
 		HP = MP = attackPower =
@@ -33,8 +33,6 @@ struct characterStats_t
 	}
 
 	void defaultStats() {
-		HP = stdHP;
-		MP = stdMP;
 		attackPower = stdattackPower;
 		physDef = stdPhysDef;
 		magDef = stdMagDef;

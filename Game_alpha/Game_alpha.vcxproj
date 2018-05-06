@@ -126,6 +126,7 @@
     <ClCompile Include="characterTimers_t.cpp" />
     <ClCompile Include="character_t.cpp" />
     <ClCompile Include="cursor_t.cpp" />
+    <ClCompile Include="Effect_t.cpp" />
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="ground_t.cpp" />
     <ClCompile Include="keyboardController.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="characterTimers_t.h" />
     <ClInclude Include="character_t.h" />
     <ClInclude Include="cursor_t.h" />
+    <ClInclude Include="Effect_t.h" />
     <ClInclude Include="game_t.h" />
     <ClInclude Include="ground_t.h" />
     <ClInclude Include="keyboardController.h" />

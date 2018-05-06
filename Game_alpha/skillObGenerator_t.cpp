@@ -20,8 +20,10 @@ void skillObGenerator_t::useSkill() {
 	case 3: {
 		characterStats_t tempStat;
 		tempStat.resetStats();
-		tempStat.speed += 0.1f;
+		tempStat.speed += 0.05f;
 		upCharacterStat(tempStat);
+		character->changeEffect(new Effect_t(character, tempStat));
+		character->getEffectPtr()->useEffect();
 		break;
 	}
 	case 6: {
@@ -29,14 +31,37 @@ void skillObGenerator_t::useSkill() {
 		tempStat.resetStats();
 		tempStat.attackPower += 20.f;
 		upCharacterStat(tempStat);
+		character->getEffectPtr()->useEffect();
 		break;
 	}
-	case 24: {
-		characterStats_t tempStat;
-		tempStat.resetStats();
-		tempStat.physDef += 20.f;
-		tempStat.magDef += 20.f;
-		upCharacterStat(tempStat);
+	case 24: {//HEAL BALL
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
+		tempTexture->loadFromFile(animation::BULLET_CRYSTAL_HEAL_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setRotation(0.f);
+		tempBullet->getSprite().setScale(2.f,2.f);
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setRng(character->getStats().attackRange);
+		tempBullet->setCollision(false);
+		tempBullet->setType(false);
+		tempBullet->setdX(0.f);
+		tempBullet->setdY(0.f);
+		tempBullet->setSpeed(0.f);
+		tempBullet->setElement(elements::EARTH);
+		tempBullet->setTimer(5000);
+		tempBullet->setAOE(50.f);
+		tempBullet->setDmgDelay(500);
+		tempBullet->setRng(1000.f);
+
+
+		float tempDmg = 5.f;
+		tempBullet->setDmg(tempDmg);
+
+
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
+
 		break;
 	}
 
@@ -50,7 +75,6 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(0.5f);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::NONE);
 		tempBullet->setTimer(500);
 		tempBullet->setAOE(20.f);
@@ -77,10 +101,9 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(0.8f);
-		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(2000);
-		tempBullet->setRng(100.f);
+		tempBullet->setRng(50.f + character->getStats().attackRange);
 
 		float tempDmg = 5.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
@@ -103,10 +126,9 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(0.8f);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(2000);
-		tempBullet->setRng(100.f);
+		tempBullet->setRng(character->getStats().attackRange);
 
 		float tempDmg = 7.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
@@ -126,10 +148,9 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setCollision(true);
 		tempBullet->speedMultiple(1.f);
-		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
-		tempBullet->setRng(200.f);
+		tempBullet->setRng(100.f + character->getStats().attackRange);
 
 		float tempDmg = 15.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
@@ -149,10 +170,9 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setCollision(true);
 		tempBullet->speedMultiple(0.5f);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(4000);
-		tempBullet->setRng(200.f);
+		tempBullet->setRng(100.f + character->getStats().attackRange);
 		tempBullet->setAOE(10.f);
 
 		float tempDmg = 30.f + character->getStats().attackPower;
@@ -180,7 +200,6 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setdX(0.f);
 		tempBullet->setdY(0.f);
 
-		tempBullet->setType(true);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(1000.f);
@@ -196,27 +215,25 @@ void skillObGenerator_t::useSkill() {
 		break;
 	}
 
-	case 18: {//EARTH SLAM
+	case 18: {//EARTH SLAM BANG BALL
 
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
-		tempTexture->loadFromFile(animation::BULLET_EARTH_SLAM_TEXTURE_FILE);
+		tempTexture->loadFromFile(animation::BULLET_BANG_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		tempBullet->setRotation(0.f);
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 
-		tempBullet->setRng(100.f);
-		tempBullet->setCollision(false);
-		tempBullet->setdX(0.f);
-		tempBullet->setdY(0.f);
-		tempBullet->setSpeed(0.f);
-		tempBullet->setType(true);
+		tempBullet->setRng(30.f);
+		tempBullet->setCollision(true);
+		tempBullet->speedMultiple(0.5f);
 		tempBullet->setElement(elements::EARTH);
 		tempBullet->setTimer(2000);
 		tempBullet->setAOE(50.f);
 
 
-		float tempDmg = 20.f + character->getStats().attackPower;
+		float tempDmg = 60.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
 
@@ -235,10 +252,9 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(false);
-		tempBullet->setType(false);
 		tempBullet->setElement(elements::WIND);
 		tempBullet->setTimer(4000);
-		tempBullet->setRng(200.f);
+		tempBullet->setRng(150.f + character->getStats().attackRange);
 		tempBullet->setAOE(10.f);
 
 		float tempDmg = 10.f + character->getStats().attackPower;

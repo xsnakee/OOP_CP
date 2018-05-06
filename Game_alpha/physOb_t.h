@@ -41,11 +41,11 @@ public:
 	virtual bool kill();
 	virtual void update(float _speed);
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
-	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 1.f);
+	virtual bool collisionHandler(physOb_t &Object, float _speed, float _borderError = 2.f);
 
 	virtual bool checkAlive();
-	virtual float takeDamage(float _dmg, bool _dmgType);
-
+	virtual float takeDamage(float _dmg, bool _dmgType, elements::element _elem);
+	virtual float takeHeal(float _heal);
 
 	//GET
 	physOb_t *getPtr() {
@@ -64,7 +64,7 @@ public:
 	void setRotation(float _val) {
 		spritePref.setRotation(_val);
 	}
-	sf::Sprite getSprite() const {
+	sf::Sprite &getSprite() {
 		return spritePref.getSprite();
 	}
 	int getWidth() const {

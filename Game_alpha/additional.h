@@ -20,12 +20,30 @@ struct bulletStats {
 	float range;
 	elements::element element = elements::NONE;
 	float AOE = 0.1f;
-	bool type = false;//0 - phys, 1 - magic
+	bool type = true;//0 - heal, 1 - dmg
 	int fraction = -1;
 };
 
 
 namespace tiles {
+	const unsigned int WIDTH_SIZE_POSITION_IN_STR = 9U;
+	const unsigned int HEIGHT_SIZE_POSITION_IN_STR = 6U;
+	const int STD_SIZES_LENGTH = 2;
+	struct sizes {
+		int width;
+		int height;
+	};
+
+	static sizes getSizesFromStr(std::string str, int widthStrPosCorrection = 2, int heightStrPosCorrection = 2) {
+		sizes temp;
+		size_t length = str.size();
+		std::string width = str.substr(length - WIDTH_SIZE_POSITION_IN_STR + STD_SIZES_LENGTH - widthStrPosCorrection + STD_SIZES_LENGTH - heightStrPosCorrection,widthStrPosCorrection);
+		std::string height = str.substr(length - HEIGHT_SIZE_POSITION_IN_STR + STD_SIZES_LENGTH - heightStrPosCorrection,heightStrPosCorrection);
+
+		temp.width = atoi(width.c_str());
+		temp.height = atoi(height.c_str());
+		return temp;
+	}
 
 	const int size = 32;
 
@@ -50,19 +68,33 @@ namespace animation {
 	const std::string BULLET_FIRE_BALL_TEXTURE_FILE = "img/skills/bullet_fire_ball.png";
 	const std::string BULLET_EARTH_BALL_TEXTURE_FILE = "img/skills/bullet_earth_ball.png";
 	const std::string BULLET_LAVA_TEXTURE_FILE = "img/skills/bullet_lava_pool.png";
+	const std::string BULLET_BANG_BALL_TEXTURE_FILE = "img/skills/bullet_bang_ball.png";
 	const std::string BULLET_EARTH_SLAM_TEXTURE_FILE = "img/skills/bullet_earth_slam.png";
 	const std::string BULLET_COMBO_BALL_TEXTURE_FILE = "img/skills/bullet_combo.png";
+	const std::string BULLET_CRYSTAL_HEAL_TEXTURE_FILE = "img/skills/bullet_crystal_heal.png";
 
 	//CHARACTER IMGS
-	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero.png";
+	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero_32_32.png";
 
-	const std::string ENEMY_DEMON_FILE = "img/characters/enemy_demon.png";
-	const std::string ENEMY_SLENDER_DEMON_FILE = "img/characters/enemy_slenderDemon.png";
-	const std::string ENEMY_WARRIOR_FILE = "img/characters/enemy_warrior.png";
-	const std::string ENEMY_MAGE_FILE = "img/characters/enemy_mage.png";
+	const std::string ENEMY_DEMON_FILE = "img/characters/enemy_demon_32_32.png";
+	const std::string ENEMY_SLENDER_DEMON_FILE = "img/characters/enemy_slenderDemon_32_32.png";
+	const std::string ENEMY_WARRIOR_FILE = "img/characters/enemy_warrior_32_32.png";
+	const std::string ENEMY_MAGE_FILE = "img/characters/enemy_mage_32_32.png";
 
+	//const std::string ENEMY_ _TEXURE_FILE = "img/characters/.png";
+	const std::string ENEMY_ZOMBIE_PUDGE_TEXURE_FILE = "img/characters/enemy_zombie_pudge_64_64.png";
+	const std::string ENEMY_SKELETON_MAGE_TEXTURE_FILE = "img/characters/enemy_skeleton_mage_32_48.png";
+	const std::string ENEMY_ZOMBIE_WITCH_TEXTURE_FILE = "img/characters/enemy_zombie_witch_32_32.png";
+	const std::string ENEMY_SOMBIE_WARRIOR_TEXTURE_FILE = "img/characters/enemy_zombie_warrior_32_32.png";
 
-	const int MAIN_HERO_SPRITE_WIDTH = 32;
+	const std::string BOSS_FINALY_DEMON_TEXURE_FILE = "img/characters/BOSSES/BOSS_FINALY_96_48.png";
+	const std::string BOSS_TREANT_TEXURE_FILE = "img/characters/BOSSES/BOSS_TREANT_96_96.png";
+
+	const std::string BOSS_BLACK_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_BLACK_DRAGON_96_96.png";
+	const std::string BOSS_RED_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_RED_DRAGON_192_192.png";
+	const std::string BOSS_ENH_TEXURE_FILE = "img/characters/BOSSES/BOSS_ENH_240_80.png";
+
+	const int COMMON_CHARACTER_SPRITE = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
 	const int SPRITE_X = 0;
 	const int SPRITE_Y = 0;
@@ -88,7 +120,12 @@ template <typename T> T getRand(T a, T b) {
 }
 
 
+static bool timeIsOver(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
 
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+
+	return (abs(curTime - startTime) > _time) ? true : false;
+}
 
 
 
