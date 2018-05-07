@@ -16,7 +16,8 @@ public:
 	std::list<physOb_t*> obList;
 	std::list<std::unique_ptr <bullet_t>> bulletsList;
 	std::list<ground_t*> mapTilesList;
-
+	
+	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 
 	Level_t(std::string _levelName);
 	~Level_t();

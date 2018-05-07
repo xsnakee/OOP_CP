@@ -21,7 +21,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level):level(_le
 	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);//
 	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
 	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
-	mainHero = level.charactersList.begin();
+	level.mainHero = level.charactersList.begin();
 
 	generateNpc();
 }
@@ -46,7 +46,7 @@ void GameEngine_t::update() {
 	charsAction();
 	collisionEngine();
 
-	mainHero->get()->setTargetCoords(cursor->getPosition());
+	level.mainHero->get()->setTargetCoords(cursor->getPosition());
 
 	for (auto &character : level.charactersList) {
 		(character)->update(speed);
@@ -96,7 +96,7 @@ void GameEngine_t::checkAlive() {
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 	for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {
 
-		if (tempCharIter != mainHero) {
+		if (tempCharIter != level.mainHero) {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
@@ -148,7 +148,7 @@ void GameEngine_t::visionEngine() {
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 
 	for (auto &outerElement : level.charactersList) {
-		if (tempCharIter++ != mainHero) {
+		if (tempCharIter++ != level.mainHero) {
 			for (auto &innerElement : level.charactersList) {
 				if ( (innerElement->getAlive() && outerElement->getFraction() != innerElement->getFraction() && (outerElement->checkEnemy(innerElement.get())))) {
 					outerElement->getState()->setTargetCharacter(innerElement.get());
@@ -176,8 +176,8 @@ void GameEngine_t::collisionEngine() {
 
 void GameEngine_t::setCamera() {
 
-	float _x = mainHero->get()->getPosX();
-	float _y = mainHero->get()->getPosY();
+	float _x = level.mainHero->get()->getPosX();
+	float _y = level.mainHero->get()->getPosY();
 	
 
 	//EDIT THIS FOR CAMERA CONTROLL

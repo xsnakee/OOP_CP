@@ -89,3 +89,7 @@ void InterfaceEngine_t::createIterface() {
 	windowsList.back()->contentList.push_back(content(new InterfaceSpriteOb_t(window,temp, windowsList.back()->getPos(),sf::Vector2f(0.f,0.f))));
 	*/
 }
+
+void InterfaceEngine_t::changeElements() {
+
+}

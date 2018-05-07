@@ -30,8 +30,6 @@ private:
 
 public:
 
-	std::list<std::unique_ptr <character_t>>::iterator mainHero;
-
 	GameEngine_t(sf::RenderWindow *_window, Level_t &_level);
 	~GameEngine_t();
 

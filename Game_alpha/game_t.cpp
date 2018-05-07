@@ -18,7 +18,7 @@ void game_t::start(std::string levelName, size_t difficulity) {
 	level = std::unique_ptr<Level_t>(new Level_t(levelName));
 	game = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get()));
 	interface = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
-	controller = std::unique_ptr<keyboardController>(new PlayerController(game->mainHero->get()));
+	controller = std::unique_ptr<keyboardController>(new PlayerController(level->mainHero->get()));
 	mode = modes::PLAY;
 	play();
 }
@@ -54,7 +54,7 @@ void game_t::play() {
 }
 
 void game_t::keyController(sf::Event &event) {
-	if (game->mainHero->get()->getAlive()) {
+	if (level->mainHero->get()->getAlive()) {
 		controller->eventHandler(event);
 	}
 }
