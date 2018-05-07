@@ -48,6 +48,10 @@ void InterfaceBar::update() {
 	updateInnerRectPos();
 }
 
+void InterfaceBar::toDefaultPosition(){
+	outerRect->setPosition(posCoords);
+	updateInnerRectPos();
+}
 //LIFE BAR
 LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceBar(_window)
 {
@@ -62,15 +66,16 @@ LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceB
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
 	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
 
-	sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() - borders.y);
-	posCoords = tempPos;
+
+	toDefaultPosition();
+
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
 
 	outerRect->setPosition(posCoords);
 	innerRect->setPosition(innerRectPos);
 
-	outerColor = sf::Color::Black;
-	innerColor = sf::Color::Red;
+	outerColor = sf::Color::Color(0, 0, 0, 190);
+	innerColor = sf::Color::Color(255,0,0,255);
 
 	outerRect->setFillColor(outerColor);
 	innerRect->setFillColor(innerColor);
@@ -87,8 +92,8 @@ void LifeBar::draw() {
 
 void LifeBar::update() {
 	if (character->getAlive()) {
-		sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() - borders.y * 5.f);
-		setPosCoords(tempPos);
+
+		toDefaultPosition();
 
 		float k = character->getStats().HP / character->getStats().stdHP;
 
@@ -102,31 +107,34 @@ void LifeBar::update() {
 
 }
 
+void LifeBar::toDefaultPosition() {
+	sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() - borders.y * 5.f);
+	setPosCoords(tempPos);
+}
+
 //CAST BAR
 castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceBar(_window)
 {
 	character = _character;
 
 	borders = interface::STD_BORDER_SIZE;
-	float barSizeDiv = 8.f;
+	float barSizeDiv = 7.f;
 
-	outerRectSize = sf::Vector2f(character->getWidth() + borders.x, character->getHeight() / barSizeDiv + borders.y);
+	outerRectSize = sf::Vector2f(character->getWidth()/2 + borders.x, character->getHeight() / barSizeDiv + borders.y);
 	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
 	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
 	
-
-	sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() + borders.y);
-	posCoords = tempPos;
+	toDefaultPosition();
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
 	
 
 	outerRect->setPosition(posCoords);
 	innerRect->setPosition(innerRectPos);
 
-	outerColor = sf::Color::Black;
-	innerColor = sf::Color::Blue;
+	outerColor = sf::Color::Color(0, 0, 0, 100);
+	innerColor = sf::Color::Color(1,255,4,255);
 
 	outerRect->setFillColor(outerColor);
 	innerRect->setFillColor(innerColor);
@@ -143,9 +151,7 @@ void castTimeBar::draw() {
 
 void castTimeBar::update() {
 	if (character->getAlive()) {
-		
-		sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() + character->getHeight() + borders.y * 5.f);
-		setPosCoords(tempPos);
+		toDefaultPosition();
 		if (character->getState()->getStateNum() == 4) {
 
 			int delay = character->getTimers().getCastDelay();;
@@ -159,6 +165,7 @@ void castTimeBar::update() {
 		else {
 			sf::Vector2f tempInnerRectSize(0.f, 0.f);
 			setInnerRectSize(tempInnerRectSize);
+
 		}
 
 	}
@@ -166,4 +173,9 @@ void castTimeBar::update() {
 		display = false;
 	}
 
+}
+
+void castTimeBar::toDefaultPosition() {
+	sf::Vector2f tempPos(character->getPosX() + character->getWidth()/2- outerRectSize.x / 2 - borders.x, character->getPosY() + character->getHeight() + borders.y * 5.f);
+	setPosCoords(tempPos);
 }

@@ -31,6 +31,7 @@ public:
 	virtual void draw();
 	virtual void update();
 
+	virtual void toDefaultPosition();
 
 	//GET
 	sf::Vector2f getOuterRectSize() const {
@@ -95,6 +96,7 @@ public:
 	virtual void draw();
 	virtual void update();
 
+	virtual void toDefaultPosition();
 	//GET
 };
 
@@ -108,4 +110,6 @@ public:
 
 	virtual void draw();
 	virtual void update();
+
+	virtual void toDefaultPosition();
 };
