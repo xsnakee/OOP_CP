@@ -45,13 +45,13 @@ sf::Int32 &characterTimers_t::getDirectionSwapTime() {
 }
 
 
-sf::Int32 characterTimers_t::attackCDcorrection(int _attackCD) {
-	timersList[attackCDkey].cooldown /= _attackCD;
+sf::Int32 characterTimers_t::attackCDcorrection(float _attackCD) {
+	timersList[attackCDkey].cooldown *= _attackCD;
 	return timersList[attackCDkey].cooldown;
 }
-sf::Int32 characterTimers_t::castDelayCorrection(int _castDelay) {
+sf::Int32 characterTimers_t::castDelayCorrection(float _castDelay) {
 
-	timersList[castDelaykey].cooldown /= _castDelay;
+	timersList[castDelaykey].cooldown *= _castDelay;
 	return timersList[castDelaykey].cooldown;
 }
 sf::Int32 characterTimers_t::directionSwapTimeCorrection(int _time) {

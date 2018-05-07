@@ -21,6 +21,7 @@ protected:
 	sf::Color outerColor;
 	sf::Color innerColor;
 
+
 	bool display;
 
 	void updateInnerRectPos();
@@ -85,15 +86,14 @@ public:
 	}
 };
 
-
-
-class LifeBar : public InterfaceBar {
-	character_t *character;
+class progressBar : public InterfaceBar {
+protected:
+	float &curValue;
+	float &maxValue;
 public:
-	LifeBar(sf::RenderWindow *_window, character_t *character);
-	virtual ~LifeBar();
+	progressBar(sf::RenderWindow *_window, float &_curVal, float &_maxValue);
+	virtual ~progressBar();
 
-	virtual void draw();
 	virtual void update();
 
 	virtual void toDefaultPosition();
@@ -101,14 +101,26 @@ public:
 };
 
 
-class castTimeBar : public InterfaceBar {
+class LifeBar : public InterfaceBar {
+protected:
 	character_t *character;
+public:
+	LifeBar(sf::RenderWindow *_window, character_t *character);
+	virtual ~LifeBar();
+
+	virtual void update();
+
+	virtual void toDefaultPosition();
+	//GET
+};
+
+
+class castTimeBar : public LifeBar {
 
 public:
 	castTimeBar(sf::RenderWindow *_window, character_t *character);
 	virtual ~castTimeBar();
 
-	virtual void draw();
 	virtual void update();
 
 	virtual void toDefaultPosition();

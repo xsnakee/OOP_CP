@@ -20,5 +20,6 @@ public:
 	void draw();
 
 	void generateHPbars();
+	void setObservedBards();
 };
 

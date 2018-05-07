@@ -42,8 +42,8 @@ public:
 	sf::Int32 &getCastDelay();
 	sf::Int32 &getDirectionSwapTime();
 
-	sf::Int32 attackCDcorrection(int _attackSpeed);
-	sf::Int32 castDelayCorrection(int _castDelay);
+	sf::Int32 attackCDcorrection(float _attackSpeed);
+	sf::Int32 castDelayCorrection(float _castDelay);
 	sf::Int32 directionSwapTimeCorrection(int _time);
 
 	void setAttackCD(int _attackCD);

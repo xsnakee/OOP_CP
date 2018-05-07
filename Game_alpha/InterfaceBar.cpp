@@ -9,7 +9,9 @@ InterfaceBar::InterfaceBar(sf::RenderWindow *_window)
 
 	borders = interface::STD_BORDER_SIZE;
 
-	outerRectSize = sf::Vector2f(100.f, 100.f);
+
+
+	outerRectSize = sf::Vector2f(interface::STD_BAR_SIZE);
 	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
@@ -81,13 +83,54 @@ LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceB
 	innerRect->setFillColor(innerColor);
 }
 
+//PROGRESS BAR
+progressBar::progressBar(sf::RenderWindow *_window, float &_curVal, float &_maxValue): InterfaceBar(_window), curValue(_curVal), maxValue(_maxValue)
+{
+	borders = interface::STD_BORDER_SIZE;
+
+	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
+	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
+
+
+	toDefaultPosition();
+	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
+
+	outerRect->setPosition(posCoords);
+	innerRect->setPosition(innerRectPos);
+
+	outerColor = sf::Color::Color(0, 0, 0, 190);
+	innerColor = sf::Color::Color(255, 0, 0, 255);
+
+	outerRect->setFillColor(outerColor);
+	innerRect->setFillColor(innerColor);
+}
+progressBar::~progressBar() {
+
+}
+
+void progressBar::update() {
+
+	toDefaultPosition();
+
+	float k = curValue / maxValue;
+
+	sf::Vector2f tempInnerRectSize(innerRectSize.x * k, innerRectSize.y);
+
+	setInnerRectSize(tempInnerRectSize);
+}
+
+void progressBar::toDefaultPosition() {
+	sf::Vector2f tempPos(interface::getScreenCoords(window));
+	setPosCoords(tempPos);
+}
+
+
+
+
+
 
 LifeBar::~LifeBar()
 {
-}
-void LifeBar::draw() {
-	window->draw(*outerRect.get());
-	window->draw(*innerRect.get());
 }
 
 void LifeBar::update() {
@@ -113,7 +156,7 @@ void LifeBar::toDefaultPosition() {
 }
 
 //CAST BAR
-castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceBar(_window)
+castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :LifeBar(_window, _character)
 {
 	character = _character;
 
@@ -143,10 +186,6 @@ castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :In
 
 castTimeBar::~castTimeBar()
 {
-}
-void castTimeBar::draw() {
-	window->draw(*outerRect.get());
-	window->draw(*innerRect.get());
 }
 
 void castTimeBar::update() {
