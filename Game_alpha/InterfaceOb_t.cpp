@@ -2,23 +2,25 @@
 
 
 
-InterfaceOb_t::InterfaceOb_t(sf::RenderWindow *_window, sf::Vector2f _coords, sf::Vector2f _sizes): rectangle(_sizes),borders(STD_BORDERS_SIZE)
+InterfaceOb_t::InterfaceOb_t(sf::RenderWindow *_window, sf::Vector2f _pos, sf::Vector2f _sizes): rectangle(_sizes),borders(STD_BORDERS_SIZE)
 {
 	display = true;
 	clickable = false;
 	window = _window;
-	coords = _coords;
+	pos = _pos;
 	sizes = _sizes;
 
+	rectangle.setSize(sizes);
+	rectangle.setFillColor(sf::Color(0, 0, 0, 255));
+	rectangle.setPosition(pos);
+
+
 	font.loadFromFile(textSettings::MAIN_FONT_FILE);
-	text.setCharacterSize(20);
+	text.setCharacterSize(12);
 	text.setFont(font);
 
-	text.setPosition(coords.x + borders.x, coords.y + borders.y);
+	text.setPosition(pos + textRelativePos);
 	text.setString(title);
-
-	rectangle.setFillColor(sf::Color(0, 0, 0, 255));
-	rectangle.setPosition(coords);
 }
 
 
@@ -34,6 +36,20 @@ bool InterfaceOb_t::toggleDisplay() {
 }
 
 void InterfaceOb_t::draw() {
-	window->draw(rectangle);
-	window->draw(text);
+	if (display) {
+		window->draw(rectangle);
+		window->draw(text);
+	}
+}
+
+void InterfaceOb_t::update() {
+
+}
+
+void InterfaceOb_t::toDefaultPosition() {
+	sf::Vector2f tempPos(interface::getScreenCoords(window) + pos);
+	rectangle.setPosition(tempPos);
+
+	tempPos += textRelativePos;
+	text.setPosition(tempPos);
 }

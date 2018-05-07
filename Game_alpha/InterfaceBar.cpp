@@ -95,8 +95,7 @@ void progressBar::update() {
 
 void progressBar::toDefaultPosition() {
 	sf::Vector2f tempPos(interface::getScreenCoords(window));
-	tempPos.x += relativeCoords.x;
-	tempPos.y += relativeCoords.y;
+	tempPos += relativeCoords;
 
 	setPosCoords(tempPos);
 }

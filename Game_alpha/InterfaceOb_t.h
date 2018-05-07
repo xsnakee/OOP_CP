@@ -11,14 +11,16 @@ protected:
 	bool display;
 	bool clickable;
 
-	sf::Vector2f coords;
+	sf::Vector2f pos;
 	sf::Vector2f sizes;
 	sf::RenderWindow *window;
 	sf::Vector2f borders;
+	std::unique_ptr<sf::Texture> texture;
 
 	sf::Font font;
 	sf::Text text;
 	std::string title;
+	sf::Vector2f textRelativePos;
 
 	sf::RectangleShape rectangle;
 
@@ -26,15 +28,18 @@ protected:
 	sf::Int32 displayDuration;
 
 public:
-	InterfaceOb_t(sf::RenderWindow *_window, sf::Vector2f _coords = sf::Vector2f(100.f,100.f), sf::Vector2f _sizes = sf::Vector2f(100.f,100.f));
+	InterfaceOb_t(sf::RenderWindow *_window, sf::Vector2f _pos, sf::Vector2f _sizes);
 	virtual ~InterfaceOb_t();
 
 	virtual void draw();
 	bool toggleDisplay();
 
+	virtual void update();
+	virtual void toDefaultPosition();
+
 	//GET
-	sf::Vector2f getCoords() const {
-		return coords;
+	sf::Vector2f getPos() const {
+		return pos;
 	}
 
 	sf::Vector2f getSizes() const {
@@ -58,8 +63,9 @@ public:
 
 
 	//SET
-	void setCoords(sf::Vector2f &newCoords) {
-		coords = newCoords;
+	void setPos(sf::Vector2f &newpos) {
+		pos = newpos;
+		rectangle.setPosition(pos);
 	}
 
 	void setSizes(sf::Vector2f &newSizes) {
@@ -78,12 +84,22 @@ public:
 		title = newTitle;
 		text.setString(title);
 	}
+
+	void setTitlePos(sf::Vector2f _newpos) {
+		textRelativePos = _newpos;
+		text.setPosition(_newpos);
+	}
 	void setTextFontSize(unsigned int size) {
 		text.setCharacterSize(size);
 	}
 
 	void setFont(std::string _path) {
 		font.loadFromFile(_path);
+	}
+	
+	void setTexture(sf::Texture *newTexture) {
+		texture = std::move(std::unique_ptr<sf::Texture>(newTexture));
+		rectangle.setTexture(texture.get());
 	}
 };
 
