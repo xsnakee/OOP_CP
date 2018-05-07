@@ -58,7 +58,7 @@ void InterfaceBar::toDefaultPosition(){
 progressBar::progressBar(sf::RenderWindow *_window, sf::Vector2f _relativeCoords, float &_curVal, float &_maxValue) : InterfaceBar(_window), curValue(_curVal), maxValue(_maxValue)
 {
 	borders = interface::STD_BORDER_SIZE;
-	relativeCoords = _relativeCoords;
+	relativePos = _relativeCoords;
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
 	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
@@ -95,7 +95,7 @@ void progressBar::update() {
 
 void progressBar::toDefaultPosition() {
 	sf::Vector2f tempPos(interface::getScreenCoords(window));
-	tempPos += relativeCoords;
+	tempPos += relativePos;
 
 	setPosCoords(tempPos);
 }

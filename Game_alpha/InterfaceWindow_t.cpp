@@ -39,11 +39,19 @@ void InterfaceWindow_t::draw() {
 	if (display) {
 		window->draw(rectangle);
 		window->draw(text);
+
+		for (auto &i : contentList) {
+			i->draw();
+		}
 	}
 }
 
 void InterfaceWindow_t::update() {
 	toDefaultPosition();
+
+	for (auto &i : contentList) {
+		i->update();
+	}
 }
 
 void InterfaceWindow_t::toDefaultPosition() {

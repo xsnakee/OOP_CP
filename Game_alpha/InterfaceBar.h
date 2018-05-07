@@ -84,11 +84,15 @@ public:
 	void setBorders(sf::Vector2f newBorders) {
 		borders = newBorders;
 	}
+	
+	void serRelativeCoords(sf::Vector2f newCoords) {
+
+	}
 };
 
 class progressBar : public InterfaceBar {
 protected:
-	sf::Vector2f relativeCoords;
+	sf::Vector2f relativePos;
 	float &curValue;
 	float &maxValue;
 public:
@@ -98,7 +102,9 @@ public:
 	virtual void update();
 
 	virtual void toDefaultPosition();
-	//GET
+	void setRelativePos(sf::Vector2f newCoords) {
+		relativePos = newCoords;
+	}
 };
 
 

@@ -1,9 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <list>
 #include "additional.h"
+#include "InterfaceContent.h"
 
 const sf::Vector2f STD_BORDERS_SIZE(10.f,10.f);
+typedef std::unique_ptr<InterfaceContent> content;
 
 class InterfaceWindow_t
 {
@@ -26,7 +29,8 @@ protected:
 	sf::Int32 startTime;
 	sf::Int32 displayDuration;
 
-public:
+	public:
+	std::list<content> contentList;
 
 	InterfaceWindow_t(sf::RenderWindow *_window, sf::Vector2f _pos, sf::Vector2f _sizes);
 	virtual ~InterfaceWindow_t();

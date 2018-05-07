@@ -37,6 +37,9 @@ void InterfaceEngine_t::draw() {
 	}
 }
 
+
+//INTERFACE BUILD
+
 void InterfaceEngine_t::generateHPbars() {
 	for (auto &i : level.charactersList) {
 		barsList.push_back(bar_t(new LifeBar(window, i.get())));
@@ -57,11 +60,12 @@ void InterfaceEngine_t::setObservedBards() {
 }
 
 void InterfaceEngine_t::createIterfaceWindows() {
-	sf::Vector2f tempPos(100.f,100.f);
+	sf::Vector2f tempPos(500.f,500.f);
 	windowsList.push_back(interfaceWindow_t(new InterfaceWindow_t(window,tempPos,interface::STD_WINDOW_SIZE)));
 	windowsList.back()->setTitle("kyky");
 	windowsList.back()->setTitlePos(sf::Vector2f(100.f, 100.f));
 	sf::Texture *temp = new sf::Texture;
 	temp->loadFromFile(animation::ICON_ELEMENT_FIRE_FILE);
+	windowsList.back()->contentList.push_back(content(new InterfaceSpriteOb_t(window,temp, windowsList.back()->getPos(),sf::Vector2f(0.f,0.f))));
 	
 }
