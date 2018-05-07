@@ -64,14 +64,20 @@ void InterfaceEngine_t::createIterface() {
 	//ELEMENT GENERATOR STATUS
 	sf::Vector2f tempPos(interface::getScreenCoords(window));
 	size_t elemWindowAmount = 3;
+	float betweenCorection = 7.f;
 
 	while(elemWindowAmount-- > 0){
-		float positionCorrectionX = (window->getSize().x - static_cast<float>(elemWindowAmount) * interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - 60.f);
+		float multipleCorection = static_cast<float>(elemWindowAmount);
+
+		float positionCorrectionX = (window->getSize().x - multipleCorection * interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - multipleCorection*betweenCorection  - 60.f);
 		float positionCorrectionY = (window->getSize().y - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.y - 10.f);
 
 		sf::Vector2f coordCorection(positionCorrectionX, positionCorrectionY);
 
 		windowsList.push_back(interfaceWindow_t(new InterfaceWindow_t(window, (tempPos+ coordCorection), interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE)));
+		auto &i = windowsList.back();
+		i->setBgColor(sf::Color::Color(50, 50, 50, 150));
+		i->setBorderColor(sf::Color::Color(238, 238, 238, 150));
 	}
 		
 	

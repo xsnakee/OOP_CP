@@ -2,7 +2,7 @@
 
 //INTERFACE OB
 
-InterfaceWindow_t::InterfaceWindow_t(sf::RenderWindow *_window, sf::Vector2f _pos, sf::Vector2f _sizes): rectangle(_sizes),borders(STD_BORDERS_SIZE)
+InterfaceWindow_t::InterfaceWindow_t(sf::RenderWindow *_window, sf::Vector2f _pos, sf::Vector2f _sizes): rectangle(_sizes),borders(interface::STD_BORDER_SIZE)
 {
 	display = true;
 	clickable = false;
@@ -13,6 +13,10 @@ InterfaceWindow_t::InterfaceWindow_t(sf::RenderWindow *_window, sf::Vector2f _po
 	rectangle.setSize(sizes);
 	rectangle.setFillColor(sf::Color(0, 0, 0, 255));
 	rectangle.setPosition(pos);
+
+
+	outerBorderRect.setSize(sizes + borders*2.f);
+	outerBorderRect.setFillColor(sf::Color::Color(238, 238, 238, 255));
 
 
 	font.loadFromFile(textSettings::MAIN_FONT_FILE);
@@ -37,6 +41,7 @@ bool InterfaceWindow_t::toggleDisplay() {
 
 void InterfaceWindow_t::draw() {
 	if (display) {
+		window->draw(outerBorderRect);
 		window->draw(rectangle);
 		window->draw(text);
 
@@ -58,4 +63,5 @@ void InterfaceWindow_t::toDefaultPosition() {
 	sf::Vector2f tempPos(interface::getScreenCoords(window));
 	rectangle.setPosition(tempPos + pos);
 	text.setPosition(tempPos + pos + textRelativePos);
+	outerBorderRect.setPosition(tempPos + pos - borders);
 }

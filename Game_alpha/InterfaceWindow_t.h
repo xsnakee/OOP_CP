@@ -5,7 +5,6 @@
 #include "additional.h"
 #include "InterfaceContent.h"
 
-const sf::Vector2f STD_BORDERS_SIZE(10.f,10.f);
 typedef std::unique_ptr<InterfaceContent> content;
 
 class InterfaceWindow_t
@@ -17,7 +16,6 @@ protected:
 	sf::Vector2f pos;
 	sf::Vector2f sizes;
 	sf::RenderWindow *window;
-	sf::Vector2f borders;
 
 	sf::Font font;
 	sf::Text text;
@@ -25,6 +23,9 @@ protected:
 	sf::Vector2f textRelativePos;
 
 	sf::RectangleShape rectangle;
+
+	sf::Vector2f borders;
+	sf::RectangleShape outerBorderRect;
 
 	sf::Int32 startTime;
 	sf::Int32 displayDuration;
@@ -83,6 +84,10 @@ protected:
 
 	void setClickble(bool newState) {
 		clickable = newState;
+	}
+
+	void setBorderColor(sf::Color newColor) {
+		outerBorderRect.setFillColor(newColor);
 	}
 
 	void setDisplay(bool newState) {
