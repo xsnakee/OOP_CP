@@ -19,7 +19,6 @@ private:
 	sf :: RenderWindow *window;
 
 	cursor_t *cursor;
-	std::unique_ptr<keyboardController> controller;
 	Level_t &level;
 
 	std::unique_ptr<sf::Clock> clock;
@@ -28,17 +27,17 @@ private:
 	float speedMultipple;
 	sf::View *view;
 
-	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 
 public:
-	
+
+	std::list<std::unique_ptr <character_t>>::iterator mainHero;
+
 	GameEngine_t(sf::RenderWindow *_window, Level_t &_level);
 	~GameEngine_t();
 
 	void update();
 	void draw();
 
-	void keyController(sf::Event &event);
 	void checkAlive();
 	void visionEngine();
 	void collisionEngine();

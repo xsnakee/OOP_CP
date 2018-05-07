@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-keyboardController::keyboardController(sf::Clock *_clock)
+keyboardController::keyboardController()
 {
 	key = sf::Keyboard::Key::Unknown;
 }
@@ -21,7 +21,7 @@ bool keyboardController::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::I
 
 //playercontroller 
 
-PlayerController::PlayerController(sf::Clock *_clock, character_t *mainHero) :keyboardController(_clock)
+PlayerController::PlayerController(character_t *mainHero) :keyboardController()
 {
 	key = sf::Keyboard::Key::Unknown;
 	character = mainHero;

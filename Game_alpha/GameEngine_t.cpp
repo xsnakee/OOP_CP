@@ -23,7 +23,6 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level):level(_le
 	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
 	mainHero = level.charactersList.begin();
 
-	controller = std::unique_ptr<keyboardController>(new PlayerController(clock.get(), mainHero->get()));
 	generateNpc();
 }
 
@@ -91,11 +90,6 @@ void GameEngine_t::draw() {
 	drawCursor();
 }
 
-void GameEngine_t::keyController(sf::Event &event) {
-		if (mainHero->get()->getAlive()) {
-			controller->eventHandler(event);
-		}
-}
 
 void GameEngine_t::checkAlive() {
 

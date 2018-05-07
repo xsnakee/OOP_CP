@@ -9,7 +9,7 @@ protected:
 	int key;//mouse click code = 55
 
 public:
-	keyboardController(sf::Clock *_clock);
+	keyboardController();
 	virtual ~keyboardController();
 
 	bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
@@ -32,7 +32,7 @@ class PlayerController :public keyboardController {
 
 	void checkCharacterStateAndChangeDefault();
 public:
-	PlayerController(sf::Clock *_clock, character_t *_mainHero);
+	PlayerController(character_t *_mainHero);
 	virtual ~PlayerController();
 
 	character_t * getPlayerCharPtr()const {

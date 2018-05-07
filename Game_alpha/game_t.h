@@ -13,11 +13,14 @@ class game_t
 	std::unique_ptr<GameEngine_t> game;
 	std::unique_ptr<InterfaceEngine_t> interface;
 
+	std::unique_ptr<keyboardController> controller;
+
 public:
 	game_t(sf::RenderWindow *_window);
 	~game_t();
 
 	void start(std::string levelName,  size_t difficulity = 1);
 	void play();
+	void keyController(sf::Event &event);
 };
 
