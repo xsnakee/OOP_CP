@@ -26,6 +26,6 @@ public:
 
 	void generateHPbars();
 	void setObservedBards();
-	void createIterfaceWindows();
+	void createIterface();
 };
 

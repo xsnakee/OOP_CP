@@ -96,6 +96,8 @@ namespace animation {
 	//ICONS
 	//const std::string ICON_ELEMENT__FILE = "img/icons/.png";
 	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
+	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_earth.png";
+	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_wind.png";
 
 	const int COMMON_CHARACTER_SPRITE = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
@@ -140,6 +142,8 @@ namespace interface {
 	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
 	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
 	const sf::Vector2f STD_WINDOW_SIZE(48.f, 48.f);
+
+	const sf::Vector2f STD_ELEMENT_GENERATOR_WINDOW_SIZE(48.f,48.f);
 
 	static sf::Vector2f getScreenCoords(sf::RenderWindow *window) {
 		return sf::Vector2f(window->getView().getCenter().x - window->getSize().x / 2, window->getView().getCenter().y - window->getSize().y / 2);

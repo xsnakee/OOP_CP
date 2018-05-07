@@ -74,6 +74,7 @@ protected:
 
 	void setSizes(sf::Vector2f &newSizes) {
 		sizes = newSizes;
+		rectangle.setSize(sizes);
 	}
 
 	void setBgColor(sf::Color newColor) {
