@@ -115,10 +115,12 @@ castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :In
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
 	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
+	
 
 	sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() + borders.y);
 	posCoords = tempPos;
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
+	
 
 	outerRect->setPosition(posCoords);
 	innerRect->setPosition(innerRectPos);
@@ -141,7 +143,7 @@ void castTimeBar::draw() {
 
 void castTimeBar::update() {
 	if (character->getAlive()) {
-
+		
 		sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() + character->getHeight() + borders.y * 5.f);
 		setPosCoords(tempPos);
 		if (character->getState()->getStateNum() == 4) {

@@ -6,6 +6,7 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 {
 	window = _window;
 	generateHPbars();
+	barsList.push_back(std::unique_ptr<InterfaceBar>(new castTimeBar(window, level.charactersList.begin()->get())));
 }
 
 
@@ -34,6 +35,5 @@ void InterfaceEngine_t::draw() {
 void InterfaceEngine_t::generateHPbars() {
 	for (auto &i : level.charactersList) {
 		barsList.push_back(std::unique_ptr<InterfaceBar>(new LifeBar(window, i.get())));
-		barsList.push_back(std::unique_ptr<InterfaceBar>(new castTimeBar(window, i.get())));
 	}
 }
