@@ -29,13 +29,18 @@ public:
 	
 	
 	//GET
-	sf::Int32 getAttackStartTime();
-	sf::Int32 getCastStartTime();
-	sf::Int32 getSwapDirStartTime();
 
-	sf::Int32 getAttackCD();
-	sf::Int32 getCastDelay();
-	sf::Int32 getDirectionSwapTime();
+	sf::Clock *getClockPtr() const {
+		return clock;
+	}
+
+	sf::Int32 &getAttackStartTime();
+	sf::Int32 &getCastStartTime();
+	sf::Int32 &getSwapDirStartTime();
+
+	sf::Int32 &getAttackCD();
+	sf::Int32 &getCastDelay();
+	sf::Int32 &getDirectionSwapTime();
 
 	sf::Int32 attackCDcorrection(int _attackSpeed);
 	sf::Int32 castDelayCorrection(int _castDelay);

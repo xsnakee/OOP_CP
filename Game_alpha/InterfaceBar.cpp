@@ -1,5 +1,5 @@
 #include "InterfaceBar.h"
-
+#include <iostream>
 
 
 InterfaceBar::InterfaceBar(sf::RenderWindow *_window)
@@ -9,14 +9,14 @@ InterfaceBar::InterfaceBar(sf::RenderWindow *_window)
 
 	borders = interface::STD_BORDER_SIZE;
 
-	outerRectSize = sf::Vector2f(100.f,100.f);
-	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2),(outerRectSize.y - borders.y * 2));
+	outerRectSize = sf::Vector2f(100.f, 100.f);
+	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
 	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
 
-	posCoords = sf::Vector2f(0.f,0.f);
-	sf::Vector2f innerRectPos((posCoords.x + borders.x),(posCoords.y + borders.y));
+	posCoords = sf::Vector2f(0.f, 0.f);
+	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
 
 	outerRect->setPosition(posCoords);
 	innerRect->setPosition(innerRectPos);
@@ -49,7 +49,7 @@ void InterfaceBar::update() {
 }
 
 //LIFE BAR
-LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character):InterfaceBar(_window)
+LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceBar(_window)
 {
 	character = _character;
 
@@ -57,12 +57,12 @@ LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character):InterfaceBa
 	float barSizeDiv = 8.f;
 
 	outerRectSize = sf::Vector2f(character->getWidth() + borders.x, character->getHeight() / barSizeDiv + borders.y);
-	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x *2), (outerRectSize.y - borders.y * 2));
+	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
 	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
 
-	sf::Vector2f tempPos(character->getPosX() - borders.x , character->getPosY() - borders.y);
+	sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() - borders.y);
 	posCoords = tempPos;
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
 
@@ -99,7 +99,7 @@ void LifeBar::update() {
 	else {
 		display = false;
 	}
-	
+
 }
 
 //CAST BAR
@@ -115,7 +115,7 @@ castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :In
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
 	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
-	
+
 	sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() + borders.y);
 	posCoords = tempPos;
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
@@ -141,14 +141,24 @@ void castTimeBar::draw() {
 
 void castTimeBar::update() {
 	if (character->getAlive()) {
+
 		sf::Vector2f tempPos(character->getPosX() - borders.x, character->getPosY() + character->getHeight() + borders.y * 5.f);
 		setPosCoords(tempPos);
+		if (character->getState()->getStateNum() == 4) {
 
-		float k = abs(character->getClockPtr()->getElapsedTime().asMilliseconds() - character->getTimers().getCastStartTime()) / (character->getTimers().getCastDelay());
+			int delay = character->getTimers().getCastDelay();;
+			
+			float k = (static_cast<float>(character->getTimers().getClockPtr()->getElapsedTime().asMilliseconds()) -
+				static_cast<float>(character->getTimers().getCastStartTime())) / static_cast<float>(delay);
 
-		sf::Vector2f tempInnerRectSize(innerRectSize.x * k, innerRectSize.y);
+			sf::Vector2f tempInnerRectSize(innerRectSize.x * k, innerRectSize.y);
+			setInnerRectSize(tempInnerRectSize);
+		}
+		else {
+			sf::Vector2f tempInnerRectSize(0.f, 0.f);
+			setInnerRectSize(tempInnerRectSize);
+		}
 
-		setInnerRectSize(tempInnerRectSize);
 	}
 	else {
 		display = false;

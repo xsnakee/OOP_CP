@@ -7,7 +7,7 @@ characterTimers_t::characterTimers_t()
 characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _attackSpeed)
 {
 	clock = _clock;
-	sf::Int32 startTime = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 startTime = 1;
 
 	timerStats attackCD = { startTime, 3000 / _attackSpeed};
 	timersList.insert(std::pair<std::string,timerStats>(attackCDkey, attackCD));
@@ -23,24 +23,24 @@ characterTimers_t::~characterTimers_t()
 {
 }
 
-sf::Int32 characterTimers_t::getAttackStartTime() {
-	return timersList[castDelaykey].startTime;
-}
-sf::Int32 characterTimers_t::getCastStartTime() {
+sf::Int32 &characterTimers_t::getAttackStartTime() {
 	return timersList[attackCDkey].startTime;
 }
-sf::Int32 characterTimers_t::getSwapDirStartTime() {
+sf::Int32 &characterTimers_t::getCastStartTime() {
+	return timersList[castDelaykey].startTime;
+}
+sf::Int32 &characterTimers_t::getSwapDirStartTime() {
 	return timersList[skillGenerationCDkey].startTime;
 }
 
 
-sf::Int32 characterTimers_t::getAttackCD() {
+sf::Int32 &characterTimers_t::getAttackCD() {
 	return timersList[attackCDkey].cooldown;
 }
-sf::Int32 characterTimers_t::getCastDelay() {
+sf::Int32 &characterTimers_t::getCastDelay() {
 	return timersList[castDelaykey].cooldown;
 }
-sf::Int32 characterTimers_t::getDirectionSwapTime() {
+sf::Int32 &characterTimers_t::getDirectionSwapTime() {
 	return timersList[skillGenerationCDkey].cooldown;
 }
 
