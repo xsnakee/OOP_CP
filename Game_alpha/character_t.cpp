@@ -89,7 +89,6 @@ void character_t::animation() {
 bool character_t::checkAlive() {
 
 	if (stat.HP < FLT_EPSILON) {
-		stat.HP = 0.f;
 		alive = false;
 	}
 

@@ -54,6 +54,54 @@ void InterfaceBar::toDefaultPosition(){
 	outerRect->setPosition(posCoords);
 	updateInnerRectPos();
 }
+//PROGRESS BAR
+progressBar::progressBar(sf::RenderWindow *_window, sf::Vector2f _relativeCoords, float &_curVal, float &_maxValue) : InterfaceBar(_window), curValue(_curVal), maxValue(_maxValue)
+{
+	borders = interface::STD_BORDER_SIZE;
+	relativeCoords = _relativeCoords;
+
+	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
+	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
+
+	toDefaultPosition();
+	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
+
+	outerRect->setPosition(posCoords);
+	innerRect->setPosition(innerRectPos);
+
+	outerColor = sf::Color::Color(0, 0, 0, 190);
+	innerColor = sf::Color::Color(255, 0, 0, 255);
+
+	outerRect->setFillColor(outerColor);
+	innerRect->setFillColor(innerColor);
+}
+progressBar::~progressBar() {
+
+}
+
+void progressBar::update() {
+
+	toDefaultPosition();
+
+	float k = curValue / maxValue;
+	if (k < 0) {
+		k = 0;
+	}
+
+	sf::Vector2f tempInnerRectSize(innerRectSize.x * k, innerRectSize.y);
+
+	setInnerRectSize(tempInnerRectSize);
+}
+
+void progressBar::toDefaultPosition() {
+	sf::Vector2f tempPos(interface::getScreenCoords(window));
+	tempPos.x += relativeCoords.x;
+	tempPos.y += relativeCoords.y;
+
+	setPosCoords(tempPos);
+}
+
+
 //LIFE BAR
 LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceBar(_window)
 {
@@ -82,52 +130,6 @@ LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceB
 	outerRect->setFillColor(outerColor);
 	innerRect->setFillColor(innerColor);
 }
-
-//PROGRESS BAR
-progressBar::progressBar(sf::RenderWindow *_window, float &_curVal, float &_maxValue): InterfaceBar(_window), curValue(_curVal), maxValue(_maxValue)
-{
-	borders = interface::STD_BORDER_SIZE;
-
-	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
-	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
-
-
-	toDefaultPosition();
-	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
-
-	outerRect->setPosition(posCoords);
-	innerRect->setPosition(innerRectPos);
-
-	outerColor = sf::Color::Color(0, 0, 0, 190);
-	innerColor = sf::Color::Color(255, 0, 0, 255);
-
-	outerRect->setFillColor(outerColor);
-	innerRect->setFillColor(innerColor);
-}
-progressBar::~progressBar() {
-
-}
-
-void progressBar::update() {
-
-	toDefaultPosition();
-
-	float k = curValue / maxValue;
-
-	sf::Vector2f tempInnerRectSize(innerRectSize.x * k, innerRectSize.y);
-
-	setInnerRectSize(tempInnerRectSize);
-}
-
-void progressBar::toDefaultPosition() {
-	sf::Vector2f tempPos(interface::getScreenCoords(window));
-	setPosCoords(tempPos);
-}
-
-
-
-
-
 
 LifeBar::~LifeBar()
 {

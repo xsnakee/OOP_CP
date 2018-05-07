@@ -88,10 +88,11 @@ public:
 
 class progressBar : public InterfaceBar {
 protected:
+	sf::Vector2f relativeCoords;
 	float &curValue;
 	float &maxValue;
 public:
-	progressBar(sf::RenderWindow *_window, float &_curVal, float &_maxValue);
+	progressBar(sf::RenderWindow *_window, sf::Vector2f _relativeCoords,float &_curVal, float &_maxValue);
 	virtual ~progressBar();
 
 	virtual void update();

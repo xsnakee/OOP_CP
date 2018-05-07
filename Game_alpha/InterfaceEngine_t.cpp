@@ -41,6 +41,13 @@ void InterfaceEngine_t::generateHPbars() {
 
 void InterfaceEngine_t::setObservedBards() {
 	barsList.push_back(std::unique_ptr<InterfaceBar>(new castTimeBar(window, level.charactersList.begin()->get())));
-	barsList.push_back(std::unique_ptr<InterfaceBar>(new progressBar(window, level.charactersList.begin()->get()->getStats().HP, level.charactersList.begin()->get()->getStats().stdHP)));
-	barsList.push_back(std::unique_ptr<InterfaceBar>(new progressBar(window, level.charactersList.begin()->get()->getStats().MP, level.charactersList.begin()->get()->getStats().stdMP)));
+	float tempBarCounter = .5f;
+	sf::Vector2f tempMargin(interface::STD_BORDER_SIZE);
+
+	barsList.push_back(std::unique_ptr<InterfaceBar>(new progressBar(window, tempMargin,level.charactersList.begin()->get()->getStats().HP, level.charactersList.begin()->get()->getStats().stdHP)));
+	
+	++tempBarCounter;
+	tempMargin.y += interface::STD_BAR_SIZE.y;
+	barsList.push_back(std::unique_ptr<InterfaceBar>(new progressBar(window, tempMargin,level.charactersList.begin()->get()->getStats().MP, level.charactersList.begin()->get()->getStats().stdMP)));
+	barsList.back()->setInnerRectColor(sf::Color::Blue);
 }
