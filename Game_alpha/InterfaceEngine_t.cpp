@@ -74,12 +74,12 @@ void InterfaceEngine_t::createIterface() {
 
 		sf::Vector2f coordCorection(positionCorrectionX, positionCorrectionY);
 
-		windowsList.push_back(interfaceWindow_t(new InterfaceWindow_t(window, (tempPos+ coordCorection), interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE)));
+		windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos+ coordCorection), interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE)));
 		auto &i = windowsList.back();
 		i->setBgColor(sf::Color::Color(50, 50, 50, 150));
 		i->setBorderColor(sf::Color::Color(238, 238, 238, 150));
 	}
-		
+		elemIt = windowsList.end();
 	
 	
 	/*
