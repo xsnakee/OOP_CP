@@ -5,10 +5,6 @@
 keyboardController::keyboardController(sf::Clock *_clock)
 {
 	key = sf::Keyboard::Key::Unknown;
-	clock = _clock;
-	controllerMode = 0;
-	startTime = clock->getElapsedTime().asMilliseconds();
-	keysCD = 200;
 }
 
 
