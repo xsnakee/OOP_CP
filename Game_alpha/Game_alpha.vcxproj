@@ -130,6 +130,7 @@
     <ClCompile Include="cursor_t.cpp" />
     <ClCompile Include="Effect_t.cpp" />
     <ClCompile Include="GameEngine_t.cpp" />
+    <ClCompile Include="game_t.cpp" />
     <ClCompile Include="ground_t.cpp" />
     <ClCompile Include="InterfaceBar.cpp" />
     <ClCompile Include="InterfaceButton.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="cursor_t.h" />
     <ClInclude Include="Effect_t.h" />
     <ClInclude Include="GameEngine_t.h" />
+    <ClInclude Include="game_t.h" />
     <ClInclude Include="ground_t.h" />
     <ClInclude Include="InterfaceBar.h" />
     <ClInclude Include="InterfaceButton.h" />
