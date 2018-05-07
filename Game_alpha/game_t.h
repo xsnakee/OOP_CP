@@ -9,14 +9,15 @@ class game_t
 	sf::RenderWindow *window;
 	sf::Clock clock;
 
-	Level_t level;
-	GameEngine_t game;
-	InterfaceEngine_t interface;
+	std::unique_ptr<Level_t> level;
+	std::unique_ptr<GameEngine_t> game;
+	std::unique_ptr<InterfaceEngine_t> interface;
 
 public:
 	game_t(sf::RenderWindow *_window);
 	~game_t();
 
-	void start();
+	void start(std::string levelName,  size_t difficulity = 1);
+	void play();
 };
 

@@ -2,7 +2,7 @@
 
 
 
-game_t::game_t(sf::RenderWindow *_window):level("level0"),game(_window, level),interface(_window, level)
+game_t::game_t(sf::RenderWindow *_window)
 {
 	window = _window;
 }
@@ -13,14 +13,21 @@ game_t::~game_t()
 }
 
 
-void game_t::start() {
+void game_t::start(std::string levelName, size_t difficulity) {
+	level = std::unique_ptr<Level_t>(new Level_t(levelName));
+	game = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get()));
+	interface = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
+	play();
+}
+
+void game_t::play() {
 	using namespace sf;
 
 	while (window->isOpen()) {
 		Event event;
 		float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
 		clock.restart();
-		game.setSpeed(timer);
+		game->setSpeed(timer);
 
 		while (window->pollEvent(event)) {
 
@@ -29,13 +36,13 @@ void game_t::start() {
 			}
 		}
 
-		game.keyController(event);
+		game->keyController(event);
 
-		game.update();
-		interface.update();
+		game->update();
+		interface->update();
 		window->clear();
-		game.draw();
-		interface.draw();
+		game->draw();
+		interface->draw();
 
 		window->display();
 	}
