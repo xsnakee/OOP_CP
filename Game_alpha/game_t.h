@@ -4,6 +4,13 @@
 #include "GameEngine_t.h"
 #include "InterfaceEngine_t.h"
 
+enum modes {
+	START_MENU,
+	PLAY,
+	PAUSED,
+	GAME_OVER
+};
+
 class game_t
 {
 	sf::RenderWindow *window;
@@ -14,6 +21,8 @@ class game_t
 	std::unique_ptr<InterfaceEngine_t> interface;
 
 	std::unique_ptr<keyboardController> controller;
+
+	modes mode;
 
 public:
 	game_t(sf::RenderWindow *_window);
