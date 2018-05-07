@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "character_t.h"
-#include "settings.h"
+#include "additional.h"
 
 class InterfaceBar
 {

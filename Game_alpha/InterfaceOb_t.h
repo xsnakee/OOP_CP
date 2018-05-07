@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "settings.h"
+#include "additional.h"
 
 const sf::Vector2f STD_BORDERS_SIZE(10.f,10.f);
 
@@ -87,7 +87,6 @@ public:
 
 	void setTitlePos(sf::Vector2f _newpos) {
 		textRelativePos = _newpos;
-		text.setPosition(_newpos);
 	}
 	void setTextFontSize(unsigned int size) {
 		text.setCharacterSize(size);
@@ -101,5 +100,6 @@ public:
 		texture = std::move(std::unique_ptr<sf::Texture>(newTexture));
 		rectangle.setTexture(texture.get());
 	}
+
 };
 

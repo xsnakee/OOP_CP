@@ -128,64 +128,17 @@ static bool timeIsOver(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
 }
 
 
-
-
-//TRASH
-
-/*
-class textureList_t {
-public:
-	std::shared_ptr<sf::Texture>SWORD_ATTACK_TEXTURE;//0
-	std::shared_ptr<sf::Texture>BULLET_SMALL_FIRE_BALLS_TEXTURE;//1
-	std::shared_ptr<sf::Texture>BULLET_SMALL_EARTH_BALL_TEXTURE;//2
-	std::shared_ptr<sf::Texture>BULLET_FIRE_BALL_TEXTURE;//3
-	std::shared_ptr<sf::Texture>BULLET_EARTH_BALL_TEXTURE;//4
-	std::shared_ptr<sf::Texture>BULLET_LAVA_TEXTURE;//5
-	std::shared_ptr<sf::Texture>BULLET_FIREWALL_TEXTURE;//6
-	std::shared_ptr<sf::Texture>BULLET_EARTH_SLAM_TEXTURE;//7
-	std::shared_ptr<sf::Texture>BULLET_COMBO_BALL_TEXTURE;//8
-	std::shared_ptr<sf::Texture>MAIN_HERO_TEXTURE;//9
-	std::shared_ptr<sf::Texture>ENEMY_SLENDER_DEMON;// 10
-	std::shared_ptr<sf::Texture>ENEMY_WARRIOR;//11
-	std::shared_ptr<sf::Texture>ENEMY_MAGE;//12
-	std::shared_ptr<sf::Texture>ENEMY_DEMON; //13
-
-	textureList_t() {
-		SWORD_ATTACK_TEXTURE = std::make_shared<sf::Texture>();//0
-		BULLET_SMALL_FIRE_BALLS_TEXTURE = std::make_shared<sf::Texture>();//1
-		BULLET_SMALL_EARTH_BALL_TEXTURE = std::make_shared<sf::Texture>();//2
-		BULLET_FIRE_BALL_TEXTURE = std::make_shared<sf::Texture>();//3
-		BULLET_EARTH_BALL_TEXTURE = std::make_shared<sf::Texture>();//4
-		BULLET_LAVA_TEXTURE = std::make_shared<sf::Texture>();//5
-		BULLET_FIREWALL_TEXTURE = std::make_shared<sf::Texture>();//6
-		BULLET_EARTH_SLAM_TEXTURE = std::make_shared<sf::Texture>();//7
-		BULLET_COMBO_BALL_TEXTURE = std::make_shared<sf::Texture>();//8
-		MAIN_HERO_TEXTURE = std::make_shared<sf::Texture>();//9
-		ENEMY_SLENDER_DEMON = std::make_shared<sf::Texture>();// 10
-		ENEMY_WARRIOR = std::make_shared<sf::Texture>();//11
-		ENEMY_MAGE = std::make_shared<sf::Texture>();//12
-		ENEMY_DEMON = std::make_shared<sf::Texture>();; //13
-
-		std::list<std::string>::iterator it = animation::textureFileNames.begin();
-		SWORD_ATTACK_TEXTURE->loadFromFile(*(it++));//0
-		BULLET_SMALL_FIRE_BALLS_TEXTURE->loadFromFile(*(it++));//1
-		BULLET_SMALL_EARTH_BALL_TEXTURE->loadFromFile(*(it++));//2
-		BULLET_FIRE_BALL_TEXTURE->loadFromFile(*(it++));//3
-		BULLET_EARTH_BALL_TEXTURE->loadFromFile(*(it++));//4
-		BULLET_LAVA_TEXTURE->loadFromFile(*(it++));//5
-		BULLET_FIREWALL_TEXTURE->loadFromFile(*(it++));//6
-		BULLET_EARTH_SLAM_TEXTURE->loadFromFile(*(it++));//7
-		BULLET_COMBO_BALL_TEXTURE->loadFromFile(*(it++));//8
-		MAIN_HERO_TEXTURE->loadFromFile(*(it++));//9
-		ENEMY_SLENDER_DEMON->loadFromFile(*(it++));// 10
-		ENEMY_WARRIOR->loadFromFile(*(it++));//11
-		ENEMY_MAGE->loadFromFile(*(it++));//12
-		ENEMY_DEMON->loadFromFile(*(it++));; //13
-
-	}
-	~textureList_t() {
-
-	}
+namespace textSettings {
+	const std::string MAIN_FONT_FILE = "fonts/main_font.ttf";
+	const size_t STD_FONT_SIZE = 12;
 };
 
-//*/
+namespace interface {
+	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
+	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
+	const sf::Vector2f STD_WINDOW_SIZE(200.f, 200.f);
+
+	static sf::Vector2f getScreenCoords(sf::RenderWindow *window) {
+		return sf::Vector2f(window->getView().getCenter().x - window->getSize().x / 2, window->getView().getCenter().y - window->getSize().y / 2);
+	}
+};

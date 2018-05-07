@@ -43,7 +43,7 @@ void InterfaceOb_t::draw() {
 }
 
 void InterfaceOb_t::update() {
-
+	toDefaultPosition();
 }
 
 void InterfaceOb_t::toDefaultPosition() {
