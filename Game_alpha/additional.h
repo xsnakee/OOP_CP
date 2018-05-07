@@ -93,6 +93,9 @@ namespace animation {
 	const std::string BOSS_BLACK_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_BLACK_DRAGON_96_96.png";
 	const std::string BOSS_RED_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_RED_DRAGON_192_192.png";
 	const std::string BOSS_ENH_TEXURE_FILE = "img/characters/BOSSES/BOSS_ENH_240_80.png";
+	//ICONS
+	//const std::string ICON_ELEMENT__FILE = "img/icons/.png";
+	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
 
 	const int COMMON_CHARACTER_SPRITE = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
@@ -136,7 +139,7 @@ namespace textSettings {
 namespace interface {
 	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
 	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
-	const sf::Vector2f STD_WINDOW_SIZE(200.f, 200.f);
+	const sf::Vector2f STD_WINDOW_SIZE(48.f, 48.f);
 
 	static sf::Vector2f getScreenCoords(sf::RenderWindow *window) {
 		return sf::Vector2f(window->getView().getCenter().x - window->getSize().x / 2, window->getView().getCenter().y - window->getSize().y / 2);

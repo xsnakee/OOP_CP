@@ -2,7 +2,7 @@
 
 
 
-InterfaceButton::InterfaceButton(InterfaceOb_t *_linkedOb, sf::Vector2f _pos):InterfaceOb_t(_linkedOb->getWindowPtr(), _pos, STD_BUTTON_SIZE)
+InterfaceButton::InterfaceButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos):InterfaceWindow_t(_linkedOb->getWindowPtr(), _pos, STD_BUTTON_SIZE)
 {
 	linkedOb = _linkedOb;
 	display = linkedOb->getDisplayState();
@@ -27,7 +27,7 @@ InterfaceButton::~InterfaceButton()
 
 
 //CLOSE BUTTON CLASS
-IntefaceButtonClose::IntefaceButtonClose(InterfaceOb_t *_linkedOb, sf::Vector2f _pos):InterfaceButton(_linkedOb, _pos)
+IntefaceButtonClose::IntefaceButtonClose(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos):InterfaceButton(_linkedOb, _pos)
 {
 	linkedOb = _linkedOb;
 }
