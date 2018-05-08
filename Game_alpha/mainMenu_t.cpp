@@ -17,8 +17,8 @@ mainMenu_t::mainMenu_t(sf::RenderWindow *_window, std::string &_levelName, size_
 	nameSprite.setTexture(*nameTexture.get());
 
 	//TEXT PREFERENCES
-	textFont.loadFromFile("fonts/hercules_modern.ttf");
-	fontSize = window->getSize().x / 32;
+	textFont.loadFromFile(FONT_FILE);
+	fontSize = static_cast<unsigned int>(window->getSize().x / 32);
 	itemsMainColor = sf::Color::Color(255, 255, 255, 255);
 	variativeItemsColor = sf::Color::Yellow;
 	targetItemColor = sf::Color::Green;
@@ -31,6 +31,7 @@ mainMenu_t::mainMenu_t(sf::RenderWindow *_window, std::string &_levelName, size_
 		"EXIT"
 	};
 	levelNamesList = {
+		"level0",
 		"West Land",
 		"East Land (in dev)",
 		"Evil Land (in dev)",
@@ -66,8 +67,8 @@ void mainMenu_t::makeMenu() {
 	bgSprite.setScale(kX, kY);
 
 	nameSprite.setScale(kX, kY);
-	nameSprite.setOrigin(nameTexture->getSize().x / 2, nameTexture->getSize().y / 2);//Поменять координаты!!!!!!!!!!!!
-	nameSprite.setPosition(winSize.x / 2, nameTexture->getSize().y / 2);
+	nameSprite.setOrigin(static_cast<float>(nameTexture->getSize().x) / 2, static_cast<float>(nameTexture->getSize().y) / 2);//Поменять координаты!!!!!!!!!!!!
+	nameSprite.setPosition(static_cast<float>(winSize.x) / 2, static_cast<float>(nameTexture->getSize().y) / 2);
 
 	//MAKE MENU ITEMS TEXT
 	int menuItemsVerticalMargin = winSize.y / 10;
@@ -79,7 +80,7 @@ void mainMenu_t::makeMenu() {
 		menuItemsText.push_back(sf::Text(menuItems[i], textFont, fontSize));
 		menuItemsText.back().setPosition(menuPosition.x, menuPosition.y + menuItemsVerticalMargin * i);
 		menuItemsText.back().setFillColor(itemsMainColor);
-		sf::IntRect tempRect(static_cast<int>(menuItemsText.back().getPosition().x), static_cast<int>(menuItemsText.back().getPosition().y),
+		sf::FloatRect tempRect(menuItemsText.back().getPosition().x, menuItemsText.back().getPosition().y,
 			menuItemsText.back().getLocalBounds().width, menuItemsText.back().getLocalBounds().height);
 		menuItemsRectList.push_back(tempRect);
 	}
@@ -87,14 +88,14 @@ void mainMenu_t::makeMenu() {
 	//LEVEL NAME POSITION
 	sf::Vector2f levelTextPos(menuItemsText[1].getLocalBounds().width, 0.f);
 	levelNameText.setPosition(menuItemsText[1].getPosition() + levelTextPos);
-	sf::IntRect levelNameRect(static_cast<int>(levelNameText.getPosition().x), static_cast<int>(levelNameText.getPosition().y),
+	sf::FloatRect levelNameRect(levelNameText.getPosition().x, levelNameText.getPosition().y,
 		levelNameText.getLocalBounds().width, levelNameText.getLocalBounds().height);
 
 
 	//DIFFICULITY VALUE POSITION
 	sf::Vector2f diffTextPos(menuItemsText[2].getLocalBounds().width, 0.f);
 	difficultyText.setPosition(menuItemsText[2].getPosition() + diffTextPos);
-	sf::IntRect diffTextRect(static_cast<int>(difficultyText.getPosition().x), static_cast<int>(difficultyText.getPosition().y),
+	sf::FloatRect diffTextRect(difficultyText.getPosition().x, difficultyText.getPosition().y,
 		difficultyText.getLocalBounds().width, difficultyText.getLocalBounds().height);
 
 
@@ -180,20 +181,21 @@ void mainMenu_t::action() {
 
 int mainMenu_t::itemChoice() {
 	int currentItem = -1;
+	sf::Vector2f mousePos(static_cast<float>(sf::Mouse::getPosition(*window).x), static_cast<float>(sf::Mouse::getPosition(*window).y));
 
-	if (menuItemsRectList[0].contains(sf::Mouse::getPosition(*window))) {
+	if (menuItemsRectList[0].contains(mousePos)) {
 		menuItemsText[0].setFillColor(targetItemColor);
 		currentItem = 0;
 	}
-	if (menuItemsRectList[1].contains(sf::Mouse::getPosition(*window))) {
+	if (menuItemsRectList[1].contains(mousePos)) {
 		menuItemsText[1].setFillColor(targetItemColor);
 		currentItem = 1;
 	}
-	if (menuItemsRectList[2].contains(sf::Mouse::getPosition(*window))) {
+	if (menuItemsRectList[2].contains(mousePos)) {
 		menuItemsText[2].setFillColor(targetItemColor);
 		currentItem = 2;
 	}
-	if (menuItemsRectList[3].contains(sf::Mouse::getPosition(*window))) {
+	if (menuItemsRectList[3].contains(mousePos)) {
 		menuItemsText[3].setFillColor(targetItemColor);
 		currentItem = 3;
 	}

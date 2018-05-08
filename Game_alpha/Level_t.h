@@ -11,6 +11,8 @@ class Level_t
 {
 public:
 
+	bool succesfull;
+
 	map_t map;
 	std::list<std::unique_ptr <character_t>> charactersList;
 	std::list<physOb_t*> obList;

@@ -15,7 +15,7 @@ int main() {
 	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));// , sf::Style::Fullscreen));
 
 	game_t GAME(window.get());
-	GAME.start("level0");
+	GAME.start();
 
 	return 0;
 }

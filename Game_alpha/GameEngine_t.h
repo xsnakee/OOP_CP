@@ -20,6 +20,7 @@ private:
 
 	cursor_t *cursor;
 	Level_t &level;
+	size_t difficulty;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;
@@ -30,7 +31,7 @@ private:
 
 public:
 
-	GameEngine_t(sf::RenderWindow *_window, Level_t &_level);
+	GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty);
 	~GameEngine_t();
 
 	void update();

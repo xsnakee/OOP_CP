@@ -5,7 +5,7 @@
 
 const std::string MENU_BG_TEXTURE_FILE = "img/menu/menu_bg.jpg";
 const std::string NAME_TEXTURE_FILE = "img/menu/nameTexture.png";
-const std::string MENU_BG_TEXTURE2_FILE = "img/manu/menu_bg.jpg";
+const std::string FONT_FILE = "fonts/hercules_modern.ttf";
 
 typedef std::unique_ptr<sf::Texture> texture;
 typedef std::unique_ptr<sf::Texture> sprite;
@@ -26,10 +26,10 @@ class mainMenu_t
 	sf::Text difficultyText;
 
 	std::vector<sf::Text> menuItemsText;
-	std::vector<sf::IntRect> menuItemsRectList;
+	std::vector<sf::FloatRect> menuItemsRectList;
 
 	sf::Font textFont;
-	size_t fontSize;
+	unsigned int fontSize;
 	sf::Color itemsMainColor;
 	sf::Color targetItemColor;
 	sf::Color variativeItemsColor;

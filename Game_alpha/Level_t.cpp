@@ -5,8 +5,7 @@
 Level_t::Level_t(std::string _levelName): map(_levelName)
 {
 
-	map.fillTheMapObj();
-	map.fillTheMapTiles();
+	succesfull = (map.fillTheMapObj() && map.fillTheMapTiles());
 
 	generateMapObjects(map.mapObList);
 	generateMapTiles(map.groundTilesList);	

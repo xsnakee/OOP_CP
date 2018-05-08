@@ -42,8 +42,6 @@ void PlayerController::checkCharacterStateAndChangeDefault() {
 void PlayerController::eventHandler(sf::Event &event) {
 
 	using namespace sf;
-
-
 	if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
 		character->attack();
 		checkCharacterStateAndChangeDefault();

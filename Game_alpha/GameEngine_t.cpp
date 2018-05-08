@@ -3,9 +3,10 @@
 
 //, level.charactersList(level.level.charactersList),level.bulletsList(level.level.bulletsList), level.mapTilesList(level.level.mapTilesList), level.obList(level.level.obList)
 
-GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level):level(_level)
+GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty):level(_level)
 {
 	window = _window;
+	difficulty = _difficulty;
 	view = new sf::View;
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
 	window->setMouseCursorVisible(false);

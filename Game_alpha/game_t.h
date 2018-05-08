@@ -30,7 +30,7 @@ public:
 	game_t(sf::RenderWindow *_window);
 	~game_t();
 
-	void start(std::string levelName);
+	void start();
 	void play();
 	void keyController(sf::Event &event);
 };
