@@ -15,7 +15,7 @@ public:
 	virtual  ~player_t();
 
 	virtual void attack();
-
+	void useMP(float _mp);
 	void update(float _speed);
 
 };

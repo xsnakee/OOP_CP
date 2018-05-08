@@ -49,3 +49,10 @@ void player_t::attack() {
 		}
 	}
 }
+
+void player_t::useMP(float _mp) {
+	character_t::useMP(_mp);
+	if (stat.MP < 0){
+		elemStatus = 0;
+	}
+}

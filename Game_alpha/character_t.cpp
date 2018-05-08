@@ -233,7 +233,4 @@ void character_t::useMP(float _mp) {
 	if (stat.MP > 0.f) {
 		stat.MP -= _mp;
 	}
-	else {
-		elemStatus = 0;
-	}
 }
