@@ -98,8 +98,10 @@ void InterfaceEngine_t::createIterface() {
 	windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos + coordCorection), interface::STD_SKILL_WINDOW_SIZE)));
 	sf::Texture *temp = new sf::Texture;
 	temp->loadFromFile(animation::DEFAULT_TEXTURE);
-	windowsList.back()->contentList.push_back(content(new InterfaceSpriteOb_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
 
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+	windowsList.back().get()->setBgColor(sf::Color::Color(50, 50, 50, 150));
+	windowsList.back().get()->setBorderColor(sf::Color::Color(238, 238, 238, 150));
 	/*
 	//Element icon
 	sf::Texture *temp = new sf::Texture;
@@ -111,7 +113,6 @@ void InterfaceEngine_t::createIterface() {
 void InterfaceEngine_t::updateGenerator() {
 	std::list<elements::element> &ElemsArr = level.mainHero->get()->getElements();
 	std::list<window_t>::iterator tempElemIt = elemIt;
-
 
 	for (auto &i : ElemsArr) {
 		using namespace elements;
@@ -146,7 +147,8 @@ void InterfaceEngine_t::updateGenerator() {
 		++tempElemIt;
 	}
 
-	/*
+	
+	//*
 	switch (level.mainHero->get()->getElemStatus()) {
 	case 3: {
 		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_RUSH_FILE);
@@ -185,8 +187,7 @@ void InterfaceEngine_t::updateGenerator() {
 		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_COMBO_BALL_FILE);
 		break;
 	}
-	default: {
-
+	case 0: {
 		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::DEFAULT_TEXTURE);
 		break;
 	}

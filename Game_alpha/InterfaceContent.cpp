@@ -30,7 +30,7 @@ InterfaceSpriteOb_t::~InterfaceSpriteOb_t() {
 void InterfaceSpriteOb_t::setTexture(sf::Texture *newTexture) {
 	texture.reset();
 	texture = std::move(std::unique_ptr<sf::Texture>(newTexture));
-	sprite.setTexture(*texture.get());
+	sprite.setTexture(*texture);
 	sizes = texture->getSize();
 	sprite.setTextureRect(sf::IntRect(0, 0, sizes.x, sizes.y));
 }

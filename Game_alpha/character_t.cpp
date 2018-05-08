@@ -16,6 +16,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	clock = _clock;
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
+	skillGeneratorArr = std::list<elements::element>(elements::SKILL_ELEMENT_AMOUNT);
 
 	moveRadius = 500.f;
 }
@@ -33,6 +34,7 @@ character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	clock = _clock;
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
+	skillGeneratorArr = std::list<elements::element>(elements::SKILL_ELEMENT_AMOUNT);
 
 	moveRadius = 500.f;
 }
@@ -206,11 +208,7 @@ bool character_t::checkSkillGenerator() {
 }
 
 bool character_t::addElement(elements::element _elem) {
-	if (skillGeneratorArr.size() < elements::SKILL_ELEMENT_AMOUNT) {
-		skillGeneratorArr.push_back(_elem);
-		return true;
-	}
-	else {
+	if (skillGeneratorArr.size() >= elements::SKILL_ELEMENT_AMOUNT) {
 		skillGeneratorArr.pop_front();
 		skillGeneratorArr.push_back(_elem);
 		return true;
