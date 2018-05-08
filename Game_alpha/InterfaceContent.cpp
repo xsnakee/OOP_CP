@@ -20,7 +20,6 @@ InterfaceSpriteOb_t::InterfaceSpriteOb_t(sf::RenderWindow *_window, sf::Texture 
 {
 	setTexture(_texture);
 	sizes = texture->getSize();
-	sprite.setTextureRect(sf::IntRect(0,0,sizes.x,sizes.y));
 	sprite.setPosition(defaultCoords + relativePos);
 }
 
@@ -32,6 +31,8 @@ void InterfaceSpriteOb_t::setTexture(sf::Texture *newTexture) {
 	texture.reset();
 	texture = std::move(std::unique_ptr<sf::Texture>(newTexture));
 	sprite.setTexture(*texture.get());
+	sizes = texture->getSize();
+	sprite.setTextureRect(sf::IntRect(0, 0, sizes.x, sizes.y));
 }
 
 void InterfaceSpriteOb_t::swapContent(std::string _newPath) {

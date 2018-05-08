@@ -23,7 +23,7 @@ void InterfaceEngine_t::update() {
 		}
 	}
 
-	for (auto &i: windowsList) {
+	for (auto &i : windowsList) {
 		i->update();
 	}
 
@@ -52,11 +52,11 @@ void InterfaceEngine_t::setObservedBards() {
 	float tempBarCounter = .5f;
 	sf::Vector2f tempMargin(interface::STD_BORDER_SIZE);
 
-	barsList.push_back(bar_t(new progressBar(window, tempMargin,level.charactersList.begin()->get()->getStats().HP, level.charactersList.begin()->get()->getStats().stdHP)));
-	
+	barsList.push_back(bar_t(new progressBar(window, tempMargin, level.charactersList.begin()->get()->getStats().HP, level.charactersList.begin()->get()->getStats().stdHP)));
+
 	++tempBarCounter;
 	tempMargin.y += interface::STD_BAR_SIZE.y;
-	barsList.push_back(bar_t(new progressBar(window, tempMargin,level.charactersList.begin()->get()->getStats().MP, level.charactersList.begin()->get()->getStats().stdMP)));
+	barsList.push_back(bar_t(new progressBar(window, tempMargin, level.charactersList.begin()->get()->getStats().MP, level.charactersList.begin()->get()->getStats().stdMP)));
 	barsList.back()->setInnerRectColor(sf::Color::Blue);
 }
 
@@ -70,32 +70,36 @@ void InterfaceEngine_t::createIterface() {
 	float rightWindowPadding = 60.f;
 	float bottomWindowPadding = 10.f;
 
-	while(elemWindowAmount-- > 0){
+	while (elemWindowAmount-- > 0) {
 		float multipleCorection = static_cast<float>(elemWindowAmount);
 
-		float positionCorrectionX = (window->getSize().x - multipleCorection * interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - multipleCorection*betweenCorection  - rightWindowPadding);
+		float positionCorrectionX = (window->getSize().x - multipleCorection * interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - multipleCorection * betweenCorection - rightWindowPadding);
 		float positionCorrectionY = (window->getSize().y - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.y - bottomWindowPadding);
 
 		sf::Vector2f coordCorection(positionCorrectionX, positionCorrectionY);
 
-		windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos+ coordCorection), interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE)));
+		windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos + coordCorection), interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE)));
 		auto &i = windowsList.back();
 		i->setBgColor(sf::Color::Color(50, 50, 50, 150));
 		i->setBorderColor(sf::Color::Color(238, 238, 238, 150));
 	}
-		elemIt = windowsList.end();
+	elemIt = windowsList.end();
 
-		for (size_t i = 0; i < elements::SKILL_ELEMENT_AMOUNT; ++i) {
-			--elemIt;
-		}
+	for (size_t i = 0; i < elements::SKILL_ELEMENT_AMOUNT; ++i) {
+		--elemIt;
+	}
 
-		rightWindowPadding = 80.f;
-		bottomWindowPadding = 80.f;
-		float positionCorrectionX = (window->getSize().x - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - rightWindowPadding);
-		float positionCorrectionY = (window->getSize().y - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.y - bottomWindowPadding);
-		sf::Vector2f coordCorection(positionCorrectionX, positionCorrectionY);
-		windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos + coordCorection), interface::STD_SKILL_WINDOW_SIZE)));
-	
+	rightWindowPadding = 80.f;
+	bottomWindowPadding = 80.f;
+	float positionCorrectionX = (window->getSize().x - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - rightWindowPadding);
+	float positionCorrectionY = (window->getSize().y - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.y - bottomWindowPadding);
+	sf::Vector2f coordCorection(positionCorrectionX, positionCorrectionY);
+
+	windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos + coordCorection), interface::STD_SKILL_WINDOW_SIZE)));
+	sf::Texture *temp = new sf::Texture;
+	temp->loadFromFile(animation::DEFAULT_TEXTURE);
+	windowsList.back()->contentList.push_back(content(new InterfaceSpriteOb_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+
 	/*
 	//Element icon
 	sf::Texture *temp = new sf::Texture;
@@ -139,7 +143,53 @@ void InterfaceEngine_t::updateGenerator() {
 		}
 
 		}
-		++tempElemIt;		
+		++tempElemIt;
 	}
 
+	/*
+	switch (level.mainHero->get()->getElemStatus()) {
+	case 3: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_RUSH_FILE);
+		break;
+	}
+	case 6: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_POWER_UP_FILE);
+		break;
+	}
+	case 24: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_HEAL_BALL_FILE);
+		break;
+	}
+	case 1: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_sWORD_ATTACK_FILE);
+		break; }
+	case 4: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_SMALL_FIRE_BALLS_FILE);
+		break; }
+	case 10: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_SMALL_EARTH_BALLS_FILE);
+		break; }
+	case 5: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_FIRE_BALL_FILE);
+		break; }
+	case 17: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_EARTH_BALL_FILE);
+		break; }
+	case 12: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_LAVA_POOL_FILE);
+		break; }
+	case 18: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_BANG_BALL_FILE);
+		break; }
+	case 11: {
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_COMBO_BALL_FILE);
+		break;
+	}
+	default: {
+
+		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::DEFAULT_TEXTURE);
+		break;
+	}
+	}
+	//*/
 }

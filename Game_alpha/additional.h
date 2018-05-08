@@ -100,6 +100,23 @@ namespace animation {
 	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
 	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_earth.png";
 	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_wind.png";
+	//SKILLS ICONS
+	const std::string ICON_SKILL_BANG_BALL_FILE = "img/icons/icon_skill_bang_ball.png";
+	const std::string ICON_SKILL_COMBO_BALL_FILE = "img/icons/icon_skill_combo_ball.png";
+	const std::string ICON_SKILL_sWORD_ATTACK_FILE = "img/icons/icon_skill_common_attack.png";
+	const std::string ICON_SKILL_EARTH_BALL_FILE = "img/icons/icon_skill_earth_ball.png";
+	const std::string ICON_SKILL_FIRE_BALL_FILE = "img/icons/icon_skill_fire_ball.png";
+	const std::string ICON_SKILL_HEAL_BALL_FILE = "img/icons/icon_skill_heal_ball.png";
+	const std::string ICON_SKILL_LAVA_POOL_FILE = "img/icons/icon_skill_lava_pool.png";
+	const std::string ICON_SKILL_POWER_UP_FILE = "img/icons/icon_skill_powerUp.png";
+	const std::string ICON_SKILL_RUSH_FILE = "img/icons/icon_skill_rush.png";
+	const std::string ICON_SKILL_SMALL_EARTH_BALLS_FILE = "img/icons/icon_skill_small_earth_balls.png";
+	const std::string ICON_SKILL_SMALL_FIRE_BALLS_FILE = "img/icons/icon_skill_small_fire_balls.png";
+	const std::string ICON_SKILL__FILE = "img/icons/.png";
+
+
+
+
 
 	const int COMMON_CHARACTER_SPRITE = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
