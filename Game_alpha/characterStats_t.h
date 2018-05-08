@@ -61,6 +61,7 @@ struct characterStats_t
 		stdPhysDef *= tempMult;
 		magDef *= tempMult;
 		stdMagDef *= tempMult;
+		attackSpeed *= tempMult;
 
 		if (tempMult > 1.f) {
 			speed += speedK * tempMult;

@@ -94,7 +94,7 @@ void skillObGenerator_t::useSkill() {
 
 		break;
 	}
-	case 4: {//SMALL FIRE BALLS
+	case 4: {//FIRE LIGHTING
 		
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_FIRE_LIGHTING_TEXTURE_FILE);

@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BossNpc_t.cpp" />
     <ClCompile Include="bullet_t.cpp" />
     <ClCompile Include="CharacterState_t.cpp" />
     <ClCompile Include="characterTimers_t.cpp" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="additional.h" />
+    <ClInclude Include="BossNpc_t.h" />
     <ClInclude Include="bullet_t.h" />
     <ClInclude Include="CharacterState_t.h" />
     <ClInclude Include="characterStats_t.h" />

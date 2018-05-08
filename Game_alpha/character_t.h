@@ -66,9 +66,9 @@ public:
 	virtual bool addElement(elements::element _elem);
 	virtual void generateSkillAndClearElemList();
 	virtual void resetElemsList();
+	virtual size_t setElemStatus(size_t _elemStatus);
+
 	void useMP(float _mp);
-
-
 	bool kill();
 	void update(float _speed);
 	float toHit ()const;
@@ -136,10 +136,6 @@ public:
 
 	void setStats(characterStats_t &_stats);
 
-	size_t setElemStatus(size_t _elemStatus) {
-		elemStatus = _elemStatus;
-		return elemStatus;
-	}
 
 	void setMoveRadius(float _radius) {
 		moveRadius = _radius;

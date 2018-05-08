@@ -234,3 +234,8 @@ void character_t::useMP(float _mp) {
 		stat.MP -= _mp;
 	}
 }
+
+size_t character_t::setElemStatus(size_t _elemStatus) {
+	elemStatus = _elemStatus;
+	return elemStatus;
+}
