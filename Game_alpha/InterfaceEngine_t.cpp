@@ -12,7 +12,7 @@ InterfaceEngine_t::~InterfaceEngine_t()
 {
 }
 void InterfaceEngine_t::update() {
-	changeElements();
+	updateGenerator();
 
 	for (auto i = barsList.begin(); i != barsList.end(); ++i) {
 		if (i->get()->getDisplay()) {
@@ -88,7 +88,13 @@ void InterfaceEngine_t::createIterface() {
 		for (size_t i = 0; i < elements::SKILL_ELEMENT_AMOUNT; ++i) {
 			--elemIt;
 		}
-	
+
+		rightWindowPadding = 80.f;
+		bottomWindowPadding = 80.f;
+		float positionCorrectionX = (window->getSize().x - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - rightWindowPadding);
+		float positionCorrectionY = (window->getSize().y - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.y - bottomWindowPadding);
+		sf::Vector2f coordCorection(positionCorrectionX, positionCorrectionY);
+		windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos + coordCorection), interface::STD_SKILL_WINDOW_SIZE)));
 	
 	/*
 	//Element icon
@@ -98,7 +104,7 @@ void InterfaceEngine_t::createIterface() {
 	*/
 }
 
-void InterfaceEngine_t::changeElements() {
+void InterfaceEngine_t::updateGenerator() {
 	std::list<elements::element> &ElemsArr = level.mainHero->get()->getElements();
 	std::list<window_t>::iterator tempElemIt = elemIt;
 

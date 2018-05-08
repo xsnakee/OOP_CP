@@ -216,7 +216,7 @@ void skillObGenerator_t::useSkill() {
 		break;
 	}
 
-	case 18: {//EARTH SLAM BANG BALL
+	case 18: {//BANG BALL
 
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_BANG_BALL_TEXTURE_FILE);

@@ -25,6 +25,7 @@ public:
 	virtual void setSize(sf::Vector2u newSizes) {
 		sizes = newSizes;
 	}
+	virtual void swapContent(std::string _newPath) = 0;
 };
 
 
@@ -39,6 +40,9 @@ public:
 	virtual void update();
 	virtual void draw();
 	virtual void toDefaultPosition();
+
+
+	virtual void swapContent(std::string _newPath);
 
 	//GET
 	sf::Sprite getSprite() const {

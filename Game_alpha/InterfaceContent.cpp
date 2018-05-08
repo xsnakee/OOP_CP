@@ -29,8 +29,16 @@ InterfaceSpriteOb_t::~InterfaceSpriteOb_t() {
 }
 
 void InterfaceSpriteOb_t::setTexture(sf::Texture *newTexture) {
+	texture.reset();
 	texture = std::move(std::unique_ptr<sf::Texture>(newTexture));
 	sprite.setTexture(*texture.get());
+}
+
+void InterfaceSpriteOb_t::swapContent(std::string _newPath) {
+	sf::Texture *newTempTexture = new sf::Texture;
+	newTempTexture->loadFromFile(_newPath);
+
+	setTexture(newTempTexture);
 }
 
 void InterfaceSpriteOb_t::update() {

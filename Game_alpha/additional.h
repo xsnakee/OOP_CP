@@ -61,6 +61,7 @@ namespace tiles {
 }
 
 namespace animation {
+	const std::string DEFAULT_TEXTURE = "img/default.png";
 	//BULLETS IMGS
 	const std::string SWORD_ATTACK_TEXTURE_FILE = "img/skills/bullet_sword.png";
 	const std::string BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE = "img/skills/bullet_small_fire_balls.png";
@@ -143,7 +144,8 @@ namespace interface {
 	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
 	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
 	const sf::Vector2f STD_WINDOW_SIZE(48.f, 48.f);
-
+	
+	const sf::Vector2f STD_SKILL_WINDOW_SIZE(64.f,64.f);
 	const sf::Vector2f STD_ELEMENT_GENERATOR_WINDOW_SIZE(48.f,48.f);
 
 	static sf::Vector2f getScreenCoords(sf::RenderWindow *window) {

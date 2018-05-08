@@ -33,6 +33,6 @@ public:
 	void setObservedBards();
 	void createIterface();
 
-	void changeElements();
+	void updateGenerator();
 };
 
