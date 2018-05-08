@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <memory>
 #include "game_t.h"
+#include "mainMenu_t.h"
 
 using namespace sf;
 
@@ -14,8 +15,10 @@ int main() {
 
 	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));// , sf::Style::Fullscreen));
 
-	game_t GAME(window.get());
-	GAME.start("level0");
+	size_t difficulity = mainMenu(window.get());
+
+	//game_t GAME(window.get());
+	//GAME.start("level0");
 
 	return 0;
 }

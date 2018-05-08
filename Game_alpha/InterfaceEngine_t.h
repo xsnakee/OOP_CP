@@ -14,15 +14,15 @@ class InterfaceEngine_t
 {
 	sf::RenderWindow *window;
 	Level_t &level;
-
-	std::list<bar_t> barsList;
-	std::list<window_t> windowsList;
-
-
 	//Iterators
 	std::list<window_t>::iterator elemIt;
 
 public:
+	//LISTS
+	std::list<bar_t> barsList;
+	std::list<window_t> windowsList;
+
+
 	InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level);
 	~InterfaceEngine_t();
 

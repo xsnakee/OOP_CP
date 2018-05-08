@@ -14,8 +14,10 @@ game_t::~game_t()
 }
 
 
-void game_t::start(std::string levelName, size_t difficulity) {
-	level = std::unique_ptr<Level_t>(new Level_t(levelName));
+void game_t::start(std::string _levelName, size_t _difficulity) {
+	difficulity = _difficulity;
+
+	level = std::unique_ptr<Level_t>(new Level_t(_levelName));
 	game = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get()));
 	interface = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
 	controller = std::unique_ptr<keyboardController>(new PlayerController(level->mainHero->get()));
@@ -26,11 +28,12 @@ void game_t::start(std::string levelName, size_t difficulity) {
 void game_t::play() {
 	using namespace sf;
 
+	Event event;
 
 	while (window->isOpen()) {
+		switch (mode) {
 
-		if (mode == modes::PLAY) {
-			Event event;
+		case modes::PLAY: {
 			float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
 			clock.restart();
 			game->setSpeed(timer);
@@ -40,15 +43,25 @@ void game_t::play() {
 					window->close();
 				}
 			}
-
 			keyController(event);
 			game->update();
 			interface->update();
-			window->clear();
-			game->draw();
-			interface->draw();
-			window->display();
+			break;
 		}
+
+		case modes::PAUSED:{
+		
+			break;
+		}
+		}
+
+
+
+
+		window->clear();
+		game->draw();
+		interface->draw();
+		window->display();
 		
 	}
 }
