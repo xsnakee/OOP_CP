@@ -5,7 +5,6 @@
 game_t::game_t(sf::RenderWindow *_window)
 {
 	window = _window;
-	mode = modes::START_MENU;
 }
 
 
@@ -14,14 +13,17 @@ game_t::~game_t()
 }
 
 
-void game_t::start(std::string _levelName, size_t _difficulity) {
-	difficulity = _difficulity;
+void game_t::start(std::string _levelName) {
+	mainMenu = std::unique_ptr<mainMenu_t>(new mainMenu_t(window,levelName,difficulty));
+	mainMenu->action();
 
+	mode = modes::PLAY;
 	level = std::unique_ptr<Level_t>(new Level_t(_levelName));
 	game = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get()));
 	interface = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
 	controller = std::unique_ptr<keyboardController>(new PlayerController(level->mainHero->get()));
-	mode = modes::PLAY;
+
+	mainMenu.reset();
 	play();
 }
 
@@ -32,7 +34,6 @@ void game_t::play() {
 
 	while (window->isOpen()) {
 		switch (mode) {
-
 		case modes::PLAY: {
 			float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
 			clock.restart();
@@ -54,10 +55,6 @@ void game_t::play() {
 			break;
 		}
 		}
-
-
-
-
 		window->clear();
 		game->draw();
 		interface->draw();

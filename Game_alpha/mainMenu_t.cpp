@@ -21,7 +21,7 @@ mainMenu_t::mainMenu_t(sf::RenderWindow *_window, std::string &_levelName, size_
 	fontSize = window->getSize().x / 32;
 	itemsMainColor = sf::Color::Color(255, 255, 255, 255);
 	variativeItemsColor = sf::Color::Yellow;
-	variativeItemsColor = sf::Color::Green;
+	targetItemColor = sf::Color::Green;
 
 
 	menuItems = {
@@ -65,9 +65,7 @@ void mainMenu_t::makeMenu() {
 	float  kY = (static_cast<float>(window->getSize().y) / static_cast<float>(bgTexture->getSize().y));
 	bgSprite.setScale(kX, kY);
 
-	float  kX1 = (static_cast<float>(window->getSize().x) / static_cast<float>(nameTexture->getSize().x));
-	float  kY1 = (static_cast<float>(window->getSize().y) / static_cast<float>(nameTexture->getSize().y));
-	nameSprite.setScale(kX1, kY1);
+	nameSprite.setScale(kX, kY);
 	nameSprite.setOrigin(nameTexture->getSize().x / 2, nameTexture->getSize().y / 2);//Поменять координаты!!!!!!!!!!!!
 	nameSprite.setPosition(winSize.x / 2, nameTexture->getSize().y / 2);
 
@@ -116,7 +114,7 @@ void mainMenu_t::draw() {
 }
 
 void mainMenu_t::action() {
-
+	makeMenu();
 
 	//Int RECT LSIT
 	//LEVEL

@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <memory>
 #include "game_t.h"
-#include "mainMenu_t.h"
 
 using namespace sf;
 
