@@ -8,9 +8,9 @@ namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
 		NONE = 0,
-		WIND = 1,
+		EARTH = 1,
 		FIRE = 2,
-		EARTH = 8
+		WIND = 8
 	};
 }
 

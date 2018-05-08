@@ -189,7 +189,7 @@ void character_t::attack() {
 
 bool character_t::checkSkillGenerator() {
 
-	if (skillGeneratorArr.size() == 3) {
+	if (skillGeneratorArr.size() == elements::SKILL_ELEMENT_AMOUNT) {
 		std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
 
 		
@@ -206,7 +206,7 @@ bool character_t::checkSkillGenerator() {
 }
 
 bool character_t::addElement(elements::element _elem) {
-	if (skillGeneratorArr.size() < 3) {
+	if (skillGeneratorArr.size() < elements::SKILL_ELEMENT_AMOUNT) {
 		skillGeneratorArr.push_back(_elem);
 		return true;
 	}
@@ -221,5 +221,11 @@ bool character_t::addElement(elements::element _elem) {
 void character_t::generateSkillAndClearElemList() {
 	std::cout << "generated" << std:: endl;
 	elemStatus = std::accumulate(skillGeneratorArr.begin(), skillGeneratorArr.end(), 0);
-	skillGeneratorArr.clear();
+	resetElemsList();
+}
+
+void character_t::resetElemsList() {
+	for (auto &i : skillGeneratorArr) {
+		i = elements::NONE;
+	}
 }

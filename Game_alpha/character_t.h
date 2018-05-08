@@ -61,14 +61,11 @@ public:
 	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
 	virtual bool checkEnemy(character_t *ob);
 
-	std::list<elements::element> &getElements() {
-		return skillGeneratorArr;
-	}
 
 	virtual bool checkSkillGenerator();
 	virtual bool addElement(elements::element _elem);
 	virtual void generateSkillAndClearElemList();
-
+	virtual void resetElemsList();
 
 
 	bool kill();
@@ -115,6 +112,13 @@ public:
 	characterTimers_t &getTimers() {
 		return timer;
 	}
+
+
+	std::list<elements::element> getElements() {
+		return skillGeneratorArr;
+	}
+
+
 	//SET
 	float setFrame(float _frame) {
 		frame = _frame;

@@ -31,6 +31,7 @@ void skillObGenerator_t::useSkill() {
 		tempStat.resetStats();
 		tempStat.attackPower += 20.f;
 		upCharacterStat(tempStat);
+		character->changeEffect(new Effect_t(character, tempStat));
 		character->getEffectPtr()->useEffect();
 		break;
 	}
