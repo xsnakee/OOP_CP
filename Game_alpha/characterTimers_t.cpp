@@ -51,7 +51,7 @@ sf::Int32 characterTimers_t::attackCDcorrection(float _attackCD) {
 }
 sf::Int32 characterTimers_t::castDelayCorrection(float _castDelay) {
 
-	timersList[castDelaykey].cooldown *= _castDelay;
+	timersList[castDelaykey].cooldown /= _castDelay;
 	return timersList[castDelaykey].cooldown;
 }
 sf::Int32 characterTimers_t::directionSwapTimeCorrection(int _time) {

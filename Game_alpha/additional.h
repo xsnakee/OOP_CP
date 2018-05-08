@@ -1,7 +1,4 @@
 #pragma once
-#include <list>
-#include <vector>
-#include <iterator>
 
 
 namespace elements {
@@ -22,6 +19,7 @@ struct bulletStats {
 	float AOE = 0.1f;
 	bool type = true;//0 - heal, 1 - dmg
 	int fraction = -1;
+	float mpCost = 10.f;
 };
 
 

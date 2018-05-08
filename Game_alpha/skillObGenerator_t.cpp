@@ -24,6 +24,8 @@ void skillObGenerator_t::useSkill() {
 		upCharacterStat(tempStat);
 		character->changeEffect(new Effect_t(character, tempStat));
 		character->getEffectPtr()->useEffect();
+		float buffMPcost = 50.f;
+		character->useMP(buffMPcost);
 		break;
 	}
 	case 6: {
@@ -33,6 +35,8 @@ void skillObGenerator_t::useSkill() {
 		upCharacterStat(tempStat);
 		character->changeEffect(new Effect_t(character, tempStat));
 		character->getEffectPtr()->useEffect();
+		float buffMPcost = 50.f;
+		character->useMP(buffMPcost);
 		break;
 	}
 	case 24: {//HEAL BALL
@@ -56,11 +60,11 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmgDelay(500);
 		tempBullet->setRng(1000.f);
 
-
-		float tempDmg = 5.f;
+		float tempDmg = 5.f + character->getStats().attackPower * 0.1f;
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -85,6 +89,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -110,6 +115,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -135,6 +141,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -157,6 +164,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -180,6 +188,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -211,6 +220,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -238,6 +248,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -260,6 +271,7 @@ void skillObGenerator_t::useSkill() {
 		float tempDmg = 10.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;

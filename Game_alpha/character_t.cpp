@@ -218,6 +218,7 @@ bool character_t::addElement(elements::element _elem) {
 
 void character_t::generateSkillAndClearElemList() {
 	std::cout << "generated" << std:: endl;
+	stat.MP = stat.stdMP;
 	elemStatus = std::accumulate(skillGeneratorArr.begin(), skillGeneratorArr.end(), 0);
 	resetElemsList();
 }
@@ -225,5 +226,14 @@ void character_t::generateSkillAndClearElemList() {
 void character_t::resetElemsList() {
 	for (auto &i : skillGeneratorArr) {
 		i = elements::NONE;
+	}
+}
+
+void character_t::useMP(float _mp) {
+	if (stat.MP > 0.f) {
+		stat.MP -= _mp;
+	}
+	else {
+		elemStatus = 0;
 	}
 }

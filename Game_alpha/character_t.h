@@ -66,6 +66,7 @@ public:
 	virtual bool addElement(elements::element _elem);
 	virtual void generateSkillAndClearElemList();
 	virtual void resetElemsList();
+	void useMP(float _mp);
 
 
 	bool kill();

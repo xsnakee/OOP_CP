@@ -97,6 +97,10 @@ public:
 	bool checkAOE() const {
 		return mass;
 	}
+
+	float getMPCost() const {
+		return stat.mpCost;
+	}
 	//SET
 
 	int setElement(elements::element _element){
@@ -143,5 +147,8 @@ public:
 		dmgInterval = _time;
 	}
 
+	void setMPCost(float _val) {
+		stat.mpCost = _val;
+	}
 };
 

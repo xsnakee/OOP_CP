@@ -42,8 +42,10 @@ void player_t::update(float _speed) {
 }
 
 void player_t::attack() {
-	if (timer.attackReady()) {
-		timer.updateAttackCD();
-		skill->useSkill();
+	if (stat.MP > 0) {
+		if (timer.attackReady()) {
+			timer.updateAttackCD();
+			skill->useSkill();
+		}
 	}
 }
