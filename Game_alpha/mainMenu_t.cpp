@@ -46,9 +46,9 @@ size_t mainMenu(sf::RenderWindow *window) {
 	std::vector<sf::Text> menuItemsObjects;
 	sf::Vector2u winSize = window->getSize();
 	sf::Vector2u leftTopWindowPos(window->getView().getCenter().x - winSize.x / 2, window->getView().getCenter().y - winSize.y / 2);
-	unsigned int menuItemsVerticalMargin = winSize.y / 8;	
+	unsigned int menuItemsVerticalMargin = winSize.y / 10;	
 	std::vector<sf::IntRect> menuItemsRectList; //Int RECT LSIT
-	sf::Vector2f menuPosition(static_cast<float>(winSize.x) * 0.5, winSize.y / 2);	
+	sf::Vector2f menuPosition(static_cast<float>(winSize.x) * 0.5f, static_cast<float>(winSize.y) * 0.45f);
 	for (size_t i = 0; i < menuItems.size(); ++i) {
 		menuItemsObjects.push_back(sf::Text(menuItems[i], font, fontSize));
 		menuItemsObjects.back().setPosition(menuPosition.x, menuPosition.y + menuItemsVerticalMargin*i);
@@ -66,15 +66,15 @@ size_t mainMenu(sf::RenderWindow *window) {
 		"Russia Land (in dev)"
 	};
 	size_t currentLevelItem = 0;
-	size_t maxDifficulity = difficulValues.size();
+	size_t levelAmount = levelsList.size() - 1;
 
-	sf::Text difficultyText("", font, fontSize);
-	sf::Color difficultyTextColor(sf::Color::Yellow);
-	difficultyText.setFillColor(difficultyTextColor);
-	sf::Vector2f textPos(menuItemsObjects[2].getLocalBounds().width, 0.f);
-	difficultyText.setPosition(menuItemsObjects[2].getPosition() + textPos);
-	sf::IntRect diffTextRect(static_cast<int>(difficultyText.getPosition().x), static_cast<int>(difficultyText.getPosition().y),
-		difficultyText.getLocalBounds().width, difficultyText.getLocalBounds().height);
+	sf::Text levelsListText("", font, fontSize);
+	sf::Color levelsListTextColor(sf::Color::Yellow);
+	levelsListText.setFillColor(levelsListTextColor);
+	sf::Vector2f levelTextPos(menuItemsObjects[1].getLocalBounds().width, 0.f);
+	levelsListText.setPosition(menuItemsObjects[1].getPosition() + levelTextPos);
+	sf::IntRect levelsListTextRect(static_cast<int>(levelsListText.getPosition().x), static_cast<int>(levelsListText.getPosition().y),
+		levelsListText.getLocalBounds().width, levelsListText.getLocalBounds().height);
 
 
 
@@ -90,29 +90,28 @@ size_t mainMenu(sf::RenderWindow *window) {
 	sf::Text difficultyText("",font,fontSize);
 	sf::Color difficultyTextColor(sf::Color::Yellow);
 	difficultyText.setFillColor(difficultyTextColor);
-	sf::Vector2f textPos(menuItemsObjects[2].getLocalBounds().width, 0.f);
-	difficultyText.setPosition(menuItemsObjects[2].getPosition() + textPos);
+	sf::Vector2f diffTextPos(menuItemsObjects[2].getLocalBounds().width, 0.f);
+	difficultyText.setPosition(menuItemsObjects[2].getPosition() + diffTextPos);
 	sf::IntRect diffTextRect(static_cast<int>(difficultyText.getPosition().x), static_cast<int>(difficultyText.getPosition().y),
 	difficultyText.getLocalBounds().width, difficultyText.getLocalBounds().height);
 
 	
-
-
-
 	sf::Color targetItemColor(sf::Color::Green);
 	sf::Event event;
 
 	size_t currentItem = 0;
 	while (isOpen) {
-
-
 		currentItem = 0;
 	while (window->pollEvent(event)) {
+		//COLOR TO DEFAULT
 		for (auto &i : menuItemsObjects) {
 			i.setFillColor(textColor);
 		}
 		difficultyText.setFillColor(difficultyTextColor);
+		levelsListText.setFillColor(levelsListTextColor);
+		//SET LEVEL & DIFFICULTY
 		difficultyText.setString(difficulValues[currentDifficulityItem]);
+		levelsListText.setString(levelsList[currentLevelItem]);
 
 		if (menuItemsRectList[0].contains(sf::Mouse::getPosition(*window))) {
 			menuItemsObjects[0].setFillColor(targetItemColor);
@@ -126,6 +125,10 @@ size_t mainMenu(sf::RenderWindow *window) {
 			menuItemsObjects[2].setFillColor(targetItemColor);
 			currentItem = 3;
 		}
+		if (menuItemsRectList[3].contains(sf::Mouse::getPosition(*window))) {
+			menuItemsObjects[3].setFillColor(targetItemColor);
+			currentItem = 4;
+		}
 
 		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left) {
@@ -134,15 +137,24 @@ size_t mainMenu(sf::RenderWindow *window) {
 				return currentDifficulityItem;
 			}
 			case 2: {
-				if (currentDifficulityItem < maxDifficulity) {
-					++currentDifficulityItem;
+				if (currentLevelItem < levelAmount) {
+					++currentLevelItem;
 				}
 				else {
-					currentDifficulityItem = 1;
+					currentLevelItem = 0;
 				}
 				break;
 			}
 			case 3: {
+				if (currentDifficulityItem < maxDifficulity) {
+					++currentDifficulityItem;
+				}
+				else {
+					currentDifficulityItem = 0;
+				}
+				break;
+			}
+			case 4: {
 				exit(0);
 			}
 			}
@@ -154,6 +166,7 @@ size_t mainMenu(sf::RenderWindow *window) {
 			window->draw(i);
 		}
 		window->draw(difficultyText);
+		window->draw(levelsListText);
 		window->display();
 	}
 	}
