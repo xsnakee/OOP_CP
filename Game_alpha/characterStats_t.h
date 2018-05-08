@@ -19,8 +19,8 @@ struct characterStats_t
 	float speed = 0.1f;
 	float stdSpeed = 0.1f;
 
-	float castSpeed = 2;
-	float attackSpeed = 1;
+	float castSpeed = 2.f;
+	float attackSpeed = 3.f;
 
 	float damageRand = 5.f;
 

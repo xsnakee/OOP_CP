@@ -21,7 +21,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);//
 	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
-	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height, clock.get())));
+	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, tempSizes.width, tempSizes.height, clock.get())));
 	level.mainHero = level.charactersList.begin();
 
 	generateNpc();
@@ -236,7 +236,7 @@ void GameEngine_t::generateNpc() {
 
 			while (temp++ < demonsAmount) {
 				sf::Vector2f spawnCoords(1800.f+temp*10, 1800.f + temp * 10);
-				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, level.bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
 
 			}
 
@@ -253,7 +253,7 @@ void GameEngine_t::generateNpc() {
 			tempSizes = tiles::getSizesFromStr(ENEMY_WARRIOR_FILE);
 			sf::Vector2f spawnCoords(1900.f + temp * 10, 1800.f + temp * 10);
 			while (temp++ < warriorsAmount) {
-				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, level.bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
 			}
 
 			break;
@@ -269,7 +269,7 @@ void GameEngine_t::generateNpc() {
 			tempSizes = tiles::getSizesFromStr(ENEMY_MAGE_FILE);
 			while (temp++ < magesAmount) {
 				sf::Vector2f spawnCoords(1700.f + temp * 10, 1500.f + temp * 10);
-				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, level.bulletsList, clock.get(), spawnCoords, SPRITE_X, SPRITE_Y, tempSizes.width, tempSizes.height))));
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
 				level.charactersList.back()->setElemStatus(5);
 				level.charactersList.back()->getStats().attackRange = 150.f;
 			}

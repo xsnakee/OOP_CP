@@ -9,10 +9,10 @@ characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _att
 	clock = _clock;
 	sf::Int32 startTime = 1;
 
-	timerStats attackCD = { startTime, 3000 / _attackSpeed};
+	timerStats attackCD = { startTime, 3000};
 	timersList.insert(std::pair<std::string,timerStats>(attackCDkey, attackCD));
 
-	timerStats castDelay = { startTime, 1000 / _castSpeed};
+	timerStats castDelay = { startTime, 1000};
 	timersList.insert(std::pair<std::string, timerStats>(castDelaykey, castDelay));
 
 	timerStats skillGenerationCD = { startTime, 4000 };
@@ -46,7 +46,7 @@ sf::Int32 &characterTimers_t::getDirectionSwapTime() {
 
 
 sf::Int32 characterTimers_t::attackCDcorrection(float _attackCD) {
-	timersList[attackCDkey].cooldown *= static_cast<sf::Int32>(_attackCD);
+	timersList[attackCDkey].cooldown /= static_cast<sf::Int32>(_attackCD);
 	return timersList[attackCDkey].cooldown;
 }
 sf::Int32 characterTimers_t::castDelayCorrection(float _castDelay) {
