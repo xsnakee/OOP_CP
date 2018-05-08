@@ -62,7 +62,7 @@ void skillObGenerator_t::useSkill() {
 
 		float tempDmg = 5.f + character->getStats().attackPower * 0.1f;
 		tempBullet->setDmg(tempDmg);
-
+		tempBullet->setMPCost(30.f);
 
 		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));

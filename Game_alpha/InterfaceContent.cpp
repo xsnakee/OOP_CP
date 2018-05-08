@@ -54,3 +54,8 @@ void InterfaceSpriteOb_t::toDefaultPosition() {
 	sf::Vector2f tempPos(interface::getScreenCoords(window));
 	sprite.setPosition(tempPos + defaultCoords + relativePos);
 }
+
+
+void InterfaceSpriteOb_t::resetContent() {
+	texture.reset();
+}

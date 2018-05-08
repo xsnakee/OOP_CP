@@ -230,7 +230,7 @@ void character_t::resetElemsList() {
 }
 
 void character_t::useMP(float _mp) {
-	if (stat.MP > 0.f) {
+	if (stat.MP > FLT_EPSILON) {
 		stat.MP -= _mp;
 	}
 }

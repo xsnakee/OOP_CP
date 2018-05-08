@@ -26,6 +26,7 @@ public:
 		sizes = newSizes;
 	}
 	virtual void swapContent(std::string _newPath) = 0;
+	virtual void resetContent() = 0;
 	virtual void setTexture(sf::Texture *newTexture) = 0;
 };
 
@@ -44,6 +45,7 @@ public:
 
 
 	virtual void swapContent(std::string _newPath);
+	virtual void resetContent();
 
 	//GET
 	sf::Sprite getSprite() const {

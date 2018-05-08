@@ -52,7 +52,7 @@ void player_t::attack() {
 
 void player_t::useMP(float _mp) {
 	character_t::useMP(_mp);
-	if (stat.MP < 0){
+	if (stat.MP < FLT_EPSILON){
 		elemStatus = 0;
 	}
 }
