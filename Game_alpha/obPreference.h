@@ -64,7 +64,6 @@ public:
 		sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, newWidth, newWidth));
 	}
 
-
 	void setSpritePos(float coordX, float coordY) {
 		sprite.setPosition(coordX, coordY);
 	}

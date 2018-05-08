@@ -58,7 +58,7 @@ public:
 	obPreference &getSpritePref() {
 		return spritePref;
 	}
-	void setSpriteSize(int _x, int _y) {
+	void setSpriteSize(int _x, int _y){
 		spritePref.setSize(_x, _y);
 	}
 	void setRotation(float _val) {
