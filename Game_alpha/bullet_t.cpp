@@ -67,6 +67,7 @@ bullet_t::~bullet_t()
 
 void bullet_t::update(float _speed) {
 	if (alive) {
+		checkAlive();
 		posX += dX * _speed;
 		posY += dY * _speed;
 		updateFrame();

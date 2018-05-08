@@ -115,7 +115,6 @@ void GameEngine_t::checkAlive() {
 	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = level.bulletsList.begin();
 
 	for (auto &bullet : level.bulletsList) {
-		bullet->checkAlive();
 		if (!bullet->getAlive()) {
 			level.bulletsList.erase(tempOb);
 		}
