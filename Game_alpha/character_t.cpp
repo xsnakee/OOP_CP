@@ -162,7 +162,7 @@ bool character_t::checkEnemy(character_t *ob) {
 	float distanceY = (ob->getCoordsOfCenter().y) - (getCoordsOfCenter().y);
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	if (vectorLength < stat.visionDistance && ob->getAlive()) {
+	if (vectorLength < stat.visionDistance && ob->getAlive() && fraction != ob->getFraction()) {
 		return true;
 	}
 

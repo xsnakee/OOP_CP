@@ -136,7 +136,9 @@ void GameEngine_t::bulletEngine() {
 		for (auto &innerElement : level.charactersList) {
 			if ((outerElement->checkCollision(*innerElement.get()))) {
 				outerElement->collisionHandler(*innerElement.get(), speed);
-				innerElement.get()->getState()->setTargetCharacter((outerElement.get()->getGenericObject()));
+				if (outerElement->getFraction() != innerElement->getFraction() && innerElement->getAlive()) {
+					innerElement.get()->getState()->setTargetCharacter((outerElement.get()->getGenericObject()));
+				}
 			}
 		}
 	}
