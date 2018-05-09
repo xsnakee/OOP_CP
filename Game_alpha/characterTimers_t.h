@@ -26,15 +26,24 @@ public:
 	characterTimers_t();
 	characterTimers_t(sf::Clock *_clock, int _castSpeed = 1, int _attackSpeed = 1);
 	~characterTimers_t();
+	
+	
+	//GET
 
+	sf::Clock *getClockPtr() const {
+		return clock;
+	}
 
+	sf::Int32 &getAttackStartTime();
+	sf::Int32 &getCastStartTime();
+	sf::Int32 &getSwapDirStartTime();
 
-	sf::Int32 getAttackCD();
-	sf::Int32 getCastDelay();
-	sf::Int32 getDirectionSwapTime();
+	sf::Int32 &getAttackCD();
+	sf::Int32 &getCastDelay();
+	sf::Int32 &getDirectionSwapTime();
 
-	sf::Int32 attackCDcorrection(int _attackSpeed);
-	sf::Int32 castDelayCorrection(int _castDelay);
+	sf::Int32 attackCDcorrection(float _attackSpeed);
+	sf::Int32 castDelayCorrection(float _castDelay);
 	sf::Int32 directionSwapTimeCorrection(int _time);
 
 	void setAttackCD(int _attackCD);

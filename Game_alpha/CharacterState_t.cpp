@@ -185,7 +185,7 @@ void CharacterStateAttack_t::Action() {
 	if (vectorLength > mainCharacter->getStats().attackRange){
 		mainCharacter->changeState(new CharacterStateFolow_t(*this));
 	}
-	else if (vectorLength < mainCharacter->getStats().attackRange) {
+	else if (vectorLength < mainCharacter->getStats().attackRange && targetCharacter->getAlive()) {
 		mainCharacter->setTargetCoords(targetCharacter->getCoordsOfCenter());
 		mainCharacter->attack();
 	}

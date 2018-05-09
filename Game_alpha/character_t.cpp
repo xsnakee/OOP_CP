@@ -16,6 +16,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	clock = _clock;
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
+	skillGeneratorArr = std::list<elements::element>(elements::SKILL_ELEMENT_AMOUNT);
 
 	moveRadius = 500.f;
 }
@@ -33,6 +34,7 @@ character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	clock = _clock;
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
+	skillGeneratorArr = std::list<elements::element>(elements::SKILL_ELEMENT_AMOUNT);
 
 	moveRadius = 500.f;
 }
@@ -56,13 +58,16 @@ characterStats_t &character_t::getStats() {
 void character_t::defaultStats() {
 	stat.defaultStats();
 }
-
+void character_t::defaultAllStats() {
+	stat.defaultAllStats();
+}
 bool character_t::kill() {
 	alive = false;
 	return false;
 };
 
 void character_t::update(float _speed) {
+	checkAlive();
 	if (alive) {
 
 		physOb_t::update(_speed);
@@ -103,7 +108,7 @@ float character_t::takeDamage(float _dmg, bool _dmgType, elements::element _elem
 		if (_dmgType) {
 			tempDmg = (_elem == elements::NONE) ? (_dmg - abs(stat.physDef)) : (_dmg - abs(stat.magDef));
 			if (tempDmg < 0) {
-				tempDmg = 0.f;
+				tempDmg = 1.f;
 			}
 
 			stat.HP -= tempDmg;
@@ -159,7 +164,7 @@ bool character_t::checkEnemy(character_t *ob) {
 	float distanceY = (ob->getCoordsOfCenter().y) - (getCoordsOfCenter().y);
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	if (vectorLength < stat.visionDistance && ob->getAlive()) {
+	if (vectorLength < stat.visionDistance && ob->getAlive() && fraction != ob->getFraction()) {
 		return true;
 	}
 
@@ -187,11 +192,8 @@ void character_t::attack() {
 
 
 bool character_t::checkSkillGenerator() {
-	for (auto &i : skillGeneratorArr) {
-		std::cout << i;
-	}
-	std::cout << std::endl;
-	if (skillGeneratorArr.size() == 3) {
+
+	if (skillGeneratorArr.size() == elements::SKILL_ELEMENT_AMOUNT) {
 		std::list<elements::element>::iterator temp = skillGeneratorArr.begin();
 
 		
@@ -208,11 +210,7 @@ bool character_t::checkSkillGenerator() {
 }
 
 bool character_t::addElement(elements::element _elem) {
-	if (skillGeneratorArr.size() < 3) {
-		skillGeneratorArr.push_back(_elem);
-		return true;
-	}
-	else {
+	if (skillGeneratorArr.size() >= elements::SKILL_ELEMENT_AMOUNT) {
 		skillGeneratorArr.pop_front();
 		skillGeneratorArr.push_back(_elem);
 		return true;
@@ -222,6 +220,24 @@ bool character_t::addElement(elements::element _elem) {
 
 void character_t::generateSkillAndClearElemList() {
 	std::cout << "generated" << std:: endl;
+	stat.MP = stat.stdMP;
 	elemStatus = std::accumulate(skillGeneratorArr.begin(), skillGeneratorArr.end(), 0);
-	skillGeneratorArr.clear();
+	resetElemsList();
+}
+
+void character_t::resetElemsList() {
+	for (auto &i : skillGeneratorArr) {
+		i = elements::NONE;
+	}
+}
+
+void character_t::useMP(float _mp) {
+	if (stat.MP > FLT_EPSILON) {
+		stat.MP -= _mp;
+	}
+}
+
+size_t character_t::setElemStatus(size_t _elemStatus) {
+	elemStatus = _elemStatus;
+	return elemStatus;
 }

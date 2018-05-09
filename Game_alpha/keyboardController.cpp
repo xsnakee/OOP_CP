@@ -2,13 +2,9 @@
 #include <iostream>
 
 
-keyboardController::keyboardController(sf::Clock *_clock)
+keyboardController::keyboardController()
 {
 	key = sf::Keyboard::Key::Unknown;
-	clock = _clock;
-	controllerMode = 0;
-	startTime = clock->getElapsedTime().asMilliseconds();
-	keysCD = 200;
 }
 
 
@@ -25,7 +21,7 @@ bool keyboardController::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::I
 
 //playercontroller 
 
-PlayerController::PlayerController(sf::Clock *_clock, character_t *mainHero) :keyboardController(_clock)
+PlayerController::PlayerController(character_t *mainHero) :keyboardController()
 {
 	key = sf::Keyboard::Key::Unknown;
 	character = mainHero;
@@ -40,25 +36,20 @@ PlayerController::~PlayerController()
 void PlayerController::checkCharacterStateAndChangeDefault() {
 	if ((character->getState()->getStateNum() != 3)) {
 		character->changeState(new CharacterPlayerControll_t(character));
-		std::cout << 3 << std::endl;
 	}
 }
 
 void PlayerController::eventHandler(sf::Event &event) {
 
 	using namespace sf;
-
-
 	if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
 		character->attack();
-		std::cout << character->getElemStatus() << std::endl;
 		checkCharacterStateAndChangeDefault();
 	}
 	else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Space) {
 
 		character->getTimers().updateCastCD();
 		character->changeState(new CharacterPlayerCast_t(character));
-		std::cout << "kyky" << std::endl;
 	}
 	else
 		if (Keyboard::isKeyPressed(Keyboard::W)) {

@@ -1,92 +1,37 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
+#include "Level_t.h"
+#include "GameEngine_t.h"
+#include "InterfaceEngine_t.h"
+#include "mainMenu_t.h"
 
-#include <list>
-#include <memory>
-#include "character_t.h"
-#include "player_t.h"
-#include "Npc_t.h"
-#include "map_t.h"
-#include "bullet_t.h"
-#include "additional.h"
-#include "cursor_t.h"
-#include "skillObGenerator_t.h"
-#include "keyboardController.h"
+enum modes {
+	PLAY,
+	PAUSED,
+	GAME_OVER
+};
 
 class game_t
 {
-private:
-	sf :: RenderWindow *window;
+	sf::RenderWindow *window;
+	sf::Clock clock;
 
-	cursor_t *cursor;
+	std::unique_ptr<Level_t> level;
+	std::unique_ptr<GameEngine_t> game;
+	std::unique_ptr<InterfaceEngine_t> interface;
 	std::unique_ptr<keyboardController> controller;
+	std::unique_ptr<mainMenu_t> mainMenu;
 
-	std::unique_ptr<sf::Clock> clock;
-	float curTime;
-	float speed;
-	float speedMultipple;
-	map_t map;
-	
-	sf::View *view;
+	modes mode;
+	std::string levelName;
+	size_t difficulty;
 
-	std::list<std::unique_ptr <character_t>> charactersList;
-	std::list<std::unique_ptr <character_t>>::iterator mainHero;
-
-
-	std::list<physOb_t*> obList;
-	std::list<std::unique_ptr <bullet_t>> bulletsList;
-	std::list<ground_t*> mapTilesList;
 public:
-	
-
-	game_t();
-	game_t(sf::RenderWindow *_window, std::string _levelName);
+	game_t(sf::RenderWindow *_window);
 	~game_t();
 
-	void update();
-	void draw();
-
+	void start();
+	void play();
 	void keyController(sf::Event &event);
-	void checkAlive();
-	void visionEngine();
-	void collisionEngine();
-	void bulletEngine();
-	void charsAction();
-
-	void addOb(physOb_t *);
-	void addChar(character_t *);
-
-	void generateMapObjects(std::list<physOb_t*> &_obTextureList);
-	void generateMapTiles(std::list<ground_t*> &_mapTilesList);
-
-	void generateTextureList();
-	void setCamera();
-
-	void drawCursor();
-	void generateNpc();
-
-
-	//GET
-	float setSpeed(float _time) {
-		speed = _time/speedMultipple;
-		return speed;
-	}
-
-	float getSpeed()const {
-		return speed;
-	}
-
-	float getCurTimeSec() const {
-		return clock->getElapsedTime().asSeconds();
-	}
-
-	float getSpeedMultipple()const {
-		return speedMultipple;
-	}
-
-	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
-		return bulletsList;
-	}
 };
 
