@@ -9,6 +9,9 @@ Level_t::Level_t(std::string _levelName): map(_levelName)
 
 	generateMapObjects(map.mapObList);
 	generateMapTiles(map.groundTilesList);	
+
+	levelComplete = false;
+	gameOver = false;
 }
 
 
@@ -26,4 +29,25 @@ void Level_t::generateMapTiles(std::list<ground_t*> &_obList) {
 
 	mapTilesList.insert(mapTilesList.end(), _obList.begin(), _obList.end());
 	map.groundTilesList.clear();
+}
+
+
+mission_t &Level_t::getMission() {
+	return mission;
+}
+
+void Level_t::checkMissionsTarget() {
+
+	for (size_t i = 0; i < mission.missionsCompleteStatus.size(); ++i) {
+		if (!bossesList[i]) {
+			mission.missionsCompleteStatus[i] = true;
+		}
+	}
+
+}
+
+bool Level_t::checkLevelComplete() {
+
+	return mission.missionsCompleteStatus[(mission.missionsCompleteStatus.size() - 1)] ? true : false;
+		
 }

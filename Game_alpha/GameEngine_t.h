@@ -33,6 +33,7 @@ private:
 
 	void generateNpcTypes();
 	bool positionCollision(const sf::Vector2f _obPos);
+
 public:
 
 	GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty);
@@ -50,9 +51,16 @@ public:
 	void setCamera();
 	void drawCursor();
 	void generateNpc();
-
+	void generateBosses();
 	
 	//GET
+	bool gameOver() const {
+		return level.gameOver;
+	}
+	bool levelComplete() const {
+		return level.levelComplete;
+	}
+
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;
 		return speed;
