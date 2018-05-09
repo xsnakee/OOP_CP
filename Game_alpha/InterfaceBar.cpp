@@ -109,7 +109,7 @@ LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceB
 	borders = interface::STD_BORDER_SIZE;
 	float barSizeDiv = 8.f;
 
-	outerRectSize = sf::Vector2f(character->getWidth() + borders.x, character->getHeight() / barSizeDiv + borders.y);
+	outerRectSize = sf::Vector2f(character->getWidth() + borders.x, interface::STD_HP_BAR_HEIGHT.y);
 	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
@@ -164,7 +164,7 @@ castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :Li
 	borders = interface::STD_BORDER_SIZE;
 	float barSizeDiv = 7.f;
 
-	outerRectSize = sf::Vector2f(character->getWidth()/2 + borders.x, character->getHeight() / barSizeDiv + borders.y);
+	outerRectSize = sf::Vector2f(interface::STD_BAR_SIZE.x/2, interface::STD_BAR_SIZE.y);
 	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
 	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
@@ -216,6 +216,9 @@ void castTimeBar::update() {
 }
 
 void castTimeBar::toDefaultPosition() {
-	sf::Vector2f tempPos(character->getPosX() + character->getWidth()/2- outerRectSize.x / 2 - borders.x, character->getPosY() + character->getHeight() + borders.y * 5.f);
+	sf::View view = window->getView();
+	
+	//sf::Vector2f tempPos(character->getPosX() + character->getWidth()/2- outerRectSize.x / 2 - borders.x, character->getPosY() + character->getHeight() + borders.y * 5.f);
+	sf::Vector2f tempPos(view.getCenter().x - outerRectSize.x/2 + interface::STD_BORDER_SIZE.x, view.getCenter().y + window->getSize().y / 2 - outerRectSize.y*2 - interface::STD_BORDER_SIZE.y);
 	setPosCoords(tempPos);
 }

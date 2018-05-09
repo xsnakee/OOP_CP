@@ -166,6 +166,8 @@ namespace textSettings {
 };
 
 namespace interface {
+
+	const sf::Vector2f STD_HP_BAR_HEIGHT(50.f, 10.f);
 	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
 	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
 	const sf::Vector2f STD_WINDOW_SIZE(48.f, 48.f);

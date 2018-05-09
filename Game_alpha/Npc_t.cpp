@@ -203,7 +203,7 @@ void SkeletonMage_t::setTypeStats() {
 	stat.damageRand = 7.f;
 	stat.stdHP = 110.f;
 	stat.visionDistance = 350.f;
-	stat.attackSpeed = 2.f;
+	stat.attackSpeed = 1.f;
 	stat.stdSpeed = 0.11f;
 	defaultAllStats();
 }
