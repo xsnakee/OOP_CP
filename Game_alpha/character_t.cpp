@@ -145,11 +145,15 @@ bool character_t::checkCollision(physOb_t &Object, float _borderError) {
 	float thisCenterX = posX + thisWidth;
 	float thisCenterY = posY + thisHeight;
 
-	if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (posY + getHeight() > Object.getPosY() + _borderError ) && 
-		(Object.getPosY() + Object.getHeight() - borderError > posY - 1.f)) {
+	if (getFloatRect().intersects(Object.getCollisionRect())) {
 		return true;
 	}
 
+
+	/*if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (posY + getHeight() > Object.getPosY() + _borderError ) && 
+		(Object.getPosY() + Object.getHeight() - borderError > posY - getHeight()/2 - 1.f)) {
+		return true;
+	}*/
 
 	return false;
 }

@@ -48,6 +48,11 @@ public:
 	virtual float takeHeal(float _heal);
 
 	//GET
+	sf::FloatRect getCollisionRect() const {
+		float correctionError = animation::HEROES_SPRITE_COLLISION_CORRECTION_BORDER;
+		return sf::FloatRect(posX + correctionError, posY + correctionError, getWidth()- correctionError,getHeight() - correctionError);
+	}
+
 	physOb_t *getPtr() {
 		return this;
 	}
