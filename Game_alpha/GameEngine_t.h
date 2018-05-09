@@ -13,7 +13,8 @@
 #include "Level_t.h"
 
 
-const float STD_DIFFICULTY_COEFFICIENT = 0.5f;
+const float STD_DIFFICULTY_COEFFICIENT = 1.f;
+
 class GameEngine_t
 {
 private:

@@ -19,7 +19,7 @@ InterfaceWindow_t::InterfaceWindow_t(sf::RenderWindow *_window, sf::Vector2f _po
 	outerBorderRect.setFillColor(sf::Color::Color(238, 238, 238, 255));
 
 
-	font.loadFromFile(textSettings::MAIN_FONT_FILE);
+	font.loadFromFile(textSettings::STD_FONT_FILE);
 	text.setCharacterSize(12);
 	text.setFont(font);
 

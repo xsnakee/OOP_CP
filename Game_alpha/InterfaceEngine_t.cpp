@@ -5,13 +5,19 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	window = _window;
 	generateHPbars();
 	setObservedBards();
-	createIterface();
+	createSkillGeneratorIterface();
 	cursor = std::move(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
 }
 InterfaceEngine_t::~InterfaceEngine_t()
 {
 }
+
+
+void InterfaceEngine_t::drawCursor() {
+	window->draw(cursor->getSprite());
+}
+
 void InterfaceEngine_t::update() {
 	updateGenerator();
 
@@ -66,9 +72,9 @@ void InterfaceEngine_t::setObservedBards() {
 	barsList.back()->setInnerRectColor(sf::Color::Blue);
 }
 
-void InterfaceEngine_t::createIterface() {
+void InterfaceEngine_t::createSkillGeneratorIterface() {
 
-	//ELEMENT GENERATOR STATUS
+	//SKILL GENERATOR ELEMENTS STATUS ICONS
 	sf::Vector2f tempPos(interface::getScreenCoords(window));
 	size_t elemWindowAmount = elements::SKILL_ELEMENT_AMOUNT;
 	float betweenCorection = 7.f;
@@ -95,6 +101,7 @@ void InterfaceEngine_t::createIterface() {
 		--elemIt;
 	}
 
+	//SKILL ICON WINDOW
 	rightWindowPadding = 75.f;
 	bottomWindowPadding = 80.f;
 	float positionCorrectionX = (window->getSize().x - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - rightWindowPadding);
@@ -104,15 +111,11 @@ void InterfaceEngine_t::createIterface() {
 	windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos + coordCorection), interface::STD_SKILL_WINDOW_SIZE)));
 	sf::Texture *temp = new sf::Texture;
 
-	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
 	windowsList.back().get()->setBgColor(sf::Color::Color(50, 50, 50, 150));
 	windowsList.back().get()->setBorderColor(sf::Color::Color(238, 238, 238, 150));
-	/*
-	//Element icon
-	sf::Texture *temp = new sf::Texture;
-	temp->loadFromFile(animation::ICON_ELEMENT_FIRE_FILE);
-	windowsList.back()->contentList.push_back(content(new InterfaceSpriteOb_t(window,temp, windowsList.back()->getPos(),sf::Vector2f(0.f,0.f))));
-	*/
+
+	windowsList.back().get()->contentList.push_back(content(new InterfaceTextContent_t(window,"kyky",windowsList.back()->getPos(),sf::Vector2f(0.f,0.f))));
 }
 
 void InterfaceEngine_t::updateGenerator() {
@@ -126,21 +129,21 @@ void InterfaceEngine_t::updateGenerator() {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
 			newTempTexture->loadFromFile(animation::ICON_ELEMENT_FIRE_FILE);
-			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
+			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case WIND: {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
 			newTempTexture->loadFromFile(animation::ICON_ELEMENT_WIND_FILE);
-			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
+			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case EARTH: {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
 			newTempTexture->loadFromFile(animation::ICON_ELEMENT_EARTH_FILE);
-			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
+			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case NONE: {
@@ -201,6 +204,9 @@ void InterfaceEngine_t::updateGenerator() {
 }
 
 
-void InterfaceEngine_t::drawCursor() {
-	window->draw(cursor->getSprite());
+
+
+
+void InterfaceEngine_t::createHeroIterfaceWindows() {
+
 }

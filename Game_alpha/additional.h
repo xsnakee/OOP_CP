@@ -161,8 +161,12 @@ static sf::Vector2f generateRandomSpawnCoords(const sf::Vector2i mapSize) {
 
 
 namespace textSettings {
-	const std::string MAIN_FONT_FILE = "fonts/main_font.ttf";
+	const std::string STD_FONT_FILE = "fonts/main_font.ttf";
 	const size_t STD_FONT_SIZE = 12;
+
+	const sf::Color STD_TEXT_COLOR = sf::Color::White;
+	const sf::Text::Style STD_TEXT_STYLE = sf::Text::Style::Regular;
+	const sf::Text::Style TEXT_STYLE_STRIKE_THROUGHT = sf::Text::Style::StrikeThrough;
 };
 
 namespace interface {

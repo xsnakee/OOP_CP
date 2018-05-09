@@ -11,33 +11,57 @@ protected:
 	sf::Vector2f relativePos;
 	sf::Vector2u sizes;
 
+	sf::Font font;
+	unsigned int fontSize;
+	sf::Color textColor;
+	sf::Text::Style textStyle;
+	
+
 public:
 	InterfaceContent(sf::RenderWindow *_window, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
 	virtual ~InterfaceContent();
+
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual void toDefaultPosition() = 0;
+	virtual void swapContent(std::string _newPath) = 0;
+	virtual void resetContent() = 0;
+	virtual void setTexture(sf::Texture *newTexture);
+
 
 	void setRelativePos(sf::Vector2f newCoords) {
 		relativePos = newCoords;
 	}
-	
+
 	virtual void setSize(sf::Vector2u newSizes) {
 		sizes = newSizes;
 	}
-	virtual void swapContent(std::string _newPath) = 0;
-	virtual void resetContent() = 0;
-	virtual void setTexture(sf::Texture *newTexture) = 0;
+
+	void setFont(sf::Font newFont) {
+		font = newFont;
+	}
+
+	void setFontSize(unsigned int newSize){
+		fontSize = newSize;
+	}
+
+	void setFontColor(sf::Color newColor) {
+		textColor = newColor;
+	}
+
+	void setTextStyle(sf::Text::Style newStyle) {
+		textStyle = newStyle;
+	}
 };
 
-
-class InterfaceSpriteOb_t : public InterfaceContent {
+//SPRITE CONTENT
+class InterfaceSpriteContent_t : public InterfaceContent {
 public:
 	std::unique_ptr<sf::Texture> texture;
 	sf::Sprite sprite;
 public:
-	InterfaceSpriteOb_t(sf::RenderWindow *_window, sf::Texture *_texture, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
-	virtual ~InterfaceSpriteOb_t();
+	InterfaceSpriteContent_t(sf::RenderWindow *_window, sf::Texture *_texture, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
+	virtual ~InterfaceSpriteContent_t();
 
 	virtual void update();
 	virtual void draw();
@@ -60,4 +84,31 @@ public:
 		sizes = newSizes;
 		sprite.setTextureRect(sf::IntRect(0, 0, sizes.x, sizes.y));
 	}
+};
+
+
+//TEXT CONTENT
+
+
+class InterfaceTextContent_t : public InterfaceContent {
+public:
+	std::string str;
+	std::unique_ptr<sf::Text> text;
+
+
+	void setText(sf::Text *_newText);
+	sf::Text getText();
+public:
+	InterfaceTextContent_t(sf::RenderWindow *_window, std::string _str, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
+	virtual ~InterfaceTextContent_t();
+
+	virtual void update();
+	virtual void draw();
+	virtual void toDefaultPosition();
+
+
+	virtual void swapContent(std::string _str);
+	virtual void resetContent();
+
+
 };
