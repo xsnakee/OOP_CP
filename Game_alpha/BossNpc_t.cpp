@@ -32,7 +32,6 @@ void BossNpc_t::update(float _speed) {
 
 void BossNpc_t::attack() {
 	Npc_t::attack();
-	//новый рандомный скилл
 }
 
 void BossNpc_t::generateSkillAndClearElemList() {

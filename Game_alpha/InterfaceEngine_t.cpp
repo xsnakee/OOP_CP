@@ -6,6 +6,7 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	generateHPbars();
 	setObservedBards();
 	createIterface();
+	cursor = std::move(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
 }
 InterfaceEngine_t::~InterfaceEngine_t()
@@ -13,6 +14,8 @@ InterfaceEngine_t::~InterfaceEngine_t()
 }
 void InterfaceEngine_t::update() {
 	updateGenerator();
+
+	level.mainHero->get()->setTargetCoords(cursor->getPosition());
 
 	for (auto i = barsList.begin(); i != barsList.end(); ++i) {
 		if (i->get()->getDisplay()) {
@@ -27,6 +30,8 @@ void InterfaceEngine_t::update() {
 		i->update();
 	}
 
+	cursor->setCursorPosition();
+
 }
 
 void InterfaceEngine_t::draw() {
@@ -36,6 +41,7 @@ void InterfaceEngine_t::draw() {
 	for (auto &i : windowsList) {
 		i->draw();
 	}
+	drawCursor();
 }
 
 
@@ -192,4 +198,9 @@ void InterfaceEngine_t::updateGenerator() {
 	}
 	}
 	//*/
+}
+
+
+void InterfaceEngine_t::drawCursor() {
+	window->draw(cursor->getSprite());
 }

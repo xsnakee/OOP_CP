@@ -6,6 +6,7 @@
 #include "Level_t.h"
 #include "InterfaceWindow_t.h"
 #include "InterfaceBar.h"
+#include "cursor_t.h"
 
 typedef std::unique_ptr<InterfaceBar> bar_t;
 typedef std::unique_ptr<InterfaceWindow_t> window_t;
@@ -17,6 +18,9 @@ class InterfaceEngine_t
 	//Iterators
 	std::list<window_t>::iterator elemIt;
 
+	std::unique_ptr<cursor_t> cursor;
+
+	void drawCursor();
 public:
 	//LISTS
 	std::list<bar_t> barsList;
