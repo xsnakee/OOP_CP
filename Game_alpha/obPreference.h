@@ -16,7 +16,6 @@ private:
 	int spriteCoordY;
 	int height;
 	int width;
-
 public:
 	obPreference();
 	obPreference(std::string _fileTexturePath);
@@ -25,6 +24,7 @@ public:
 
 	virtual ~obPreference();
 
+	void setOriginToCenter();
 	//GET
 	std::shared_ptr<sf::Texture> &getTextureSharedPtr(){
 		return texture;
@@ -76,9 +76,6 @@ public:
 		sprite.setRotation(_rotation);
 	}
 
-	void setCenterWithOrigin() {
-		sprite.setOrigin(static_cast<float>(width) / 2, static_cast<float>(height) / 2);
-	}
 	//FOR CHECK COLLISION
 	sf::FloatRect getRect()const {
 		sf::FloatRect rect(static_cast<float>(spriteCoordX), static_cast<float>(spriteCoordY), static_cast<float>(width), static_cast<float>(height));

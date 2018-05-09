@@ -45,7 +45,7 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	float distanceY = targetCoords.y - posY;
 	float rotation = (atan2(distanceY, distanceX)) * 180.f / 3.14159265f;
 
-	spritePref.setCenterWithOrigin();
+	spritePref.setOriginToCenter();
 	spritePref.setRotation(rotation);
 
 
