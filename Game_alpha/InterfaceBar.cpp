@@ -217,8 +217,7 @@ void castTimeBar::update() {
 
 void castTimeBar::toDefaultPosition() {
 	sf::View view = window->getView();
-	
-	//sf::Vector2f tempPos(character->getPosX() + character->getWidth()/2- outerRectSize.x / 2 - borders.x, character->getPosY() + character->getHeight() + borders.y * 5.f);
+
 	sf::Vector2f tempPos(view.getCenter().x - outerRectSize.x/2 + interface::STD_BORDER_SIZE.x, view.getCenter().y + window->getSize().y / 2 - outerRectSize.y*2 - interface::STD_BORDER_SIZE.y);
 	setPosCoords(tempPos);
 }
