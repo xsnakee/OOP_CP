@@ -31,6 +31,23 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	elemStatus = 1;
 }
 
+Npc_t::Npc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple):
+	character_t(copyedNpc->getSpritePref().getTextureSharedPtr(), copyedNpc->getSkillGeneratorPtr()->getBulletList(), spotPoint.x, spotPoint.y, 0, 0,
+		copyedNpc->getWidth(), copyedNpc->getHeight(), copyedNpc->getClockPtr()) {
+	stat = copyedNpc->getStats();
+	elemStatus = copyedNpc->getElemStatus();
+
+	spotCoords = spotPoint;
+
+	spawnCoords.x = spotPoint.x;
+	spawnCoords.y = spotPoint.y;
+	powerMultiple = powerMultiple;
+	stat.statMiltipler(powerMultiple);
+
+	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
+	spawnTime = std::numeric_limits<sf::Int32>::max();
+}
+ 
 Npc_t::~Npc_t()
 {
 	
@@ -61,6 +78,11 @@ MageNpc_t::MageNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique
 	defaultStats();
 }
 
+MageNpc_t::MageNpc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+}
+
 MageNpc_t::~MageNpc_t() {
 
 }
@@ -82,7 +104,10 @@ WarriorNpc_t::WarriorNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::
 	stat.stdSpeed = 0.11f;
 	defaultStats();
 }
-
+WarriorNpc_t::WarriorNpc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+}
 WarriorNpc_t::~WarriorNpc_t() {
 
 }
@@ -103,7 +128,10 @@ ZombieWitch_t::ZombieWitch_t(std::shared_ptr<sf::Texture>_texture, std::list<std
 	stat.stdSpeed = 0.09f;
 	defaultStats();
 }
-
+ZombieWitch_t::ZombieWitch_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+}
 ZombieWitch_t::~ZombieWitch_t() {
 
 }
@@ -124,7 +152,10 @@ FatZombie_t::FatZombie_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	stat.stdSpeed = 0.08f;
 	defaultStats();
 }
-
+FatZombie_t::FatZombie_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+}
 FatZombie_t::~FatZombie_t() {
 
 }
@@ -144,6 +175,10 @@ SkeletonMage_t::SkeletonMage_t(std::shared_ptr<sf::Texture>_texture, std::list<s
 	stat.attackSpeed = 2.f;
 	stat.stdSpeed = 0.11f;
 	defaultStats();
+}
+SkeletonMage_t::SkeletonMage_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
 }
 
 SkeletonMage_t::~SkeletonMage_t() {

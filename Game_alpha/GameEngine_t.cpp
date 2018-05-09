@@ -217,6 +217,7 @@ void GameEngine_t::drawCursor() {
 
 
 void GameEngine_t::generateNpc() {
+	std::list<std::unique_ptr<Npc_t>> NpcTypeList;
 	size_t NpcTypeAmount = 3;
 	size_t tempCounter = 0;
 	tiles::sizes tempSizes;

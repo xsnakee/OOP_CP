@@ -47,7 +47,7 @@ public:
 
 /*
 class menuController :public keyboardController {
-	//menuWindiw *window;
+	//menuWindow *window;
 
 public:
 	menuController(sf::Clock *_clock);

@@ -26,6 +26,10 @@ public:
 	virtual ~obPreference();
 
 	//GET
+	std::shared_ptr<sf::Texture> &getTextureSharedPtr(){
+		return texture;
+	}
+
 	sf::Texture getTexture() const{
 		return *texture;
 	}

@@ -119,6 +119,9 @@ public:
 		return skillGeneratorArr;
 	}
 
+	skillObGenerator_t *getSkillGeneratorPtr() {
+		return skill.get();
+	}
 
 	//SET
 	float setFrame(float _frame) {
