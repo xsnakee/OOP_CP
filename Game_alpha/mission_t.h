@@ -5,6 +5,7 @@
 
 class gameStatistic_t {
 	std::string convertTime(size_t _val);
+
 public:
 	gameStatistic_t();
 	~gameStatistic_t();
@@ -23,15 +24,17 @@ public:
 
 
 const std::vector<std::string> STD_MISSION_TASKS = {
-	"KILL THE HOLY CRYSTAL DEFENDER",
-	"KILL BLACK DRAGON",
-	"KILL RED DRAGON",
-	"KILL THE ENH ",
-	"KILL THE QUEEN OF DARKNESS (MAIN)"
+	"- KILL THE HOLY CRYSTAL DEFENDER",
+	"- KILL BLACK DRAGON",
+	"- KILL RED DRAGON",
+	"- KILL THE ENH ",
+	"- KILL THE QUEEN OF DARKNESS (MAIN)"
 };
 
 class mission_t
 {
+	size_t bigestLength;
+	size_t findBigestLength();
 public:
 	gameStatistic_t gameStats;
 
@@ -47,6 +50,9 @@ public:
 	void setDeathTime();
 
 	bool checkComplete();
+
+	//GET
+	size_t getBiggestLength() const;
 };
 
 const std::vector<std::string> STAT_LIST = {

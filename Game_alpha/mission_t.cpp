@@ -7,6 +7,8 @@ mission_t::mission_t(): gameStats()
 	missionsContent = STD_MISSION_TASKS;
 	missionsCompleteStatus = std::vector<bool>(missionsContent.size(),false);
 
+	bigestLength = findBigestLength();
+
 }
 
 mission_t::mission_t(std::string _fileName) {
@@ -17,6 +19,14 @@ mission_t::mission_t(std::string _fileName) {
 
 mission_t::~mission_t()
 {
+}
+
+size_t mission_t::findBigestLength() {
+	size_t maxLength = 0;
+	for (auto &i : missionsContent) {
+		maxLength = (i.size() > maxLength) ? i.size() : maxLength;
+	}
+	return maxLength;
 }
 
 void mission_t::ånemyKilled() {
@@ -36,6 +46,11 @@ bool mission_t::checkComplete() {
 	}
 
 	return true;
+}
+
+//GET
+size_t mission_t::getBiggestLength() const {
+	return bigestLength;
 }
 //GAME STATS
 
@@ -66,7 +81,7 @@ std::string gameStatistic_t::convertTime(size_t _val) {
 
 void gameStatistic_t::fillStrStats() {
 	for (size_t i = 0; i < statStrValues.size(); ++i) {
-		statStrValues[i] = statDataVect[i];
+		statStrValues[i] = static_cast<const char>(statDataVect[i]);
 	}
 	statStrValues[3] = convertTime(statDataVect[3]);
 }

@@ -31,7 +31,7 @@ protected:
 	sf::Int32 displayDuration;
 
 	public:
-	std::list<content> contentList;
+	std::vector<content> contentList;
 
 	InterfaceWindow_t(sf::RenderWindow *_window, sf::Vector2f _pos, sf::Vector2f _sizes);
 	virtual ~InterfaceWindow_t();

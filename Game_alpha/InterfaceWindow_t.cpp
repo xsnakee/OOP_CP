@@ -20,9 +20,8 @@ InterfaceWindow_t::InterfaceWindow_t(sf::RenderWindow *_window, sf::Vector2f _po
 
 
 	font.loadFromFile(textSettings::STD_FONT_FILE);
-	text.setCharacterSize(12);
+	text.setCharacterSize(textSettings::STD_FONT_SIZE);
 	text.setFont(font);
-
 	text.setPosition(pos + textRelativePos);
 	text.setString(title);
 }
