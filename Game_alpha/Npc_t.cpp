@@ -100,7 +100,7 @@ WarriorNpc_t::WarriorNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::
 {
 	setTypeStats();
 }
-WarriorNpc_t::WarriorNpc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+WarriorNpc_t::WarriorNpc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
 	Npc_t(copyedNpc, spotPoint, powerMultiple)
 {
 	setTypeStats();
@@ -128,7 +128,7 @@ ZombieWitch_t::ZombieWitch_t(std::shared_ptr<sf::Texture>_texture, std::list<std
 {
 	setTypeStats();
 }
-ZombieWitch_t::ZombieWitch_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+ZombieWitch_t::ZombieWitch_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
 	Npc_t(copyedNpc, spotPoint, powerMultiple)
 {
 	setTypeStats();
@@ -156,7 +156,7 @@ FatZombie_t::FatZombie_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 {
 	setTypeStats();
 }
-FatZombie_t::FatZombie_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+FatZombie_t::FatZombie_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
 	Npc_t(copyedNpc, spotPoint, powerMultiple)
 {
 	setTypeStats();
@@ -184,7 +184,7 @@ SkeletonMage_t::SkeletonMage_t(std::shared_ptr<sf::Texture>_texture, std::list<s
 {
 	setTypeStats();
 }
-SkeletonMage_t::SkeletonMage_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+SkeletonMage_t::SkeletonMage_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
 	Npc_t(copyedNpc, spotPoint, powerMultiple)
 {
 	setTypeStats();

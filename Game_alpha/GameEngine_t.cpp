@@ -23,6 +23,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
 	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, tempSizes.width, tempSizes.height, clock.get())));
 	level.mainHero = level.charactersList.begin();
+	generateNpcTypes();
 
 	generateNpc();
 }
@@ -35,6 +36,91 @@ GameEngine_t::~GameEngine_t()
 	delete cursor;
 }
 
+void GameEngine_t::generateNpcTypes() {
+	using namespace animation;
+	tiles::sizes tempSizes;
+	std::shared_ptr<sf::Texture> demonText = std::make_shared<sf::Texture>();
+	demonText->loadFromFile(ENEMY_DEMON_FILE);
+	tempSizes = tiles::getSizesFromStr(ENEMY_DEMON_FILE);
+
+	sf::Vector2f spawnCoords(0.f, 0.f);
+	characterTypesList.push_back(std::unique_ptr <character_t>(new MageNpc_t(demonText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height)));
+
+	//level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(characterTypesList.back().get(), spawnCoords))));
+
+}
+
+void GameEngine_t::generateNpc() {
+	std::list<std::unique_ptr<Npc_t>> NpcTypeList;
+	size_t NpcTypeAmount = 3;
+	size_t tempCounter = 0;
+	tiles::sizes tempSizes;
+
+	while (tempCounter++ < NpcTypeAmount) {
+		using namespace animation;
+		switch (tempCounter) {
+		case 1: {
+			size_t demonsAmount = 20;
+			size_t temp = 0;
+
+			std::shared_ptr<sf::Texture> demonText = std::make_shared<sf::Texture>();
+			demonText->loadFromFile(ENEMY_DEMON_FILE);
+			tempSizes = tiles::getSizesFromStr(ENEMY_DEMON_FILE);
+
+			
+
+			while (temp++ < demonsAmount) {
+				sf::Vector2f spawnCoords(1800.f + temp * 10, 1800.f + temp * 10);
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
+
+			}
+
+
+			break;
+		}
+		case 2: {
+			size_t warriorsAmount = 20;
+			size_t temp = 0;
+
+
+			std::shared_ptr<sf::Texture> WarriorText = std::make_shared<sf::Texture>();
+
+			WarriorText->loadFromFile(ENEMY_WARRIOR_FILE);
+			tempSizes = tiles::getSizesFromStr(ENEMY_WARRIOR_FILE);
+			sf::Vector2f spawnCoords(1900.f + temp * 10, 1800.f + temp * 10);
+			while (temp++ < warriorsAmount) {
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
+			}
+
+			break;
+		}
+		case 3: {
+			size_t magesAmount = 20;
+			size_t temp = 0;
+
+
+			std::shared_ptr<sf::Texture> magesText(new sf::Texture());
+
+			magesText->loadFromFile(ENEMY_MAGE_FILE);
+			tempSizes = tiles::getSizesFromStr(ENEMY_MAGE_FILE);
+			while (temp++ < magesAmount) {
+				sf::Vector2f spawnCoords(1700.f + temp * 10, 1500.f + temp * 10);
+				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
+				level.charactersList.back()->setElemStatus(5);
+				level.charactersList.back()->getStats().attackRange = 150.f;
+			}
+			/*
+			sf::Vector2f spawnCoords(1400.f, 1200.f);
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(level.charactersList.back().get(), spawnCoords))));
+			spawnCoords.x += 20.f;
+			spawnCoords.y += 20.f;
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new MageNpc_t(level.charactersList.back().get(), spawnCoords))));
+			//*/
+			break;
+		}
+		}
+	}
+}
 
 void GameEngine_t::update() {
 
@@ -216,71 +302,3 @@ void GameEngine_t::drawCursor() {
 
 
 
-void GameEngine_t::generateNpc() {
-	std::list<std::unique_ptr<Npc_t>> NpcTypeList;
-	size_t NpcTypeAmount = 3;
-	size_t tempCounter = 0;
-	tiles::sizes tempSizes;
-
-	while (tempCounter++ < NpcTypeAmount) {
-		using namespace animation;
-		switch (tempCounter) {
-		case 1: {
-			size_t demonsAmount = 20;
-			size_t temp = 0;
-
-
-			std::shared_ptr<sf::Texture> demonText = std::make_shared<sf::Texture>();
-
-			demonText->loadFromFile(ENEMY_DEMON_FILE);
-			tempSizes = tiles::getSizesFromStr(ENEMY_DEMON_FILE);
-
-			while (temp++ < demonsAmount) {
-				sf::Vector2f spawnCoords(1800.f+temp*10, 1800.f + temp * 10);
-				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
-
-			}
-			
-
-			break;
-		}
-		case 2: {
-			size_t warriorsAmount = 20;
-			size_t temp = 0;
-
-
-			std::shared_ptr<sf::Texture> WarriorText = std::make_shared<sf::Texture>();
-
-			WarriorText->loadFromFile(ENEMY_WARRIOR_FILE);
-			tempSizes = tiles::getSizesFromStr(ENEMY_WARRIOR_FILE);
-			sf::Vector2f spawnCoords(1900.f + temp * 10, 1800.f + temp * 10);
-			while (temp++ < warriorsAmount) {
-				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(WarriorText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
-			}
-
-			break;
-		}
-		case 3: {
-			size_t magesAmount = 20;
-			size_t temp = 0;
-
-
-			std::shared_ptr<sf::Texture> magesText(new sf::Texture());
-
-			magesText->loadFromFile(ENEMY_MAGE_FILE);
-			tempSizes = tiles::getSizesFromStr(ENEMY_MAGE_FILE);
-			while (temp++ < magesAmount) {
-				sf::Vector2f spawnCoords(1700.f + temp * 10, 1500.f + temp * 10);
-				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
-				level.charactersList.back()->setElemStatus(5);
-				level.charactersList.back()->getStats().attackRange = 150.f;
-			}sf::Vector2f spawnCoords(1400.f, 1200.f);
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(level.charactersList.back().get(), spawnCoords))));
-			spawnCoords.x += 20.f;
-			spawnCoords.y += 20.f;
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new MageNpc_t(level.charactersList.back().get(), spawnCoords))));
-			break;
-		}
-		}
-	}
-}

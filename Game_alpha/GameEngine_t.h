@@ -21,6 +21,7 @@ private:
 	cursor_t *cursor;
 	Level_t &level;
 	size_t difficulty;
+	std::list<std::unique_ptr<character_t>> characterTypesList;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;
@@ -28,7 +29,7 @@ private:
 	float speedMultipple;
 	sf::View *view;
 
-
+	void generateNpcTypes();
 public:
 
 	GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty);
@@ -47,7 +48,7 @@ public:
 	void drawCursor();
 	void generateNpc();
 
-
+	
 	//GET
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;
