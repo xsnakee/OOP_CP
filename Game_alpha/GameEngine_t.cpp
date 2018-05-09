@@ -25,7 +25,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	level.mainHero = level.charactersList.begin();
 	generateNpcTypes();
 
-	generateNpc();
+	//generateNpc();
 }
 
 	
@@ -246,7 +246,7 @@ void GameEngine_t::collisionEngine() {
 	for (auto &outerElement : level.charactersList) {
 		
 		for (auto &innerElement : level.obList) {
-			if (outerElement->checkCollision(*innerElement, 10.f)) {
+			if (outerElement->checkCollision(*innerElement, 2.f)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
