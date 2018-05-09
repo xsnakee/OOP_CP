@@ -43,9 +43,9 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	//CALC SPEED
 	float distanceX = targetCoords.x - posX;
 	float distanceY = targetCoords.y - posY;
-	float rotation = -(atan2(distanceX, distanceY)) * 180.f / 3.14159265f;
+	float rotation = (atan2(distanceY, distanceX)) * 180.f / 3.14159265f;
 
-	spritePref.setCenterWithOrigin();
+	spritePref.setOriginToCenter();
 	spritePref.setRotation(rotation);
 
 
@@ -67,6 +67,7 @@ bullet_t::~bullet_t()
 
 void bullet_t::update(float _speed) {
 	if (alive) {
+		checkAlive();
 		posX += dX * _speed;
 		posY += dY * _speed;
 		updateFrame();
@@ -104,8 +105,8 @@ bool bullet_t::hitting(physOb_t &Object, float _speed, float _borderError) {
 				alive = false;
 			}
 		}
-		return true;
 	}
+	return true;
 }
 
 bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderError) {

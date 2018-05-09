@@ -14,7 +14,6 @@ Effect_t::Effect_t(character_t *_character,characterStats_t _stats, sf::Int32 _d
 
 Effect_t::~Effect_t()
 {
-	std::cout << 1 << std::endl;
 }
 
 

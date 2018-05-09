@@ -7,12 +7,12 @@ characterTimers_t::characterTimers_t()
 characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _attackSpeed)
 {
 	clock = _clock;
-	sf::Int32 startTime = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 startTime = 1;
 
-	timerStats attackCD = { startTime, 1000/ _attackSpeed};
+	timerStats attackCD = { startTime, 1000};
 	timersList.insert(std::pair<std::string,timerStats>(attackCDkey, attackCD));
 
-	timerStats castDelay = { startTime, 1000 / _castSpeed};
+	timerStats castDelay = { startTime, 1000};
 	timersList.insert(std::pair<std::string, timerStats>(castDelaykey, castDelay));
 
 	timerStats skillGenerationCD = { startTime, 4000 };
@@ -23,24 +23,35 @@ characterTimers_t::~characterTimers_t()
 {
 }
 
-sf::Int32 characterTimers_t::getAttackCD() {
+sf::Int32 &characterTimers_t::getAttackStartTime() {
+	return timersList[attackCDkey].startTime;
+}
+sf::Int32 &characterTimers_t::getCastStartTime() {
+	return timersList[castDelaykey].startTime;
+}
+sf::Int32 &characterTimers_t::getSwapDirStartTime() {
+	return timersList[skillGenerationCDkey].startTime;
+}
+
+
+sf::Int32 &characterTimers_t::getAttackCD() {
 	return timersList[attackCDkey].cooldown;
 }
-sf::Int32 characterTimers_t::getCastDelay() {
+sf::Int32 &characterTimers_t::getCastDelay() {
 	return timersList[castDelaykey].cooldown;
 }
-sf::Int32 characterTimers_t::getDirectionSwapTime() {
+sf::Int32 &characterTimers_t::getDirectionSwapTime() {
 	return timersList[skillGenerationCDkey].cooldown;
 }
 
 
-sf::Int32 characterTimers_t::attackCDcorrection(int _attackCD) {
-	timersList[attackCDkey].cooldown /= _attackCD;
+sf::Int32 characterTimers_t::attackCDcorrection(float _attackCD) {
+	timersList[attackCDkey].cooldown -= static_cast<sf::Int32>(_attackCD * 100);
 	return timersList[attackCDkey].cooldown;
 }
-sf::Int32 characterTimers_t::castDelayCorrection(int _castDelay) {
+sf::Int32 characterTimers_t::castDelayCorrection(float _castDelay) {
 
-	timersList[castDelaykey].cooldown /= _castDelay;
+	timersList[castDelaykey].cooldown -= static_cast<sf::Int32>(_castDelay * 100);
 	return timersList[castDelaykey].cooldown;
 }
 sf::Int32 characterTimers_t::directionSwapTimeCorrection(int _time) {

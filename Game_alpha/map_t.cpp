@@ -26,8 +26,8 @@ map_t::map_t(std::string _levelName) {
 	tileAmountX = 272;
 	tileAmountY = 143;
 
-	sizeX = tileAmountX * tiles::size;
-	sizeY = tileAmountY*tiles::size;
+	size.x = tileAmountX * tiles::size;
+	size.y = tileAmountY*tiles::size;
 }
 
 map_t::~map_t()
@@ -36,13 +36,13 @@ map_t::~map_t()
 }
 
 
-void map_t::fillTheMapObj() {
+bool map_t::fillTheMapObj() {
 	using namespace std;
 
 	ifstream MAP_FILE(mapObjectsFile, ios::in);
 	if (!MAP_FILE) {
 		cout << "OPEN FILE ERROR" << endl;
-		return;
+		return false;
 	}
 	int tileId;
 
@@ -65,24 +65,24 @@ void map_t::fillTheMapObj() {
 		
 		}
 	}
-
+	return true;
 	
 }
 
 
-void map_t::fillTheMapTiles() {
+bool map_t::fillTheMapTiles() {
 	using namespace std;
 
 	ifstream MAP_BG_FILE(mapBgTilesFile, ios::in);
 	if (!MAP_BG_FILE) {
 		cout << "OPEN FILE1 ERROR" << endl;
-		return;
+		return false;
 	}
 
 	ifstream MAP_OUT_FILE(mapOutTilesFile, ios::in);
 	if (!MAP_OUT_FILE) {
 		cout << "OPEN FILE2 ERROR" << endl;
-		return;
+		return false;
 	}
 	int tileId;
 
@@ -126,4 +126,6 @@ void map_t::fillTheMapTiles() {
 
 		}
 	}
+
+	return true;
 }

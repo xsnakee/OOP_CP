@@ -4,8 +4,8 @@ struct characterStats_t
 	float HP = 100.f;
 	float stdHP = 100.f;
 
-	float MP = 5.f;
-	float stdMP = 5.f;
+	float MP = 0.f;
+	float stdMP = 100.f;
 
 	float attackPower = 5.f;
 	float stdattackPower = 5.f;
@@ -19,8 +19,8 @@ struct characterStats_t
 	float speed = 0.1f;
 	float stdSpeed = 0.1f;
 
-	int castSpeed = 1;
-	int attackSpeed = 1;
+	float castSpeed = 2.f;
+	float attackSpeed = 3.f;
 
 	float damageRand = 5.f;
 
@@ -31,13 +31,19 @@ struct characterStats_t
 		HP = MP = attackPower =
 			physDef = magDef = speed = 0.f;
 	}
-
 	void defaultStats() {
 		attackPower = stdattackPower;
 		physDef = stdPhysDef;
 		magDef = stdMagDef;
 		speed = stdSpeed;
 	}
+
+	void defaultAllStats() {
+		defaultStats();
+		HP = stdHP;
+		MP = stdMP;
+	}
+
 	void upStat(characterStats_t &stat) {
 		HP += stat.HP;
 		MP += stat.MP;
@@ -61,6 +67,7 @@ struct characterStats_t
 		stdPhysDef *= tempMult;
 		magDef *= tempMult;
 		stdMagDef *= tempMult;
+		attackSpeed *= tempMult;
 
 		if (tempMult > 1.f) {
 			speed += speedK * tempMult;

@@ -6,7 +6,6 @@ obPreference::obPreference() {
 	spriteCoordY = 0;
 	height = DEFAULT_HEIGHT;
 	width = DEFAULT_WIDTH;
-
 	texture = std::make_shared<sf::Texture>();
 	texture->loadFromFile("img/default.png");
 	sprite.setTexture(*texture);
@@ -60,4 +59,9 @@ obPreference::~obPreference()
 	if (texture.use_count() < 2) {
 		texture.~shared_ptr();
 	}
+}
+
+
+void obPreference::setOriginToCenter() {
+	sprite.setOrigin(static_cast<float>(width) / 2, static_cast<float>(height) / 2);
 }

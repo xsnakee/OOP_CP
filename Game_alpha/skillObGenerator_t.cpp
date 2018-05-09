@@ -24,6 +24,8 @@ void skillObGenerator_t::useSkill() {
 		upCharacterStat(tempStat);
 		character->changeEffect(new Effect_t(character, tempStat));
 		character->getEffectPtr()->useEffect();
+		float buffMPcost = 50.f;
+		character->useMP(buffMPcost);
 		break;
 	}
 	case 6: {
@@ -31,7 +33,10 @@ void skillObGenerator_t::useSkill() {
 		tempStat.resetStats();
 		tempStat.attackPower += 20.f;
 		upCharacterStat(tempStat);
+		character->changeEffect(new Effect_t(character, tempStat));
 		character->getEffectPtr()->useEffect();
+		float buffMPcost = 50.f;
+		character->useMP(buffMPcost);
 		break;
 	}
 	case 24: {//HEAL BALL
@@ -55,11 +60,11 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmgDelay(500);
 		tempBullet->setRng(1000.f);
 
-
-		float tempDmg = 5.f;
+		float tempDmg = 5.f + character->getStats().attackPower * 0.1f;
 		tempBullet->setDmg(tempDmg);
+		tempBullet->setMPCost(30.f);
 
-
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -84,14 +89,15 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
-	case 4: {//SMALL FIRE BALLS
+	case 4: {//FIRE LIGHTING
 		
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
-		tempTexture->loadFromFile(animation::BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE);
+		tempTexture->loadFromFile(animation::BULLET_FIRE_LIGHTING_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
 
@@ -100,15 +106,16 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
-		tempBullet->speedMultiple(0.8f);
+		tempBullet->speedMultiple(1.5f);
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(2000);
-		tempBullet->setRng(50.f + character->getStats().attackRange);
+		tempBullet->setRng(150.f + character->getStats().attackRange);
 
 		float tempDmg = 5.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -134,6 +141,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -156,6 +164,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -179,6 +188,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -210,12 +220,13 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
 	}
 
-	case 18: {//EARTH SLAM BANG BALL
+	case 18: {//BANG BALL
 
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_BANG_BALL_TEXTURE_FILE);
@@ -237,6 +248,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmg(tempDmg);
 
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;
@@ -247,7 +259,6 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_COMBO_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
-		tempBullet->setRotation(0.f);
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 
@@ -260,6 +271,7 @@ void skillObGenerator_t::useSkill() {
 		float tempDmg = 10.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
+		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 
 		break;

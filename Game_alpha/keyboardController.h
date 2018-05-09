@@ -7,12 +7,9 @@ class keyboardController
 protected:
 	int controllerMode;
 	int key;//mouse click code = 55
-	sf::Clock *clock;
-	sf::Int32 startTime;
-	sf::Int32 keysCD;
 
 public:
-	keyboardController(sf::Clock *_clock);
+	keyboardController();
 	virtual ~keyboardController();
 
 	bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
@@ -21,14 +18,6 @@ public:
 	//GET
 	int getKey() const {
 		return key;
-	}
-	
-	sf::Int32 getStartTime() const {
-		return startTime;
-	}
-
-	sf::Int32 getkeyCD() const {
-		return keysCD;
 	}
 
 	int getControllerMode() const {
@@ -43,7 +32,7 @@ class PlayerController :public keyboardController {
 
 	void checkCharacterStateAndChangeDefault();
 public:
-	PlayerController(sf::Clock *_clock, character_t *_mainHero);
+	PlayerController(character_t *_mainHero);
 	virtual ~PlayerController();
 
 	character_t * getPlayerCharPtr()const {
@@ -58,7 +47,7 @@ public:
 
 /*
 class menuController :public keyboardController {
-	//menuWindiw *window;
+	//menuWindow *window;
 
 public:
 	menuController(sf::Clock *_clock);

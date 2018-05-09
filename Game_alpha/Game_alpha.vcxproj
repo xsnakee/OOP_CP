@@ -82,11 +82,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\OOP_CP\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\SFML\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>E:\OOP_CP\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\SFML\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -121,16 +123,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BossNpc_t.cpp" />
     <ClCompile Include="bullet_t.cpp" />
     <ClCompile Include="CharacterState_t.cpp" />
     <ClCompile Include="characterTimers_t.cpp" />
     <ClCompile Include="character_t.cpp" />
     <ClCompile Include="cursor_t.cpp" />
     <ClCompile Include="Effect_t.cpp" />
+    <ClCompile Include="GameEngine_t.cpp" />
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="ground_t.cpp" />
+    <ClCompile Include="InterfaceBar.cpp" />
+    <ClCompile Include="InterfaceButton.cpp" />
+    <ClCompile Include="InterfaceContent.cpp" />
+    <ClCompile Include="InterfaceEngine_t.cpp" />
+    <ClCompile Include="InterfaceWindow_t.cpp" />
     <ClCompile Include="keyboardController.cpp" />
+    <ClCompile Include="Level_t.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainMenu_t.cpp" />
     <ClCompile Include="map_t.cpp" />
     <ClCompile Include="Npc_t.cpp" />
     <ClCompile Include="obPreference.cpp" />
@@ -140,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="additional.h" />
+    <ClInclude Include="BossNpc_t.h" />
     <ClInclude Include="bullet_t.h" />
     <ClInclude Include="CharacterState_t.h" />
     <ClInclude Include="characterStats_t.h" />
@@ -147,9 +159,17 @@
     <ClInclude Include="character_t.h" />
     <ClInclude Include="cursor_t.h" />
     <ClInclude Include="Effect_t.h" />
+    <ClInclude Include="GameEngine_t.h" />
     <ClInclude Include="game_t.h" />
     <ClInclude Include="ground_t.h" />
+    <ClInclude Include="InterfaceBar.h" />
+    <ClInclude Include="InterfaceButton.h" />
+    <ClInclude Include="InterfaceContent.h" />
+    <ClInclude Include="InterfaceEngine_t.h" />
+    <ClInclude Include="InterfaceWindow_t.h" />
     <ClInclude Include="keyboardController.h" />
+    <ClInclude Include="Level_t.h" />
+    <ClInclude Include="mainMenu_t.h" />
     <ClInclude Include="map_t.h" />
     <ClInclude Include="Npc_t.h" />
     <ClInclude Include="obPreference.h" />

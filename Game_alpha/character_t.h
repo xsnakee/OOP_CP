@@ -43,7 +43,6 @@ protected:
 
 	character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList);
 	character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock);
-
 public:
 	virtual ~character_t();
 
@@ -51,7 +50,7 @@ public:
 	void changeEffect(Effect_t *newEffect);
 
 	void defaultStats();
-
+	void defaultAllStats();
 	virtual void attack();
 
 	virtual bool checkAlive();
@@ -65,9 +64,10 @@ public:
 	virtual bool checkSkillGenerator();
 	virtual bool addElement(elements::element _elem);
 	virtual void generateSkillAndClearElemList();
+	virtual void resetElemsList();
+	virtual size_t setElemStatus(size_t _elemStatus);
 
-
-
+	void useMP(float _mp);
 	bool kill();
 	void update(float _speed);
 	float toHit ()const;
@@ -112,6 +112,16 @@ public:
 	characterTimers_t &getTimers() {
 		return timer;
 	}
+
+
+	std::list<elements::element> getElements() {
+		return skillGeneratorArr;
+	}
+
+	skillObGenerator_t *getSkillGeneratorPtr() {
+		return skill.get();
+	}
+
 	//SET
 	float setFrame(float _frame) {
 		frame = _frame;
@@ -128,10 +138,6 @@ public:
 
 	void setStats(characterStats_t &_stats);
 
-	size_t setElemStatus(size_t _elemStatus) {
-		elemStatus = _elemStatus;
-		return elemStatus;
-	}
 
 	void setMoveRadius(float _radius) {
 		moveRadius = _radius;

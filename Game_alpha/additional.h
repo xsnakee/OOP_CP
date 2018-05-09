@@ -1,16 +1,13 @@
 #pragma once
-#include <list>
-#include <vector>
-#include <iterator>
 
 
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
 		NONE = 0,
-		WIND = 1,
+		EARTH = 1,
 		FIRE = 2,
-		EARTH = 8
+		WIND = 8
 	};
 }
 
@@ -22,6 +19,7 @@ struct bulletStats {
 	float AOE = 0.1f;
 	bool type = true;//0 - heal, 1 - dmg
 	int fraction = -1;
+	float mpCost = 10.f;
 };
 
 
@@ -61,6 +59,7 @@ namespace tiles {
 }
 
 namespace animation {
+	const std::string DEFAULT_TEXTURE = "img/default.png";
 	//BULLETS IMGS
 	const std::string SWORD_ATTACK_TEXTURE_FILE = "img/skills/bullet_sword.png";
 	const std::string BULLET_SMALL_FIRE_BALLS_TEXTURE_FILE = "img/skills/bullet_small_fire_balls.png";
@@ -72,6 +71,7 @@ namespace animation {
 	const std::string BULLET_EARTH_SLAM_TEXTURE_FILE = "img/skills/bullet_earth_slam.png";
 	const std::string BULLET_COMBO_BALL_TEXTURE_FILE = "img/skills/bullet_combo.png";
 	const std::string BULLET_CRYSTAL_HEAL_TEXTURE_FILE = "img/skills/bullet_crystal_heal.png";
+	const std::string BULLET_FIRE_LIGHTING_TEXTURE_FILE = "img/skills/bullet_fire_lighting.png";
 
 	//CHARACTER IMGS
 	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero_32_32.png";
@@ -93,6 +93,28 @@ namespace animation {
 	const std::string BOSS_BLACK_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_BLACK_DRAGON_96_96.png";
 	const std::string BOSS_RED_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_RED_DRAGON_192_192.png";
 	const std::string BOSS_ENH_TEXURE_FILE = "img/characters/BOSSES/BOSS_ENH_240_80.png";
+	//ICONS
+	//const std::string ICON_ELEMENT__FILE = "img/icons/.png";
+	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
+	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_earth.png";
+	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_wind.png";
+	//SKILLS ICONS
+	const std::string ICON_SKILL_BANG_BALL_FILE = "img/icons/icon_skill_bang_ball.png";
+	const std::string ICON_SKILL_COMBO_BALL_FILE = "img/icons/icon_skill_combo_ball.png";
+	const std::string ICON_SKILL_sWORD_ATTACK_FILE = "img/icons/icon_skill_common_attack.png";
+	const std::string ICON_SKILL_EARTH_BALL_FILE = "img/icons/icon_skill_earth_ball.png";
+	const std::string ICON_SKILL_FIRE_BALL_FILE = "img/icons/icon_skill_fire_ball.png";
+	const std::string ICON_SKILL_HEAL_BALL_FILE = "img/icons/icon_skill_heal_ball.png";
+	const std::string ICON_SKILL_LAVA_POOL_FILE = "img/icons/icon_skill_lava_pool.png";
+	const std::string ICON_SKILL_POWER_UP_FILE = "img/icons/icon_skill_powerUp.png";
+	const std::string ICON_SKILL_RUSH_FILE = "img/icons/icon_skill_rush.png";
+	const std::string ICON_SKILL_SMALL_EARTH_BALLS_FILE = "img/icons/icon_skill_small_earth_balls.png";
+	const std::string ICON_SKILL_SMALL_FIRE_BALLS_FILE = "img/icons/icon_skill_small_fire_balls.png";
+	const std::string ICON_SKILL__FILE = "img/icons/.png";
+
+
+
+
 
 	const int COMMON_CHARACTER_SPRITE = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
@@ -127,65 +149,30 @@ static bool timeIsOver(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
 	return (abs(curTime - startTime) > _time) ? true : false;
 }
 
+static sf::Vector2f generateRandomSpawnCoords(const sf::Vector2i mapSize) {
+	
+	sf::Vector2f vect;
+	vect.x = static_cast<float>(rand() % mapSize.x);
+	vect.y = static_cast<float>(rand() % mapSize.y);
+
+	return vect;
+}
 
 
-
-//TRASH
-
-/*
-class textureList_t {
-public:
-	std::shared_ptr<sf::Texture>SWORD_ATTACK_TEXTURE;//0
-	std::shared_ptr<sf::Texture>BULLET_SMALL_FIRE_BALLS_TEXTURE;//1
-	std::shared_ptr<sf::Texture>BULLET_SMALL_EARTH_BALL_TEXTURE;//2
-	std::shared_ptr<sf::Texture>BULLET_FIRE_BALL_TEXTURE;//3
-	std::shared_ptr<sf::Texture>BULLET_EARTH_BALL_TEXTURE;//4
-	std::shared_ptr<sf::Texture>BULLET_LAVA_TEXTURE;//5
-	std::shared_ptr<sf::Texture>BULLET_FIREWALL_TEXTURE;//6
-	std::shared_ptr<sf::Texture>BULLET_EARTH_SLAM_TEXTURE;//7
-	std::shared_ptr<sf::Texture>BULLET_COMBO_BALL_TEXTURE;//8
-	std::shared_ptr<sf::Texture>MAIN_HERO_TEXTURE;//9
-	std::shared_ptr<sf::Texture>ENEMY_SLENDER_DEMON;// 10
-	std::shared_ptr<sf::Texture>ENEMY_WARRIOR;//11
-	std::shared_ptr<sf::Texture>ENEMY_MAGE;//12
-	std::shared_ptr<sf::Texture>ENEMY_DEMON; //13
-
-	textureList_t() {
-		SWORD_ATTACK_TEXTURE = std::make_shared<sf::Texture>();//0
-		BULLET_SMALL_FIRE_BALLS_TEXTURE = std::make_shared<sf::Texture>();//1
-		BULLET_SMALL_EARTH_BALL_TEXTURE = std::make_shared<sf::Texture>();//2
-		BULLET_FIRE_BALL_TEXTURE = std::make_shared<sf::Texture>();//3
-		BULLET_EARTH_BALL_TEXTURE = std::make_shared<sf::Texture>();//4
-		BULLET_LAVA_TEXTURE = std::make_shared<sf::Texture>();//5
-		BULLET_FIREWALL_TEXTURE = std::make_shared<sf::Texture>();//6
-		BULLET_EARTH_SLAM_TEXTURE = std::make_shared<sf::Texture>();//7
-		BULLET_COMBO_BALL_TEXTURE = std::make_shared<sf::Texture>();//8
-		MAIN_HERO_TEXTURE = std::make_shared<sf::Texture>();//9
-		ENEMY_SLENDER_DEMON = std::make_shared<sf::Texture>();// 10
-		ENEMY_WARRIOR = std::make_shared<sf::Texture>();//11
-		ENEMY_MAGE = std::make_shared<sf::Texture>();//12
-		ENEMY_DEMON = std::make_shared<sf::Texture>();; //13
-
-		std::list<std::string>::iterator it = animation::textureFileNames.begin();
-		SWORD_ATTACK_TEXTURE->loadFromFile(*(it++));//0
-		BULLET_SMALL_FIRE_BALLS_TEXTURE->loadFromFile(*(it++));//1
-		BULLET_SMALL_EARTH_BALL_TEXTURE->loadFromFile(*(it++));//2
-		BULLET_FIRE_BALL_TEXTURE->loadFromFile(*(it++));//3
-		BULLET_EARTH_BALL_TEXTURE->loadFromFile(*(it++));//4
-		BULLET_LAVA_TEXTURE->loadFromFile(*(it++));//5
-		BULLET_FIREWALL_TEXTURE->loadFromFile(*(it++));//6
-		BULLET_EARTH_SLAM_TEXTURE->loadFromFile(*(it++));//7
-		BULLET_COMBO_BALL_TEXTURE->loadFromFile(*(it++));//8
-		MAIN_HERO_TEXTURE->loadFromFile(*(it++));//9
-		ENEMY_SLENDER_DEMON->loadFromFile(*(it++));// 10
-		ENEMY_WARRIOR->loadFromFile(*(it++));//11
-		ENEMY_MAGE->loadFromFile(*(it++));//12
-		ENEMY_DEMON->loadFromFile(*(it++));; //13
-
-	}
-	~textureList_t() {
-
-	}
+namespace textSettings {
+	const std::string MAIN_FONT_FILE = "fonts/main_font.ttf";
+	const size_t STD_FONT_SIZE = 12;
 };
 
-//*/
+namespace interface {
+	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
+	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
+	const sf::Vector2f STD_WINDOW_SIZE(48.f, 48.f);
+	
+	const sf::Vector2f STD_SKILL_WINDOW_SIZE(64.f,64.f);
+	const sf::Vector2f STD_ELEMENT_GENERATOR_WINDOW_SIZE(48.f,48.f);
+
+	static sf::Vector2f getScreenCoords(sf::RenderWindow *window) {
+		return sf::Vector2f(window->getView().getCenter().x - window->getSize().x / 2, window->getView().getCenter().y - window->getSize().y / 2);
+	}
+};

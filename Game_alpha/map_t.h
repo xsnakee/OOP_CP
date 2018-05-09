@@ -20,9 +20,7 @@ const std::string TILE_FILE_PATH = "img/objects/TilesTexture.png";
 class map_t
 {
 private:
-
-	int sizeX;
-	int sizeY;
+	sf::Vector2i size;
 	int tileAmountX;
 	int tileAmountY;
 	std::string levelName;
@@ -36,7 +34,6 @@ private:
 	std::shared_ptr<sf::Texture>tile_texture;
 	//std::shared_ptr<sf::Texture>mapBgTexture;
 	
-	
 public:
 	sf::Sprite mapBgSprite;
 	std::list<ground_t*> groundTilesList; //If needed layers view
@@ -47,16 +44,14 @@ public:
 	~map_t();
 	
 public:
-	void fillTheMapObj();
-	void fillTheMapTiles();
-	void drawMap();
+	bool fillTheMapObj();
+	bool fillTheMapTiles();
 
 public:
 	//GET
 
 	sf::Vector2i getSize() const {
-		sf::Vector2i temp(sizeX, sizeY);
-		return temp;
+		return size;
 	}
 
 	sf::Vector2i getTileAmount() const {
