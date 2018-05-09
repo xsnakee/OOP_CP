@@ -19,13 +19,13 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 
 	using namespace animation;
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
-	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);//
-	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
+	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);//
+	tiles::sizes tempSizes = tiles::getSizesFromStr(MAIN_HERO_TEXTURE_FILE);
 	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, tempSizes.width, tempSizes.height, clock.get())));
 	level.mainHero = level.charactersList.begin();
 	generateNpcTypes();
 
-	//generateNpc();
+	generateNpc();
 }
 
 	
@@ -97,7 +97,6 @@ void GameEngine_t::generateNpcTypes() {
 void GameEngine_t::generateNpc() {
 	size_t NpcTypeAmount = npcTypesList.size();
 	size_t tempCounter = 0;
-	tiles::sizes tempSizes;
 
 	size_t NpcAmount = 20;
 

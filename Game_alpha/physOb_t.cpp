@@ -125,9 +125,14 @@ bool physOb_t::checkCollision(physOb_t &Object, float _borderError) {
 	float thisCenterX = posX + thisWidth;
 	float thisCenterY = posY + thisHeight;
 
-	if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (abs(obCenterY - thisCenterY) < (thisHeight + obHeight - _borderError))){
+	if (getFloatRect().intersects(Object.getCollisionRect())) {
 		return true;
 	}
+
+	/*
+	if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (abs(obCenterY - thisCenterY) < (thisHeight + obHeight - _borderError))){
+		return true;
+	}*/
 	
 	return false;
 }
@@ -146,7 +151,7 @@ bool physOb_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 		} else if (direction == animation::BOTTOM) {
 			posY = Object.getPosY() - getHeight() - _borderError;
 		} else if (direction == animation::TOP) {
-			posY = Object.getPosY() + Object.getHeight()/2;
+			posY = Object.getPosY() + Object.getHeight() + _borderError;
 		}
 		
 		/*

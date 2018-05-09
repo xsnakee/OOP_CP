@@ -75,7 +75,7 @@ namespace animation {
 
 	//CHARACTER IMGS
 	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero_32_32.png";
-
+	const std::string MAIN_HERO_TEXTURE_FILE2 = "img/characters/mainHero(2)_32_32.png";
 	const std::string ENEMY_DEMON_FILE = "img/characters/enemy_demon_32_32.png";
 	const std::string ENEMY_SLENDER_DEMON_FILE = "img/characters/enemy_slenderDemon_32_32.png";
 	const std::string ENEMY_WARRIOR_FILE = "img/characters/enemy_warrior_32_32.png";
@@ -120,12 +120,13 @@ namespace animation {
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
 	const int SPRITE_X = 0;
 	const int SPRITE_Y = 0;
-
 	const int LARGE_SKILL_WIDTH = 64;
 	const int LARGE_SKILL_HEIGHT = 64;
 
 	const float frameRate = 3.f;
 	const float frameSpeed = 0.05f;
+
+	const float HEROES_SPRITE_COLLISION_CORRECTION_BORDER = 10.f;
 
 	enum direction {
 		BOTTOM = 0,
