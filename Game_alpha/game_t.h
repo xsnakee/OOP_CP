@@ -8,6 +8,7 @@
 enum modes {
 	PLAY,
 	PAUSED,
+	WIN,
 	GAME_OVER
 };
 

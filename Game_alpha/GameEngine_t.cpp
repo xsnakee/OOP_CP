@@ -26,6 +26,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	generateNpcTypes();
 
 	generateNpc();
+	generateBosses();
 }
 
 	
@@ -115,32 +116,41 @@ void GameEngine_t::generateNpc() {
 
 }
 
-void GameEngine_t::update() {
+void GameEngine_t::generateBosses() {
+}
 
-	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
+
+void GameEngine_t::update() {
+	if (level.checkLevelComplete()) {
+		return;
+	}
 
 	checkAlive();
 
-	bulletEngine();
-	visionEngine();
-	charsAction();
-	collisionEngine();
+	if (!level.gameOver) {
 
-	level.mainHero->get()->setTargetCoords(cursor->getPosition());
+		bulletEngine();
+		visionEngine();
+		charsAction();
+		collisionEngine();
 
-	for (auto &character : level.charactersList) {
-		(character)->update(speed);
+		level.mainHero->get()->setTargetCoords(cursor->getPosition());
+
+		for (auto &character : level.charactersList) {
+			(character)->update(speed);
+		}
+
+
+		for (auto &bullet : level.bulletsList) {
+			bullet->update(speed);
+		}
+
+
+		setCamera();//set Camera
+		window->setView(*view); // Set camera
+		cursor->setCursorPosition();
 	}
-
 	
-	for (auto &bullet : level.bulletsList) {
-		bullet->update(speed);
-	}
-	
-
-	setCamera();//set Camera
-	window->setView(*view); // Set camera
-	cursor->setCursorPosition();
 }
 
 void GameEngine_t::charsAction() {
@@ -180,11 +190,12 @@ void GameEngine_t::checkAlive() {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
+				level.checkMissionsTarget();
 			}
 		}
 		else {
 			if (!(*tempCharIter)->getAlive()) {
-				std::cout << "GAME OVER";
+				level.gameOver = true;
 			}
 		}
 
@@ -252,13 +263,10 @@ void GameEngine_t::collisionEngine() {
 	}
 }
 
-
-
-
 void GameEngine_t::setCamera() {
 
-	float _x = level.mainHero->get()->getPosX();
-	float _y = level.mainHero->get()->getPosY();
+	float _x = level.mainHero->get()->getCoordsOfCenter().x;
+	float _y = level.mainHero->get()->getCoordsOfCenter().y;
 	
 
 	//EDIT THIS FOR CAMERA CONTROLL
