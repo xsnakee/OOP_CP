@@ -30,6 +30,7 @@ private:
 	sf::View *view;
 
 	void generateNpcTypes();
+	bool positionCollision(const sf::Vector2f _obPos);
 public:
 
 	GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty);

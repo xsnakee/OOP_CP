@@ -36,6 +36,16 @@ GameEngine_t::~GameEngine_t()
 	delete cursor;
 }
 
+
+bool GameEngine_t::positionCollision(const sf::Vector2f _obPos) {
+	for (auto &i :level.obList) {
+		if (i->getFloatRect().contains(_obPos)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void GameEngine_t::generateNpcTypes() {
 	using namespace animation;
 	tiles::sizes tempSizes;
@@ -96,7 +106,10 @@ void GameEngine_t::generateNpc() {
 	for (auto &i : npcTypesList) {
 		tempCounter = 0;
 		while (tempCounter++ < NpcAmount) {
-			tempCoords = generateRandomSpawnCoords(level.map.getSize());
+			do {
+				tempCoords = generateRandomSpawnCoords(level.map.getSize());
+			} while (positionCollision(tempCoords));
+
 			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords))));
 		}
 	}

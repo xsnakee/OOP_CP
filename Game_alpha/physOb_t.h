@@ -123,6 +123,10 @@ public:
 	sf::Vector2f getCoordsOfCenter() const {
 		return sf::Vector2f(posX + getWidth()/2, posY + getHeight() / 2);
 	}
+	sf::FloatRect getFloatRect() const {
+		return sf::FloatRect(posX, posY, static_cast<float>(getWidth()), static_cast<float>(getHeight()));
+	}
+
 	//SET
 	float setPosX(float _x){
 		posX = _x;
