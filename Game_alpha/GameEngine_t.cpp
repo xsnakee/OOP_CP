@@ -98,7 +98,7 @@ void GameEngine_t::generateNpc() {
 	size_t NpcTypeAmount = npcTypesList.size();
 	size_t tempCounter = 0;
 
-	size_t NpcAmount = 20;
+	size_t NpcAmount = 20 * difficulty;
 
 	sf::Vector2f tempCoords;
 
@@ -109,7 +109,7 @@ void GameEngine_t::generateNpc() {
 				tempCoords = generateRandomSpawnCoords(level.map.getSize());
 			} while (positionCollision(tempCoords));
 
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords))));
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
 		}
 	}
 
