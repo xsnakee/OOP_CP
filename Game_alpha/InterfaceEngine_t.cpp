@@ -73,6 +73,7 @@ void InterfaceEngine_t::setObservedBards() {
 	barsList.back()->setInnerRectColor(sf::Color::Blue);
 }
 
+//SKILL GENERATOR INTERFACE
 void InterfaceEngine_t::createSkillGeneratorIterface() {
 
 	//SKILL GENERATOR ELEMENTS STATUS ICONS
@@ -204,9 +205,7 @@ void InterfaceEngine_t::updateGenerator() {
 }
 
 
-
-
-
+//MISSION JOURNAL INTERFACE
 void InterfaceEngine_t::createHeroIterfaceWindows() {
 	size_t contentStringsAmount = level.getMission().missionsContent.size();
 	//MAIN MISSION WINDOW
