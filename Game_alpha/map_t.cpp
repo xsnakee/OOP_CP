@@ -26,8 +26,8 @@ map_t::map_t(std::string _levelName) {
 	tileAmountX = 272;
 	tileAmountY = 143;
 
-	sizeX = tileAmountX * tiles::size;
-	sizeY = tileAmountY*tiles::size;
+	size.x = tileAmountX * tiles::size;
+	size.y = tileAmountY*tiles::size;
 }
 
 map_t::~map_t()

@@ -21,7 +21,7 @@ private:
 	cursor_t *cursor;
 	Level_t &level;
 	size_t difficulty;
-	std::list<std::unique_ptr<character_t>> characterTypesList;
+	std::list<std::unique_ptr<character_t>> npcTypesList;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;

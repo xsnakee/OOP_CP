@@ -20,9 +20,7 @@ const std::string TILE_FILE_PATH = "img/objects/TilesTexture.png";
 class map_t
 {
 private:
-
-	int sizeX;
-	int sizeY;
+	sf::Vector2i size;
 	int tileAmountX;
 	int tileAmountY;
 	std::string levelName;
@@ -53,8 +51,7 @@ public:
 	//GET
 
 	sf::Vector2i getSize() const {
-		sf::Vector2i temp(sizeX, sizeY);
-		return temp;
+		return size;
 	}
 
 	sf::Vector2i getTileAmount() const {

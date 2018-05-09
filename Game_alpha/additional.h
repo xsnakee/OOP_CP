@@ -149,6 +149,15 @@ static bool timeIsOver(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
 	return (abs(curTime - startTime) > _time) ? true : false;
 }
 
+static sf::Vector2f generateRandomSpawnCoords(const sf::Vector2i mapSize) {
+	
+	sf::Vector2f vect;
+	vect.x = static_cast<float>(rand() % mapSize.x);
+	vect.y = static_cast<float>(rand() % mapSize.y);
+
+	return vect;
+}
+
 
 namespace textSettings {
 	const std::string MAIN_FONT_FILE = "fonts/main_font.ttf";
