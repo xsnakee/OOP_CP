@@ -58,7 +58,9 @@ characterStats_t &character_t::getStats() {
 void character_t::defaultStats() {
 	stat.defaultStats();
 }
-
+void character_t::defaultAllStats() {
+	stat.defaultAllStats();
+}
 bool character_t::kill() {
 	alive = false;
 	return false;
@@ -106,7 +108,7 @@ float character_t::takeDamage(float _dmg, bool _dmgType, elements::element _elem
 		if (_dmgType) {
 			tempDmg = (_elem == elements::NONE) ? (_dmg - abs(stat.physDef)) : (_dmg - abs(stat.magDef));
 			if (tempDmg < 0) {
-				tempDmg = 0.f;
+				tempDmg = 1.f;
 			}
 
 			stat.HP -= tempDmg;

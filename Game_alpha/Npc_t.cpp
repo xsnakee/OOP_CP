@@ -31,7 +31,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	elemStatus = 1;
 }
 
-Npc_t::Npc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple):
+Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple):
 	character_t(copyedNpc->getSpritePref().getTextureSharedPtr(), copyedNpc->getSkillGeneratorPtr()->getBulletList(), spotPoint.x, spotPoint.y, 0, 0,
 		copyedNpc->getWidth(), copyedNpc->getHeight(), copyedNpc->getClockPtr()) {
 	stat = copyedNpc->getStats();
@@ -58,7 +58,9 @@ void Npc_t::attack() {
 	character_t::attack();
 }
 
+void Npc_t::setTypeStats() {
 
+}
 
 //MAGE CLASS
 
@@ -66,6 +68,21 @@ void Npc_t::attack() {
 MageNpc_t::MageNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	Npc_t(_texture,_bulletList,_clock,_spotCoords,_width, _height, _multiple)
 {
+	setTypeStats();
+}
+
+MageNpc_t::MageNpc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+	setTypeStats();
+}
+
+MageNpc_t::~MageNpc_t() {
+
+}
+
+void MageNpc_t::setTypeStats() {
+
 	elemStatus = 5;//FIRE BALLS
 	stat.attackRange = 200.f;
 	stat.stdPhysDef = 5.f;
@@ -75,23 +92,24 @@ MageNpc_t::MageNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique
 	stat.visionDistance = 220.f;
 	stat.attackSpeed = 1.1f;
 	stat.stdSpeed = 0.1f;
-	defaultStats();
+	defaultAllStats();
 }
-
-MageNpc_t::MageNpc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
-Npc_t(copyedNpc, spotPoint, powerMultiple)
-{
-}
-
-MageNpc_t::~MageNpc_t() {
-
-}
-
-
 //WARRIOR CLASS
 WarriorNpc_t::WarriorNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	Npc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
+	setTypeStats();
+}
+WarriorNpc_t::WarriorNpc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+	setTypeStats();
+}
+WarriorNpc_t::~WarriorNpc_t() {
+
+}
+void WarriorNpc_t::setTypeStats() {
+
 	elemStatus = 1;//SWORD ATTACK
 	stat.attackRange = 40.f;
 	stat.stdPhysDef = 15.f;
@@ -102,20 +120,24 @@ WarriorNpc_t::WarriorNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::
 	stat.visionDistance = 250.f;
 	stat.attackSpeed = 1.5f;
 	stat.stdSpeed = 0.11f;
-	defaultStats();
+	defaultAllStats();
 }
-WarriorNpc_t::WarriorNpc_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
-	Npc_t(copyedNpc, spotPoint, powerMultiple)
-{
-}
-WarriorNpc_t::~WarriorNpc_t() {
-
-}
-
 //ZOMBIE WITCH CLASS
 ZombieWitch_t::ZombieWitch_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	Npc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
+	setTypeStats();
+}
+ZombieWitch_t::ZombieWitch_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+	setTypeStats();
+}
+ZombieWitch_t::~ZombieWitch_t() {
+
+}
+void ZombieWitch_t::setTypeStats() {
+
 	elemStatus = 4;//FIRE LIGHTING
 	stat.attackRange = 150.f;
 	stat.stdPhysDef = 5.f;
@@ -126,20 +148,24 @@ ZombieWitch_t::ZombieWitch_t(std::shared_ptr<sf::Texture>_texture, std::list<std
 	stat.visionDistance = 200.f;
 	stat.attackSpeed = 1.f;
 	stat.stdSpeed = 0.09f;
-	defaultStats();
+	defaultAllStats();
 }
-ZombieWitch_t::ZombieWitch_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
-	Npc_t(copyedNpc, spotPoint, powerMultiple)
-{
-}
-ZombieWitch_t::~ZombieWitch_t() {
-
-}
-
 //FAT ZOMBIE CLASS
 FatZombie_t::FatZombie_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	Npc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
+	setTypeStats();
+}
+FatZombie_t::FatZombie_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+	setTypeStats();
+}
+FatZombie_t::~FatZombie_t() {
+
+}
+void FatZombie_t::setTypeStats() {
+
 	elemStatus = 6;//POISION BALL
 	stat.attackRange = 50.f;
 	stat.stdPhysDef = 10.f;
@@ -150,20 +176,25 @@ FatZombie_t::FatZombie_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	stat.visionDistance = 250.f;
 	stat.attackSpeed = 2.f;
 	stat.stdSpeed = 0.08f;
-	defaultStats();
+	defaultAllStats();
 }
-FatZombie_t::FatZombie_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
-	Npc_t(copyedNpc, spotPoint, powerMultiple)
-{
-}
-FatZombie_t::~FatZombie_t() {
-
-}
-
 //SKELETON MAGE CLASS
 SkeletonMage_t::SkeletonMage_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	Npc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
+	setTypeStats();
+}
+SkeletonMage_t::SkeletonMage_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
+	Npc_t(copyedNpc, spotPoint, powerMultiple)
+{
+	setTypeStats();
+}
+
+SkeletonMage_t::~SkeletonMage_t() {
+
+}
+void SkeletonMage_t::setTypeStats() {
+
 	elemStatus = 12;//POISION BALL
 	stat.attackRange = 300.f;
 	stat.stdPhysDef = 20.f;
@@ -174,13 +205,5 @@ SkeletonMage_t::SkeletonMage_t(std::shared_ptr<sf::Texture>_texture, std::list<s
 	stat.visionDistance = 350.f;
 	stat.attackSpeed = 2.f;
 	stat.stdSpeed = 0.11f;
-	defaultStats();
-}
-SkeletonMage_t::SkeletonMage_t(Npc_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) :
-	Npc_t(copyedNpc, spotPoint, powerMultiple)
-{
-}
-
-SkeletonMage_t::~SkeletonMage_t() {
-
+	defaultAllStats();
 }

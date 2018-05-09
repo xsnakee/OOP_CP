@@ -31,13 +31,19 @@ struct characterStats_t
 		HP = MP = attackPower =
 			physDef = magDef = speed = 0.f;
 	}
-
 	void defaultStats() {
 		attackPower = stdattackPower;
 		physDef = stdPhysDef;
 		magDef = stdMagDef;
 		speed = stdSpeed;
 	}
+
+	void defaultAllStats() {
+		defaultStats();
+		HP = stdHP;
+		MP = stdMP;
+	}
+
 	void upStat(characterStats_t &stat) {
 		HP += stat.HP;
 		MP += stat.MP;

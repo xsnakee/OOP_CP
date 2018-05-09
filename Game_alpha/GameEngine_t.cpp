@@ -240,6 +240,7 @@ void GameEngine_t::generateNpc() {
 				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(demonText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
 
 			}
+			
 
 			break;
 		}
@@ -273,7 +274,11 @@ void GameEngine_t::generateNpc() {
 				level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(magesText, level.bulletsList, clock.get(), spawnCoords, tempSizes.width, tempSizes.height))));
 				level.charactersList.back()->setElemStatus(5);
 				level.charactersList.back()->getStats().attackRange = 150.f;
-			}
+			}sf::Vector2f spawnCoords(1400.f, 1200.f);
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(level.charactersList.back().get(), spawnCoords))));
+			spawnCoords.x += 20.f;
+			spawnCoords.y += 20.f;
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new MageNpc_t(level.charactersList.back().get(), spawnCoords))));
 			break;
 		}
 		}
