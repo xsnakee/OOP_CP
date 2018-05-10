@@ -2,13 +2,19 @@
 
 InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level) :level(_level)
 {
+
 	window = _window;
+
 	generateHPbars();
 	setObservedBards();
 	createSkillGeneratorIterface(); 
 	createJournalWindow();
 	createGameStatsWindow();
+
 	createInterfaceButtons();
+
+	createMapWindow();
+
 	cursor = std::move(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
 }
@@ -23,10 +29,17 @@ void InterfaceEngine_t::drawCursor() {
 
 void InterfaceEngine_t::update() {
 	updateGenerator();
-	updateMissionJournal();
-	updateGameStats();
+	if (missionWindowIt->get()->getDisplayState()) {
+		updateMissionJournal();
+	}
+	if (gameStatsWindowIt->get()->getDisplayState()) {
+		updateGameStats();
+	}
+	if (mapIt->get()->getDisplayState()) {
+		updateMapWindow();
+	}
 
-	level.mainHero->get()->setTargetCoords(cursor->getPosition());
+	level.mainHero->get()->setTargetPos(cursor->getPosition());
 
 	for (auto i = barsList.begin(); i != barsList.end(); ++i) {
 		if (i->get()->getDisplay()) {
@@ -292,4 +305,37 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	sf::Texture *temp2 = new sf::Texture;
 	temp2->loadFromFile(icon::ICON_BUTTON_GAME_STATISTIC);
 	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp2, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+}
+
+
+
+void InterfaceEngine_t::createMapWindow() {
+
+	sf::Texture *miniMapTexure(new sf::Texture);
+	std::string mapFileName = "img/maps/" + level.map.getLvlName() + ".png";
+	miniMapTexure->loadFromFile(mapFileName);
+
+	sf::Vector2f mapSize(miniMapTexure->getSize());
+	sf::Vector2f mapPosition(window->getSize().x/2 - mapSize.x /2 , window->getSize().y / 2 - mapSize.y / 2);
+	windowsList.push_back(window_t(new InterfaceWindow_t(window, mapPosition, mapSize)));
+	
+	mapIt = windowsList.end();
+	--mapIt;
+
+	mapIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window,miniMapTexure,mapIt->get()->getPos())));
+	mapIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, ".", mapIt->get()->getPos())));
+	unsigned int characterSize = 80;
+	mapIt->get()->contentList.back()->setFontSize(characterSize);
+}
+
+void InterfaceEngine_t::updateMapWindow() {
+
+	sf::Vector2f mapk;
+	mapk.x = mapIt->get()->getSizes().x / level.map.getFloatSize().x;
+	mapk.y = mapIt->get()->getSizes().y / level.map.getFloatSize().y;
+
+	sf::Vector2f posCharOnMap (level.mainHero->get()->getPos().x * mapk.x, level.mainHero->get()->getPos().y * mapk.y);
+	float k = static_cast<float>(mapIt->get()->contentList.back()->getFontSize());
+	sf::Vector2f posCorrection(k/4.f, k);
+	mapIt->get()->contentList.back()->setRelativePos(posCharOnMap - posCorrection);
 }

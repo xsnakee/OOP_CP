@@ -5,7 +5,7 @@ bullet_t::bullet_t() :physOb_t()
 }
 
 
-bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords) : physOb_t(genObj->getCoordsOfCenter().x, genObj->getCoordsOfCenter().y) {
+bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetPos) : physOb_t(genObj->getPosOfCenter().x, genObj->getPosOfCenter().y) {
 
 
 	genericObject = genObj;
@@ -16,7 +16,7 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 	startTime = _startTime;
 	timer = 4000;
 
-	targetCoords = _targetCoords;
+	targetPos = _targetPos;
 	stat.range = genericObject->getStats().attackRange;
 	stat.damage = genericObject->getStats().attackPower;
 
@@ -41,8 +41,8 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoo
 
 
 	//CALC SPEED
-	float distanceX = targetCoords.x - posX;
-	float distanceY = targetCoords.y - posY;
+	float distanceX = targetPos.x - posX;
+	float distanceY = targetPos.y - posY;
 	float rotation = (atan2(distanceY, distanceX)) * 180.f / 3.14159265f;
 
 	spritePref.setOriginToCenter();

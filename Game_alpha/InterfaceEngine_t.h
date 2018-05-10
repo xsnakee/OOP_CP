@@ -20,6 +20,7 @@ class InterfaceEngine_t
 	std::list<window_t>::iterator elemIt;
 	std::list<window_t>::iterator missionWindowIt;
 	std::list<window_t>::iterator gameStatsWindowIt;
+	std::list<window_t>::iterator mapIt;
 	std::unique_ptr<cursor_t> cursor;
 
 	void drawCursor();
@@ -40,10 +41,12 @@ public:
 	void createSkillGeneratorIterface();
 	void createJournalWindow();
 	void createGameStatsWindow();
+	void createMapWindow();
+	void createInterfaceButtons();
 
 	void updateGenerator();
 	void updateMissionJournal();
 	void updateGameStats();
-	void createInterfaceButtons();
+	void updateMapWindow();
 };
 

@@ -99,6 +99,7 @@ void InterfaceTextContent_t::setText(sf::Text *_newText) {
 void InterfaceTextContent_t::swapContent(std::string _newPath) {
 	font.loadFromFile(textSettings::STRIKE_THROUGHT_FONT_FILE);
 	text->setFont(font);
+	text->setCharacterSize(fontSize);
 	setFontColor(sf::Color::White);
 }
 void InterfaceTextContent_t::update() {
@@ -124,4 +125,9 @@ void InterfaceTextContent_t::resetContent() {
 
 void InterfaceTextContent_t::setText(std::string newStr) {
 	str = newStr;
+}
+
+void InterfaceTextContent_t::setFontSize(unsigned int newSize) {
+	fontSize = newSize;
+	text->setCharacterSize(fontSize);
 }

@@ -18,7 +18,7 @@ protected:
 	
 
 public:
-	InterfaceContent(sf::RenderWindow *_window, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
+	InterfaceContent(sf::RenderWindow *_window, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos = sf::Vector2f(0.f,0.f));
 	virtual ~InterfaceContent();
 
 	virtual void update() = 0;
@@ -28,7 +28,17 @@ public:
 	virtual void resetContent() = 0;
 	virtual void setTexture(sf::Texture *newTexture);
 	virtual void setText(std::string newStr);
-
+	//GET
+	sf::Vector2u getSize() const {
+		return sizes;
+	}
+	sf::Vector2f getRelPos()const {
+		return relativePos;
+	}
+	unsigned int getFontSize() const {
+		return fontSize;
+	}
+	//SET
 	void setRelativePos(sf::Vector2f newCoords) {
 		relativePos = newCoords;
 	}
@@ -41,7 +51,7 @@ public:
 		font = newFont;
 	}
 
-	void setFontSize(unsigned int newSize){
+	virtual void setFontSize(unsigned int newSize){
 		fontSize = newSize;
 	}
 
@@ -60,7 +70,7 @@ public:
 	std::unique_ptr<sf::Texture> texture;
 	sf::Sprite sprite;
 public:
-	InterfaceSpriteContent_t(sf::RenderWindow *_window, sf::Texture *_texture, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
+	InterfaceSpriteContent_t(sf::RenderWindow *_window, sf::Texture *_texture, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos = sf::Vector2f(0.f, 0.f));
 	virtual ~InterfaceSpriteContent_t();
 
 	virtual void update();
@@ -98,14 +108,14 @@ public:
 	void setText(sf::Text *_newText);
 	sf::Text getText();
 public:
-	InterfaceTextContent_t(sf::RenderWindow *_window, std::string _str, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
+	InterfaceTextContent_t(sf::RenderWindow *_window, std::string _str, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos = sf::Vector2f(0.f, 0.f));
 	virtual ~InterfaceTextContent_t();
 
 	void setText(std::string newStr);
 	virtual void update();
 	virtual void draw();
 	virtual void toDefaultPosition();
-
+	virtual void setFontSize(unsigned int newSize);
 
 	virtual void swapContent(std::string _str = "");
 	virtual void resetContent();

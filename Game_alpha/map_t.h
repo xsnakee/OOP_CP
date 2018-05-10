@@ -46,12 +46,15 @@ public:
 public:
 	bool fillTheMapObj();
 	bool fillTheMapTiles();
-
+	std::string getLvlName() const;
 public:
 	//GET
 
 	sf::Vector2i getSize() const {
 		return size;
+	}
+	sf::Vector2f getFloatSize() const {
+		return sf::Vector2f(static_cast<float>(size.x), static_cast<float>(size.y));
 	}
 
 	sf::Vector2i getTileAmount() const {

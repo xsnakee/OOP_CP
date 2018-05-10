@@ -7,6 +7,12 @@
 map_t::map_t()
 {
 }
+//GET
+
+std::string map_t::getLvlName() const {
+	return levelName;
+}
+
 
 map_t::map_t(std::string _levelName) {
 

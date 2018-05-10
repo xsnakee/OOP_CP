@@ -283,8 +283,8 @@ void GameEngine_t::collisionEngine() {
 
 void GameEngine_t::setCamera() {
 
-	float _x = level.mainHero->get()->getCoordsOfCenter().x;
-	float _y = level.mainHero->get()->getCoordsOfCenter().y;
+	float _x = level.mainHero->get()->getPosOfCenter().x;
+	float _y = level.mainHero->get()->getPosOfCenter().y;
 	
 
 	//EDIT THIS FOR CAMERA CONTROLL

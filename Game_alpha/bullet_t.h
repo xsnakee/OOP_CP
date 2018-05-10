@@ -54,7 +54,7 @@ private:
 	float startPosX;
 	float startPosY;
 
-	sf::Vector2f targetCoords;
+	sf::Vector2f targetPos;
 	float vectorLength;
 
 	virtual void updateFrame();
@@ -62,7 +62,7 @@ private:
 	dmgInterval_t &checkObInList(physOb_t &Object);
 public:
 	bullet_t();
-	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords);
+	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetPos);
 	virtual ~bullet_t();
 
 
