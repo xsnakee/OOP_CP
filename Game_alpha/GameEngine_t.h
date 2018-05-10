@@ -9,28 +9,31 @@
 #include "Npc_t.h"
 #include "bullet_t.h"
 #include "additional.h"
-#include "cursor_t.h"
 #include "keyboardController.h"
 #include "Level_t.h"
+
+
+const float STD_DIFFICULTY_COEFFICIENT = 1.f;
 
 class GameEngine_t
 {
 private:
 	sf :: RenderWindow *window;
 
-	cursor_t *cursor;
 	Level_t &level;
 	size_t difficulty;
 	std::list<std::unique_ptr<character_t>> npcTypesList;
+	game::status status;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;
 	float speed;
 	float speedMultipple;
-	sf::View *view;
+	std::unique_ptr<sf::View> view;
 
 	void generateNpcTypes();
 	bool positionCollision(const sf::Vector2f _obPos);
+
 public:
 
 	GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty);
@@ -46,11 +49,14 @@ public:
 	void charsAction();
 	
 	void setCamera();
-	void drawCursor();
 	void generateNpc();
-
+	void generateBosses();
 	
 	//GET
+	game::status getGameStatus() const {
+		return status;
+	}
+
 	float setSpeed(float _time) {
 		speed = _time/speedMultipple;
 		return speed;

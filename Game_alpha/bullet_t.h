@@ -6,6 +6,18 @@
 #include <list>
 #include "additional.h"
 
+struct bulletStats {
+	float speed;
+	float damage;
+	float range;
+	elements::element element = elements::NONE;
+	float AOE = 0.1f;
+	bool type = true;//0 - heal, 1 - dmg
+	int fraction = -1;
+	float mpCost = 10.f;
+};
+
+
 class dmgInterval_t {
 public:
 	physOb_t &ob;
@@ -42,7 +54,7 @@ private:
 	float startPosX;
 	float startPosY;
 
-	sf::Vector2f targetCoords;
+	sf::Vector2f targetPos;
 	float vectorLength;
 
 	virtual void updateFrame();
@@ -50,7 +62,7 @@ private:
 	dmgInterval_t &checkObInList(physOb_t &Object);
 public:
 	bullet_t();
-	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetCoords);
+	bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetPos);
 	virtual ~bullet_t();
 
 

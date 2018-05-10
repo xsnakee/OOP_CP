@@ -19,6 +19,7 @@ mainMenu_t::mainMenu_t(sf::RenderWindow *_window, std::string &_levelName, size_
 	//TEXT PREFERENCES
 	textFont.loadFromFile(FONT_FILE);
 	fontSize = static_cast<unsigned int>(window->getSize().x / 32);
+	targetItemFontSize = fontSize + 1;
 	itemsMainColor = sf::Color::Color(255, 255, 255, 255);
 	variativeItemsColor = sf::Color::Yellow;
 	targetItemColor = sf::Color::Green;
@@ -134,6 +135,7 @@ void mainMenu_t::action() {
 			//COLOR TO DEFAULT
 			for (auto &i : menuItemsText) {
 				i.setFillColor(itemsMainColor);
+				i.setCharacterSize(fontSize);
 			}
 			difficultyText.setFillColor(variativeItemsColor);
 			levelNameText.setFillColor(variativeItemsColor);
@@ -185,18 +187,22 @@ int mainMenu_t::itemChoice() {
 
 	if (menuItemsRectList[0].contains(mousePos)) {
 		menuItemsText[0].setFillColor(targetItemColor);
+		menuItemsText[0].setCharacterSize(targetItemFontSize);
 		currentItem = 0;
 	}
 	if (menuItemsRectList[1].contains(mousePos)) {
 		menuItemsText[1].setFillColor(targetItemColor);
+		menuItemsText[1].setCharacterSize(targetItemFontSize);
 		currentItem = 1;
 	}
 	if (menuItemsRectList[2].contains(mousePos)) {
 		menuItemsText[2].setFillColor(targetItemColor);
+		menuItemsText[2].setCharacterSize(targetItemFontSize);
 		currentItem = 2;
 	}
 	if (menuItemsRectList[3].contains(mousePos)) {
 		menuItemsText[3].setFillColor(targetItemColor);
+		menuItemsText[3].setCharacterSize(targetItemFontSize);
 		currentItem = 3;
 	}
 	return currentItem;

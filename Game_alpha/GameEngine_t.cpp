@@ -7,33 +7,32 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 {
 	window = _window;
 	difficulty = _difficulty;
-	view = new sf::View;
+	view = std::move(std::unique_ptr <sf::View>(new sf::View));
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
 	window->setMouseCursorVisible(false);
 	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 
-	cursor = new cursor_t("img/cursor_aim.png",20,20, window);
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
 
 
 	using namespace animation;
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
-	temp->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);//
-	tiles::sizes tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
+	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);//
+	tiles::sizes tempSizes = tiles::getSizesFromStr(MAIN_HERO_TEXTURE_FILE);
 	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, tempSizes.width, tempSizes.height, clock.get())));
 	level.mainHero = level.charactersList.begin();
 	generateNpcTypes();
 
 	generateNpc();
+	generateBosses();
+	status = game::status::PLAY;
 }
 
 	
 
 GameEngine_t::~GameEngine_t()
 {
-	delete view;
-	delete cursor;
 }
 
 
@@ -97,9 +96,8 @@ void GameEngine_t::generateNpcTypes() {
 void GameEngine_t::generateNpc() {
 	size_t NpcTypeAmount = npcTypesList.size();
 	size_t tempCounter = 0;
-	tiles::sizes tempSizes;
 
-	size_t NpcAmount = 20;
+	size_t NpcAmount = 20 * difficulty;
 
 	sf::Vector2f tempCoords;
 
@@ -110,38 +108,68 @@ void GameEngine_t::generateNpc() {
 				tempCoords = generateRandomSpawnCoords(level.map.getSize());
 			} while (positionCollision(tempCoords));
 
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords))));
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
 		}
 	}
 
 }
 
-void GameEngine_t::update() {
+void GameEngine_t::generateBosses() {
+	size_t NpcTypeAmount = npcTypesList.size();
+	size_t tempCounter = 0;
 
-	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
+	size_t NpcAmount = 1 * difficulty;
+
+	sf::Vector2f tempCoords;
+
+	for (auto &i : npcTypesList) {
+		tempCounter = 0;
+		while (tempCounter++ < NpcAmount) {
+			do {
+				tempCoords = generateRandomSpawnCoords(level.map.getSize());
+			} while (positionCollision(tempCoords));
+
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+			level.bossesList.push_back(level.charactersList.back().get());
+		}
+	}
+}
+
+
+void GameEngine_t::update() {
+	if (level.checkLevelComplete()) {
+		status = game::status::WIN;
+		return;
+	}
 
 	checkAlive();
 
-	bulletEngine();
-	visionEngine();
-	charsAction();
-	collisionEngine();
+	if (!level.gameOver) {
+		level.mission.setTime(clock.get());
 
-	level.mainHero->get()->setTargetCoords(cursor->getPosition());
+		bulletEngine();
+		visionEngine();
+		charsAction();
+		collisionEngine();
 
-	for (auto &character : level.charactersList) {
-		(character)->update(speed);
+
+		for (auto &character : level.charactersList) {
+			(character)->update(speed);
+		}
+
+
+		for (auto &bullet : level.bulletsList) {
+			bullet->update(speed);
+		}
+
+
+		setCamera();//set Camera
+		window->setView(*view); // Set camera
 	}
-
-	
-	for (auto &bullet : level.bulletsList) {
-		bullet->update(speed);
+	else {
+		status = game::status::GAME_OVER;
 	}
 	
-
-	setCamera();//set Camera
-	window->setView(*view); // Set camera
-	cursor->setCursorPosition();
 }
 
 void GameEngine_t::charsAction() {
@@ -168,7 +196,6 @@ void GameEngine_t::draw() {
 	for (auto &bullet : level.bulletsList) {
 		window->draw(bullet->getSprite());
 	}
-	drawCursor();
 }
 
 
@@ -181,11 +208,12 @@ void GameEngine_t::checkAlive() {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
+				level.getMission().ånemyKilled();
 			}
 		}
 		else {
 			if (!(*tempCharIter)->getAlive()) {
-				std::cout << "GAME OVER";
+				level.gameOver = true;
 			}
 		}
 
@@ -246,20 +274,17 @@ void GameEngine_t::collisionEngine() {
 	for (auto &outerElement : level.charactersList) {
 		
 		for (auto &innerElement : level.obList) {
-			if (outerElement->checkCollision(*innerElement, 10.f)) {
+			if (outerElement->checkCollision(*innerElement, 2.f)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
 	}
 }
 
-
-
-
 void GameEngine_t::setCamera() {
 
-	float _x = level.mainHero->get()->getPosX();
-	float _y = level.mainHero->get()->getPosY();
+	float _x = level.mainHero->get()->getPosOfCenter().x;
+	float _y = level.mainHero->get()->getPosOfCenter().y;
 	
 
 	//EDIT THIS FOR CAMERA CONTROLL
@@ -290,9 +315,7 @@ void GameEngine_t::setCamera() {
 
 
 
-void GameEngine_t::drawCursor() {
-	window->draw(cursor->getSprite());
-}
+
 
 
 

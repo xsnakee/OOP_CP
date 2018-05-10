@@ -30,6 +30,7 @@ class mainMenu_t
 
 	sf::Font textFont;
 	unsigned int fontSize;
+	unsigned int targetItemFontSize;
 	sf::Color itemsMainColor;
 	sf::Color targetItemColor;
 	sf::Color variativeItemsColor;

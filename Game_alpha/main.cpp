@@ -11,7 +11,7 @@ const int windowHeight = 768;
 
 
 int main() {
-
+	srand(static_cast<unsigned int>(time(NULL)));
 	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));// , sf::Style::Fullscreen));
 
 	game_t GAME(window.get());

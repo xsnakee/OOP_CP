@@ -48,6 +48,11 @@ public:
 	virtual float takeHeal(float _heal);
 
 	//GET
+	sf::FloatRect getCollisionRect() const {
+		float correctionError = animation::HEROES_SPRITE_COLLISION_CORRECTION_BORDER;
+		return sf::FloatRect(posX + correctionError, posY + correctionError, getWidth()- correctionError,getHeight() - correctionError);
+	}
+
 	physOb_t *getPtr() {
 		return this;
 	}
@@ -116,11 +121,11 @@ public:
 		return std::numeric_limits<sf::Int32>::max();
 	}
 
-	sf::Vector2f getCoords() const {	
+	sf::Vector2f getPos() const {	
 		return sf::Vector2f (posX, posY);
 	}
 
-	sf::Vector2f getCoordsOfCenter() const {
+	sf::Vector2f getPosOfCenter() const {
 		return sf::Vector2f(posX + getWidth()/2, posY + getHeight() / 2);
 	}
 	sf::FloatRect getFloatRect() const {

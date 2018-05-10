@@ -43,7 +43,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_CRYSTAL_HEAL_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setRotation(0.f);
 		tempBullet->getSprite().setScale(2.f,2.f);
 		tempBullet->setTexturePtr(tempTexture);
@@ -75,7 +75,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::SWORD_ATTACK_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(false);
@@ -99,7 +99,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_FIRE_LIGHTING_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
@@ -126,7 +126,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_SMALL_EARTH_BALL_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 
@@ -151,7 +151,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_FIRE_BALL_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(true);
@@ -174,7 +174,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_EARTH_BALL_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setCollision(true);
@@ -199,10 +199,10 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_LAVA_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setRotation(0.f);
-		tempBullet->setPosX(character->getTargetCoords().x);
-		tempBullet->setPosY(character->getTargetCoords().y);
+		tempBullet->setPosX(character->getTargetPos().x);
+		tempBullet->setPosY(character->getTargetPos().y);
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 		
@@ -231,7 +231,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_BANG_BALL_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setRotation(0.f);
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
@@ -258,7 +258,7 @@ void skillObGenerator_t::useSkill() {
 		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
 		tempTexture->loadFromFile(animation::BULLET_COMBO_BALL_TEXTURE_FILE);
 
-		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetCoords()));
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
 		tempBullet->setTexturePtr(tempTexture);
 

@@ -16,8 +16,6 @@ game_t::~game_t()
 void game_t::start() {
 	mainMenu = std::unique_ptr<mainMenu_t>(new mainMenu_t(window,levelName,difficulty));
 	mainMenu->action();
-
-	mode = modes::PLAY;
 	level = std::unique_ptr<Level_t>(new Level_t(levelName));
 	if (!level->succesfull) {
 		std::cout << "MAP_FILE_IS_NOT_OPEN";
@@ -35,30 +33,34 @@ void game_t::play() {
 	using namespace sf;
 
 	Event event;
+	game::status mode;
 
 	while (window->isOpen()) {
+
+		while (window->pollEvent(event)) {
+			if ((event.type == Event::Closed) || (Keyboard::isKeyPressed(Keyboard::Escape))) {
+				window->close();
+			}
+		}
+
+		mode = game->getGameStatus();
 		switch (mode) {
-		case modes::PLAY: {
+		case game::status::PLAY: {
 			float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
 			clock.restart();
-			game->setSpeed(timer);
-
-			while (window->pollEvent(event)) {
-				if ((event.type == Event::Closed) || (Keyboard::isKeyPressed(Keyboard::Escape))) {
-					window->close();
-				}
-			}
+			game->setSpeed(timer);			
 			keyController(event);
 			game->update();
-			interface->update();
 			break;
 		}
 
-		case modes::PAUSED:{
+		case game::status::PAUSED:{
 		
 			break;
 		}
 		}
+
+		interface->update();
 		window->clear();
 		game->draw();
 		interface->draw();
