@@ -1,5 +1,15 @@
 #pragma once
+#include <initializer_list>
 
+namespace game{
+	enum status {
+		PLAY,
+		PAUSED,
+		WIN,
+		GAME_OVER
+	};
+
+}
 
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
@@ -159,10 +169,22 @@ static sf::Vector2f generateRandomSpawnCoords(const sf::Vector2i mapSize) {
 	return vect;
 }
 
+static size_t findBigestLength(std::vector<std::string> list) {
+	size_t maxLength = 0;
+	for (auto &i : list) {
+		maxLength = (i.size() > maxLength) ? i.size() : maxLength;
+	}
+	return maxLength;
+}
 
 namespace textSettings {
-	const std::string MAIN_FONT_FILE = "fonts/main_font.ttf";
-	const size_t STD_FONT_SIZE = 12;
+	const std::string STD_FONT_FILE = "fonts/main_font_regular.otf";
+	const std::string STRIKE_THROUGHT_FONT_FILE = "fonts/main_strike_throught_font.ttf";
+	const size_t STD_FONT_SIZE = 14;
+
+	const sf::Color STD_TEXT_COLOR = sf::Color::White;
+	const sf::Text::Style STD_TEXT_STYLE = sf::Text::Style::Regular;
+	const sf::Text::Style TEXT_STYLE_STRIKE_THROUGH = sf::Text::Style::StrikeThrough;
 };
 
 namespace interface {

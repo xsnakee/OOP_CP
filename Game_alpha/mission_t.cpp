@@ -6,7 +6,6 @@ mission_t::mission_t(): gameStats()
 {
 	missionsContent = STD_MISSION_TASKS;
 	missionsCompleteStatus = std::vector<bool>(missionsContent.size(),false);
-
 }
 
 mission_t::mission_t(std::string _fileName) {
@@ -18,6 +17,7 @@ mission_t::mission_t(std::string _fileName) {
 mission_t::~mission_t()
 {
 }
+
 
 void mission_t::ånemyKilled() {
 	gameStats.ånemyKilled();
@@ -37,6 +37,7 @@ bool mission_t::checkComplete() {
 
 	return true;
 }
+
 //GAME STATS
 
 gameStatistic_t::gameStatistic_t(){
@@ -66,7 +67,7 @@ std::string gameStatistic_t::convertTime(size_t _val) {
 
 void gameStatistic_t::fillStrStats() {
 	for (size_t i = 0; i < statStrValues.size(); ++i) {
-		statStrValues[i] = statDataVect[i];
+		statStrValues[i] = static_cast<const char>(statDataVect[i]);
 	}
 	statStrValues[3] = convertTime(statDataVect[3]);
 }

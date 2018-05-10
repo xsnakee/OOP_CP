@@ -5,14 +5,26 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	window = _window;
 	generateHPbars();
 	setObservedBards();
-	createIterface();
+	createSkillGeneratorIterface(); 
+	createJournalWindow();
+	createGameStatsWindow();
+	cursor = std::move(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
 }
 InterfaceEngine_t::~InterfaceEngine_t()
 {
 }
+
+
+void InterfaceEngine_t::drawCursor() {
+	window->draw(cursor->getSprite());
+}
+
 void InterfaceEngine_t::update() {
 	updateGenerator();
+	updateMissionJournal();
+
+	level.mainHero->get()->setTargetCoords(cursor->getPosition());
 
 	for (auto i = barsList.begin(); i != barsList.end(); ++i) {
 		if (i->get()->getDisplay()) {
@@ -26,6 +38,7 @@ void InterfaceEngine_t::update() {
 	for (auto &i : windowsList) {
 		i->update();
 	}
+	cursor->setCursorPosition();
 
 }
 
@@ -36,6 +49,7 @@ void InterfaceEngine_t::draw() {
 	for (auto &i : windowsList) {
 		i->draw();
 	}
+	drawCursor();
 }
 
 
@@ -60,9 +74,10 @@ void InterfaceEngine_t::setObservedBards() {
 	barsList.back()->setInnerRectColor(sf::Color::Blue);
 }
 
-void InterfaceEngine_t::createIterface() {
+//SKILL GENERATOR INTERFACE
+void InterfaceEngine_t::createSkillGeneratorIterface() {
 
-	//ELEMENT GENERATOR STATUS
+	//SKILL GENERATOR ELEMENTS STATUS ICONS
 	sf::Vector2f tempPos(interface::getScreenCoords(window));
 	size_t elemWindowAmount = elements::SKILL_ELEMENT_AMOUNT;
 	float betweenCorection = 7.f;
@@ -89,6 +104,7 @@ void InterfaceEngine_t::createIterface() {
 		--elemIt;
 	}
 
+	//SKILL ICON WINDOW
 	rightWindowPadding = 75.f;
 	bottomWindowPadding = 80.f;
 	float positionCorrectionX = (window->getSize().x - interface::STD_ELEMENT_GENERATOR_WINDOW_SIZE.x - rightWindowPadding);
@@ -98,15 +114,10 @@ void InterfaceEngine_t::createIterface() {
 	windowsList.push_back(window_t(new InterfaceWindow_t(window, (tempPos + coordCorection), interface::STD_SKILL_WINDOW_SIZE)));
 	sf::Texture *temp = new sf::Texture;
 
-	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
 	windowsList.back().get()->setBgColor(sf::Color::Color(50, 50, 50, 150));
 	windowsList.back().get()->setBorderColor(sf::Color::Color(238, 238, 238, 150));
-	/*
-	//Element icon
-	sf::Texture *temp = new sf::Texture;
-	temp->loadFromFile(animation::ICON_ELEMENT_FIRE_FILE);
-	windowsList.back()->contentList.push_back(content(new InterfaceSpriteOb_t(window,temp, windowsList.back()->getPos(),sf::Vector2f(0.f,0.f))));
-	*/
+
 }
 
 void InterfaceEngine_t::updateGenerator() {
@@ -120,21 +131,21 @@ void InterfaceEngine_t::updateGenerator() {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
 			newTempTexture->loadFromFile(animation::ICON_ELEMENT_FIRE_FILE);
-			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
+			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case WIND: {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
 			newTempTexture->loadFromFile(animation::ICON_ELEMENT_WIND_FILE);
-			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
+			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case EARTH: {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
 			newTempTexture->loadFromFile(animation::ICON_ELEMENT_EARTH_FILE);
-			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteOb_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
+			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case NONE: {
@@ -192,4 +203,61 @@ void InterfaceEngine_t::updateGenerator() {
 	}
 	}
 	//*/
+}
+
+
+//MISSION JOURNAL INTERFACE
+void InterfaceEngine_t::createJournalWindow() {
+	size_t contentStringsAmount = level.getMission().missionsContent.size();
+	//MAIN MISSION WINDOW
+	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 4.f);
+	sf::Vector2f windowSize(findBigestLength(level.getMission().missionsContent) * textSettings::STD_FONT_SIZE / 1.5f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
+
+	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
+	missionWindowIt = windowsList.end();
+	--missionWindowIt;
+	windowsList.back()->setTitle("MISSION JOURNAL");
+	windowsList.back()->setBgColor(sf::Color::Color(0,0,0,180));
+	sf::Vector2f contentPos(0.f, 0.f);
+	contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+
+	//MISSIONS LIST
+	for (size_t i = 0; i < contentStringsAmount; ++i) {
+		contentPos.y = static_cast<float>((i + 1) * textSettings::STD_FONT_SIZE) + interface::STD_BORDER_SIZE.x;
+		windowsList.back()->contentList.push_back(content(new InterfaceTextContent_t(window, level.getMission().missionsContent[i], windowsList.back()->getPos(), contentPos)));
+	}
+}
+
+void InterfaceEngine_t::updateMissionJournal() {
+	std::list<window_t>::iterator tempIt = missionWindowIt;
+	for (size_t i = 0; i < tempIt->get()->contentList.size(); ++i) {
+		if (level.getMission().missionsCompleteStatus[i]) {
+			tempIt->get()->contentList[i]->swapContent();
+		}
+		if ((i == 0 || level.getMission().missionsCompleteStatus[i - 1]) && 
+			(i == tempIt->get()->contentList.size() - 1 || !level.getMission().missionsCompleteStatus[i + 1]) &&
+			(!level.getMission().missionsCompleteStatus[i])){
+			tempIt->get()->contentList[i]->setFontColor(sf::Color::Green);
+		}
+	}
+}
+
+//MISSION STATISTIC INTERFACE
+void InterfaceEngine_t::createGameStatsWindow() {
+	size_t contentStringsAmount = level.getMission().gameStats.statFields.size();
+	//MAIN MISSION WINDOW
+	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 2.f);
+	sf::Vector2f windowSize(findBigestLength(level.getMission().gameStats.statFields) * textSettings::STD_FONT_SIZE / 1.5f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
+
+	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
+	windowsList.back()->setTitle("STATISTIC");
+	windowsList.back()->setBgColor(sf::Color::Color(0, 0, 0, 180));
+	sf::Vector2f contentPos(0.f, 0.f);
+	contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+
+	//MISSIONS LIST
+	for (size_t i = 0; i < contentStringsAmount; ++i) {
+		contentPos.y = static_cast<float>((i + 1) * textSettings::STD_FONT_SIZE) + interface::STD_BORDER_SIZE.x;
+		windowsList.back()->contentList.push_back(content(new InterfaceTextContent_t(window, (level.getMission().gameStats.statFields[i] + level.getMission().gameStats.statStrValues[i]), windowsList.back()->getPos(), contentPos)));
+	}
 }

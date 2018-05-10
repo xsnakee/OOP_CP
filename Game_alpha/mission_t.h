@@ -5,6 +5,7 @@
 
 class gameStatistic_t {
 	std::string convertTime(size_t _val);
+
 public:
 	gameStatistic_t();
 	~gameStatistic_t();
@@ -23,11 +24,11 @@ public:
 
 
 const std::vector<std::string> STD_MISSION_TASKS = {
-	"KILL THE HOLY CRYSTAL DEFENDER",
-	"KILL BLACK DRAGON",
-	"KILL RED DRAGON",
-	"KILL THE ENH ",
-	"KILL THE QUEEN OF DARKNESS (MAIN)"
+	"- KILL THE HOLY CRYSTAL DEFENDER",
+	"- KILL BLACK DRAGON",
+	"- KILL RED DRAGON",
+	"- KILL THE ENH ",
+	"- KILL THE QUEEN OF DARKNESS (MAIN)"
 };
 
 class mission_t
@@ -47,11 +48,12 @@ public:
 	void setDeathTime();
 
 	bool checkComplete();
+
 };
 
 const std::vector<std::string> STAT_LIST = {
-	"KILLED ENEMYS",
-	"KILLED BOSSES"
+	"KILLED ENEMYES",
+	"KILLED BOSSES",
 	"ALIVE TIME"
 };
 

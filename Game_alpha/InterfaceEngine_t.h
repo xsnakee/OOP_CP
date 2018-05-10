@@ -6,6 +6,7 @@
 #include "Level_t.h"
 #include "InterfaceWindow_t.h"
 #include "InterfaceBar.h"
+#include "cursor_t.h"
 
 typedef std::unique_ptr<InterfaceBar> bar_t;
 typedef std::unique_ptr<InterfaceWindow_t> window_t;
@@ -16,7 +17,11 @@ class InterfaceEngine_t
 	Level_t &level;
 	//Iterators
 	std::list<window_t>::iterator elemIt;
+	std::list<window_t>::iterator missionWindowIt;
 
+	std::unique_ptr<cursor_t> cursor;
+
+	void drawCursor();
 public:
 	//LISTS
 	std::list<bar_t> barsList;
@@ -31,8 +36,11 @@ public:
 
 	void generateHPbars();
 	void setObservedBards();
-	void createIterface();
+	void createSkillGeneratorIterface();
+	void createJournalWindow();
+	void createGameStatsWindow();
 
 	void updateGenerator();
+	void updateMissionJournal();
 };
 
