@@ -20,11 +20,11 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);//
 	tiles::sizes tempSizes = tiles::getSizesFromStr(MAIN_HERO_TEXTURE_FILE);
-	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, 1350.f, 1550.f, tempSizes.width, tempSizes.height, clock.get())));
+	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, level.map.mainHeroSpawnCoords.x, level.map.mainHeroSpawnCoords.y, tempSizes.width, tempSizes.height, clock.get())));
 	level.mainHero = level.charactersList.begin();
 	generateNpcTypes();
 
-	generateNpc();
+	//generateNpc();
 	generateBosses();
 	status = game::status::PLAY;
 }
