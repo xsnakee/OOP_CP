@@ -36,7 +36,8 @@ public:
 	void generateHPbars();
 	void setObservedBards();
 	void createSkillGeneratorIterface();
-	void createHeroIterfaceWindows();
+	void createJournalWindow();
+	void createGameStatsWindow();
 
 	void updateGenerator();
 };

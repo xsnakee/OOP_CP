@@ -1,5 +1,5 @@
 #pragma once
-
+#include <initializer_list>
 
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
@@ -159,6 +159,13 @@ static sf::Vector2f generateRandomSpawnCoords(const sf::Vector2i mapSize) {
 	return vect;
 }
 
+static size_t findBigestLength(std::vector<std::string> list) {
+	size_t maxLength = 0;
+	for (auto &i : list) {
+		maxLength = (i.size() > maxLength) ? i.size() : maxLength;
+	}
+	return maxLength;
+}
 
 namespace textSettings {
 	const std::string STD_FONT_FILE = "fonts/main_font.ttf";

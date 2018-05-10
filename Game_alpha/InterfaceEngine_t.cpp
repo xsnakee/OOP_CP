@@ -6,7 +6,8 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	generateHPbars();
 	setObservedBards();
 	createSkillGeneratorIterface(); 
-	createHeroIterfaceWindows();
+	createJournalWindow();
+	createGameStatsWindow();
 	cursor = std::move(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
 }
@@ -206,11 +207,11 @@ void InterfaceEngine_t::updateGenerator() {
 
 
 //MISSION JOURNAL INTERFACE
-void InterfaceEngine_t::createHeroIterfaceWindows() {
+void InterfaceEngine_t::createJournalWindow() {
 	size_t contentStringsAmount = level.getMission().missionsContent.size();
 	//MAIN MISSION WINDOW
 	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 4.f);
-	sf::Vector2f windowSize(level.getMission().getBiggestLength() * textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
+	sf::Vector2f windowSize(findBigestLength(level.getMission().missionsContent) * textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
 
 	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
 	windowsList.back()->setTitle("MISSION JOURNAL");
@@ -222,5 +223,25 @@ void InterfaceEngine_t::createHeroIterfaceWindows() {
 	for (size_t i = 0; i < contentStringsAmount; ++i) {
 		contentPos.y = static_cast<float>((i + 1) * textSettings::STD_FONT_SIZE) + interface::STD_BORDER_SIZE.x;
 		windowsList.back()->contentList.push_back(content(new InterfaceTextContent_t(window, level.getMission().missionsContent[i], windowsList.back()->getPos(), contentPos)));
+	}
+}
+
+//MISSION STATISTIC INTERFACE
+void InterfaceEngine_t::createGameStatsWindow() {
+	size_t contentStringsAmount = level.getMission().gameStats.statFields.size();
+	//MAIN MISSION WINDOW
+	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 2.f);
+	sf::Vector2f windowSize(findBigestLength(level.getMission().gameStats.statFields) * textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
+
+	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
+	windowsList.back()->setTitle("STATISTIC");
+	windowsList.back()->setBgColor(sf::Color::Color(0, 0, 0, 180));
+	sf::Vector2f contentPos(0.f, 0.f);
+	contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+
+	//MISSIONS LIST
+	for (size_t i = 0; i < contentStringsAmount; ++i) {
+		contentPos.y = static_cast<float>((i + 1) * textSettings::STD_FONT_SIZE) + interface::STD_BORDER_SIZE.x;
+		windowsList.back()->contentList.push_back(content(new InterfaceTextContent_t(window, (level.getMission().gameStats.statFields[i] + level.getMission().gameStats.statStrValues[i]), windowsList.back()->getPos(), contentPos)));
 	}
 }

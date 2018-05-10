@@ -33,8 +33,6 @@ const std::vector<std::string> STD_MISSION_TASKS = {
 
 class mission_t
 {
-	size_t bigestLength;
-	size_t findBigestLength();
 public:
 	gameStatistic_t gameStats;
 
@@ -51,13 +49,11 @@ public:
 
 	bool checkComplete();
 
-	//GET
-	size_t getBiggestLength() const;
 };
 
 const std::vector<std::string> STAT_LIST = {
-	"KILLED ENEMYS",
-	"KILLED BOSSES"
+	"KILLED ENEMYES",
+	"KILLED BOSSES",
 	"ALIVE TIME"
 };
 
