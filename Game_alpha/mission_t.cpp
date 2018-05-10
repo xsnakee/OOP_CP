@@ -19,7 +19,7 @@ void gameStatistic_t::bossKilled() {
 	++statDataVect[1];
 }
 void gameStatistic_t::setTime(sf::Clock *clock) {
-	statDataVect[2] = clock->getElapsedTime().asSeconds();
+	statDataVect[2] = static_cast<size_t>(clock->getElapsedTime().asSeconds());
 }
 std::string gameStatistic_t::convertTime(size_t _val) {
 	size_t minutes = _val / 60;
