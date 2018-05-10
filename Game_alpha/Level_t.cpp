@@ -42,6 +42,7 @@ void Level_t::checkMissionsTarget() {
 		if (!bossesList[i]) {
 			mission.missionsCompleteStatus[i] = true;
 		}
+		mission.missionsCompleteStatus[0] = true;
 	}
 
 }

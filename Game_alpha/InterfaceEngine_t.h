@@ -17,6 +17,7 @@ class InterfaceEngine_t
 	Level_t &level;
 	//Iterators
 	std::list<window_t>::iterator elemIt;
+	std::list<window_t>::iterator missionWindowIt;
 
 	std::unique_ptr<cursor_t> cursor;
 
@@ -40,5 +41,6 @@ public:
 	void createGameStatsWindow();
 
 	void updateGenerator();
+	void updateMissionJournal();
 };
 

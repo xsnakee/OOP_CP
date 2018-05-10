@@ -22,6 +22,7 @@ void InterfaceEngine_t::drawCursor() {
 
 void InterfaceEngine_t::update() {
 	updateGenerator();
+	updateMissionJournal();
 
 	level.mainHero->get()->setTargetCoords(cursor->getPosition());
 
@@ -37,7 +38,6 @@ void InterfaceEngine_t::update() {
 	for (auto &i : windowsList) {
 		i->update();
 	}
-
 	cursor->setCursorPosition();
 
 }
@@ -214,6 +214,8 @@ void InterfaceEngine_t::createJournalWindow() {
 	sf::Vector2f windowSize(findBigestLength(level.getMission().missionsContent) * textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
 
 	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
+	missionWindowIt = windowsList.end();
+	--missionWindowIt;
 	windowsList.back()->setTitle("MISSION JOURNAL");
 	windowsList.back()->setBgColor(sf::Color::Color(0,0,0,180));
 	sf::Vector2f contentPos(0.f, 0.f);
@@ -223,6 +225,15 @@ void InterfaceEngine_t::createJournalWindow() {
 	for (size_t i = 0; i < contentStringsAmount; ++i) {
 		contentPos.y = static_cast<float>((i + 1) * textSettings::STD_FONT_SIZE) + interface::STD_BORDER_SIZE.x;
 		windowsList.back()->contentList.push_back(content(new InterfaceTextContent_t(window, level.getMission().missionsContent[i], windowsList.back()->getPos(), contentPos)));
+	}
+}
+
+void InterfaceEngine_t::updateMissionJournal() {
+	std::list<window_t>::iterator tempIt = missionWindowIt;
+	for (size_t i = 0; i < tempIt->get()->contentList.size(); ++i) {
+		if (level.getMission().missionsCompleteStatus[i]) {
+			tempIt->get()->contentList[i]->swapContent("");
+		}
 	}
 }
 

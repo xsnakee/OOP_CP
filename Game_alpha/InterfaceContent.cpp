@@ -95,7 +95,8 @@ void InterfaceTextContent_t::setText(sf::Text *_newText) {
 }
 
 void InterfaceTextContent_t::swapContent(std::string _newPath) {
-	text->setStyle(textSettings::TEXT_STYLE_STRIKE_THROUGHT);
+	textStyle = textSettings::TEXT_STYLE_STRIKE_THROUGHT;
+	text->setStyle(textStyle);
 }
 
 void InterfaceTextContent_t::update() {

@@ -49,7 +49,7 @@ public:
 		textColor = newColor;
 	}
 
-	void setTextStyle(sf::Text::Style newStyle) {
+	void setFontStyle(sf::Text::Style newStyle) {
 		textStyle = newStyle;
 	}
 };

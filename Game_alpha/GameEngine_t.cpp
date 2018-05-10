@@ -184,6 +184,8 @@ void GameEngine_t::checkAlive() {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
+
+				level.getMission().ånemyKilled();
 				level.checkMissionsTarget();
 			}
 		}
