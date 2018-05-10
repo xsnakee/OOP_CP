@@ -21,7 +21,9 @@ InterfaceContent::~InterfaceContent()
 
 void InterfaceContent::setTexture(sf::Texture *newTexture){
 }
+void InterfaceContent::setText(std::string newStr) {
 
+}
 //SPRITE CONTENT
 InterfaceSpriteContent_t::InterfaceSpriteContent_t(sf::RenderWindow *_window, sf::Texture *_texture, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos):
 	InterfaceContent(_window,_defaultCoords, _relativePos)
@@ -103,6 +105,7 @@ void InterfaceTextContent_t::update() {
 	toDefaultPosition();
 	text->setFillColor(textColor);
 	text->setFont(font);
+	text->setString(str);
 }
 
 void InterfaceTextContent_t::draw() {
@@ -117,4 +120,8 @@ void InterfaceTextContent_t::toDefaultPosition() {
 
 void InterfaceTextContent_t::resetContent() {
 	text.reset();
+}
+
+void InterfaceTextContent_t::setText(std::string newStr) {
+	str = newStr;
 }

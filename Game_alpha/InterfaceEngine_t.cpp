@@ -269,4 +269,8 @@ void InterfaceEngine_t::createGameStatsWindow() {
 
 void InterfaceEngine_t::updateGameStats() {
 	level.getMission().gameStats.fillStrStats();
+	for (size_t i = 0; i < level.getMission().gameStats.statFields.size(); ++i) {
+		std::string tempStr = (level.getMission().gameStats.statFields[i] + level.getMission().gameStats.statStrValues[i]);
+		gameStatsWindowIt->get()->contentList[i]->setText(tempStr);
+	}
 }

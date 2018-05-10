@@ -27,7 +27,7 @@ public:
 	virtual void swapContent(std::string _newPath = "") = 0;
 	virtual void resetContent() = 0;
 	virtual void setTexture(sf::Texture *newTexture);
-
+	virtual void setText(std::string newStr);
 
 	void setRelativePos(sf::Vector2f newCoords) {
 		relativePos = newCoords;
@@ -67,7 +67,6 @@ public:
 	virtual void draw();
 	virtual void toDefaultPosition();
 
-
 	virtual void swapContent(std::string _newPath = "");
 	virtual void resetContent();
 
@@ -102,6 +101,7 @@ public:
 	InterfaceTextContent_t(sf::RenderWindow *_window, std::string _str, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos);
 	virtual ~InterfaceTextContent_t();
 
+	void setText(std::string newStr);
 	virtual void update();
 	virtual void draw();
 	virtual void toDefaultPosition();
