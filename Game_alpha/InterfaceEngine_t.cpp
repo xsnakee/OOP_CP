@@ -10,10 +10,10 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	createSkillGeneratorIterface(); 
 	createJournalWindow();
 	createGameStatsWindow();
+	createMapWindow();
 
 	createInterfaceButtons();
 
-	createMapWindow();
 
 	cursor = std::move(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
@@ -297,14 +297,23 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	windowsList.push_back(window_t(new IntefaceToggleButton(missionWindowIt->get(), buttonPosition)));
 	sf::Texture *temp = new sf::Texture;
 	temp->loadFromFile(icon::ICON_BUTTON_JOURNAL);
-	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, windowsList.back()->getPos())));
 	
 	//GAME STATISTIC BUTTON
 	buttonPosition.y = buttonPosition.y + windowsList.back()->getSizes().y;
 	windowsList.push_back(window_t(new IntefaceToggleButton(gameStatsWindowIt->get(), buttonPosition + buttonMargin)));
 	sf::Texture *temp2 = new sf::Texture;
 	temp2->loadFromFile(icon::ICON_BUTTON_GAME_STATISTIC);
-	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp2, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp2, windowsList.back()->getPos())));
+
+	//MAP BUTTON
+	buttonPosition.y = buttonPosition.y + windowsList.back()->getSizes().y;
+	windowsList.push_back(window_t(new IntefaceToggleButton(mapIt->get(), buttonPosition + buttonMargin)));
+	sf::Texture *temp3 = new sf::Texture;
+	temp3->loadFromFile(icon::ICON_BUTTON_MAP);
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp3, windowsList.back()->getPos())));
+
+
 }
 
 

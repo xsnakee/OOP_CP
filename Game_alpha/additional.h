@@ -138,7 +138,7 @@ namespace icon {
 	const std::string ICON_BUTTON_JOURNAL = "img/icons/icon_button_journal.png";
 	const std::string ICON_BUTTON_GAME_STATISTIC = "img/icons/icon_button_game_statistic.png";
 	const std::string ICON_BUTTON_SKILLS = "img/icons/icon_button_skills.png";
-	const std::string ICON_BUTTON_CHARACTER_STATISTIC = "img/icons/icon_button_char_stats";
+	const std::string ICON_BUTTON_MAP = "img/icons/icon_button_map.png";
 }
 namespace textSettings {
 	const std::string STD_FONT_FILE = "fonts/main_font_regular.otf";
