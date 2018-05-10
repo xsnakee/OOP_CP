@@ -211,7 +211,7 @@ void InterfaceEngine_t::createJournalWindow() {
 	size_t contentStringsAmount = level.getMission().missionsContent.size();
 	//MAIN MISSION WINDOW
 	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 4.f);
-	sf::Vector2f windowSize(findBigestLength(level.getMission().missionsContent) * textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
+	sf::Vector2f windowSize(findBigestLength(level.getMission().missionsContent) * textSettings::STD_FONT_SIZE / 1.5f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
 
 	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
 	missionWindowIt = windowsList.end();
@@ -247,7 +247,7 @@ void InterfaceEngine_t::createGameStatsWindow() {
 	size_t contentStringsAmount = level.getMission().gameStats.statFields.size();
 	//MAIN MISSION WINDOW
 	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 2.f);
-	sf::Vector2f windowSize(findBigestLength(level.getMission().gameStats.statFields) * textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
+	sf::Vector2f windowSize(findBigestLength(level.getMission().gameStats.statFields) * textSettings::STD_FONT_SIZE / 1.5f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
 
 	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
 	windowsList.back()->setTitle("STATISTIC");
