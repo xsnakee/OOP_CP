@@ -1,5 +1,5 @@
 #include "InterfaceContent.h"
-
+#include <iostream>
 
 
 InterfaceContent::InterfaceContent(sf::RenderWindow *_window, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos)
@@ -95,12 +95,14 @@ void InterfaceTextContent_t::setText(sf::Text *_newText) {
 }
 
 void InterfaceTextContent_t::swapContent(std::string _newPath) {
-	textStyle = textSettings::TEXT_STYLE_STRIKE_THROUGHT;
-	text->setStyle(textStyle);
+	font.loadFromFile(textSettings::STRIKE_THROUGHT_FONT_FILE);
+	text->setFont(font);
+	setFontColor(sf::Color::White);
 }
-
 void InterfaceTextContent_t::update() {
 	toDefaultPosition();
+	text->setFillColor(textColor);
+	text->setFont(font);
 }
 
 void InterfaceTextContent_t::draw() {

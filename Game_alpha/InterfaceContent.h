@@ -24,7 +24,7 @@ public:
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual void toDefaultPosition() = 0;
-	virtual void swapContent(std::string _newPath) = 0;
+	virtual void swapContent(std::string _newPath = "") = 0;
 	virtual void resetContent() = 0;
 	virtual void setTexture(sf::Texture *newTexture);
 
@@ -68,7 +68,7 @@ public:
 	virtual void toDefaultPosition();
 
 
-	virtual void swapContent(std::string _newPath);
+	virtual void swapContent(std::string _newPath = "");
 	virtual void resetContent();
 
 	//GET
@@ -107,7 +107,7 @@ public:
 	virtual void toDefaultPosition();
 
 
-	virtual void swapContent(std::string _str);
+	virtual void swapContent(std::string _str = "");
 	virtual void resetContent();
 
 

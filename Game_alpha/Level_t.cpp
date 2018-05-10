@@ -39,16 +39,15 @@ mission_t &Level_t::getMission() {
 void Level_t::checkMissionsTarget() {
 
 	for (size_t i = 0; i < mission.missionsCompleteStatus.size(); ++i) {
-		if (!bossesList[i]) {
-			mission.missionsCompleteStatus[i] = true;
+		if ((!bossesList[i]->getAlive())) {
+				mission.missionsCompleteStatus[i] = true;
+			}
 		}
-		mission.missionsCompleteStatus[0] = true;
-	}
-
 }
 
 bool Level_t::checkLevelComplete() {
 
+	checkMissionsTarget();
 	return mission.missionsCompleteStatus[(mission.missionsCompleteStatus.size() - 1)] ? true : false;
 		
 }

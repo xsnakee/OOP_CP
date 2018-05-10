@@ -1,6 +1,16 @@
 #pragma once
 #include <initializer_list>
 
+namespace game{
+	enum status {
+		PLAY,
+		PAUSED,
+		WIN,
+		GAME_OVER
+	};
+
+}
+
 namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
@@ -168,12 +178,13 @@ static size_t findBigestLength(std::vector<std::string> list) {
 }
 
 namespace textSettings {
-	const std::string STD_FONT_FILE = "fonts/main_font.ttf";
+	const std::string STD_FONT_FILE = "fonts/main_font_regular.otf";
+	const std::string STRIKE_THROUGHT_FONT_FILE = "fonts/main_strike_throught_font.ttf";
 	const size_t STD_FONT_SIZE = 14;
 
 	const sf::Color STD_TEXT_COLOR = sf::Color::White;
 	const sf::Text::Style STD_TEXT_STYLE = sf::Text::Style::Regular;
-	const sf::Text::Style TEXT_STYLE_STRIKE_THROUGHT = sf::Text::Style::StrikeThrough;
+	const sf::Text::Style TEXT_STYLE_STRIKE_THROUGH = sf::Text::Style::StrikeThrough;
 };
 
 namespace interface {

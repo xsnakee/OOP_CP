@@ -23,6 +23,7 @@ private:
 	Level_t &level;
 	size_t difficulty;
 	std::list<std::unique_ptr<character_t>> npcTypesList;
+	game::status status;
 
 	std::unique_ptr<sf::Clock> clock;
 	float curTime;
@@ -52,11 +53,8 @@ public:
 	void generateBosses();
 	
 	//GET
-	bool gameOver() const {
-		return level.gameOver;
-	}
-	bool levelComplete() const {
-		return level.levelComplete;
+	game::status getGameStatus() const {
+		return status;
 	}
 
 	float setSpeed(float _time) {

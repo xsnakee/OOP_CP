@@ -26,6 +26,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 
 	generateNpc();
 	generateBosses();
+	status = game::status::PLAY;
 }
 
 	
@@ -114,11 +115,30 @@ void GameEngine_t::generateNpc() {
 }
 
 void GameEngine_t::generateBosses() {
+	size_t NpcTypeAmount = npcTypesList.size();
+	size_t tempCounter = 0;
+
+	size_t NpcAmount = 1 * difficulty;
+
+	sf::Vector2f tempCoords;
+
+	for (auto &i : npcTypesList) {
+		tempCounter = 0;
+		while (tempCounter++ < NpcAmount) {
+			do {
+				tempCoords = generateRandomSpawnCoords(level.map.getSize());
+			} while (positionCollision(tempCoords));
+
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+			level.bossesList.push_back(level.charactersList.back().get());
+		}
+	}
 }
 
 
 void GameEngine_t::update() {
 	if (level.checkLevelComplete()) {
+		status = game::status::WIN;
 		return;
 	}
 
@@ -144,6 +164,9 @@ void GameEngine_t::update() {
 
 		setCamera();//set Camera
 		window->setView(*view); // Set camera
+	}
+	else {
+		status = game::status::GAME_OVER;
 	}
 	
 }
@@ -184,9 +207,7 @@ void GameEngine_t::checkAlive() {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
-
 				level.getMission().ånemyKilled();
-				level.checkMissionsTarget();
 			}
 		}
 		else {
