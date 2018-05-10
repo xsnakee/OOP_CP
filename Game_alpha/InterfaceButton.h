@@ -19,10 +19,10 @@ public:
 };
 
 
-class IntefaceButtonClose : public InterfaceButton {
+class IntefaceToggleButton : public InterfaceButton {
 
 public:
-	IntefaceButtonClose(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos);
-	~IntefaceButtonClose();
+	IntefaceToggleButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos);
+	~IntefaceToggleButton();
 	virtual bool action();
 };

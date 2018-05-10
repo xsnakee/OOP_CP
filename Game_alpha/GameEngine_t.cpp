@@ -7,12 +7,11 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 {
 	window = _window;
 	difficulty = _difficulty;
-	view = new sf::View;
+	view = std::move(std::unique_ptr <sf::View>(new sf::View));
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
 	window->setMouseCursorVisible(false);
 	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 
-	cursor = new cursor_t("img/cursor_aim.png",20,20, window);
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
 
@@ -27,14 +26,13 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 
 	generateNpc();
 	generateBosses();
+	status = game::status::PLAY;
 }
 
 	
 
 GameEngine_t::~GameEngine_t()
 {
-	delete view;
-	delete cursor;
 }
 
 
@@ -117,24 +115,43 @@ void GameEngine_t::generateNpc() {
 }
 
 void GameEngine_t::generateBosses() {
+	size_t NpcTypeAmount = npcTypesList.size();
+	size_t tempCounter = 0;
+
+	size_t NpcAmount = 1 * difficulty;
+
+	sf::Vector2f tempCoords;
+
+	for (auto &i : npcTypesList) {
+		tempCounter = 0;
+		while (tempCounter++ < NpcAmount) {
+			do {
+				tempCoords = generateRandomSpawnCoords(level.map.getSize());
+			} while (positionCollision(tempCoords));
+
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+			level.bossesList.push_back(level.charactersList.back().get());
+		}
+	}
 }
 
 
 void GameEngine_t::update() {
 	if (level.checkLevelComplete()) {
+		status = game::status::WIN;
 		return;
 	}
 
 	checkAlive();
 
 	if (!level.gameOver) {
+		level.mission.setTime(clock.get());
 
 		bulletEngine();
 		visionEngine();
 		charsAction();
 		collisionEngine();
 
-		level.mainHero->get()->setTargetCoords(cursor->getPosition());
 
 		for (auto &character : level.charactersList) {
 			(character)->update(speed);
@@ -148,7 +165,9 @@ void GameEngine_t::update() {
 
 		setCamera();//set Camera
 		window->setView(*view); // Set camera
-		cursor->setCursorPosition();
+	}
+	else {
+		status = game::status::GAME_OVER;
 	}
 	
 }
@@ -177,7 +196,6 @@ void GameEngine_t::draw() {
 	for (auto &bullet : level.bulletsList) {
 		window->draw(bullet->getSprite());
 	}
-	drawCursor();
 }
 
 
@@ -190,7 +208,7 @@ void GameEngine_t::checkAlive() {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
-				level.checkMissionsTarget();
+				level.getMission().ånemyKilled();
 			}
 		}
 		else {
@@ -265,8 +283,8 @@ void GameEngine_t::collisionEngine() {
 
 void GameEngine_t::setCamera() {
 
-	float _x = level.mainHero->get()->getCoordsOfCenter().x;
-	float _y = level.mainHero->get()->getCoordsOfCenter().y;
+	float _x = level.mainHero->get()->getPosOfCenter().x;
+	float _y = level.mainHero->get()->getPosOfCenter().y;
 	
 
 	//EDIT THIS FOR CAMERA CONTROLL
@@ -297,9 +315,7 @@ void GameEngine_t::setCamera() {
 
 
 
-void GameEngine_t::drawCursor() {
-	window->draw(cursor->getSprite());
-}
+
 
 
 

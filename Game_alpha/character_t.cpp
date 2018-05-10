@@ -12,7 +12,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	direction = animation::BOTTOM;
 	collision = true;
 	fraction = 1;
-	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
+	targetPos = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
@@ -30,7 +30,7 @@ character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	direction = animation::BOTTOM;
 	collision = true;
 	fraction = 1;
-	targetCoords = spawnCoords = sf::Vector2f(_x, _y);
+	targetPos = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
@@ -164,8 +164,8 @@ bool character_t::checkCollision(physOb_t &Object, float _borderError) {
 bool character_t::checkEnemy(character_t *ob) {
 
 
-	float distanceX = (ob->getCoordsOfCenter().x )- (getCoordsOfCenter().x);
-	float distanceY = (ob->getCoordsOfCenter().y) - (getCoordsOfCenter().y);
+	float distanceX = (ob->getPosOfCenter().x )- (getPosOfCenter().x);
+	float distanceY = (ob->getPosOfCenter().y) - (getPosOfCenter().y);
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
 	if (vectorLength < stat.visionDistance && ob->getAlive() && fraction != ob->getFraction()) {

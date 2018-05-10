@@ -5,6 +5,7 @@
 BossNpc_t::BossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple):
 	Npc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
+	destroyble = false;
 }
 
 
@@ -32,7 +33,6 @@ void BossNpc_t::update(float _speed) {
 
 void BossNpc_t::attack() {
 	Npc_t::attack();
-	//новый рандомный скилл
 }
 
 void BossNpc_t::generateSkillAndClearElemList() {

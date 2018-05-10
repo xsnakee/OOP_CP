@@ -1,10 +1,13 @@
 #pragma once
+#include <SFML\Graphics.hpp>
+#include <sstream>
 #include <vector>
 #include <memory>
 
 
 class gameStatistic_t {
 	std::string convertTime(size_t _val);
+
 public:
 	gameStatistic_t();
 	~gameStatistic_t();
@@ -17,17 +20,17 @@ public:
 
 	void ånemyKilled();
 	void bossKilled();
-	void setDeathTime();
+	void setTime(sf::Clock *clock);
 };
 
 
 
 const std::vector<std::string> STD_MISSION_TASKS = {
-	"KILL THE HOLY CRYSTAL DEFENDER",
-	"KILL BLACK DRAGON",
-	"KILL RED DRAGON",
-	"KILL THE ENH ",
-	"KILL THE QUEEN OF DARKNESS (MAIN)"
+	"- KILL THE HOLY CRYSTAL GUARDIAN",
+	"- KILL BLACK DRAGON",
+	"- KILL RED DRAGON",
+	"- KILL THE ENH",
+	"- KILL THE QUEEN OF DARKNESS (MAIN)"
 };
 
 class mission_t
@@ -44,14 +47,15 @@ public:
 
 	void ånemyKilled();
 	void bossKilled();
-	void setDeathTime();
+	void setTime(sf::Clock *clock);
 
 	bool checkComplete();
+
 };
 
 const std::vector<std::string> STAT_LIST = {
-	"KILLED ENEMYS",
-	"KILLED BOSSES"
-	"ALIVE TIME"
+	"KILLED ENEMYES: ",
+	"KILLED BOSSES:  ",
+	"ALIVE TIME:     "
 };
 

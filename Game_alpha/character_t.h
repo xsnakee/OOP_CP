@@ -31,7 +31,7 @@ protected:
 	sf::Clock *clock;
 	characterTimers_t timer;
 
-	sf::Vector2f targetCoords;
+	sf::Vector2f targetPos;
 	sf::Vector2f spawnCoords;
 
 
@@ -84,8 +84,8 @@ public:
 		return this;
 	}
 
-	sf::Vector2f getTargetCoords() const {
-		return targetCoords;
+	sf::Vector2f getTargetPos() const {
+		return targetPos;
 	}
 
 	sf::Vector2f getSpotCoords() const {
@@ -127,9 +127,9 @@ public:
 		frame = _frame;
 		return frame;
 	}
-	sf::Vector2f setTargetCoords(sf::Vector2f _targetCoords) {
-		targetCoords = _targetCoords;
-		return targetCoords;
+	sf::Vector2f setTargetPos(sf::Vector2f _targetPos) {
+		targetPos = _targetPos;
+		return targetPos;
 	}
 	
 	CharacterState_t *getState() const {

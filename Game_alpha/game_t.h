@@ -4,13 +4,7 @@
 #include "GameEngine_t.h"
 #include "InterfaceEngine_t.h"
 #include "mainMenu_t.h"
-
-enum modes {
-	PLAY,
-	PAUSED,
-	WIN,
-	GAME_OVER
-};
+#include "additional.h"
 
 class game_t
 {
@@ -23,7 +17,6 @@ class game_t
 	std::unique_ptr<keyboardController> controller;
 	std::unique_ptr<mainMenu_t> mainMenu;
 
-	modes mode;
 	std::string levelName;
 	size_t difficulty;
 
