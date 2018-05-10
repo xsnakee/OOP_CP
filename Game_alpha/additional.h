@@ -193,6 +193,9 @@ namespace interface {
 	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
 	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
 	const sf::Vector2f STD_WINDOW_SIZE(48.f, 48.f);
+	const sf::Vector2f STD_MARGIN_SIZE(5.f,5.f);
+
+	const sf::Vector2f STD_WINDOW_MARGIN_SIZE(15.f, 15.f);
 	
 	const sf::Vector2f STD_SKILL_WINDOW_SIZE(64.f,64.f);
 	const sf::Vector2f STD_ELEMENT_GENERATOR_WINDOW_SIZE(48.f,48.f);

@@ -8,7 +8,7 @@ InterfaceButton::InterfaceButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos
 	display = linkedOb->getDisplayState();
 	clickable = true;
 	borders =sf::Vector2f(2.f, 2.f);
-	pos = sf::Vector2f((linkedOb->getPos().x + linkedOb->getSizes().x - linkedOb->getBorders().x - sizes.x),(linkedOb->getPos().y + linkedOb->getBorders().y));
+	pos = _pos;//sf::Vector2f((linkedOb->getPos().x + linkedOb->getSizes().x - linkedOb->getBorders().x - sizes.x),(linkedOb->getPos().y + linkedOb->getBorders().y));
 
 	text.setCharacterSize(20);
 	title = "X";
@@ -27,16 +27,16 @@ InterfaceButton::~InterfaceButton()
 
 
 //CLOSE BUTTON CLASS
-IntefaceButtonClose::IntefaceButtonClose(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos):InterfaceButton(_linkedOb, _pos)
+IntefaceToggleButton::IntefaceToggleButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos):InterfaceButton(_linkedOb, _pos)
 {
 	linkedOb = _linkedOb;
 }
 
 
-IntefaceButtonClose::~IntefaceButtonClose()
+IntefaceToggleButton::~IntefaceToggleButton()
 {
 }
 
-bool IntefaceButtonClose::action() {
+bool IntefaceToggleButton::action() {
 	return linkedOb->toggleDisplay();
 }

@@ -5,6 +5,7 @@
 #include <memory>
 #include "Level_t.h"
 #include "InterfaceWindow_t.h"
+#include "InterfaceButton.h"
 #include "InterfaceBar.h"
 #include "cursor_t.h"
 
@@ -43,5 +44,6 @@ public:
 	void updateGenerator();
 	void updateMissionJournal();
 	void updateGameStats();
+	void createInterfaceButtons();
 };
 

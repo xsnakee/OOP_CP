@@ -8,6 +8,7 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	createSkillGeneratorIterface(); 
 	createJournalWindow();
 	createGameStatsWindow();
+	createInterfaceButtons();
 	cursor = std::move(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
 }
@@ -211,7 +212,7 @@ void InterfaceEngine_t::updateGenerator() {
 void InterfaceEngine_t::createJournalWindow() {
 	size_t contentStringsAmount = level.getMission().missionsContent.size();
 	//MAIN MISSION WINDOW
-	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 4.f);
+	sf::Vector2f windowPosition(STD_BUTTON_SIZE.x + interface::STD_WINDOW_MARGIN_SIZE.x, window->getSize().y / 4.f);
 	sf::Vector2f windowSize(findBigestLength(level.getMission().missionsContent) * textSettings::STD_FONT_SIZE / 1.5f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
 
 	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
@@ -247,9 +248,9 @@ void InterfaceEngine_t::updateMissionJournal() {
 void InterfaceEngine_t::createGameStatsWindow() {
 	size_t contentStringsAmount = level.getMission().gameStats.statFields.size();
 	//MAIN MISSION WINDOW
-	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 2.f);
+	sf::Vector2f windowPosition(STD_BUTTON_SIZE.x, windowsList.back()->getPos().y + windowsList.back()->getSizes().y);
 	sf::Vector2f windowSize(findBigestLength(level.getMission().gameStats.statFields) * textSettings::STD_FONT_SIZE / 1.2f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
-
+	windowPosition += interface::STD_WINDOW_MARGIN_SIZE;
 	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
 	gameStatsWindowIt = windowsList.end();
 	--gameStatsWindowIt;
@@ -273,4 +274,14 @@ void InterfaceEngine_t::updateGameStats() {
 		std::string tempStr = (level.getMission().gameStats.statFields[i] + level.getMission().gameStats.statStrValues[i]);
 		gameStatsWindowIt->get()->contentList[i]->setText(tempStr);
 	}
+}
+
+
+void InterfaceEngine_t::createInterfaceButtons() {
+	sf::Vector2f buttonPosition(interface::STD_MARGIN_SIZE.x, window->getSize().y / 4.f);
+	sf::Vector2f buttonMargin(0.f,interface::STD_MARGIN_SIZE.y);
+
+	windowsList.push_back(window_t(new IntefaceToggleButton(missionWindowIt->get(), buttonPosition)));
+	buttonPosition.y = buttonPosition.y + windowsList.back()->getSizes().y;
+	windowsList.push_back(window_t(new IntefaceToggleButton(gameStatsWindowIt->get(), buttonPosition + buttonMargin)));
 }
