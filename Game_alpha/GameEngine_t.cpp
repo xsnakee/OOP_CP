@@ -24,7 +24,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	level.mainHero = level.charactersList.begin();
 	generateNpcTypes();
 
-	//generateNpc();
+	generateNpc();
 	generateBosses();
 	status = game::status::PLAY;
 }
@@ -89,6 +89,14 @@ void GameEngine_t::generateNpcTypes() {
 	tempSizes = tiles::getSizesFromStr(ENEMY_SKELETON_MAGE_TEXTURE_FILE);
 	npcTypesList.push_back(std::unique_ptr <character_t>(new SkeletonMage_t(skeletonMageTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 
+	//BOSSES
+	//TREANT
+	std::shared_ptr<sf::Texture> treantTexture(new sf::Texture());
+	treantTexture->loadFromFile(BOSS_TREANT_TEXURE_FILE);
+	tempSizes = tiles::getSizesFromStr(BOSS_TREANT_TEXURE_FILE);
+	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new BossNpc_t(treantTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
+	npcBossesTypeList.back()->setSkills({ 1, 4, 12 });
+
 	
 
 }
@@ -100,7 +108,7 @@ void GameEngine_t::generateNpc() {
 	size_t NpcAmount = 20 * difficulty;
 
 	sf::Vector2f tempCoords;
-
+	/*
 	for (auto &i : npcTypesList) {
 		tempCounter = 0;
 		while (tempCounter++ < NpcAmount) {
@@ -110,28 +118,24 @@ void GameEngine_t::generateNpc() {
 
 			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
 		}
-	}
+	}*/
+	
 
 }
 
 void GameEngine_t::generateBosses() {
 	size_t NpcTypeAmount = npcTypesList.size();
-	size_t tempCounter = 0;
+	size_t bossCounter = 0;
 
-	size_t NpcAmount = 1 * difficulty;
+	size_t NpcAmount = npcBossesTypeList.size();
 
 	sf::Vector2f tempCoords;
-
-	for (auto &i : npcTypesList) {
-		tempCounter = 0;
-		while (tempCounter++ < NpcAmount) {
-			do {
-				tempCoords = generateRandomSpawnCoords(level.map.getSize());
-			} while (positionCollision(tempCoords));
-
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
-			level.bossesList.push_back(level.charactersList.back().get());
-		}
+	
+	
+	for (auto &i : npcBossesTypeList) {
+		tempCoords = level.map.bossesSpawnCoords[bossCounter];
+		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), level.map.bossesSpawnCoords[0], STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+		level.bossesList.push_back(level.charactersList.back().get());		
 	}
 }
 

@@ -5,7 +5,6 @@
 InterfaceButton::InterfaceButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos):InterfaceWindow_t(_linkedOb->getWindowPtr(), _pos, STD_BUTTON_SIZE)
 {
 	linkedOb = _linkedOb;
-	display = linkedOb->getDisplayState();
 	clickable = true;
 	borders =sf::Vector2f(2.f, 2.f);
 	pos = _pos;//sf::Vector2f((linkedOb->getPos().x + linkedOb->getSizes().x - linkedOb->getBorders().x - sizes.x),(linkedOb->getPos().y + linkedOb->getBorders().y));
