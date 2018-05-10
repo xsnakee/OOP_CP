@@ -51,7 +51,6 @@ void game_t::play() {
 			game->setSpeed(timer);			
 			keyController(event);
 			game->update();
-			interface->update();
 			break;
 		}
 
@@ -60,6 +59,8 @@ void game_t::play() {
 			break;
 		}
 		}
+
+		interface->update();
 		window->clear();
 		game->draw();
 		interface->draw();
