@@ -132,21 +132,21 @@ void InterfaceEngine_t::updateGenerator() {
 		case FIRE: {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
-			newTempTexture->loadFromFile(animation::ICON_ELEMENT_FIRE_FILE);
+			newTempTexture->loadFromFile(icon::ICON_ELEMENT_FIRE_FILE);
 			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case WIND: {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
-			newTempTexture->loadFromFile(animation::ICON_ELEMENT_WIND_FILE);
+			newTempTexture->loadFromFile(icon::ICON_ELEMENT_WIND_FILE);
 			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
 		case EARTH: {
 			tempElemIt->get()->contentList.clear();
 			sf::Texture *newTempTexture = new sf::Texture;
-			newTempTexture->loadFromFile(animation::ICON_ELEMENT_EARTH_FILE);
+			newTempTexture->loadFromFile(icon::ICON_ELEMENT_EARTH_FILE);
 			tempElemIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, newTempTexture, tempElemIt->get()->getPos(), sf::Vector2f(0.f, 0.f))));
 			break;
 		}
@@ -163,40 +163,40 @@ void InterfaceEngine_t::updateGenerator() {
 	//*
 	switch (level.mainHero->get()->getElemStatus()) {
 	case 3: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_RUSH_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_RUSH_FILE);
 		break;
 	}
 	case 6: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_POWER_UP_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_POWER_UP_FILE);
 		break;
 	}
 	case 24: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_HEAL_BALL_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_HEAL_BALL_FILE);
 		break;
 	}
 	case 1: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_sWORD_ATTACK_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_sWORD_ATTACK_FILE);
 		break; }
 	case 4: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_SMALL_FIRE_BALLS_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_SMALL_FIRE_BALLS_FILE);
 		break; }
 	case 10: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_SMALL_EARTH_BALLS_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_SMALL_EARTH_BALLS_FILE);
 		break; }
 	case 5: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_FIRE_BALL_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_FIRE_BALL_FILE);
 		break; }
 	case 17: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_EARTH_BALL_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_EARTH_BALL_FILE);
 		break; }
 	case 12: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_LAVA_POOL_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_LAVA_POOL_FILE);
 		break; }
 	case 18: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_BANG_BALL_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_BANG_BALL_FILE);
 		break; }
 	case 11: {
-		tempElemIt->get()->contentList.begin()->get()->swapContent(animation::ICON_SKILL_COMBO_BALL_FILE);
+		tempElemIt->get()->contentList.begin()->get()->swapContent(icon::ICON_SKILL_COMBO_BALL_FILE);
 		break;
 	}
 	default: {
@@ -280,8 +280,16 @@ void InterfaceEngine_t::updateGameStats() {
 void InterfaceEngine_t::createInterfaceButtons() {
 	sf::Vector2f buttonPosition(interface::STD_MARGIN_SIZE.x, window->getSize().y / 4.f);
 	sf::Vector2f buttonMargin(0.f,interface::STD_MARGIN_SIZE.y);
-
+	//JOURNAL BUTTON
 	windowsList.push_back(window_t(new IntefaceToggleButton(missionWindowIt->get(), buttonPosition)));
+	sf::Texture *temp = new sf::Texture;
+	temp->loadFromFile(icon::ICON_BUTTON_JOURNAL);
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
+	
+	//GAME STATISTIC BUTTON
 	buttonPosition.y = buttonPosition.y + windowsList.back()->getSizes().y;
 	windowsList.push_back(window_t(new IntefaceToggleButton(gameStatsWindowIt->get(), buttonPosition + buttonMargin)));
+	sf::Texture *temp2 = new sf::Texture;
+	temp2->loadFromFile(icon::ICON_BUTTON_GAME_STATISTIC);
+	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp2, windowsList.back()->getPos(), sf::Vector2f(0.f, 0.f))));
 }

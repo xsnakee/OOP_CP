@@ -30,6 +30,8 @@ InterfaceButton::~InterfaceButton()
 IntefaceToggleButton::IntefaceToggleButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos):InterfaceButton(_linkedOb, _pos)
 {
 	linkedOb = _linkedOb;
+	setBgColor(sf::Color::Transparent);
+	setBorderColor(sf::Color::Transparent);
 }
 
 

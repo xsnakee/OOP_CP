@@ -21,18 +21,6 @@ namespace elements {
 	};
 }
 
-struct bulletStats {
-	float speed;
-	float damage;
-	float range;
-	elements::element element = elements::NONE;
-	float AOE = 0.1f;
-	bool type = true;//0 - heal, 1 - dmg
-	int fraction = -1;
-	float mpCost = 10.f;
-};
-
-
 namespace tiles {
 	const unsigned int WIDTH_SIZE_POSITION_IN_STR = 9U;
 	const unsigned int HEIGHT_SIZE_POSITION_IN_STR = 6U;
@@ -103,28 +91,6 @@ namespace animation {
 	const std::string BOSS_BLACK_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_BLACK_DRAGON_96_96.png";
 	const std::string BOSS_RED_DRAGON_TEXURE_FILE = "img/characters/BOSSES/BOSS_RED_DRAGON_192_192.png";
 	const std::string BOSS_ENH_TEXURE_FILE = "img/characters/BOSSES/BOSS_ENH_240_80.png";
-	//ICONS
-	//const std::string ICON_ELEMENT__FILE = "img/icons/.png";
-	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
-	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_earth.png";
-	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_wind.png";
-	//SKILLS ICONS
-	const std::string ICON_SKILL_BANG_BALL_FILE = "img/icons/icon_skill_bang_ball.png";
-	const std::string ICON_SKILL_COMBO_BALL_FILE = "img/icons/icon_skill_combo_ball.png";
-	const std::string ICON_SKILL_sWORD_ATTACK_FILE = "img/icons/icon_skill_common_attack.png";
-	const std::string ICON_SKILL_EARTH_BALL_FILE = "img/icons/icon_skill_earth_ball.png";
-	const std::string ICON_SKILL_FIRE_BALL_FILE = "img/icons/icon_skill_fire_ball.png";
-	const std::string ICON_SKILL_HEAL_BALL_FILE = "img/icons/icon_skill_heal_ball.png";
-	const std::string ICON_SKILL_LAVA_POOL_FILE = "img/icons/icon_skill_lava_pool.png";
-	const std::string ICON_SKILL_POWER_UP_FILE = "img/icons/icon_skill_powerUp.png";
-	const std::string ICON_SKILL_RUSH_FILE = "img/icons/icon_skill_rush.png";
-	const std::string ICON_SKILL_SMALL_EARTH_BALLS_FILE = "img/icons/icon_skill_small_earth_balls.png";
-	const std::string ICON_SKILL_SMALL_FIRE_BALLS_FILE = "img/icons/icon_skill_small_fire_balls.png";
-	const std::string ICON_SKILL__FILE = "img/icons/.png";
-
-
-
-
 
 	const int COMMON_CHARACTER_SPRITE = 32;
 	const int MAIN_HERO_SPRITE_HEIGHT = 32;
@@ -147,36 +113,33 @@ namespace animation {
 
 
 }
-template <typename T> T getRand(T a, T b) {
-	T temp = static_cast<T>(a + (rand() % static_cast<int>(b - a)));
-	return temp;
+
+namespace icon {
+	//ICONS
+	//const std::string ICON_ELEMENT__FILE = "img/icons/.png";
+	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
+	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_earth.png";
+	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_wind.png";
+	//SKILLS ICONS
+	const std::string ICON_SKILL_BANG_BALL_FILE = "img/icons/icon_skill_bang_ball.png";
+	const std::string ICON_SKILL_COMBO_BALL_FILE = "img/icons/icon_skill_combo_ball.png";
+	const std::string ICON_SKILL_sWORD_ATTACK_FILE = "img/icons/icon_skill_common_attack.png";
+	const std::string ICON_SKILL_EARTH_BALL_FILE = "img/icons/icon_skill_earth_ball.png";
+	const std::string ICON_SKILL_FIRE_BALL_FILE = "img/icons/icon_skill_fire_ball.png";
+	const std::string ICON_SKILL_HEAL_BALL_FILE = "img/icons/icon_skill_heal_ball.png";
+	const std::string ICON_SKILL_LAVA_POOL_FILE = "img/icons/icon_skill_lava_pool.png";
+	const std::string ICON_SKILL_POWER_UP_FILE = "img/icons/icon_skill_powerUp.png";
+	const std::string ICON_SKILL_RUSH_FILE = "img/icons/icon_skill_rush.png";
+	const std::string ICON_SKILL_SMALL_EARTH_BALLS_FILE = "img/icons/icon_skill_small_earth_balls.png";
+	const std::string ICON_SKILL_SMALL_FIRE_BALLS_FILE = "img/icons/icon_skill_small_fire_balls.png";
+	const std::string ICON_SKILL__FILE = "img/icons/.png";
+
+	//BUTTONS ICONS
+	const std::string ICON_BUTTON_JOURNAL = "img/icons/icon_button_journal.png";
+	const std::string ICON_BUTTON_GAME_STATISTIC = "img/icons/icon_button_game_statistic.png";
+	const std::string ICON_BUTTON_SKILLS = "img/icons/icon_button_skills.png";
+	const std::string ICON_BUTTON_CHARACTER_STATISTIC = "img/icons/icon_button_char_stats";
 }
-
-
-static bool timeIsOver(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
-
-	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
-
-	return (abs(curTime - startTime) > _time) ? true : false;
-}
-
-static sf::Vector2f generateRandomSpawnCoords(const sf::Vector2i mapSize) {
-	
-	sf::Vector2f vect;
-	vect.x = static_cast<float>(rand() % mapSize.x);
-	vect.y = static_cast<float>(rand() % mapSize.y);
-
-	return vect;
-}
-
-static size_t findBigestLength(std::vector<std::string> list) {
-	size_t maxLength = 0;
-	for (auto &i : list) {
-		maxLength = (i.size() > maxLength) ? i.size() : maxLength;
-	}
-	return maxLength;
-}
-
 namespace textSettings {
 	const std::string STD_FONT_FILE = "fonts/main_font_regular.otf";
 	const std::string STRIKE_THROUGHT_FONT_FILE = "fonts/main_strike_throught_font.ttf";
@@ -204,3 +167,34 @@ namespace interface {
 		return sf::Vector2f(window->getView().getCenter().x - window->getSize().x / 2, window->getView().getCenter().y - window->getSize().y / 2);
 	}
 };
+
+
+template <typename T> T getRand(T a, T b) {
+	T temp = static_cast<T>(a + (rand() % static_cast<int>(b - a)));
+	return temp;
+}
+
+
+static bool timeIsOver(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
+
+	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
+
+	return (abs(curTime - startTime) > _time) ? true : false;
+}
+
+static sf::Vector2f generateRandomSpawnCoords(const sf::Vector2i mapSize) {
+
+	sf::Vector2f vect;
+	vect.x = static_cast<float>(rand() % mapSize.x);
+	vect.y = static_cast<float>(rand() % mapSize.y);
+
+	return vect;
+}
+
+static size_t findBigestLength(std::vector<std::string> list) {
+	size_t maxLength = 0;
+	for (auto &i : list) {
+		maxLength = (i.size() > maxLength) ? i.size() : maxLength;
+	}
+	return maxLength;
+}

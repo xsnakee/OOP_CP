@@ -6,6 +6,18 @@
 #include <list>
 #include "additional.h"
 
+struct bulletStats {
+	float speed;
+	float damage;
+	float range;
+	elements::element element = elements::NONE;
+	float AOE = 0.1f;
+	bool type = true;//0 - heal, 1 - dmg
+	int fraction = -1;
+	float mpCost = 10.f;
+};
+
+
 class dmgInterval_t {
 public:
 	physOb_t &ob;
