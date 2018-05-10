@@ -145,6 +145,7 @@ void GameEngine_t::update() {
 	checkAlive();
 
 	if (!level.gameOver) {
+		level.mission.setTime(clock.get());
 
 		bulletEngine();
 		visionEngine();

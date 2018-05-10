@@ -18,7 +18,7 @@ class InterfaceEngine_t
 	//Iterators
 	std::list<window_t>::iterator elemIt;
 	std::list<window_t>::iterator missionWindowIt;
-
+	std::list<window_t>::iterator gameStatsWindowIt;
 	std::unique_ptr<cursor_t> cursor;
 
 	void drawCursor();
@@ -42,5 +42,6 @@ public:
 
 	void updateGenerator();
 	void updateMissionJournal();
+	void updateGameStats();
 };
 

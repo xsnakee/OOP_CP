@@ -23,6 +23,7 @@ void InterfaceEngine_t::drawCursor() {
 void InterfaceEngine_t::update() {
 	updateGenerator();
 	updateMissionJournal();
+	updateGameStats();
 
 	level.mainHero->get()->setTargetCoords(cursor->getPosition());
 
@@ -247,17 +248,25 @@ void InterfaceEngine_t::createGameStatsWindow() {
 	size_t contentStringsAmount = level.getMission().gameStats.statFields.size();
 	//MAIN MISSION WINDOW
 	sf::Vector2f windowPosition(window->getSize().x / 18.f, window->getSize().y / 2.f);
-	sf::Vector2f windowSize(findBigestLength(level.getMission().gameStats.statFields) * textSettings::STD_FONT_SIZE / 1.5f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
+	sf::Vector2f windowSize(findBigestLength(level.getMission().gameStats.statFields) * textSettings::STD_FONT_SIZE / 1.2f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
 
 	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
+	gameStatsWindowIt = windowsList.end();
+	--gameStatsWindowIt;
+
 	windowsList.back()->setTitle("STATISTIC");
 	windowsList.back()->setBgColor(sf::Color::Color(0, 0, 0, 180));
 	sf::Vector2f contentPos(0.f, 0.f);
 	contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
 
-	//MISSIONS LIST
+	//STATS LIST
 	for (size_t i = 0; i < contentStringsAmount; ++i) {
 		contentPos.y = static_cast<float>((i + 1) * textSettings::STD_FONT_SIZE) + interface::STD_BORDER_SIZE.x;
-		windowsList.back()->contentList.push_back(content(new InterfaceTextContent_t(window, (level.getMission().gameStats.statFields[i] + level.getMission().gameStats.statStrValues[i]), windowsList.back()->getPos(), contentPos)));
+		std::string tempStr = (level.getMission().gameStats.statFields[i] + level.getMission().gameStats.statStrValues[i]);
+		windowsList.back()->contentList.push_back(content(new InterfaceTextContent_t(window, tempStr, windowsList.back()->getPos(), contentPos)));
 	}
+}
+
+void InterfaceEngine_t::updateGameStats() {
+	level.getMission().gameStats.fillStrStats();
 }

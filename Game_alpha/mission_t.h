@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML\Graphics.hpp>
+#include <sstream>
 #include <vector>
 #include <memory>
 
@@ -18,7 +20,7 @@ public:
 
 	void ånemyKilled();
 	void bossKilled();
-	void setDeathTime();
+	void setTime(sf::Clock *clock);
 };
 
 
@@ -45,15 +47,15 @@ public:
 
 	void ånemyKilled();
 	void bossKilled();
-	void setDeathTime();
+	void setTime(sf::Clock *clock);
 
 	bool checkComplete();
 
 };
 
 const std::vector<std::string> STAT_LIST = {
-	"KILLED ENEMYES",
-	"KILLED BOSSES",
-	"ALIVE TIME"
+	"KILLED ENEMYES: ",
+	"KILLED BOSSES:  ",
+	"ALIVE TIME:     "
 };
 
