@@ -39,12 +39,22 @@ void game_t::play() {
 	while (window->isOpen()) {
 
 		while (window->pollEvent(event)) {
-			if ((event.type == Event::Closed) || (Keyboard::isKeyPressed(Keyboard::Escape))) {
+			if (event.type == Event::Closed) {
 				window->close();
 			}
-		}
 
-		mode = game->getGameStatus();
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Escape) {
+				if (interface->toggleMenu()) {
+					mode = game::PAUSED;
+				}
+				else {
+					mode = game::PLAY;
+				}
+			}
+		}
+		game::status gameStatus = game->getGameStatus();
+		mode = (gameStatus == game::GAME_OVER || gameStatus == game::WIN)? gameStatus:mode;
+		
 		switch (mode) {
 		case game::status::PLAY: {
 			float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());

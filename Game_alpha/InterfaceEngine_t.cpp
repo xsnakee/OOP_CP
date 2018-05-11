@@ -11,6 +11,7 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	createJournalWindow();
 	createGameStatsWindow();
 	createMapWindow();
+	createPausedMenu();
 
 	createInterfaceButtons();
 
@@ -270,7 +271,7 @@ void InterfaceEngine_t::createGameStatsWindow() {
 	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
 	gameStatsWindowIt = windowsList.end();
 	--gameStatsWindowIt;
-
+	windowsList.back()->setDisplay(false);
 	windowsList.back()->setTitle("STATISTIC");
 	windowsList.back()->setBgColor(sf::Color::Color(0, 0, 0, 180));
 	sf::Vector2f contentPos(0.f, 0.f);
@@ -352,4 +353,48 @@ void InterfaceEngine_t::updateMapWindow() {
 	float k = static_cast<float>(mapIt->get()->contentList.back()->getFontSize());
 	sf::Vector2f posCorrection(k/4.f, k);
 	mapIt->get()->contentList.back()->setRelativePos(posCharOnMap - posCorrection);
+}
+
+
+
+void InterfaceEngine_t::createPausedMenu() {
+	sf::Vector2f windowSize(static_cast<float>(window->getSize().x / 2), static_cast<float>(window->getSize().y / 2));
+	sf::Vector2f windowPosition(static_cast<float>(window->getSize().x / 2) - windowSize.x / 2.f, static_cast<float>(window->getSize().y / 2) - windowSize.y / 2.f);
+
+	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
+	pausedMenuIt = windowsList.end();
+	--pausedMenuIt;
+	pausedMenuIt->get()->setBgColor(sf::Color::Color(50, 50, 50, 150));
+	pausedMenuIt->get()->setBorderColor(sf::Color::Color(238, 238, 238, 150));
+
+	sf::Vector2f statusMassageSize(windowSize.x / 2.f, windowSize.y / 7.f);
+	sf::Vector2f statusMassagePos(windowSize.x / 2.f - statusMassageSize.x / 4.f, statusMassageSize.y);
+
+	pausedMenuIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "PAUSE", windowPosition, statusMassagePos)));
+	pausedMenuIt->get()->contentList.back()->setFontSize(40);
+	pausedMenuIt->get()->contentList.back()->setFontColor(sf::Color::White);
+
+
+
+	sf::Vector2f restartButtonsSize(windowSize.x / 2.f, windowSize.y / 7.f);
+	sf::Vector2f restartButtonPos(windowPosition.x + windowSize.x / 2.f - restartButtonsSize.x / 4.1f, windowPosition.y + statusMassageSize.y + restartButtonsSize.y * 3.f);
+	buttonList.push_back(button(new InterfaceRestartButton(*pausedMenuIt->get(), restartButtonPos)));
+	buttonList.back()->setTitle("RESTART");
+	buttonList.back()->setTextFontSize(28);
+	buttonList.back()->setTextColor(sf::Color::White);
+	resumeButton = buttonList.end();
+	--resumeButton;
+
+	sf::Vector2f backToMainMenuButtonsSize(windowSize.x / 2.f, windowSize.y / 7.f);
+	sf::Vector2f backToMainMenuButtonPos(windowPosition.x + windowSize.x / 2.f - backToMainMenuButtonsSize.x / 2.f, restartButtonPos.y + backToMainMenuButtonsSize.y);
+	buttonList.push_back(button(new IntefaceExitButton(*pausedMenuIt->get(), backToMainMenuButtonPos)));
+	buttonList.back()->setTitle("BACK TO MAIN MENU");
+	buttonList.back()->setTextFontSize(28);
+	buttonList.back()->setTextColor(sf::Color::White);
+	backTomainMenuButton = buttonList.end();
+	--backTomainMenuButton;
+}
+
+bool InterfaceEngine_t::toggleMenu() {
+	return pausedMenuIt->get()->toggleDisplay();
 }
