@@ -23,7 +23,8 @@ void game_t::start() {
 	}
 	game = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get(),difficulty));
 	interface = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
-	controller = std::unique_ptr<keyboardController>(new PlayerController(level->mainHero->get()));
+	KBcontroller = std::unique_ptr<keyboardController>(new PlayerController(level->mainHero->get()));
+	Mcontroller = std::move(std::unique_ptr<mouseController>(new mouseController(window, interface.get()->buttonList, *interface.get()->cursor)));
 
 	mainMenu.reset();
 	play();
@@ -60,17 +61,19 @@ void game_t::play() {
 		}
 		}
 
+		Mcontroller->eventHandler(event);
 		interface->update();
 		window->clear();
 		game->draw();
 		interface->draw();
 		window->display();
-		
+
+		event.key.code = Keyboard::Unknown;
 	}
 }
 
 void game_t::keyController(sf::Event &event) {
 	if (level->mainHero->get()->getAlive()) {
-		controller->eventHandler(event);
+		KBcontroller->eventHandler(event);
 	}
 }

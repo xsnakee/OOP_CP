@@ -27,7 +27,7 @@ public:
 	std::list<physOb_t*> obList;
 	std::list<std::unique_ptr <bullet_t>> bulletsList;
 	std::list<ground_t*> mapTilesList;
-	std::vector<character_t *> bossesList;
+	std::list<std::unique_ptr <character_t>>::iterator bossesListIt;
 
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
 

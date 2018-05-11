@@ -22,7 +22,10 @@ characterTimers_t::characterTimers_t(sf::Clock *_clock, int _castSpeed, int _att
 characterTimers_t::~characterTimers_t()
 {
 }
-
+characterTimers_t &characterTimers_t::operator =(characterTimers_t _secondTimer) {
+	_secondTimer.timersList = timersList;
+	return *this;
+}
 sf::Int32 &characterTimers_t::getAttackStartTime() {
 	return timersList[attackCDkey].startTime;
 }

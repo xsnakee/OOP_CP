@@ -20,7 +20,7 @@ public:
 
 
 	//GET
-
+	
 
 	sf::Sprite getSprite() const {
 		return sprite;
@@ -31,5 +31,9 @@ public:
 		sf::Vector2f globalPos = window->mapPixelToCoords(mousePos);
 		return globalPos;
 	}
+
+	//SET
+
+	void setTextureFromFile(std::string fileName);
 };
 

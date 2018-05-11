@@ -4,11 +4,11 @@
 
 keyboardController::keyboardController()
 {
-	key = sf::Keyboard::Key::Unknown;
 }
 
 
-keyboardController::~keyboardController()
+keyboardController::~keyboardController() 
+
 {
 }
 
@@ -23,9 +23,7 @@ bool keyboardController::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::I
 
 PlayerController::PlayerController(character_t *mainHero) :keyboardController()
 {
-	key = sf::Keyboard::Key::Unknown;
 	character = mainHero;
-	controllerMode = 1;
 }
 
 
@@ -48,7 +46,7 @@ void PlayerController::eventHandler(sf::Event &event) {
 	}
 	else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Space) {
 
-		character->getTimers().updateCastCD();
+		character->getTimer().updateCastCD();
 		character->changeState(new CharacterPlayerCast_t(character));
 	}
 	else
@@ -74,8 +72,8 @@ void PlayerController::eventHandler(sf::Event &event) {
 
 		if (event.key.code == (Keyboard::E)) {
 
-			character->setPosX(1000.0f);
-			character->setPosY(1000.0f);
+			character->setPosX(800.0f);
+			character->setPosY(800.0f);
 			checkCharacterStateAndChangeDefault();
 		}
 
@@ -98,6 +96,5 @@ void PlayerController::eventHandler(sf::Event &event) {
 		}
 
 
-		event.key.code = Keyboard::Unknown;
 
 }

@@ -9,7 +9,6 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	difficulty = _difficulty;
 	view = std::move(std::unique_ptr <sf::View>(new sf::View));
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
-	window->setMouseCursorVisible(false);
 	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
@@ -20,7 +19,7 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	std::shared_ptr<sf::Texture> temp = std::make_shared<sf::Texture>();
 	temp->loadFromFile(MAIN_HERO_TEXTURE_FILE);//
 	tiles::sizes tempSizes = tiles::getSizesFromStr(MAIN_HERO_TEXTURE_FILE);
-	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, level.map.mainHeroSpawnCoords.x, level.map.mainHeroSpawnCoords.y, tempSizes.width, tempSizes.height, clock.get())));
+	level.charactersList.push_back(std::unique_ptr <character_t>(new player_t(temp, level.bulletsList, level.map.mainHeroSpawnCoords, tempSizes.width, tempSizes.height, clock.get())));
 	level.mainHero = level.charactersList.begin();
 	generateNpcTypes();
 
@@ -95,7 +94,7 @@ void GameEngine_t::generateNpcTypes() {
 	treantTexture->loadFromFile(BOSS_TREANT_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_TREANT_TEXURE_FILE);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new TeantBossNpc_t(treantTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
-	
+
 
 	//RED DRAGON
 	std::shared_ptr<sf::Texture> redDragonTexture(new sf::Texture());
@@ -133,7 +132,7 @@ void GameEngine_t::generateNpc() {
 	size_t NpcAmount = 20 * difficulty;
 
 	sf::Vector2f tempCoords;
-	/*
+	//*
 	for (auto &i : npcTypesList) {
 		tempCounter = 0;
 		while (tempCounter++ < NpcAmount) {
@@ -141,9 +140,10 @@ void GameEngine_t::generateNpc() {
 				tempCoords = generateRandomSpawnCoords(level.map.getSize());
 			} while (positionCollision(tempCoords));
 
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
 		}
-	}*/
+	}
+	//*/
 	
 
 }
@@ -158,9 +158,13 @@ void GameEngine_t::generateBosses() {
 	std::list<std::unique_ptr<BossNpc_t>>::iterator it = npcBossesTypeList.begin();
 	
 	for (auto &i : npcBossesTypeList) {
-		//tempCoords = level.map.bossesSpawnCoords[bossCounter++];
+		tempCoords = level.map.bossesSpawnCoords[bossCounter++];
 		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
-		level.bossesList.push_back(i.get());	
+	}
+
+	level.bossesListIt = level.charactersList.end();
+	for (size_t i = 0; i < level.mission.missionsCompleteStatus.size(); ++i) {
+		--level.bossesListIt;
 	}
 }
 
@@ -231,24 +235,29 @@ void GameEngine_t::draw() {
 void GameEngine_t::checkAlive() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
-	for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {
-
-		if (tempCharIter != level.mainHero) {
+	//for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {}
+		for (int i = 0; tempCharIter != level.bossesListIt; ++i, ++tempCharIter){
+		if (tempCharIter != level.mainHero && tempCharIter != level.bossesListIt) {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
 				level.getMission().ånemyKilled();
 			}
 		}
-		else {
-			if (!(*tempCharIter)->getAlive()) {
+		else if (!(*tempCharIter)->getAlive()) {
 				level.gameOver = true;
+		}
+	}
+		for (; tempCharIter != level.charactersList.end(); ++tempCharIter) {
+			if (!(*tempCharIter)->getAlive()) {
+				level.checkMissionsTarget();
+				level.getMission().bossKilled();
+				if (tempCharIter == level.bossesListIt) {
+					++level.bossesListIt;
+				}
+				level.charactersList.erase(tempCharIter);
 			}
 		}
-
-		
-	}
-
 	
 	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = level.bulletsList.begin();
 

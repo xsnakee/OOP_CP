@@ -100,7 +100,7 @@ void InterfaceTextContent_t::swapContent(std::string _newPath) {
 	font.loadFromFile(textSettings::STRIKE_THROUGHT_FONT_FILE);
 	text->setFont(font);
 	text->setCharacterSize(fontSize);
-	setFontColor(sf::Color::White);
+	setFontColor(textColor);
 }
 void InterfaceTextContent_t::update() {
 	toDefaultPosition();

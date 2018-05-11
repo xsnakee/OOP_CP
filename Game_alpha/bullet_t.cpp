@@ -92,7 +92,7 @@ bool bullet_t::checkAlive() {
 }
 
 bool bullet_t::hitting(physOb_t &Object, float _speed, float _borderError) {
-	if (Object.getCollision()){
+	
 		if (stat.type && Object.getFraction() != fraction) {
 			Object.takeDamage(stat.damage, stat.type, stat.element);
 			if (!mass) {
@@ -105,7 +105,7 @@ bool bullet_t::hitting(physOb_t &Object, float _speed, float _borderError) {
 				alive = false;
 			}
 		}
-	}
+	
 	return true;
 }
 
@@ -120,7 +120,7 @@ bool bullet_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 		
 	} else {
 
-		if (Object.getCollision() && Object.getDestroyble()) {
+		if (Object.getDestroyble()) {
 
 			temp.startDmgTime = clock->getElapsedTime().asMilliseconds();
 			obList.push_back(temp);

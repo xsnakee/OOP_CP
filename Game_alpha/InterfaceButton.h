@@ -12,7 +12,7 @@ protected:
 	
 
 public:
-	InterfaceButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos);
+	InterfaceButton(InterfaceWindow_t &_linkedOb, sf::Vector2f _pos);
 	virtual ~InterfaceButton();
 
 	virtual bool action() = 0;
@@ -22,7 +22,7 @@ public:
 class IntefaceToggleButton : public InterfaceButton {
 
 public:
-	IntefaceToggleButton(InterfaceWindow_t *_linkedOb, sf::Vector2f _pos);
+	IntefaceToggleButton(InterfaceWindow_t &_linkedOb, sf::Vector2f _pos);
 	~IntefaceToggleButton();
 	virtual bool action();
 };

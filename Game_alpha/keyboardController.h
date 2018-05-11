@@ -4,10 +4,6 @@
 
 class keyboardController
 {
-protected:
-	int controllerMode;
-	int key;//mouse click code = 55
-
 public:
 	keyboardController();
 	virtual ~keyboardController();
@@ -15,14 +11,6 @@ public:
 	bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
 
 	virtual void eventHandler(sf::Event &event) = 0;
-	//GET
-	int getKey() const {
-		return key;
-	}
-
-	int getControllerMode() const {
-		return controllerMode;
-	}
 };
 
 
