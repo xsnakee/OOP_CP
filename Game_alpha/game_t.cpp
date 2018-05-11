@@ -5,7 +5,6 @@
 game_t::game_t(sf::RenderWindow *_window)
 {
 	window = _window;
-	status = game::PLAY;
 }
 
 
@@ -17,22 +16,27 @@ game_t::~game_t()
 void game_t::start() {
 	mainMenu = std::unique_ptr<mainMenu_t>(new mainMenu_t(window,levelName,difficulty));
 	mainMenu->action();
-	level = std::unique_ptr<Level_t>(new Level_t(levelName));
-	if (!level->succesfull) {
-		std::cout << "MAP_FILE_IS_NOT_OPEN";
-		return;
-	}
-	gameEngine = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get(),difficulty));
-	interfaceEngine = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
-	KBcontroller = std::move(std::unique_ptr<keyboardController>(new keyboardController(level->mainHero->get(),*this)));
-	Mcontroller = std::move(std::unique_ptr<mouseController>(new mouseController(window, *this, *interfaceEngine.get()->cursor)));
 
 	mainMenu.reset();
-	play();
+	while (true) {
+		level = std::unique_ptr<Level_t>(new Level_t(levelName));
+		if (!level->succesfull) {
+			std::cout << "MAP_FILE_IS_NOT_OPEN";
+			return;
+		}
+		play();
+		resetGame();
+	}
 }
 
 void game_t::play() {
 	using namespace sf;
+
+	status = game::PLAY;
+	gameEngine = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get(), difficulty));
+	interfaceEngine = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
+	KBcontroller = std::move(std::unique_ptr<keyboardController>(new keyboardController(level->mainHero->get(), *this)));
+	Mcontroller = std::move(std::unique_ptr<mouseController>(new mouseController(window, *this, *interfaceEngine.get()->cursor)));
 
 	Event event;
 
@@ -56,17 +60,21 @@ void game_t::play() {
 		case game::status::PLAY: {
 			gameEngine->setSpeed(timer);
 			gameEngine->update();
+			Mcontroller->eventHandler(event);
 			break;
 		}
 
 		case game::status::PAUSED:{
-		
+			Mcontroller->menuEventHandler(event);
+			break;
+		}
+		case game::RESTART: {
+			return;
 			break;
 		}
 		}
 
 		keyController(event);
-		Mcontroller->eventHandler(event);
 		interfaceEngine->update();
 		window->clear();
 		gameEngine->draw();
@@ -88,4 +96,13 @@ game::status game_t::getStatus() const {
 }
 void game_t::setGameStatus(game::status _newStatus) {
 	status = _newStatus;
+}
+
+void game_t::resetGame() {
+	gameEngine.reset();
+	level.reset();
+	interfaceEngine.reset();
+	KBcontroller.reset();
+	Mcontroller.reset();
+	clock.restart();
 }

@@ -24,6 +24,8 @@ class game_t
 	std::string levelName;
 	size_t difficulty;
 	game::status status;
+
+	void resetGame();
 public:
 
 	std::unique_ptr<GameEngine_t> gameEngine;

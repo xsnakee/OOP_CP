@@ -15,8 +15,9 @@ class mouseController
 	cursor_t &cursor;
 public:
 	mouseController(sf::RenderWindow *_window, game_t &_game, cursor_t &_cursor);
-	virtual ~mouseController();
+	~mouseController();
 
-	virtual void eventHandler(sf::Event &event);
+	void eventHandler(sf::Event &event);
+	void menuEventHandler(sf::Event &event);
 };
 

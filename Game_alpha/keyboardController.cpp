@@ -36,7 +36,6 @@ void keyboardController::eventHandler(sf::Event &event) {
 
 		if (event.type == Event::KeyReleased) {
 			if (event.key.code == Keyboard::Escape) {
-				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Escape) {
 					checkCharacterStateAndChangeDefault();
 					if (game.interfaceEngine->toggleMenu()) {
 						game.setGameStatus(game::PAUSED);
@@ -44,7 +43,7 @@ void keyboardController::eventHandler(sf::Event &event) {
 					else {
 						game.setGameStatus(game::PLAY);
 					}
-				}
+				
 			}
 			if (game.getStatus() != game::PAUSED) {
 				switch (event.key.code) {

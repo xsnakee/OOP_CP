@@ -6,7 +6,8 @@ namespace game{
 		PLAY,
 		PAUSED,
 		WIN,
-		GAME_OVER
+		GAME_OVER,
+		RESTART
 	};
 
 }

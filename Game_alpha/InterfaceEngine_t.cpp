@@ -350,14 +350,14 @@ void InterfaceEngine_t::createPausedMenu() {
 	sf::Vector2f restartButtonsSize(windowSize.x / 2.f, windowSize.y / 7.f);
 	sf::Vector2f restartButtonPos(windowPosition.x + windowSize.x / 2.f - restartButtonsSize.x / 2.f, windowPosition.y + statusMassageSize.y + restartButtonsSize.y * 3.f);
 	buttonList.push_back(button(new InterfaceRestartButton(*pausedMenuIt->get(), restartButtonPos)));
-	resumeButton = buttonList.end();
-	--resumeButton;
+	restartButton = buttonList.end();
+	--restartButton;
 
-	resumeButton->get()->setSizes(restartButtonsSize);
+	restartButton->get()->setSizes(restartButtonsSize);
 	sf::Vector2f restartButtonContentCorrectionPos(restartButtonsSize.x / 2.f - restartButtonsSize.x / 4.f, 0.f);
-	resumeButton->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "RESTART", restartButtonPos, restartButtonContentCorrectionPos)));
-	resumeButton->get()->contentList.back()->setFontSize(28);
-	resumeButton->get()->contentList.back()->setFontColor(sf::Color::White);
+	restartButton->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "RESTART", restartButtonPos, restartButtonContentCorrectionPos)));
+	restartButton->get()->contentList.back()->setFontSize(28);
+	restartButton->get()->contentList.back()->setFontColor(sf::Color::White);
 
 
 	sf::Vector2f backToMainMenuButtonsSize(windowSize.x / 2.f, windowSize.y / 7.f);

@@ -28,7 +28,7 @@ class InterfaceEngine_t
 	void drawCursor();
 public:
 
-	std::list<button>::iterator resumeButton;
+	std::list<button>::iterator restartButton;
 	std::list<button>::iterator backTomainMenuButton;
 
 	std::unique_ptr<cursor_t> cursor;
