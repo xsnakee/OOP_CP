@@ -28,6 +28,7 @@ void InterfaceEngine_t::drawCursor() {
 }
 
 void InterfaceEngine_t::update() {
+	updateMissionJournal();
 	updateGenerator();
 	if (missionWindowIt->get()->getDisplayState()) {
 		updateMissionJournal();
@@ -254,6 +255,7 @@ void InterfaceEngine_t::updateMissionJournal() {
 			(!level.getMission().missionsCompleteStatus[i])){
 			tempIt->get()->contentList[i]->setFontColor(sf::Color::Green);
 		}
+		++tempIt;
 	}
 }
 

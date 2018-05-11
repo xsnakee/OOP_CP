@@ -5,10 +5,12 @@
 BossNpc_t::BossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple):
 	Npc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
+	destroyble = false;
 }
 
 BossNpc_t::BossNpc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) : Npc_t(copyedNpc,spotPoint,powerMultiple) {
 	setSkills(copyedNpc->getSkillList());
+	destroyble = false;
 }
 
 BossNpc_t::~BossNpc_t()
@@ -59,14 +61,14 @@ TeantBossNpc_t::TeantBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<s
 {
 	setSkills({ 3,6,24,10,18,2 });
 	stat.stdattackPower = 20.f;
-	stat.attackRange = 200.f;
+	stat.attackRange = 150.f;
 	stat.stdPhysDef = 25.f;
 	stat.stdMagDef = 15.f;
 	stat.damageRand = 10.f;
 	stat.stdHP = 350.f;
 	stat.visionDistance = 300.f;
 	stat.attackSpeed = -0.5f;
-	stat.stdSpeed = 0.1f;
+	stat.stdSpeed = 0.11f;
 	defaultAllStats();
 }
 
@@ -84,7 +86,7 @@ RedDragonBossNpc_t::RedDragonBossNpc_t(std::shared_ptr<sf::Texture>_texture, std
 {
 	setSkills({ 12,18,5,4 });
 	stat.stdattackPower = 30.f;
-	stat.attackRange = 400.f;
+	stat.attackRange = 300.f;
 	stat.stdPhysDef = 20.f;
 	stat.stdMagDef = 25.f;
 	stat.damageRand = 15.f;
@@ -140,7 +142,7 @@ EnhBpssNpc_t::EnhBpssNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::
 	stat.stdMagDef = 30.f;
 	stat.damageRand = 10.f;
 	stat.stdHP = 550.f;
-	stat.visionDistance = 500.f;
+	stat.visionDistance = 250.f;
 	stat.attackSpeed = 1.f;
 	stat.stdSpeed = 0.15f;
 	defaultAllStats();
@@ -160,12 +162,12 @@ DQBossNpc_t::DQBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 {
 	setSkills({ 3,6,1,2,11,5,12 });
 	stat.stdattackPower = 55.f;
-	stat.attackRange = 500.f;
+	stat.attackRange = 300.f;
 	stat.stdPhysDef = 30.f;
 	stat.stdMagDef = 30.f;
 	stat.damageRand = 30.f;
 	stat.stdHP = 500.f;
-	stat.visionDistance = 300.f;
+	stat.visionDistance = 200.f;
 	stat.attackSpeed = 2.f;
 	stat.stdSpeed = 0.15f;
 	defaultAllStats();
