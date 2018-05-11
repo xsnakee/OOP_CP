@@ -95,10 +95,35 @@ void GameEngine_t::generateNpcTypes() {
 	treantTexture->loadFromFile(BOSS_TREANT_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_TREANT_TEXURE_FILE);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new BossNpc_t(treantTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
-	npcBossesTypeList.back()->setSkills({ 1, 4, 12 });
+	npcBossesTypeList.back()->setSkills({ 3,6,24,10,18,2});
 
+	//RED DRAGON
+	std::shared_ptr<sf::Texture> redDragonTexture(new sf::Texture());
+	redDragonTexture->loadFromFile(BOSS_RED_DRAGON_TEXURE_FILE);
+	tempSizes = tiles::getSizesFromStr(BOSS_RED_DRAGON_TEXURE_FILE,3,3);
+	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new BossNpc_t(redDragonTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
+	npcBossesTypeList.back()->setSkills({ 12,18,5,4});
+
+	//BLACK DRAGON
+	std::shared_ptr<sf::Texture> blackDragonTexture(new sf::Texture());
+	blackDragonTexture->loadFromFile(BOSS_BLACK_DRAGON_TEXURE_FILE);
+	tempSizes = tiles::getSizesFromStr(BOSS_BLACK_DRAGON_TEXURE_FILE);
+	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new BossNpc_t(blackDragonTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
+	npcBossesTypeList.back()->setSkills({ 24,4,10,17,18,2 });
+
+	//ENH
+	std::shared_ptr<sf::Texture> enhTexture(new sf::Texture());
+	enhTexture->loadFromFile(BOSS_ENH_TEXURE_FILE);
+	tempSizes = tiles::getSizesFromStr(BOSS_ENH_TEXURE_FILE,3,2);
+	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new BossNpc_t(enhTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
+	npcBossesTypeList.back()->setSkills({ 3,6,1,2,11,5,12 });
 	
-
+	//DARK QUEEN
+	std::shared_ptr<sf::Texture> darkQueenTexture(new sf::Texture());
+	darkQueenTexture->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);
+	tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
+	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new BossNpc_t(darkQueenTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
+	npcBossesTypeList.back()->setSkills({ 3,6,1,2,11,5,12 });
 }
 
 void GameEngine_t::generateNpc() {
@@ -129,13 +154,13 @@ void GameEngine_t::generateBosses() {
 
 	size_t NpcAmount = npcBossesTypeList.size();
 
-	sf::Vector2f tempCoords;
-	
+	sf::Vector2f tempCoords(500.f,500.f);
+	std::list<std::unique_ptr<BossNpc_t>>::iterator it = npcBossesTypeList.begin();
 	
 	for (auto &i : npcBossesTypeList) {
-		tempCoords = level.map.bossesSpawnCoords[bossCounter];
-		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), level.map.bossesSpawnCoords[0], STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
-		level.bossesList.push_back(level.charactersList.back().get());		
+		//tempCoords = level.map.bossesSpawnCoords[bossCounter++];
+		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+		level.bossesList.push_back(i.get());	
 	}
 }
 

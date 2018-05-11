@@ -166,7 +166,7 @@ FatZombie_t::~FatZombie_t() {
 }
 void FatZombie_t::setTypeStats() {
 
-	elemStatus = 6;//POISION BALL
+	elemStatus = 2;//POISION BALL
 	stat.attackRange = 50.f;
 	stat.stdPhysDef = 10.f;
 	stat.stdMagDef = 10.f;

@@ -12,7 +12,9 @@ public:
 	
 	virtual ~BossNpc_t();
 
-	void setSkills(std::initializer_list<size_t> _skillList);
+	virtual void setSkills(std::initializer_list<size_t> _skillList);
+	virtual void BossNpc_t::setSkills(std::vector<size_t> _skillList);
+	virtual std::vector<size_t> getSkillList();
 	virtual void update(float _speed);
 	virtual void attack();
 	virtual void generateSkillAndClearElemList();

@@ -8,7 +8,7 @@ BossNpc_t::BossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique
 }
 
 BossNpc_t::BossNpc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) : Npc_t(copyedNpc,spotPoint,powerMultiple) {
-	setSkills({1,4,18});
+	setSkills(copyedNpc->getSkillList());
 }
 
 BossNpc_t::~BossNpc_t()
@@ -17,6 +17,12 @@ BossNpc_t::~BossNpc_t()
 
 void BossNpc_t::setSkills(std::initializer_list<size_t> _skillList) {
 	elementStatusList.insert(elementStatusList.end(), _skillList.begin(), _skillList.end());
+}
+void BossNpc_t::setSkills(std::vector<size_t> _skillList) {
+	elementStatusList.insert(elementStatusList.end(), _skillList.begin(), _skillList.end());
+}
+std::vector<size_t> BossNpc_t::getSkillList() {
+	return elementStatusList;
 }
 
 void BossNpc_t::update(float _speed) {
