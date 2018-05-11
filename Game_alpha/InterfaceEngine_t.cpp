@@ -308,7 +308,7 @@ void InterfaceEngine_t::createInterfaceButtons() {
 
 	//MAP BUTTON
 	buttonPosition.y = buttonPosition.y + windowsList.back()->getSizes().y;
-	windowsList.push_back(window_t(new IntefaceToggleButton(mapIt->get(), buttonPosition + buttonMargin)));
+	windowsList.push_back(window_t(new IntefaceToggleButton(mapIt->get(), buttonPosition + buttonMargin+ buttonMargin)));
 	sf::Texture *temp3 = new sf::Texture;
 	temp3->loadFromFile(icon::ICON_BUTTON_MAP);
 	windowsList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp3, windowsList.back()->getPos())));
@@ -335,6 +335,7 @@ void InterfaceEngine_t::createMapWindow() {
 	mapIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, ".", mapIt->get()->getPos())));
 	unsigned int characterSize = 80;
 	mapIt->get()->contentList.back()->setFontSize(characterSize);
+	mapIt->get()->toggleDisplay();
 }
 
 void InterfaceEngine_t::updateMapWindow() {

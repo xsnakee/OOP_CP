@@ -88,7 +88,13 @@ void character_t::animation() {
 
 	spritePref.setTexturePos(spriteCoordX, spriteCoordY);
 }
+void character_t::setSkills(std::initializer_list<size_t> _skillList) {
+	elemStatus = *_skillList.begin();
+}
 
+std::vector<size_t> character_t::getSkillList() {
+	return std::vector<size_t>(1,elemStatus);
+}
 
 bool character_t::checkAlive() {
 

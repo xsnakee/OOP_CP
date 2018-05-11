@@ -7,13 +7,14 @@
 #include "character_t.h"
 #include "player_t.h"
 #include "Npc_t.h"
+#include "BossNpc_t.h"
 #include "bullet_t.h"
 #include "additional.h"
 #include "keyboardController.h"
 #include "Level_t.h"
 
 
-const float STD_DIFFICULTY_COEFFICIENT = 1.f;
+const float STD_DIFFICULTY_COEFFICIENT = 0.5f;
 
 class GameEngine_t
 {
@@ -23,6 +24,8 @@ private:
 	Level_t &level;
 	size_t difficulty;
 	std::list<std::unique_ptr<character_t>> npcTypesList;
+	std::list<std::unique_ptr<BossNpc_t>> npcBossesTypeList;
+
 	game::status status;
 
 	std::unique_ptr<sf::Clock> clock;

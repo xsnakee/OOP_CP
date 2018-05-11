@@ -70,6 +70,7 @@ namespace animation {
 	const std::string BULLET_COMBO_BALL_TEXTURE_FILE = "img/skills/bullet_combo.png";
 	const std::string BULLET_CRYSTAL_HEAL_TEXTURE_FILE = "img/skills/bullet_crystal_heal.png";
 	const std::string BULLET_FIRE_LIGHTING_TEXTURE_FILE = "img/skills/bullet_fire_lighting.png";
+	const std::string BULLET_POISION_BALL_TEXTURE_FILE = "img/skills/bullet_poision_splash.png";
 
 	//CHARACTER IMGS
 	const std::string MAIN_HERO_TEXTURE_FILE = "img/characters/mainHero_32_32.png";

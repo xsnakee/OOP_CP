@@ -13,6 +13,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 	elemStatus = 1;
+	collision = false;
 }
 
 //REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -29,6 +30,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 	elemStatus = 1;
+	collision = false;
 }
 
 Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple):
@@ -46,6 +48,7 @@ Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple
 
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
+	collision = false;
 }
  
 Npc_t::~Npc_t()
@@ -166,7 +169,7 @@ FatZombie_t::~FatZombie_t() {
 }
 void FatZombie_t::setTypeStats() {
 
-	elemStatus = 6;//POISION BALL
+	elemStatus = 2;//POISION BALL
 	stat.attackRange = 50.f;
 	stat.stdPhysDef = 10.f;
 	stat.stdMagDef = 10.f;

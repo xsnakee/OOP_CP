@@ -128,11 +128,6 @@ bool physOb_t::checkCollision(physOb_t &Object, float _borderError) {
 	if (getFloatRect().intersects(Object.getCollisionRect())) {
 		return true;
 	}
-
-	/*
-	if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (abs(obCenterY - thisCenterY) < (thisHeight + obHeight - _borderError))){
-		return true;
-	}*/
 	
 	return false;
 }
