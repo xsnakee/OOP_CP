@@ -44,13 +44,38 @@ void PlayerController::eventHandler(sf::Event &event) {
 		character->attack();
 		checkCharacterStateAndChangeDefault();
 	}
-	else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Space) {
+	else if (event.type == Event::KeyReleased){
 
-		character->getTimer().updateCastCD();
-		character->changeState(new CharacterPlayerCast_t(character));
+		switch (event.key.code) {
+		case Keyboard::Space: {
+			character->getTimer().updateCastCD();
+			character->changeState(new CharacterPlayerCast_t(character));
+			break;
+		}
+		case Keyboard::E : {
+			character->setPosX(800.0f);
+			character->setPosY(800.0f);
+			checkCharacterStateAndChangeDefault();
+			break;
+		}
+		case Keyboard::Num1: {
+			character->addElement(elements::WIND);
+			checkCharacterStateAndChangeDefault();
+			break;
+		}
+		case Keyboard::Num2: {
+			character->addElement(elements::FIRE);
+			checkCharacterStateAndChangeDefault();
+			break;
+		}
+		case Keyboard::Num3 : {
+			character->addElement(elements::EARTH);
+			checkCharacterStateAndChangeDefault();
+			break;
+		}
+		}
 	}
-	else
-		if (Keyboard::isKeyPressed(Keyboard::W)) {
+	if (Keyboard::isKeyPressed(Keyboard::W)) {
 			character->setdY(-character->getStats().speed);
 			checkCharacterStateAndChangeDefault();
 		}
@@ -70,30 +95,7 @@ void PlayerController::eventHandler(sf::Event &event) {
 			checkCharacterStateAndChangeDefault();
 		}
 
-		if (event.key.code == (Keyboard::E)) {
-
-			character->setPosX(800.0f);
-			character->setPosY(800.0f);
-			checkCharacterStateAndChangeDefault();
-		}
-
-
-		if (event.key.code == (Keyboard::Num1)) {
-			character->addElement(elements::WIND);
-			checkCharacterStateAndChangeDefault();
-
-		}
-		if (event.key.code == (Keyboard::Num2)) {
-
-			character->addElement(elements::FIRE);
-			checkCharacterStateAndChangeDefault();
-		}
-
-		if (event.key.code == (Keyboard::Num3)) {
-
-			character->addElement(elements::EARTH);
-			checkCharacterStateAndChangeDefault();
-		}
+		
 
 
 
