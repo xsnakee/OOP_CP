@@ -34,10 +34,9 @@ void game_t::play() {
 	using namespace sf;
 
 	Event event;
-	game::status mode;
+	game::status mode = game::PLAY;
 
 	while (window->isOpen()) {
-
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed) {
 				window->close();
