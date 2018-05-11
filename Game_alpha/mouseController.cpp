@@ -37,7 +37,7 @@ void mouseController::menuEventHandler(sf::Event &event) {
 			else if (game.interfaceEngine->backTomainMenuButton->get()->getIntRect().contains(sf::Mouse::getPosition(*window))) {
 				game.interfaceEngine->backTomainMenuButton->get()->contentList.back()->setFontColor(sf::Color::Green);
 				if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left) {
-					game.interfaceEngine->backTomainMenuButton->get()->action();
+					game.setGameStatus(game::MAIN_MENU);
 				}
 			}	
 	

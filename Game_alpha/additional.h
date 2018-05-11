@@ -7,7 +7,8 @@ namespace game{
 		PAUSED,
 		WIN,
 		GAME_OVER,
-		RESTART
+		RESTART,
+		MAIN_MENU
 	};
 
 }

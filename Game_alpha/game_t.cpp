@@ -5,6 +5,7 @@
 game_t::game_t(sf::RenderWindow *_window)
 {
 	window = _window;
+	status = game::MAIN_MENU;
 }
 
 
@@ -14,19 +15,24 @@ game_t::~game_t()
 
 
 void game_t::start() {
-	mainMenu = std::unique_ptr<mainMenu_t>(new mainMenu_t(window,levelName,difficulty));
-	mainMenu->action();
+	while (status == game::MAIN_MENU) {
+		mainMenu = std::unique_ptr<mainMenu_t>(new mainMenu_t(window, levelName, difficulty));
+		mainMenu->action();
 
-	mainMenu.reset();
-	while (true) {
-		level = std::unique_ptr<Level_t>(new Level_t(levelName));
-		if (!level->succesfull) {
-			std::cout << "MAP_FILE_IS_NOT_OPEN";
-			return;
+
+		status = game::PLAY;
+
+		while (status != game::MAIN_MENU) {
+			level = std::unique_ptr<Level_t>(new Level_t(levelName));
+			if (!level->succesfull) {
+				std::cout << "MAP_FILE_IS_NOT_OPEN";
+				return;
+			}
+			play();
+			resetGame();
 		}
-		play();
-		resetGame();
 	}
+	
 }
 
 void game_t::play() {
@@ -68,10 +74,17 @@ void game_t::play() {
 			Mcontroller->menuEventHandler(event);
 			break;
 		}
-		case game::RESTART: {
+		case game::RESTART:case game::MAIN_MENU: {
 			return;
+		}
+		case game::GAME_OVER: {
+			Mcontroller->menuEventHandler(event);
+			interfaceEngine->pausedMenuIt->get()->contentList.back()->setFontColor(sf::Color::Red);
+			interfaceEngine->pausedMenuIt->get()->contentList.back()->setText("YOU DIE");
+			interfaceEngine->pausedMenuIt->get()->setDisplay(true);
 			break;
 		}
+
 		}
 
 		keyController(event);
@@ -99,6 +112,7 @@ void game_t::setGameStatus(game::status _newStatus) {
 }
 
 void game_t::resetGame() {
+	mainMenu.reset();
 	gameEngine.reset();
 	level.reset();
 	interfaceEngine.reset();

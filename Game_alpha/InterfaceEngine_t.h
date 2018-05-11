@@ -22,7 +22,6 @@ class InterfaceEngine_t
 	std::list<window_t>::iterator missionWindowIt;
 	std::list<window_t>::iterator gameStatsWindowIt;
 	std::list<window_t>::iterator mapIt;
-	std::list<window_t>::iterator pausedMenuIt;
 
 
 	void drawCursor();
@@ -30,6 +29,7 @@ public:
 
 	std::list<button>::iterator restartButton;
 	std::list<button>::iterator backTomainMenuButton;
+	std::list<window_t>::iterator pausedMenuIt;
 
 	std::unique_ptr<cursor_t> cursor;
 	//LISTS
