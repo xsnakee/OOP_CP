@@ -39,6 +39,5 @@ IntefaceToggleButton::~IntefaceToggleButton()
 }
 
 bool IntefaceToggleButton::action() {
-	printf("1");
 	return linkedOb->toggleDisplay();
 }

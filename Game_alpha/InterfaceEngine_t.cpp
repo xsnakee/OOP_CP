@@ -298,6 +298,7 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	sf::Vector2f buttonMargin(0.f,interface::STD_MARGIN_SIZE.y);
 	//JOURNAL BUTTON
 	buttonList.push_back(button(new IntefaceToggleButton(*missionWindowIt->get(), buttonPosition)));
+	buttonList.back().get()->setTitle("J");
 	sf::Texture *temp = new sf::Texture;
 	temp->loadFromFile(icon::ICON_BUTTON_JOURNAL);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, buttonList.back()->getPos())));

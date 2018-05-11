@@ -40,7 +40,6 @@ map_t::map_t(std::string _levelName) {
 
 map_t::~map_t()
 {
-	//delete tile_texture;
 }
 
 
