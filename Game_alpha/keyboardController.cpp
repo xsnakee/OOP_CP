@@ -74,8 +74,8 @@ void PlayerController::eventHandler(sf::Event &event) {
 
 		if (event.key.code == (Keyboard::E)) {
 
-			character->setPosX(1000.0f);
-			character->setPosY(1000.0f);
+			character->setPosX(800.0f);
+			character->setPosY(800.0f);
 			checkCharacterStateAndChangeDefault();
 		}
 

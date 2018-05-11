@@ -157,11 +157,16 @@ void GameEngine_t::generateBosses() {
 
 	sf::Vector2f tempCoords(500.f,500.f);
 	std::list<std::unique_ptr<BossNpc_t>>::iterator it = npcBossesTypeList.begin();
-	//level.bossesListIt = level.charactersList.end();
+	
 	for (auto &i : npcBossesTypeList) {
 		tempCoords = level.map.bossesSpawnCoords[bossCounter++];
 		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
-		level.bossesList.push_back(i.get());	
+		//level.bossesList.push_back(i.get());	
+	}
+
+	level.bossesListIt = level.charactersList.end();
+	for (size_t i = 0; i < level.mission.missionsCompleteStatus.size(); ++i) {
+		--level.bossesListIt;
 	}
 }
 
@@ -232,24 +237,24 @@ void GameEngine_t::draw() {
 void GameEngine_t::checkAlive() {
 
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
-	for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {
-
-		if (tempCharIter != level.mainHero) {
+	//for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {}
+		for (int i = 0; tempCharIter != level.bossesListIt; ++i, ++tempCharIter){
+		if (tempCharIter != level.mainHero && tempCharIter != level.bossesListIt) {
 			if (!(*tempCharIter)->getAlive()) {
 				tempCharIter->reset();
 				level.charactersList.erase(tempCharIter);
 				level.getMission().ånemyKilled();
 			}
 		}
-		else {
-			if (!(*tempCharIter)->getAlive()) {
+		else if (!(*tempCharIter)->getAlive()) {
 				level.gameOver = true;
+		}
+	}
+		for (; tempCharIter != level.charactersList.end(); ++tempCharIter) {
+			if (!(*tempCharIter)->getAlive()) {
+				tempCharIter->get()->getStats().resetStats();
 			}
 		}
-
-		
-	}
-
 	
 	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = level.bulletsList.begin();
 

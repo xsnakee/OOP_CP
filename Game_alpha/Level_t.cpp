@@ -37,22 +37,24 @@ mission_t &Level_t::getMission() {
 }
 
 void Level_t::checkMissionsTarget() {
-	std::vector<character_t*>::iterator &it = bossesList.begin();
-	for (size_t i = 0; i < bossesList.size(); ++i) {
+	std::list<std::unique_ptr <character_t>>::iterator it = bossesListIt;
+	size_t iterationAmount = mission.missionsCompleteStatus.size();
+	for (size_t i = 0; i < iterationAmount; ++i) {
 		if ((i == 0 || getMission().missionsCompleteStatus[i - 1]) &&
-			(i == bossesList.size() - 1 || !getMission().missionsCompleteStatus[i + 1])) {
+			(i == iterationAmount - 1 || !getMission().missionsCompleteStatus[i + 1])) {
 			(*it)->setDestroyble(true);
 		}
 		++it;
 	}
 
 	size_t tempCounter = 0;
-	for (auto &i : bossesList) {
-		if ((!i->getAlive())) {
+	std::list<std::unique_ptr <character_t>>::iterator it2 = bossesListIt;
+
+	for (size_t i = 0; i < iterationAmount; ++i) {
+		if ((!it2->get()->getAlive())) {
 			mission.missionsCompleteStatus[tempCounter] = true;
 		}
-		++tempCounter;
-	
+		++it2;
 	}
 }
 

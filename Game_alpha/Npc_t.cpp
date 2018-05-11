@@ -3,7 +3,8 @@
 
 
 
-Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, float _x, float _y, int _width, int _height, float _statMultiple) :character_t(_texture, _bulletList, _x, _y, 0,0,_width, _height,_clock)
+Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, float _x, float _y, int _width, int _height, float _statMultiple) 
+	:character_t(_texture, _bulletList, _x, _y, 0,0,_width, _height,_clock)
 {
 	spotCoords = sf::Vector2f(_x,_y);
 	spawnCoords = spotCoords;
@@ -126,6 +127,7 @@ void WarriorNpc_t::setTypeStats() {
 	stat.stdSpeed = 0.11f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
+	timer.attackCDcorrection(stat.attackSpeed);
 }
 //ZOMBIE WITCH CLASS
 ZombieWitch_t::ZombieWitch_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
@@ -155,6 +157,7 @@ void ZombieWitch_t::setTypeStats() {
 	stat.stdSpeed = 0.09f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
+	timer.attackCDcorrection(stat.attackSpeed);
 }
 //FAT ZOMBIE CLASS
 FatZombie_t::FatZombie_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :

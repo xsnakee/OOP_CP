@@ -9,7 +9,7 @@ player_t::player_t(sf::Vector2f _pos, std::string fileName, int _width, int _hei
 	fraction = 0;
 	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
-	stat.stdattackPower = 25.f;
+	stat.stdattackPower = 250.f;
 	stat.attackRange = 300.f;
 	stat.stdPhysDef = 25.f;
 	stat.stdMagDef = 15.f;
@@ -28,7 +28,7 @@ player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_
 	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
 	elemStatus = 0;
-	stat.stdattackPower = 25.f;
+	stat.stdattackPower = 250.f;
 	stat.attackRange = 300.f;
 	stat.stdPhysDef = 25.f;
 	stat.stdMagDef = 15.f;
