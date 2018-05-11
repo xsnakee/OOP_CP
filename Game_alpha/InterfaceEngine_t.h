@@ -11,6 +11,7 @@
 
 typedef std::unique_ptr<InterfaceBar> bar_t;
 typedef std::unique_ptr<InterfaceWindow_t> window_t;
+typedef std::unique_ptr<InterfaceButton> button;
 
 class InterfaceEngine_t
 {
@@ -21,6 +22,7 @@ class InterfaceEngine_t
 	std::list<window_t>::iterator missionWindowIt;
 	std::list<window_t>::iterator gameStatsWindowIt;
 	std::list<window_t>::iterator mapIt;
+
 	std::unique_ptr<cursor_t> cursor;
 
 	void drawCursor();
@@ -28,6 +30,7 @@ public:
 	//LISTS
 	std::list<bar_t> barsList;
 	std::list<window_t> windowsList;
+	std::list<button> buttonList;
 
 
 	InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level);

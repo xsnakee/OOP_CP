@@ -157,7 +157,7 @@ void GameEngine_t::generateBosses() {
 
 	sf::Vector2f tempCoords(500.f,500.f);
 	std::list<std::unique_ptr<BossNpc_t>>::iterator it = npcBossesTypeList.begin();
-	
+	//level.bossesListIt = level.charactersList.end();
 	for (auto &i : npcBossesTypeList) {
 		tempCoords = level.map.bossesSpawnCoords[bossCounter++];
 		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
