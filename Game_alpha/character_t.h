@@ -110,7 +110,7 @@ public:
 		return elemStatus;
 	}
 
-	characterTimers_t &getTimers() {
+	characterTimers_t getTimer() {
 		return timer;
 	}
 

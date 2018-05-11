@@ -49,7 +49,13 @@ Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple
 
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
-	collision = false;
+
+	collision = copyedNpc->getCollision();
+	alive = copyedNpc->getAlive();
+	clock = copyedNpc->getClockPtr();
+	moveRadius = copyedNpc->getMoveRadius();
+	fraction = copyedNpc->getFraction();
+	timer = copyedNpc->getTimer();
 }
  
 Npc_t::~Npc_t()

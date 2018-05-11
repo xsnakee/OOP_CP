@@ -5,12 +5,10 @@
 BossNpc_t::BossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple):
 	Npc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
-	destroyble = false;
 }
 
 BossNpc_t::BossNpc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple) : Npc_t(copyedNpc,spotPoint,powerMultiple) {
 	setSkills(copyedNpc->getSkillList());
-	destroyble = false;
 }
 
 BossNpc_t::~BossNpc_t()

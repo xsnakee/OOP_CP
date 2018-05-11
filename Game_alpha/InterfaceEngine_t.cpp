@@ -251,15 +251,10 @@ void InterfaceEngine_t::createJournalWindow() {
 }
 
 void InterfaceEngine_t::updateMissionJournal() {
-	std::list<window_t>::iterator tempIt = missionWindowIt;
-	for (size_t i = 0; i < tempIt->get()->contentList.size(); ++i) {
+	std::vector<content>::iterator tempIt = missionWindowIt->get()->contentList.begin();
+	for (size_t i = 0; i < missionWindowIt->get()->contentList.size(); ++i) {
 		if (level.getMission().missionsCompleteStatus[i]) {
-			tempIt->get()->contentList[i]->swapContent();
-		}
-		if ((i == 0 || level.getMission().missionsCompleteStatus[i - 1]) && 
-			(i == tempIt->get()->contentList.size() - 1 || !level.getMission().missionsCompleteStatus[i + 1]) &&
-			(!level.getMission().missionsCompleteStatus[i])){
-			tempIt->get()->contentList[i]->setFontColor(sf::Color::Green);
+			tempIt->get()->swapContent();
 		}
 		++tempIt;
 	}

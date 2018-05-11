@@ -194,10 +194,10 @@ void castTimeBar::update() {
 		toDefaultPosition();
 		if (character->getState()->getStateNum() == 4) {
 
-			int delay = character->getTimers().getCastDelay();;
+			int delay = character->getTimer().getCastDelay();;
 			
-			float k = (static_cast<float>(character->getTimers().getClockPtr()->getElapsedTime().asMilliseconds()) -
-				static_cast<float>(character->getTimers().getCastStartTime())) / static_cast<float>(delay);
+			float k = (static_cast<float>(character->getTimer().getClockPtr()->getElapsedTime().asMilliseconds()) -
+				static_cast<float>(character->getTimer().getCastStartTime())) / static_cast<float>(delay);
 
 			sf::Vector2f tempInnerRectSize(innerRectSize.x * k, innerRectSize.y);
 			setInnerRectSize(tempInnerRectSize);

@@ -26,7 +26,7 @@ public:
 	characterTimers_t();
 	characterTimers_t(sf::Clock *_clock, int _castSpeed = 1, int _attackSpeed = 1);
 	~characterTimers_t();
-	
+	characterTimers_t &operator =(characterTimers_t _secondTimer);
 	
 	//GET
 

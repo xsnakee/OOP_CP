@@ -48,7 +48,7 @@ void PlayerController::eventHandler(sf::Event &event) {
 	}
 	else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Space) {
 
-		character->getTimers().updateCastCD();
+		character->getTimer().updateCastCD();
 		character->changeState(new CharacterPlayerCast_t(character));
 	}
 	else

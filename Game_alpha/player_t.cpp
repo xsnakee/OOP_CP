@@ -50,11 +50,11 @@ void player_t::update(float _speed) {
 	character_t::update(_speed);
 
 
-	if (((this)->getState()->getStateNum() == 4) && (this)->checkSkillGenerator() && ((this)->getTimers().castReady())) {
+	if (((this)->getState()->getStateNum() == 4) && (this)->checkSkillGenerator() && ((this)->getTimer().castReady())) {
 		(this)->generateSkillAndClearElemList();
 		(this)->changeState(new CharacterPlayerControll_t(this));
 	}
-	else if ((this)->getTimers().castReady()){
+	else if ((this)->getTimer().castReady()){
 
 		(this)->changeState(new CharacterPlayerControll_t(this));
 }

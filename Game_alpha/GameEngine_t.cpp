@@ -95,7 +95,7 @@ void GameEngine_t::generateNpcTypes() {
 	treantTexture->loadFromFile(BOSS_TREANT_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_TREANT_TEXURE_FILE);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new TeantBossNpc_t(treantTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
-	
+
 
 	//RED DRAGON
 	std::shared_ptr<sf::Texture> redDragonTexture(new sf::Texture());
@@ -141,7 +141,7 @@ void GameEngine_t::generateNpc() {
 				tempCoords = generateRandomSpawnCoords(level.map.getSize());
 			} while (positionCollision(tempCoords));
 
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
 		}
 	}
 	//*/
@@ -161,7 +161,6 @@ void GameEngine_t::generateBosses() {
 	for (auto &i : npcBossesTypeList) {
 		tempCoords = level.map.bossesSpawnCoords[bossCounter++];
 		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
-		//level.bossesList.push_back(i.get());	
 	}
 
 	level.bossesListIt = level.charactersList.end();
@@ -252,7 +251,12 @@ void GameEngine_t::checkAlive() {
 	}
 		for (; tempCharIter != level.charactersList.end(); ++tempCharIter) {
 			if (!(*tempCharIter)->getAlive()) {
-				tempCharIter->get()->getStats().resetStats();
+				level.checkMissionsTarget();
+				level.getMission().bossKilled();
+				if (tempCharIter == level.bossesListIt) {
+					++level.bossesListIt;
+				}
+				level.charactersList.erase(tempCharIter);
 			}
 		}
 	
