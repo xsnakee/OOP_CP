@@ -23,10 +23,10 @@ class InterfaceEngine_t
 	std::list<window_t>::iterator gameStatsWindowIt;
 	std::list<window_t>::iterator mapIt;
 
-	std::unique_ptr<cursor_t> cursor;
-
 	void drawCursor();
 public:
+
+	std::unique_ptr<cursor_t> cursor;
 	//LISTS
 	std::list<bar_t> barsList;
 	std::list<window_t> windowsList;

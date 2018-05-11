@@ -297,21 +297,21 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	sf::Vector2f buttonPosition(interface::STD_MARGIN_SIZE.x, window->getSize().y / 4.f);
 	sf::Vector2f buttonMargin(0.f,interface::STD_MARGIN_SIZE.y);
 	//JOURNAL BUTTON
-	buttonList.push_back(button(new IntefaceToggleButton(missionWindowIt->get(), buttonPosition)));
+	buttonList.push_back(button(new IntefaceToggleButton(*missionWindowIt->get(), buttonPosition)));
 	sf::Texture *temp = new sf::Texture;
 	temp->loadFromFile(icon::ICON_BUTTON_JOURNAL);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, buttonList.back()->getPos())));
 	
 	//GAME STATISTIC BUTTON
 	buttonPosition.y = buttonPosition.y + buttonList.back()->getSizes().y;
-	buttonList.push_back(button(new IntefaceToggleButton(gameStatsWindowIt->get(), buttonPosition + buttonMargin)));
+	buttonList.push_back(button(new IntefaceToggleButton(*gameStatsWindowIt->get(), buttonPosition + buttonMargin)));
 	sf::Texture *temp2 = new sf::Texture;
 	temp2->loadFromFile(icon::ICON_BUTTON_GAME_STATISTIC);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp2, buttonList.back()->getPos())));
 	
 	//MAP BUTTON
 	buttonPosition.y = buttonPosition.y + buttonList.back()->getSizes().y;
-	buttonList.push_back(button(new IntefaceToggleButton(mapIt->get(), buttonPosition + buttonMargin+ buttonMargin)));
+	buttonList.push_back(button(new IntefaceToggleButton(*mapIt->get(), buttonPosition + buttonMargin+ buttonMargin)));
 	sf::Texture *temp3 = new sf::Texture;
 	temp3->loadFromFile(icon::ICON_BUTTON_MAP);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp3, buttonList.back()->getPos())));

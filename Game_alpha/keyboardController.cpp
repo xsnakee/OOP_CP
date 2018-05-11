@@ -4,11 +4,11 @@
 
 keyboardController::keyboardController()
 {
-	key = sf::Keyboard::Key::Unknown;
 }
 
 
-keyboardController::~keyboardController()
+keyboardController::~keyboardController() 
+
 {
 }
 
@@ -23,9 +23,7 @@ bool keyboardController::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::I
 
 PlayerController::PlayerController(character_t *mainHero) :keyboardController()
 {
-	key = sf::Keyboard::Key::Unknown;
 	character = mainHero;
-	controllerMode = 1;
 }
 
 
@@ -98,6 +96,5 @@ void PlayerController::eventHandler(sf::Event &event) {
 		}
 
 
-		event.key.code = Keyboard::Unknown;
 
 }

@@ -9,7 +9,6 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 	difficulty = _difficulty;
 	view = std::move(std::unique_ptr <sf::View>(new sf::View));
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
-	window->setMouseCursorVisible(false);
 	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
 
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)

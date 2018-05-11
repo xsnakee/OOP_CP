@@ -144,6 +144,7 @@
     <ClCompile Include="mainMenu_t.cpp" />
     <ClCompile Include="map_t.cpp" />
     <ClCompile Include="mission_t.cpp" />
+    <ClCompile Include="mouseController.cpp" />
     <ClCompile Include="Npc_t.cpp" />
     <ClCompile Include="obPreference.cpp" />
     <ClCompile Include="physOb_t.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="mainMenu_t.h" />
     <ClInclude Include="map_t.h" />
     <ClInclude Include="mission_t.h" />
+    <ClInclude Include="mouseController.h" />
     <ClInclude Include="Npc_t.h" />
     <ClInclude Include="obPreference.h" />
     <ClInclude Include="physOb_t.h" />
