@@ -5,6 +5,7 @@
 game_t::game_t(sf::RenderWindow *_window)
 {
 	window = _window;
+	status = game::PLAY;
 }
 
 
@@ -21,10 +22,10 @@ void game_t::start() {
 		std::cout << "MAP_FILE_IS_NOT_OPEN";
 		return;
 	}
-	game = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get(),difficulty));
-	interface = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
-	KBcontroller = std::unique_ptr<keyboardController>(new PlayerController(level->mainHero->get()));
-	Mcontroller = std::move(std::unique_ptr<mouseController>(new mouseController(window, interface.get()->buttonList, *interface.get()->cursor)));
+	gameEngine = std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get(),difficulty));
+	interfaceEngine = std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get()));
+	KBcontroller = std::move(std::unique_ptr<keyboardController>(new keyboardController(level->mainHero->get(),*this)));
+	Mcontroller = std::move(std::unique_ptr<mouseController>(new mouseController(window, *this, *interfaceEngine.get()->cursor)));
 
 	mainMenu.reset();
 	play();
@@ -34,34 +35,27 @@ void game_t::play() {
 	using namespace sf;
 
 	Event event;
-	game::status mode = game::PLAY;
 
 	while (window->isOpen()) {
 
 		float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
 		clock.restart();
 
+		game::status gameStatus = gameEngine->getGameStatus();
+		bool playContinue = (gameStatus == game::GAME_OVER || gameStatus == game::WIN) ? false : true;
+		status =  playContinue ? status : gameStatus;
+
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed) {
 				window->close();
 			}
-
-			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Escape) {
-				if (interface->toggleMenu()) {
-					mode = game::PAUSED;
-				}
-				else {
-					mode = game::PLAY;
-				}
-			}
+			
 		}
-		game::status gameStatus = game->getGameStatus();
-		mode = (gameStatus == game::GAME_OVER || gameStatus == game::WIN)? gameStatus:mode;
-		switch (mode) {
-		case game::status::PLAY: {			
-			game->setSpeed(timer);			
-			keyController(event);
-			game->update();
+		
+		switch (status) {
+		case game::status::PLAY: {
+			gameEngine->setSpeed(timer);
+			gameEngine->update();
 			break;
 		}
 
@@ -71,11 +65,12 @@ void game_t::play() {
 		}
 		}
 
+		keyController(event);
 		Mcontroller->eventHandler(event);
-		interface->update();
+		interfaceEngine->update();
 		window->clear();
-		game->draw();
-		interface->draw();
+		gameEngine->draw();
+		interfaceEngine->draw();
 		window->display();
 
 		event.key.code = Keyboard::Unknown;
@@ -86,4 +81,11 @@ void game_t::keyController(sf::Event &event) {
 	if (level->mainHero->get()->getAlive()) {
 		KBcontroller->eventHandler(event);
 	}
+}
+
+game::status game_t::getStatus() const {
+	return status;
+}
+void game_t::setGameStatus(game::status _newStatus) {
+	status = _newStatus;
 }

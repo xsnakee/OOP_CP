@@ -24,11 +24,12 @@ class InterfaceEngine_t
 	std::list<window_t>::iterator mapIt;
 	std::list<window_t>::iterator pausedMenuIt;
 
-	std::list<button>::iterator resumeButton;
-	std::list<button>::iterator backTomainMenuButton;
 
 	void drawCursor();
 public:
+
+	std::list<button>::iterator resumeButton;
+	std::list<button>::iterator backTomainMenuButton;
 
 	std::unique_ptr<cursor_t> cursor;
 	//LISTS

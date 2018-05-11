@@ -347,25 +347,30 @@ void InterfaceEngine_t::createPausedMenu() {
 	pausedMenuIt->get()->contentList.back()->setFontSize(40);
 	pausedMenuIt->get()->contentList.back()->setFontColor(sf::Color::White);
 
-
-
 	sf::Vector2f restartButtonsSize(windowSize.x / 2.f, windowSize.y / 7.f);
-	sf::Vector2f restartButtonPos(windowPosition.x + windowSize.x / 2.f - restartButtonsSize.x / 4.1f, windowPosition.y + statusMassageSize.y + restartButtonsSize.y * 3.f);
+	sf::Vector2f restartButtonPos(windowPosition.x + windowSize.x / 2.f - restartButtonsSize.x / 2.f, windowPosition.y + statusMassageSize.y + restartButtonsSize.y * 3.f);
 	buttonList.push_back(button(new InterfaceRestartButton(*pausedMenuIt->get(), restartButtonPos)));
-	buttonList.back()->setTitle("RESTART");
-	buttonList.back()->setTextFontSize(28);
-	buttonList.back()->setTextColor(sf::Color::White);
 	resumeButton = buttonList.end();
 	--resumeButton;
+
+	resumeButton->get()->setSizes(restartButtonsSize);
+	sf::Vector2f restartButtonContentCorrectionPos(restartButtonsSize.x / 2.f - restartButtonsSize.x / 4.f, 0.f);
+	resumeButton->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "RESTART", restartButtonPos, restartButtonContentCorrectionPos)));
+	resumeButton->get()->contentList.back()->setFontSize(28);
+	resumeButton->get()->contentList.back()->setFontColor(sf::Color::White);
+
 
 	sf::Vector2f backToMainMenuButtonsSize(windowSize.x / 2.f, windowSize.y / 7.f);
 	sf::Vector2f backToMainMenuButtonPos(windowPosition.x + windowSize.x / 2.f - backToMainMenuButtonsSize.x / 2.f, restartButtonPos.y + backToMainMenuButtonsSize.y);
 	buttonList.push_back(button(new IntefaceExitButton(*pausedMenuIt->get(), backToMainMenuButtonPos)));
-	buttonList.back()->setTitle("BACK TO MAIN MENU");
-	buttonList.back()->setTextFontSize(28);
-	buttonList.back()->setTextColor(sf::Color::White);
 	backTomainMenuButton = buttonList.end();
 	--backTomainMenuButton;
+	
+	backTomainMenuButton->get()->setSizes(backToMainMenuButtonsSize);
+	sf::Vector2f  backToMainMenuButtonButtonContentCorrectionPos(-10.f, 0.f);
+	backTomainMenuButton->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "BACK TO MAIN MENU", backToMainMenuButtonPos, backToMainMenuButtonButtonContentCorrectionPos)));
+	backTomainMenuButton->get()->contentList.back()->setFontSize(28);
+	backTomainMenuButton->get()->contentList.back()->setFontColor(sf::Color::White);
 }
 
 bool InterfaceEngine_t::toggleMenu() {

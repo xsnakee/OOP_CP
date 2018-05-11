@@ -8,7 +8,7 @@ linkedOb(&_linkedOb)
 	
 	clickable = true;
 	borders =sf::Vector2f(2.f, 2.f);
-	pos = _pos;//sf::Vector2f((linkedOb->getPos().x + linkedOb->getSizes().x - linkedOb->getBorders().x - sizes.x),(linkedOb->getPos().y + linkedOb->getBorders().y));
+	pos = _pos;
 
 	text.setCharacterSize(20);
 	title = "X";

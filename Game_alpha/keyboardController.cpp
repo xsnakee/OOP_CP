@@ -2,80 +2,84 @@
 #include <iostream>
 
 
-keyboardController::keyboardController()
-{
-}
+//keyboardController
 
-
-keyboardController::~keyboardController() 
-
-{
-}
-
-bool keyboardController::checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time) {
-
-	sf::Int32 curTime = clock->getElapsedTime().asMilliseconds();
-
-	return (abs(curTime - startTime) > _time) ? false : true;
-}
-
-//playercontroller 
-
-PlayerController::PlayerController(character_t *mainHero) :keyboardController()
+keyboardController::keyboardController(character_t *mainHero, game_t &_game) :game(_game)
 {
 	character = mainHero;
 }
 
 
-PlayerController::~PlayerController()
+keyboardController::~keyboardController()
 {
 }
 
-void PlayerController::checkCharacterStateAndChangeDefault() {
+void keyboardController::checkCharacterStateAndChangeDefault() {
 	if ((character->getState()->getStateNum() != 3)) {
 		character->changeState(new CharacterPlayerControll_t(character));
 	}
 }
 
-void PlayerController::eventHandler(sf::Event &event) {
+void keyboardController::eventHandler(sf::Event &event) {
 
-	using namespace sf;
-	if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
-		character->attack();
-		checkCharacterStateAndChangeDefault();
-	}
-	else if (event.type == Event::KeyReleased){
 
-		switch (event.key.code) {
-		case Keyboard::Space: {
-			character->getTimer().updateCastCD();
-			character->changeState(new CharacterPlayerCast_t(character));
-			break;
+	game::status gameStatus = game.gameEngine->getGameStatus();
+	bool playContinue = (gameStatus == game::GAME_OVER || gameStatus == game::WIN) ? false : true;
+	if (playContinue) {
+		using namespace sf;
+		if (game.getStatus() != game::PAUSED) {
+			if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
+				character->attack();
+				checkCharacterStateAndChangeDefault();
+			}
 		}
-		case Keyboard::E : {
-			character->setPosX(3000.0f);
-			character->setPosY(200.0f);
-			checkCharacterStateAndChangeDefault();
-			break;
+
+		if (event.type == Event::KeyReleased) {
+			if (event.key.code == Keyboard::Escape) {
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Escape) {
+					checkCharacterStateAndChangeDefault();
+					if (game.interfaceEngine->toggleMenu()) {
+						game.setGameStatus(game::PAUSED);
+					}
+					else {
+						game.setGameStatus(game::PLAY);
+					}
+				}
+			}
+			if (game.getStatus() != game::PAUSED) {
+				switch (event.key.code) {
+				case Keyboard::Space: {
+					character->getTimer().updateCastCD();
+					character->changeState(new CharacterPlayerCast_t(character));
+					break;
+				}
+				case Keyboard::E: {
+					character->setPosX(3000.0f);
+					character->setPosY(200.0f);
+					checkCharacterStateAndChangeDefault();
+					break;
+				}
+				case Keyboard::Num1: {
+					character->addElement(elements::WIND);
+					checkCharacterStateAndChangeDefault();
+					break;
+				}
+				case Keyboard::Num2: {
+					character->addElement(elements::FIRE);
+					checkCharacterStateAndChangeDefault();
+					break;
+				}
+				case Keyboard::Num3: {
+					character->addElement(elements::EARTH);
+					checkCharacterStateAndChangeDefault();
+					break;
+				}
+
+				}
+			}
+			
 		}
-		case Keyboard::Num1: {
-			character->addElement(elements::WIND);
-			checkCharacterStateAndChangeDefault();
-			break;
-		}
-		case Keyboard::Num2: {
-			character->addElement(elements::FIRE);
-			checkCharacterStateAndChangeDefault();
-			break;
-		}
-		case Keyboard::Num3 : {
-			character->addElement(elements::EARTH);
-			checkCharacterStateAndChangeDefault();
-			break;
-		}
-		}
-	}
-	if (Keyboard::isKeyPressed(Keyboard::W)) {
+		if (Keyboard::isKeyPressed(Keyboard::W)) {
 			character->setdY(-character->getStats().speed);
 			checkCharacterStateAndChangeDefault();
 		}
@@ -95,8 +99,8 @@ void PlayerController::eventHandler(sf::Event &event) {
 			checkCharacterStateAndChangeDefault();
 		}
 
-		
 
+	}
 
 
 }
