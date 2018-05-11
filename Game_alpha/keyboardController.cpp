@@ -53,8 +53,8 @@ void PlayerController::eventHandler(sf::Event &event) {
 			break;
 		}
 		case Keyboard::E : {
-			character->setPosX(800.0f);
-			character->setPosY(800.0f);
+			character->setPosX(3000.0f);
+			character->setPosY(200.0f);
 			checkCharacterStateAndChangeDefault();
 			break;
 		}

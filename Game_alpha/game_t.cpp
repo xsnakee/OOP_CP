@@ -37,6 +37,10 @@ void game_t::play() {
 	game::status mode = game::PLAY;
 
 	while (window->isOpen()) {
+
+		float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
+		clock.restart();
+
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed) {
 				window->close();
@@ -53,11 +57,8 @@ void game_t::play() {
 		}
 		game::status gameStatus = game->getGameStatus();
 		mode = (gameStatus == game::GAME_OVER || gameStatus == game::WIN)? gameStatus:mode;
-		
 		switch (mode) {
-		case game::status::PLAY: {
-			float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
-			clock.restart();
+		case game::status::PLAY: {			
 			game->setSpeed(timer);			
 			keyController(event);
 			game->update();
