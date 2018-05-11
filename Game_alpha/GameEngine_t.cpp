@@ -133,7 +133,7 @@ void GameEngine_t::generateNpc() {
 	size_t NpcAmount = 20 * difficulty;
 
 	sf::Vector2f tempCoords;
-	/*
+	//*
 	for (auto &i : npcTypesList) {
 		tempCounter = 0;
 		while (tempCounter++ < NpcAmount) {
@@ -143,7 +143,8 @@ void GameEngine_t::generateNpc() {
 
 			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new Npc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
 		}
-	}*/
+	}
+	//*/
 	
 
 }
@@ -160,7 +161,7 @@ void GameEngine_t::generateBosses() {
 	for (auto &i : npcBossesTypeList) {
 		//tempCoords = level.map.bossesSpawnCoords[bossCounter++];
 		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
-		level.bossesList.push_back(i.get());	
+		level.bossesList.push_back(&i.get());	
 	}
 }
 
