@@ -308,11 +308,10 @@ void GameEngine_t::visionEngine() {
 }
 
 void GameEngine_t::collisionEngine() {
-	float characterBorderError = 10.f;
 	for (auto &outerElement : level.charactersList) {
 		
 		for (auto &innerElement : level.obList) {
-			if (outerElement->checkCollision(*innerElement, 4.f)) {
+			if (outerElement->checkCollision(*innerElement)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}

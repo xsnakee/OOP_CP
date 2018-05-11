@@ -27,8 +27,8 @@ public:
 
 const std::vector<std::string> STD_MISSION_TASKS = {
 	"- KILL THE HOLY CRYSTAL GUARDIAN",
-	"- KILL BLACK DRAGON",
 	"- KILL RED DRAGON",
+	"- KILL BLACK DRAGON",
 	"- KILL THE ENH",
 	"- KILL THE QUEEN OF DARKNESS (MAIN)"
 };
