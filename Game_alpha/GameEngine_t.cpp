@@ -214,12 +214,12 @@ void GameEngine_t::draw() {
 		window->draw(texture->getSprite());
 	}
 
-	for (auto &ob : level.obList) {
-		window->draw(ob->getSprite());
-	}
 
 	for (auto &character : level.charactersList) {
 		window->draw(character->getSprite());
+	}
+	for (auto &ob : level.obList) {
+		window->draw(ob->getSprite());
 	}
 
 	for (auto &bullet : level.bulletsList) {
@@ -303,7 +303,7 @@ void GameEngine_t::collisionEngine() {
 	for (auto &outerElement : level.charactersList) {
 		
 		for (auto &innerElement : level.obList) {
-			if (outerElement->checkCollision(*innerElement, 2.f)) {
+			if (outerElement->checkCollision(*innerElement, 4.f)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
 		}
