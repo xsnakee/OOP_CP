@@ -13,7 +13,21 @@ skillObGenerator_t::~skillObGenerator_t()
 }
 
 void skillObGenerator_t::useSkill() {
-	
+	/*//SKILL LIST
+
+	3 - speed buff
+	6 - power buff
+	24 - heal stone
+	1 - sword attack
+	4 - fire lighting
+	10 - mass earth balls
+	5 - fire ball
+	17 - earth ball
+	12 - lava pool
+	18 - bang ball
+	11 - combo ball
+	2 - poision ball
+	//*/
 	size_t skillType = character->getElemStatus();
 
 	switch (skillType) {
@@ -86,6 +100,33 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setRng(15.f);
 
 		float tempDmg = 30.f + character->getStats().attackPower;
+		tempBullet->setDmg(tempDmg);
+
+
+		character->useMP(tempBullet->getMPCost());
+		skillGeneratorBulletList.push_back(std::move(tempBullet));
+
+		break;
+	}
+
+	case 2: {//POISION BALL
+		std::shared_ptr<sf::Texture>tempTexture = std::make_shared<sf::Texture>();
+		tempTexture->loadFromFile(animation::BULLET_POISION_BALL_TEXTURE_FILE);
+
+		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
+		tempBullet->setRotation(0.f);
+		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
+		tempBullet->setTexturePtr(tempTexture);
+
+		tempBullet->setRng(60.f);
+		tempBullet->setCollision(false);
+		tempBullet->speedMultiple(0.8f);
+		tempBullet->setElement(elements::EARTH);
+		tempBullet->setTimer(500);
+		tempBullet->setAOE(80.f);
+
+
+		float tempDmg = 10.f + character->getStats().attackPower;
 		tempBullet->setDmg(tempDmg);
 
 
@@ -213,7 +254,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(1000.f);
-		tempBullet->setDmgDelay(300);
+		tempBullet->setDmgDelay(600);
 		tempBullet->setAOE(60.f);
 		
 		float tempDmg = (2.f + character->getStats().attackPower);

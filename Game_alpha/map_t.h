@@ -25,16 +25,20 @@ private:
 	int tileAmountY;
 	std::string levelName;
 	std::string mapObjectsFile;
-	//std::string mapBgTextureFile;
 
 	std::string mapBgTilesFile;
 	std::string mapOutTilesFile;
 
 	std::string tileFileName;
 	std::shared_ptr<sf::Texture>tile_texture;
+
+	
 	//std::shared_ptr<sf::Texture>mapBgTexture;
 	
 public:
+	sf::Vector2f mainHeroSpawnCoords;
+	std::vector<sf::Vector2f> bossesSpawnCoords;
+
 	sf::Sprite mapBgSprite;
 	std::list<ground_t*> groundTilesList; //If needed layers view
 	std::list<physOb_t*> mapObList;

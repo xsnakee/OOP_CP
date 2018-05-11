@@ -7,24 +7,24 @@ struct characterStats_t
 	float MP = 0.f;
 	float stdMP = 100.f;
 
-	float attackPower = 5.f;
-	float stdattackPower = 5.f;
+	float attackPower = 25.f;
+	float stdattackPower = 25.f;
 
-	float physDef = 1.f;
-	float stdPhysDef = 1.f;
+	float physDef = 10.f;
+	float stdPhysDef = 10.f;
 
-	float magDef = 1.f;
-	float stdMagDef = 1.f;
+	float magDef = 5.f;
+	float stdMagDef = 3.f;
 
-	float speed = 0.1f;
+	float speed = 0.15f;
 	float stdSpeed = 0.1f;
 
 	float castSpeed = 2.f;
-	float attackSpeed = 3.f;
+	float attackSpeed = 3.5f;
 
 	float damageRand = 5.f;
 
-	float attackRange = 40.f;
+	float attackRange = 60.f;
 	float visionDistance = 300.f;
 
 	void resetStats() {

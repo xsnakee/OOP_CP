@@ -4,20 +4,40 @@
 
 
 //*
-player_t::player_t(float _x, float _y, std::string fileName, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : character_t(_x, _y, fileName, 0,0, _width, _height, _clock, _bulletList)
+player_t::player_t(sf::Vector2f _pos, std::string fileName, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : character_t(_pos.x, _pos.y, fileName, 0,0, _width, _height, _clock, _bulletList)
 {
 	fraction = 0;
 	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
+	stat.stdattackPower = 250.f;
+	stat.attackRange = 300.f;
+	stat.stdPhysDef = 25.f;
+	stat.stdMagDef = 15.f;
+	stat.damageRand = 5.f;
+	stat.stdHP = 350.f;
+	stat.visionDistance = 300.f;
+	stat.attackSpeed = 2.f;
+	stat.stdSpeed = 0.15f;
+	defaultAllStats();
 }
 
-player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _width, int _height, sf::Clock *_clock) :
-	character_t(_texture, _bulletList, _x, _y, 0,0, _width, _height, _clock)
+player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Vector2f _pos, int _width, int _height, sf::Clock *_clock) :
+	character_t(_texture, _bulletList, _pos.x, _pos.y, 0,0, _width, _height, _clock)
 {
 	fraction = 0;
 	collision = true;
 	state = std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this));
 	elemStatus = 0;
+	stat.stdattackPower = 250.f;
+	stat.attackRange = 300.f;
+	stat.stdPhysDef = 25.f;
+	stat.stdMagDef = 15.f;
+	stat.damageRand = 5.f;
+	stat.stdHP = 350.f;
+	stat.visionDistance = 300.f;
+	stat.attackSpeed = 2.f;
+	stat.stdSpeed = 0.15f;
+	defaultAllStats();
 }
 //*/
 
@@ -30,11 +50,11 @@ void player_t::update(float _speed) {
 	character_t::update(_speed);
 
 
-	if (((this)->getState()->getStateNum() == 4) && (this)->checkSkillGenerator() && ((this)->getTimers().castReady())) {
+	if (((this)->getState()->getStateNum() == 4) && (this)->checkSkillGenerator() && ((this)->getTimer().castReady())) {
 		(this)->generateSkillAndClearElemList();
 		(this)->changeState(new CharacterPlayerControll_t(this));
 	}
-	else if ((this)->getTimers().castReady()){
+	else if ((this)->getTimer().castReady()){
 
 		(this)->changeState(new CharacterPlayerControll_t(this));
 }

@@ -34,6 +34,8 @@ map_t::map_t(std::string _levelName) {
 
 	size.x = tileAmountX * tiles::size;
 	size.y = tileAmountY*tiles::size;
+	size_t bossesAmount = 5;
+	bossesSpawnCoords = std::vector<sf::Vector2f>(bossesAmount);
 }
 
 map_t::~map_t()
@@ -123,10 +125,45 @@ bool map_t::fillTheMapTiles() {
 			int spritePosY = ((tileId / tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 			int spritePosX = ((tileId % tiles::TEXTURE_TILE_AMOUNT_X)*tiles::size);
 
+
+
 			//*//IF needed layers view should return this fragment
-			if (tileId != -1) {
-				groundTilesList.push_back(new ground_t(tile_texture, static_cast<float>(coordX), static_cast<float>(coordY), spritePosX, spritePosY, tileId));
+			switch (tileId) {
+			case 1281: {
+				sf::Vector2f temp(static_cast<float>(coordX), static_cast<float>(coordY));
+				mainHeroSpawnCoords = temp;
+				break;
 			}
+			case 1282: {
+				sf::Vector2f temp(static_cast<float>(coordX), static_cast<float>(coordY));
+				bossesSpawnCoords[0] = temp; // TREANT SPAWN
+				break;
+			}
+			case 1283: {
+				sf::Vector2f temp(static_cast<float>(coordX), static_cast<float>(coordY));
+				bossesSpawnCoords[1] = temp; //RED DRAGON SPAWN
+				break;
+			}case 1284: {
+				sf::Vector2f temp(static_cast<float>(coordX), static_cast<float>(coordY));
+				bossesSpawnCoords[2] = temp; //BLACK DRAGON SPAWN
+				break;
+			}case 1285: {
+				sf::Vector2f temp(static_cast<float>(coordX), static_cast<float>(coordY));
+				bossesSpawnCoords[3] = temp; //ENH SPAWN
+				break;
+			}case 1286: {
+				sf::Vector2f temp(static_cast<float>(coordX), static_cast<float>(coordY));
+				bossesSpawnCoords[4] = temp; //DARK QUEEN SPAWN
+				break;
+			}
+			default: {
+				if (tileId != -1) {
+					groundTilesList.push_back(new ground_t(tile_texture, static_cast<float>(coordX), static_cast<float>(coordY), spritePosX, spritePosY, tileId));
+				}
+			}
+			}
+
+			
 			//*/
 
 

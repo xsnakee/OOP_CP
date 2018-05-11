@@ -10,7 +10,7 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
-	collision = true;
+	collision = false;
 	fraction = 1;
 	targetPos = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
@@ -28,7 +28,7 @@ character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
-	collision = true;
+	collision = false;
 	fraction = 1;
 	targetPos = spawnCoords = sf::Vector2f(_x, _y);
 	clock = _clock;
@@ -88,7 +88,13 @@ void character_t::animation() {
 
 	spritePref.setTexturePos(spriteCoordX, spriteCoordY);
 }
+void character_t::setSkills(std::initializer_list<size_t> _skillList) {
+	elemStatus = *_skillList.begin();
+}
 
+std::vector<size_t> character_t::getSkillList() {
+	return std::vector<size_t>(1,elemStatus);
+}
 
 bool character_t::checkAlive() {
 

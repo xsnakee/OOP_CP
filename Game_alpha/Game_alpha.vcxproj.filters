@@ -93,6 +93,9 @@
     <ClCompile Include="mission_t.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="mouseController.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="map_t.h">
@@ -174,6 +177,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="mission_t.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="mouseController.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

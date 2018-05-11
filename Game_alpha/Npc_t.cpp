@@ -3,7 +3,8 @@
 
 
 
-Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, float _x, float _y, int _width, int _height, float _statMultiple) :character_t(_texture, _bulletList, _x, _y, 0,0,_width, _height,_clock)
+Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, float _x, float _y, int _width, int _height, float _statMultiple) 
+	:character_t(_texture, _bulletList, _x, _y, 0,0,_width, _height,_clock)
 {
 	spotCoords = sf::Vector2f(_x,_y);
 	spawnCoords = spotCoords;
@@ -13,6 +14,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 	elemStatus = 1;
+	collision = false;
 }
 
 //REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -29,6 +31,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 	elemStatus = 1;
+	collision = false;
 }
 
 Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple):
@@ -46,6 +49,13 @@ Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple
 
 	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
+
+	collision = copyedNpc->getCollision();
+	alive = copyedNpc->getAlive();
+	clock = copyedNpc->getClockPtr();
+	moveRadius = copyedNpc->getMoveRadius();
+	fraction = copyedNpc->getFraction();
+	timer = copyedNpc->getTimer();
 }
  
 Npc_t::~Npc_t()
@@ -59,7 +69,7 @@ void Npc_t::attack() {
 }
 
 void Npc_t::setTypeStats() {
-
+	timer.attackCDcorrection(stat.attackSpeed);
 }
 
 //MAGE CLASS
@@ -93,6 +103,7 @@ void MageNpc_t::setTypeStats() {
 	stat.attackSpeed = 1.1f;
 	stat.stdSpeed = 0.1f;
 	defaultAllStats();
+	Npc_t::setTypeStats();
 }
 //WARRIOR CLASS
 WarriorNpc_t::WarriorNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
@@ -121,6 +132,8 @@ void WarriorNpc_t::setTypeStats() {
 	stat.attackSpeed = 1.5f;
 	stat.stdSpeed = 0.11f;
 	defaultAllStats();
+	Npc_t::setTypeStats();
+	timer.attackCDcorrection(stat.attackSpeed);
 }
 //ZOMBIE WITCH CLASS
 ZombieWitch_t::ZombieWitch_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
@@ -149,6 +162,8 @@ void ZombieWitch_t::setTypeStats() {
 	stat.attackSpeed = 1.f;
 	stat.stdSpeed = 0.09f;
 	defaultAllStats();
+	Npc_t::setTypeStats();
+	timer.attackCDcorrection(stat.attackSpeed);
 }
 //FAT ZOMBIE CLASS
 FatZombie_t::FatZombie_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
@@ -166,17 +181,18 @@ FatZombie_t::~FatZombie_t() {
 }
 void FatZombie_t::setTypeStats() {
 
-	elemStatus = 6;//POISION BALL
+	elemStatus = 2;//POISION BALL
 	stat.attackRange = 50.f;
 	stat.stdPhysDef = 10.f;
 	stat.stdMagDef = 10.f;
-	stat.attackPower = 20.f;
+	stat.attackPower = 30.f;
 	stat.damageRand = 7.f;
 	stat.stdHP = 100.f;
 	stat.visionDistance = 250.f;
 	stat.attackSpeed = 2.f;
 	stat.stdSpeed = 0.08f;
 	defaultAllStats();
+	Npc_t::setTypeStats();
 }
 //SKELETON MAGE CLASS
 SkeletonMage_t::SkeletonMage_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
@@ -203,7 +219,8 @@ void SkeletonMage_t::setTypeStats() {
 	stat.damageRand = 7.f;
 	stat.stdHP = 110.f;
 	stat.visionDistance = 350.f;
-	stat.attackSpeed = 1.f;
+	stat.attackSpeed = -10.f;
 	stat.stdSpeed = 0.11f;
 	defaultAllStats();
+	Npc_t::setTypeStats();
 }

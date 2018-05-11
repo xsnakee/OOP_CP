@@ -117,7 +117,7 @@ public:
 	virtual sf::Int32 getStartTime() const {
 		return 0;
 	}
-	virtual sf::Int32 getTimer()const {
+	virtual sf::Int32 getTimeCd()const {
 		return std::numeric_limits<sf::Int32>::max();
 	}
 

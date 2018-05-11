@@ -52,7 +52,6 @@ public:
 	void defaultStats();
 	void defaultAllStats();
 	virtual void attack();
-
 	virtual bool checkAlive();
 	virtual float takeDamage(float _dmg, bool _dmgType, elements::element _elem);
 	float takeHeal(float _heal);
@@ -66,7 +65,8 @@ public:
 	virtual void generateSkillAndClearElemList();
 	virtual void resetElemsList();
 	virtual size_t setElemStatus(size_t _elemStatus);
-
+	virtual std::vector<size_t> getSkillList();
+	virtual void setSkills(std::initializer_list<size_t> _skillList);
 	void useMP(float _mp);
 	bool kill();
 	void update(float _speed);
@@ -75,6 +75,7 @@ public:
 public:
 	//GET
 
+	
 	Effect_t *getEffectPtr() {
 		return buff.get();
 	}
@@ -109,7 +110,7 @@ public:
 		return elemStatus;
 	}
 
-	characterTimers_t &getTimers() {
+	characterTimers_t &getTimer() {
 		return timer;
 	}
 

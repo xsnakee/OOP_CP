@@ -51,6 +51,13 @@ protected:
 		return sizes;
 	}
 
+	sf::FloatRect getFloatRect()const {
+		return sf::FloatRect(pos,sizes);
+	}
+
+	sf::IntRect getIntRect() const {
+		return sf::IntRect(static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(sizes.x), static_cast<int>(sizes.y));
+	}
 	bool getClickable() const {
 		return clickable;
 	}
