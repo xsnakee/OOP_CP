@@ -254,7 +254,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setElement(elements::FIRE);
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(1000.f);
-		tempBullet->setDmgDelay(300);
+		tempBullet->setDmgDelay(600);
 		tempBullet->setAOE(60.f);
 		
 		float tempDmg = (2.f + character->getStats().attackPower);
