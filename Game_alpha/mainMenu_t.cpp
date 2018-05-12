@@ -116,7 +116,6 @@ void mainMenu_t::draw() {
 }
 
 void mainMenu_t::action() {
-	makeMenu();
 
 	//Int RECT LSIT
 	//LEVEL
@@ -181,6 +180,7 @@ void mainMenu_t::action() {
 			}
 			}
 		}
+		event.key.code = sf::Keyboard::Unknown;
 		draw();
 	}
 }
