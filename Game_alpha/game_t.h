@@ -16,7 +16,6 @@ class game_t
 	sf::RenderWindow *window;
 	sf::Clock clock;
 
-	std::unique_ptr<mainMenu_t> mainMenu;
 	std::unique_ptr<Level_t> level;
 	std::unique_ptr<keyboardController> KBcontroller;
 	std::unique_ptr<mouseController> Mcontroller;
@@ -29,9 +28,9 @@ class game_t
 public:
 
 	std::unique_ptr<GameEngine_t> gameEngine;
-	  std::unique_ptr<InterfaceEngine_t> interfaceEngine;
+	std::unique_ptr<InterfaceEngine_t> interfaceEngine;
 
-	game_t(sf::RenderWindow *_window);
+	game_t(sf::RenderWindow *_window, std::string _levelName, size_t _difficulty);
 	~game_t();
 
 	void start();

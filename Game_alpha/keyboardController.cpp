@@ -4,9 +4,10 @@
 
 //keyboardController
 
-keyboardController::keyboardController(character_t *mainHero, game_t &_game) :game(_game)
+keyboardController::keyboardController(character_t *mainHero, game_t *_game) 
 {
 	character = mainHero;
+	game = _game;
 }
 
 
@@ -23,11 +24,11 @@ void keyboardController::checkCharacterStateAndChangeDefault() {
 void keyboardController::eventHandler(sf::Event &event) {
 
 
-	game::status gameStatus = game.gameEngine->getGameStatus();
+	game::status gameStatus = game->gameEngine->getGameStatus();
 	bool playContinue = (gameStatus == game::GAME_OVER || gameStatus == game::WIN) ? false : true;
 	if (playContinue) {
 		using namespace sf;
-		if (game.getStatus() != game::PAUSED) {
+		if (game->getStatus() != game::PAUSED) {
 			if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
 				character->attack();
 				checkCharacterStateAndChangeDefault();
@@ -37,15 +38,15 @@ void keyboardController::eventHandler(sf::Event &event) {
 		if (event.type == Event::KeyReleased) {
 			if (event.key.code == Keyboard::Escape) {
 					checkCharacterStateAndChangeDefault();
-					if (game.interfaceEngine->toggleMenu()) {
-						game.setGameStatus(game::PAUSED);
+					if (game->interfaceEngine->toggleMenu()) {
+						game->setGameStatus(game::PAUSED);
 					}
 					else {
-						game.setGameStatus(game::PLAY);
+						game->setGameStatus(game::PLAY);
 					}
 				
 			}
-			if (game.getStatus() != game::PAUSED) {
+			if (game->getStatus() != game::PAUSED) {
 				switch (event.key.code) {
 				case Keyboard::Space: {
 					character->getTimer().updateCastCD();

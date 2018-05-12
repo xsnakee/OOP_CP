@@ -10,11 +10,10 @@ class game_t;
 class mouseController
 {
 	sf::RenderWindow *window;
-	game_t &game;
-
+	game_t *game;
 	cursor_t &cursor;
 public:
-	mouseController(sf::RenderWindow *_window, game_t &_game, cursor_t &_cursor);
+	mouseController(sf::RenderWindow *_window, game_t *_game, cursor_t &_cursor);
 	~mouseController();
 
 	void eventHandler(sf::Event &event);

@@ -7,11 +7,11 @@ class game_t;
 
 class keyboardController{
 	character_t *character;
-	game_t &game;
+	game_t *game;
 
 	void checkCharacterStateAndChangeDefault();
 public:
-	keyboardController(character_t *_mainHero, game_t &_game);
+	keyboardController(character_t *_mainHero, game_t *_game);
 	virtual ~keyboardController();
 
 	character_t * getPlayerCharPtr()const {
