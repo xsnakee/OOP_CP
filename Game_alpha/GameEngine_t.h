@@ -31,7 +31,6 @@ private:
 	float curTime;
 	float speed;
 	float speedMultipple;
-	std::unique_ptr<sf::View> view;
 
 	void generateNpcTypes();
 	bool positionCollision(const sf::Vector2f _obPos);
@@ -50,7 +49,6 @@ public:
 	void bulletEngine();
 	void charsAction();
 	
-	void setCamera();
 	void generateNpc();
 	void generateBosses();
 	

@@ -5,6 +5,9 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 
 	window = _window;
 
+	view.swap(std::unique_ptr <sf::View>(new sf::View));
+	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
+
 	generateHPbars();
 	setObservedBards();
 	createSkillGeneratorIterface(); 
@@ -21,6 +24,8 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 }
 InterfaceEngine_t::~InterfaceEngine_t()
 {
+	window->setView(window->getDefaultView());
+	window->setMouseCursorVisible(true);
 }
 
 
@@ -29,8 +34,13 @@ void InterfaceEngine_t::drawCursor() {
 }
 
 void InterfaceEngine_t::update() {
+
+	setCamera();//set Camera
+	window->setView(*view); // Set camera
+
 	updateMissionJournal();
 	updateGenerator();
+
 	if (missionWindowIt->get()->getDisplayState()) {
 		updateMissionJournal();
 	}
@@ -58,6 +68,8 @@ void InterfaceEngine_t::update() {
 	for (auto &i : buttonList) {
 		i->update();
 	}
+
+
 	cursor->setCursorPosition();
 
 }
@@ -404,4 +416,37 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp3, buttonList.back()->getPos())));
 
 
+}
+
+
+void InterfaceEngine_t::setCamera() {
+
+	float _x = level.mainHero->get()->getPosOfCenter().x;
+	float _y = level.mainHero->get()->getPosOfCenter().y;
+
+
+	//EDIT THIS FOR CAMERA CONTROLL
+	float leftBorder = static_cast<float>(window->getSize().x) / 2;
+	float topBorder = static_cast<float>(window->getSize().y) / 2;
+
+	float rightBorder = level.map.getSize().x - (static_cast<float>(window->getSize().x) / 2);
+	float bottomBorder = level.map.getSize().y - (static_cast<float>(window->getSize().y) / 2);
+
+	float error = 5.0f;
+
+	if (_x < leftBorder) {
+		_x = leftBorder;
+	}
+	else if (_x > rightBorder) {
+		_x = rightBorder;
+	}
+
+	if (_y > bottomBorder) {
+		_y = bottomBorder;
+	}
+	else if (_y < topBorder) {
+		_y = topBorder;
+	}
+
+	view->setCenter(_x, _y);
 }

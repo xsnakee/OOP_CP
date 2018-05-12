@@ -17,6 +17,7 @@ class InterfaceEngine_t
 {
 	sf::RenderWindow *window;
 	Level_t &level;
+	std::unique_ptr<sf::View> view;
 	//Iterators
 	std::list<window_t>::iterator elemIt;
 	std::list<window_t>::iterator missionWindowIt;
@@ -25,6 +26,7 @@ class InterfaceEngine_t
 
 
 	void drawCursor();
+	void setCamera();
 public:
 
 	std::list<button>::iterator restartButton;

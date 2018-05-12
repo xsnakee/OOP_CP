@@ -32,8 +32,6 @@ int main() {
 			}
 		GAME.swap(std::unique_ptr<game_t>(new game_t(window.get(), levelName, difficulty)));
 		GAME->start();
-
-		mainMenu->resetWindow();
 		} while (GAME->getStatus() == game::RESTART);
 		mainMenu.get_deleter();
 		mainMenu.reset();

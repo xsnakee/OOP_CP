@@ -7,8 +7,6 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 {
 	window = _window;
 	difficulty = _difficulty;
-	view.swap(std::unique_ptr <sf::View>(new sf::View));
-	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
 	clock.swap(std::unique_ptr<sf::Clock>(new sf::Clock));
 
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
@@ -196,8 +194,6 @@ void GameEngine_t::update() {
 		}
 
 
-		setCamera();//set Camera
-		window->setView(*view); // Set camera
 	}
 	else {
 		status = game::status::GAME_OVER;
@@ -318,37 +314,7 @@ void GameEngine_t::collisionEngine() {
 	}
 }
 
-void GameEngine_t::setCamera() {
 
-	float _x = level.mainHero->get()->getPosOfCenter().x;
-	float _y = level.mainHero->get()->getPosOfCenter().y;
-	
-
-	//EDIT THIS FOR CAMERA CONTROLL
-	float leftBorder = static_cast<float>(window->getSize().x) / 2;
-	float topBorder = static_cast<float>(window->getSize().y) / 2;
-	
-	float rightBorder = level.map.getSize().x - (static_cast<float>(window->getSize().x) / 2);
-	float bottomBorder = level.map.getSize().y - (static_cast<float>(window->getSize().y) / 2);
-	
-	float error = 5.0f;
-	
-	if (_x < leftBorder) {
-		_x = leftBorder;
-	}
-	else if (_x > rightBorder) {
-		_x = rightBorder;
-	}
-
-	if (_y > bottomBorder) {
-		_y = bottomBorder;
-	}
-	else if (_y < topBorder) {
-		_y = topBorder;
-	}
-
-	view->setCenter(_x, _y);
-}
 
 
 
