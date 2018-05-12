@@ -18,15 +18,15 @@ game_t::~game_t()
 
 
 void game_t::start() {
-			level = std::unique_ptr<Level_t>(new Level_t(levelName));
+			level.swap(std::unique_ptr<Level_t>(new Level_t(levelName)));
 			if (!level->succesfull) {
 				std::cout << "MAP_FILE_IS_NOT_OPEN";
 				return;
 			}
-			gameEngine = std::move(std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get(), difficulty)));
-			interfaceEngine = std::move(std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get())));
-			KBcontroller = std::move(std::unique_ptr<keyboardController>(new keyboardController(level->mainHero->get(), this)));
-			Mcontroller = std::move(std::unique_ptr<mouseController>(new mouseController(window, this, *interfaceEngine.get()->cursor)));
+			gameEngine.swap(std::unique_ptr<GameEngine_t>(new GameEngine_t(window, *level.get(), difficulty)));
+			interfaceEngine.swap(std::unique_ptr<InterfaceEngine_t>(new InterfaceEngine_t(window, *level.get())));
+			KBcontroller.swap(std::unique_ptr<keyboardController>(new keyboardController(level->mainHero->get(), this)));
+			Mcontroller.swap(std::unique_ptr<mouseController>(new mouseController(window, this, *interfaceEngine.get()->cursor)));
 
 			play();
 	
@@ -104,10 +104,10 @@ void game_t::setGameStatus(game::status _newStatus) {
 }
 
 void game_t::resetGame() {
-	KBcontroller.reset();
-	Mcontroller.reset();
+	KBcontroller.get_deleter();
+	Mcontroller.get_deleter();
 	clock.restart();
-	gameEngine.reset();
-	interfaceEngine.reset();
-	level.reset();
+	gameEngine.get_deleter();
+	interfaceEngine.get_deleter();
+	level.get_deleter();
 }

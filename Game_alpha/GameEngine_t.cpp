@@ -7,9 +7,9 @@ GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _d
 {
 	window = _window;
 	difficulty = _difficulty;
-	view = std::move(std::unique_ptr <sf::View>(new sf::View));
+	view.swap(std::unique_ptr <sf::View>(new sf::View));
 	view->reset(sf::FloatRect(0, 0, static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
-	clock = std::unique_ptr<sf::Clock>(new sf::Clock);
+	clock.swap(std::unique_ptr<sf::Clock>(new sf::Clock));
 
 	speedMultipple = 900.f; //formula (gameSpeed = time/speedMultipple)
 	speed = 10.f;
@@ -63,62 +63,62 @@ void GameEngine_t::generateNpcTypes() {
 
 
 	//MAGE TYPE NPC 
-	std::shared_ptr<sf::Texture> magesTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> magesTexture = std::make_shared<sf::Texture>();
 	magesTexture->loadFromFile(ENEMY_MAGE_FILE);
 	tempSizes = tiles::getSizesFromStr(ENEMY_MAGE_FILE);
 	npcTypesList.push_back(std::unique_ptr <character_t>(new MageNpc_t(magesTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 
 	//ZOMBIE WITCH NPC ZombieWitch_t
-	std::shared_ptr<sf::Texture> zombiWitchTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> zombiWitchTexture = std::make_shared<sf::Texture>();
 	zombiWitchTexture->loadFromFile(ENEMY_ZOMBIE_WITCH_TEXTURE_FILE);
 	tempSizes = tiles::getSizesFromStr(ENEMY_ZOMBIE_WITCH_TEXTURE_FILE);
 	npcTypesList.push_back(std::unique_ptr <character_t>(new ZombieWitch_t(zombiWitchTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 
 
 	//FAT ZOMBIE CLASS FatZombie_t
-	std::shared_ptr<sf::Texture> fatZombieTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> fatZombieTexture = std::make_shared<sf::Texture>();
 	fatZombieTexture->loadFromFile(ENEMY_ZOMBIE_PUDGE_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(ENEMY_ZOMBIE_PUDGE_TEXURE_FILE);
 	npcTypesList.push_back(std::unique_ptr <character_t>(new FatZombie_t(fatZombieTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 
 
 	//SKELETON MAGE CLASS SkeletonMage_t
-	std::shared_ptr<sf::Texture> skeletonMageTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> skeletonMageTexture = std::make_shared<sf::Texture>();
 	skeletonMageTexture->loadFromFile(ENEMY_SKELETON_MAGE_TEXTURE_FILE);
 	tempSizes = tiles::getSizesFromStr(ENEMY_SKELETON_MAGE_TEXTURE_FILE);
 	npcTypesList.push_back(std::unique_ptr <character_t>(new SkeletonMage_t(skeletonMageTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 
 	//BOSSES
 	//TREANT
-	std::shared_ptr<sf::Texture> treantTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> treantTexture = std::make_shared<sf::Texture>();
 	treantTexture->loadFromFile(BOSS_TREANT_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_TREANT_TEXURE_FILE);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new TeantBossNpc_t(treantTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 
 
 	//RED DRAGON
-	std::shared_ptr<sf::Texture> redDragonTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> redDragonTexture = std::make_shared<sf::Texture>();
 	redDragonTexture->loadFromFile(BOSS_RED_DRAGON_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_RED_DRAGON_TEXURE_FILE,3,3);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new RedDragonBossNpc_t(redDragonTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 	
 
 	//BLACK DRAGON
-	std::shared_ptr<sf::Texture> blackDragonTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> blackDragonTexture = std::make_shared<sf::Texture>();
 	blackDragonTexture->loadFromFile(BOSS_BLACK_DRAGON_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_BLACK_DRAGON_TEXURE_FILE);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new BlackDragonBossNpc_t(blackDragonTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 	
 
 	//ENH
-	std::shared_ptr<sf::Texture> enhTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> enhTexture = std::make_shared<sf::Texture>();
 	enhTexture->loadFromFile(BOSS_ENH_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_ENH_TEXURE_FILE,3,2);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new EnhBpssNpc_t(enhTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
 	
 	
 	//DARK QUEEN
-	std::shared_ptr<sf::Texture> darkQueenTexture(new sf::Texture());
+	std::shared_ptr<sf::Texture> darkQueenTexture = std::make_shared<sf::Texture>();
 	darkQueenTexture->loadFromFile(BOSS_FINALY_DEMON_TEXURE_FILE);
 	tempSizes = tiles::getSizesFromStr(BOSS_FINALY_DEMON_TEXURE_FILE);
 	npcBossesTypeList.push_back(std::unique_ptr <BossNpc_t>(new DQBossNpc_t(darkQueenTexture, level.bulletsList, clock.get(), defaultSpawnCoords, tempSizes.width, tempSizes.height)));
@@ -140,7 +140,7 @@ void GameEngine_t::generateNpc() {
 				tempCoords = generateRandomSpawnCoords(level.map.getSize());
 			} while (positionCollision(tempCoords));
 
-			level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+			level.charactersList.push_back(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty))));
 		}
 	}
 	//*/
@@ -159,7 +159,7 @@ void GameEngine_t::generateBosses() {
 	
 	for (auto &i : npcBossesTypeList) {
 		tempCoords = level.map.bossesSpawnCoords[bossCounter++];
-		level.charactersList.push_back(std::move(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty)))));
+		level.charactersList.push_back(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty))));
 	}
 
 	level.bossesListIt = level.charactersList.end();

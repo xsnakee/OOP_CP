@@ -5,8 +5,8 @@
 
 character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
 
-	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
-	buff = std::unique_ptr<Effect_t>(new Effect_t(this,this->getStats()));
+	skill.swap(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
+	buff.swap(std::unique_ptr<Effect_t>(new Effect_t(this,this->getStats())));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -23,8 +23,8 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 
 character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
 	
-	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
-	buff = std::unique_ptr<Effect_t>(new Effect_t(this, this->getStats()));
+	skill.swap(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
+	buff.swap(std::unique_ptr<Effect_t>(new Effect_t(this, this->getStats())));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -168,12 +168,12 @@ bool character_t::checkEnemy(character_t *ob) {
 
 
 void character_t::changeState(CharacterState_t *newState) {
-	state.reset();
-	state = std::unique_ptr<CharacterState_t>(newState);
+	state.get_deleter();
+	state.swap(std::unique_ptr<CharacterState_t>(newState));
 }
 void character_t::changeEffect(Effect_t *newEffect) {
-	buff.reset();
-	buff = std::unique_ptr<Effect_t>(newEffect);
+	buff.get_deleter();
+	buff.swap(std::unique_ptr<Effect_t>(newEffect));
 }
 
 void character_t::attack() {

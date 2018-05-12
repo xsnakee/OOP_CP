@@ -38,8 +38,8 @@ InterfaceSpriteContent_t::~InterfaceSpriteContent_t() {
 }
 
 void InterfaceSpriteContent_t::setTexture(sf::Texture *newTexture) {
-	texture.reset();
-	texture = std::move(std::unique_ptr<sf::Texture>(newTexture));
+	texture.get_deleter();
+	texture.swap(std::unique_ptr<sf::Texture>(newTexture));
 	sprite.setTexture(*texture);
 	sizes = texture->getSize();
 	sprite.setTextureRect(sf::IntRect(0, 0, sizes.x, sizes.y));
@@ -67,7 +67,7 @@ void InterfaceSpriteContent_t::toDefaultPosition() {
 
 
 void InterfaceSpriteContent_t::resetContent() {
-	texture.reset();
+	texture.get_deleter();
 }
 
 
@@ -77,7 +77,7 @@ InterfaceTextContent_t::InterfaceTextContent_t(sf::RenderWindow *_window, std::s
 InterfaceContent(_window, _defaultCoords, _relativePos)
 {
 	str = _str;	
-	text = std::unique_ptr<sf::Text>(new sf::Text(_str, font, fontSize));
+	text.swap(std::unique_ptr<sf::Text>(new sf::Text(_str, font, fontSize)));
 	text->setFillColor(textColor);
 	text->setStyle(textStyle);
 }
@@ -91,8 +91,8 @@ sf::Text InterfaceTextContent_t::getText() {
 }
 
 void InterfaceTextContent_t::setText(sf::Text *_newText) {
-	text.reset();
-	text = std::move(std::unique_ptr<sf::Text>(_newText));
+	text.get_deleter();
+	text.swap(std::unique_ptr<sf::Text>(_newText));
 	str = _newText->getString();
 }
 
@@ -120,7 +120,7 @@ void InterfaceTextContent_t::toDefaultPosition() {
 
 
 void InterfaceTextContent_t::resetContent() {
-	text.reset();
+	text.get_deleter();
 }
 
 void InterfaceTextContent_t::setText(std::string newStr) {

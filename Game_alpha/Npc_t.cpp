@@ -11,7 +11,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	powerMultiple = _statMultiple;
 
 	stat.statMiltipler(powerMultiple);
-	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
+	state.swap(std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this)));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 	elemStatus = 1;
 	collision = false;
@@ -28,7 +28,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	spawnCoords.y = spotCoords.y;
 	powerMultiple = _multiple;
 	stat.statMiltipler(powerMultiple);
-	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
+	state.swap(std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this)));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 	elemStatus = 1;
 	collision = false;
@@ -47,7 +47,7 @@ Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple
 	powerMultiple = powerMultiple;
 	stat.statMiltipler(powerMultiple);
 
-	state = std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this));
+	state.swap(std::unique_ptr<CharacterState_t>(new CharacterStateMove_t(this)));
 	spawnTime = std::numeric_limits<sf::Int32>::max();
 
 	collision = copyedNpc->getCollision();
