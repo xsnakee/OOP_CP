@@ -7,8 +7,8 @@ mainMenu_t::mainMenu_t(sf::RenderWindow *_window, std::string &_levelName, size_
 	window = _window;
 
 	//TEXTURE  PREFERENCES
-	bgTexture = texture(new sf::Texture);
-	nameTexture = texture(new sf::Texture);
+	bgTexture.swap(texture(new sf::Texture));
+	nameTexture.swap(texture(new sf::Texture));
 	bgTexture->loadFromFile(MENU_BG_TEXTURE_FILE);
 	nameTexture->loadFromFile(NAME_TEXTURE_FILE);
 

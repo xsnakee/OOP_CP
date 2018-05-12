@@ -39,6 +39,7 @@ InterfaceSpriteContent_t::~InterfaceSpriteContent_t() {
 
 void InterfaceSpriteContent_t::setTexture(sf::Texture *newTexture) {
 	texture.get_deleter();
+	texture.reset();
 	texture.swap(std::unique_ptr<sf::Texture>(newTexture));
 	sprite.setTexture(*texture);
 	sizes = texture->getSize();

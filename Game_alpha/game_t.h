@@ -24,7 +24,6 @@ class game_t
 	size_t difficulty;
 	game::status status;
 
-	void resetGame();
 public:
 
 	std::unique_ptr<GameEngine_t> gameEngine;
@@ -35,6 +34,7 @@ public:
 
 	void start();
 	void play();
+	void resetGame();
 	void keyController(sf::Event &event);
 	game::status getStatus() const;
 	void setGameStatus(game::status _newStatus);
