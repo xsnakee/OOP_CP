@@ -211,3 +211,8 @@ int mainMenu_t::itemChoice() {
 	}
 	return currentItem;
 }
+
+void mainMenu_t::resetWindow() {
+	window->setView(window->getDefaultView());
+	window->setMouseCursorVisible(true);
+}

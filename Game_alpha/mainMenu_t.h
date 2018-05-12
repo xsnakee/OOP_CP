@@ -49,6 +49,7 @@ public:
 
 	void action();
 	void makeMenu();
+	void resetWindow();
 };
 
 
