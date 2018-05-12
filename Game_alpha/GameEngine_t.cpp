@@ -1,7 +1,7 @@
  #include "GameEngine_t.h"
 #include <iostream>
 
-//, level.charactersList(level.level.charactersList),level.bulletsList(level.level.bulletsList), level.mapTilesList(level.level.mapTilesList), level.obList(level.level.obList)
+//, level.charactersList(level.level.charactersList),level.bulletsList(level.level.bulletsList), level.mapTilesList(level.level.mapTilesList), level.map.mapObList(level.level.map.mapObList)
 
 GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty):level(_level)
 {
@@ -36,7 +36,7 @@ GameEngine_t::~GameEngine_t()
 
 
 bool GameEngine_t::positionCollision(const sf::Vector2f _obPos) {
-	for (auto &i :level.obList) {
+	for (auto &i :level.map.mapObList) {
 		if (i->getFloatRect().contains(_obPos)) {
 			return true;
 		}
@@ -214,7 +214,7 @@ void GameEngine_t::charsAction() {
 void GameEngine_t::draw() {
 	
 
-	for (auto &texture : level.mapTilesList) {
+	for (auto &texture : level.map.groundTilesList) {
 		window->draw(texture->getSprite());
 	}
 
@@ -222,7 +222,7 @@ void GameEngine_t::draw() {
 	for (auto &character : level.charactersList) {
 		window->draw(character->getSprite());
 	}
-	for (auto &ob : level.obList) {
+	for (auto &ob : level.map.mapObList) {
 		window->draw(ob->getSprite());
 	}
 
@@ -275,7 +275,7 @@ void GameEngine_t::bulletEngine() {
 
 	// Bullet collision
 	for (auto &outerElement : level.bulletsList) {
-		for (auto &innerElement : level.obList) {
+		for (auto &innerElement : level.map.mapObList) {
 			if (outerElement->checkCollision(*innerElement)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}
@@ -310,7 +310,7 @@ void GameEngine_t::visionEngine() {
 void GameEngine_t::collisionEngine() {
 	for (auto &outerElement : level.charactersList) {
 		
-		for (auto &innerElement : level.obList) {
+		for (auto &innerElement : level.map.mapObList) {
 			if (outerElement->checkCollision(*innerElement)) {
 				outerElement->collisionHandler(*innerElement, speed);
 			}

@@ -66,7 +66,7 @@ bool map_t::fillTheMapObj() {
 			
 			//*/
 			if (tileId != (-1)) {
-				mapObList.push_back(new physOb_t(static_cast<float>(coordX), static_cast<float>(coordY), tile_texture, spritePosX, spritePosY, tiles::size, tiles::size));
+				mapObList.push_back(std::unique_ptr<physOb_t>(new physOb_t(static_cast<float>(coordX), static_cast<float>(coordY), tile_texture, spritePosX, spritePosY, tiles::size, tiles::size)));
 			}
 			
 		
@@ -106,7 +106,7 @@ bool map_t::fillTheMapTiles() {
 
 			//*//IF needed layers view should return this fragment
 			if (tileId != -1) {
-				groundTilesList.push_back(new ground_t(tile_texture, static_cast<float>(coordX), static_cast<float>(coordY), spritePosX, spritePosY, tileId));
+				groundTilesList.push_back(std::unique_ptr<ground_t>(new ground_t(tile_texture, static_cast<float>(coordX), static_cast<float>(coordY), spritePosX, spritePosY, tileId)));
 			}
 			//*/
 
@@ -157,7 +157,7 @@ bool map_t::fillTheMapTiles() {
 			}
 			default: {
 				if (tileId != -1) {
-					groundTilesList.push_back(new ground_t(tile_texture, static_cast<float>(coordX), static_cast<float>(coordY), spritePosX, spritePosY, tileId));
+					groundTilesList.push_back(std::unique_ptr<ground_t>(new ground_t(tile_texture, static_cast<float>(coordX), static_cast<float>(coordY), spritePosX, spritePosY, tileId)));
 				}
 			}
 			}
