@@ -101,6 +101,9 @@ bool character_t::checkAlive() {
 	if (stat.HP < FLT_EPSILON) {
 		alive = false;
 	}
+	else if (stat.HP > stat.stdHP) {
+		stat.HP = stat.stdHP;
+	}
 
 	return alive;
 }
