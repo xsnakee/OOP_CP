@@ -71,7 +71,7 @@ public:
 	bool kill();
 	void update(float _speed);
 	float toHit ()const;
-
+	void updateTimerDependenceStats();
 public:
 	//GET
 

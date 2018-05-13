@@ -21,6 +21,7 @@ Effect_t::~Effect_t()
 void Effect_t::useEffect() {
 	startTime = character->getClockPtr()->getElapsedTime().asMilliseconds();
 	character->getStats().upStat(stat);
+	character->updateTimerDependenceStats();
 	activity = true;
 }
 
@@ -34,8 +35,9 @@ bool Effect_t::timerIsOver() {
 
 void Effect_t::cancelEffect() {
 	character->getStats().defaultStats();
+	character->updateTimerDependenceStats();
 }
 
 void Effect_t::checkActivity() {
-	if (timerIsOver())cancelEffect();
+	if (timerIsOver()) cancelEffect();
 }

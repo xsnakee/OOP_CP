@@ -238,3 +238,8 @@ size_t character_t::setElemStatus(size_t _elemStatus) {
 	elemStatus = _elemStatus;
 	return elemStatus;
 }
+
+void character_t::updateTimerDependenceStats() {
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
+}

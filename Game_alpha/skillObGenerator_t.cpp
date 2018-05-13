@@ -15,18 +15,19 @@ skillObGenerator_t::~skillObGenerator_t()
 void skillObGenerator_t::useSkill() {
 	/*//SKILL LIST
 
-	3 - speed buff
-	6 - power buff
-	24 - heal stone
 	1 - sword attack
-	4 - fire lighting
-	10 - mass earth balls
-	5 - fire ball
-	17 - earth ball
-	12 - fire breath
-	18 - bang ball
-	11 - combo ball
 	2 - poision ball
+	3 - speed buff
+	4 - fire lighting
+	5 - fire ball
+	6 - power buff
+	7 - attack speed buff
+	10 - mass earth balls
+	11 - combo ball
+	12 - fire breath
+	17 - earth ball
+	18 - bang ball
+	24 - heal stone
 	//*/
 	size_t skillType = character->getElemStatus();
 
@@ -46,8 +47,21 @@ void skillObGenerator_t::useSkill() {
 		characterStats_t tempStat;
 		tempStat.resetStats();
 		tempStat.attackPower += 20.f;
+		tempStat.physDef += 20.f;
+		tempStat.magDef += 20.f;
 		upCharacterStat(tempStat);
-		character->changeEffect(new Effect_t(character, tempStat));
+		character->changeEffect(new Effect_t(character, tempStat, 10000));
+		character->getEffectPtr()->useEffect();
+		float buffMPcost = 50.f;
+		character->useMP(buffMPcost);
+		break;
+	}
+	case 7: {
+		characterStats_t tempStat;
+		tempStat.resetStats();
+		tempStat.attackSpeed += 20.f;
+		upCharacterStat(tempStat);
+		character->changeEffect(new Effect_t(character, tempStat, 3000));
 		character->getEffectPtr()->useEffect();
 		float buffMPcost = 50.f;
 		character->useMP(buffMPcost);
@@ -61,6 +75,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setRotation(0.f);
 		tempBullet->getSprite().setScale(2.f,2.f);
 		tempBullet->setTexturePtr(tempTexture);
+		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 
 		tempBullet->setRng(character->getStats().attackRange);
 		tempBullet->setCollision(false);
@@ -92,6 +107,8 @@ void skillObGenerator_t::useSkill() {
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setTexturePtr(tempTexture);
 
+		tempBullet->setSpriteSize(tempTexture->getSize().x/3, tempTexture->getSize().y);
+
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(1.5f);
 		tempBullet->setElement(elements::NONE);
@@ -115,7 +132,7 @@ void skillObGenerator_t::useSkill() {
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setRotation(0.f);
-		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
+		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setRng(character->getStats().attackRange);
@@ -143,7 +160,7 @@ void skillObGenerator_t::useSkill() {
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 
-		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
+		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 		tempBullet->setTexturePtr(tempTexture);
 		
 		tempBullet->setCollision(true);
@@ -169,9 +186,8 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_SMALL_EARTH_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
-		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
+		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 		tempBullet->setTexturePtr(tempTexture);
-
 		tempBullet->setAOE(50.f);
 		tempBullet->setCollision(false);
 		tempBullet->speedMultiple(1.5f);
@@ -196,6 +212,7 @@ void skillObGenerator_t::useSkill() {
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setTexturePtr(tempTexture);
+		tempBullet->setSpriteSize(tempTexture->getSize().x /3, tempTexture->getSize().y);
 
 		tempBullet->setCollision(true);
 		tempBullet->speedMultiple(1.5f);
@@ -220,6 +237,7 @@ void skillObGenerator_t::useSkill() {
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setTexturePtr(tempTexture);
+		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 
 		tempBullet->setCollision(true);
 		tempBullet->speedMultiple(1.f);
@@ -245,18 +263,21 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_LAVA_TEXTURE_FILE);
 		int amountPools = static_cast<int>(character->getStats().attackRange) / animation::LARGE_SKILL_WIDTH;
 
-		for (int i = 0; i < amountPools*2; ++i) {
+		//for (int i = 0; i < amountPools*2; ++i) {
+		{
 			std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 			tempBullet->setRotation(0.f);
-			tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
-			tempBullet->setTexturePtr(tempTexture);
 
-			tempBullet->speedMultiple(0.2f * i);
+			tempBullet->setTexturePtr(tempTexture);
+			tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
+			tempBullet->setPosX(character->getPosOfCenter().x - character->getWidth()/2);
+			tempBullet->setPosY(character->getPosOfCenter().y - character->getHeight() / 2);
+			tempBullet->speedMultiple(1.2f);
 			tempBullet->setCollision(false);
 
 			tempBullet->setElement(elements::FIRE);
 			tempBullet->setTimer(4000);
-			tempBullet->setDmgDelay(600);
+			tempBullet->setDmgDelay(300);
 			tempBullet->setAOE(60.f);
 
 			tempBullet->setMPCost(10.f);
@@ -279,8 +300,7 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_BANG_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
-		tempBullet->setRotation(0.f);
-		tempBullet->setSpriteSize(tempTexture->getSize().x, tempTexture->getSize().y);
+		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 		tempBullet->setTexturePtr(tempTexture);
 
 		tempBullet->setRng(character->getStats().attackRange /2);
@@ -306,17 +326,19 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_COMBO_BALL_TEXTURE_FILE);
 
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
-		tempBullet->setSpriteSize(animation::LARGE_SKILL_WIDTH, animation::LARGE_SKILL_HEIGHT);
+		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 		tempBullet->setTexturePtr(tempTexture);
 		tempBullet->speedMultiple(2.f);
+		tempBullet->setAOE(30.f);
 		tempBullet->setCollision(true);
 		tempBullet->setElement(elements::WIND);
 		tempBullet->setTimer(4000);
-		tempBullet->setRng(150.f + character->getStats().attackRange);
+		tempBullet->setRng(character->getStats().attackRange);
 
 		float tempDmg = character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
+		tempBullet->setMPCost(15.f);
 		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 

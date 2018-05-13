@@ -10,19 +10,19 @@ player_t::player_t(sf::Vector2f _pos, std::string fileName, int _width, int _hei
 	elemStatus = 5;
 	collision = true;
 	state.swap(std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(*this)));
-	stat.stdattackPower = 50.f;
+	stat.stdattackPower = 20.f;
 	stat.attackRange = 250.f;
-	stat.stdPhysDef = 25.f;
+	stat.stdPhysDef = 15.f;
 	stat.stdMagDef = 15.f;
 	stat.damageRand = 10.f;
 	stat.stdHP = 350.f;
 	stat.visionDistance = 300.f;
-	stat.attackSpeed = 5.f;
+	stat.stdAttackSpeed = 5.f;
 	stat.stdSpeed = 0.15f;
-	stat.castSpeed = 17.f;
+	stat.stdCastSpeed = 17.f;
 	defaultAllStats();
-	timer.attackCDcorrection(stat.attackSpeed);
-	timer.castDelayCorrection(stat.castSpeed);
+	timer.attackCDcorrection(stat.stdAttackSpeed);
+	timer.castDelayCorrection(stat.stdCastSpeed);
 }
 
 player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Vector2f _pos, int _width, int _height, sf::Clock *_clock) :
@@ -32,19 +32,19 @@ player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_
 	elemStatus = 5;
 	collision = true;
 	state.swap(std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(*this)));;
-	stat.stdattackPower = 50.f;
+	stat.stdattackPower = 20.f;
 	stat.attackRange = 250.f;
 	stat.stdPhysDef = 25.f;
 	stat.stdMagDef = 15.f;
 	stat.damageRand = 10.f;
 	stat.stdHP = 350.f;
 	stat.visionDistance = 300.f;
-	stat.attackSpeed = 5.f;
+	stat.stdAttackSpeed = 5.f;
 	stat.stdSpeed = 0.15f;
-	stat.castSpeed = 17.f;
+	stat.stdCastSpeed = 17.f;
 	defaultAllStats();
-	timer.attackCDcorrection(stat.attackSpeed);
-	timer.castDelayCorrection(stat.castSpeed);
+	timer.attackCDcorrection(stat.stdAttackSpeed);
+	timer.castDelayCorrection(stat.stdCastSpeed);
 }
 //*/
 

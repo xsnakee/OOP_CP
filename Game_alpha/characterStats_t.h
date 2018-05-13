@@ -19,8 +19,10 @@ struct characterStats_t
 	float speed = 0.15f;
 	float stdSpeed = 0.1f;
 
-	float castSpeed = 2.f;
+	float castSpeed = 2.f; 
+	float stdCastSpeed = 2.f;
 	float attackSpeed = 3.5f;
+	float stdAttackSpeed = 3.5f;
 
 	float damageRand = 5.f;
 
@@ -36,6 +38,8 @@ struct characterStats_t
 		physDef = stdPhysDef;
 		magDef = stdMagDef;
 		speed = stdSpeed;
+		castSpeed = stdCastSpeed;
+		attackSpeed = stdAttackSpeed;
 	}
 
 	void defaultAllStats() {
