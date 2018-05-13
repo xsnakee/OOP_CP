@@ -17,7 +17,7 @@ keyboardController::~keyboardController()
 
 void keyboardController::checkCharacterStateAndChangeDefault() {
 	if ((character->getState()->getStateNum() != 3)) {
-		character->changeState(new CharacterPlayerControll_t(character));
+		character->changeState(new CharacterPlayerControll_t(*character));
 	}
 }
 
@@ -50,12 +50,13 @@ void keyboardController::eventHandler(sf::Event &event) {
 				switch (event.key.code) {
 				case Keyboard::Space: {
 					character->getTimer().updateCastCD();
-					character->changeState(new CharacterPlayerCast_t(character));
+					character->changeState(new CharacterPlayerCast_t(*character));
 					break;
 				}
 				case Keyboard::E: {
 					character->setPosX(3000.0f);
 					character->setPosY(200.0f);
+					character->setAlive(false);
 					checkCharacterStateAndChangeDefault();
 					break;
 				}

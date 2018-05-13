@@ -12,14 +12,13 @@ class CharacterState_t
 {
 protected:
 	int stateNum;
-	character_t *mainCharacter;
+	character_t &mainCharacter;
 	character_t *targetCharacter;
 
 	bool readyToFight;
 	float moveXdistanceFromSpawn;
 
-	CharacterState_t();
-	CharacterState_t(character_t *_targetOb);
+	CharacterState_t(character_t &_targetOb);
 	CharacterState_t(CharacterState_t &_state);
 
 public:
@@ -33,7 +32,7 @@ public:
 
 
 
-	character_t *getCharacterPtr() const {
+	character_t &getCharacterPtr() const {
 		return mainCharacter;
 	}
 	character_t *getTargetCharacterPtr()const {
@@ -57,7 +56,7 @@ class CharacterStateMove_t :
 	public CharacterState_t
 {
 public:
-	CharacterStateMove_t(character_t *__mainCharacter);
+	CharacterStateMove_t(character_t &__mainCharacter);
 	CharacterStateMove_t(CharacterState_t &_state);
 	virtual ~CharacterStateMove_t();
 
@@ -70,7 +69,7 @@ class CharacterStateFolow_t :
 	public CharacterState_t
 {
 public:
-	CharacterStateFolow_t(character_t *__mainCharacter);
+	CharacterStateFolow_t(character_t &__mainCharacter);
 	CharacterStateFolow_t(CharacterState_t &_state);
 	virtual ~CharacterStateFolow_t();
 
@@ -84,7 +83,7 @@ class CharacterStateAttack_t :
 	public CharacterState_t
 {
 public:
-	CharacterStateAttack_t(character_t *__mainCharacter);
+	CharacterStateAttack_t(character_t &__mainCharacter);
 	CharacterStateAttack_t(CharacterState_t &_state);
 	virtual ~CharacterStateAttack_t();
 
@@ -99,7 +98,7 @@ class CharacterPlayerControll_t :
 	public CharacterState_t
 {
 public:
-	CharacterPlayerControll_t(character_t *__mainCharacter);
+	CharacterPlayerControll_t(character_t &__mainCharacter);
 	virtual ~CharacterPlayerControll_t();
 
 	virtual void Action();
@@ -109,7 +108,7 @@ class CharacterPlayerCast_t :
 	public CharacterState_t
 {
 public:
-	CharacterPlayerCast_t(character_t *__mainCharacter);
+	CharacterPlayerCast_t(character_t &__mainCharacter);
 	virtual ~CharacterPlayerCast_t();
 
 	virtual void Action();

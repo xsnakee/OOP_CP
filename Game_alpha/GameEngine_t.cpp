@@ -168,6 +168,8 @@ void GameEngine_t::generateBosses() {
 
 
 void GameEngine_t::update() {
+
+	if (!level.gameOver) {
 	if (level.checkLevelComplete()) {
 		status = game::status::WIN;
 		return;
@@ -175,7 +177,6 @@ void GameEngine_t::update() {
 
 	checkAlive();
 
-	if (!level.gameOver) {
 		level.mission.setTime(clock.get());
 
 		bulletEngine();
@@ -197,6 +198,7 @@ void GameEngine_t::update() {
 	}
 	else {
 		status = game::status::GAME_OVER;
+		return;
 	}
 	
 }
@@ -230,18 +232,29 @@ void GameEngine_t::draw() {
 
 void GameEngine_t::checkAlive() {
 
+
+	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = level.bulletsList.begin();
+
+	for (auto &bullet : level.bulletsList) {
+		if (!bullet->getAlive()) {
+			std::list<std::unique_ptr <bullet_t>>::iterator tempOb2 = tempOb++;
+			level.bulletsList.erase(tempOb2);
+		}
+	}
+
 	std::list<std::unique_ptr <character_t>>::iterator tempCharIter = level.charactersList.begin();
 	//for (int i = 0; i < level.charactersList.size(); ++i, ++tempCharIter) {}
 		for (int i = 0; tempCharIter != level.bossesListIt; ++i, ++tempCharIter){
-		if (tempCharIter != level.mainHero && tempCharIter != level.bossesListIt) {
+		if (tempCharIter != level.mainHero) {
 			if (!(*tempCharIter)->getAlive()) {
-				tempCharIter->reset();
+				tempCharIter->get_deleter();
 				level.charactersList.erase(tempCharIter);
 				level.getMission().ånemyKilled();
 			}
 		}
 		else if (!(*tempCharIter)->getAlive()) {
-				level.gameOver = true;
+			level.gameOver = true; 
+			return;
 		}
 	}
 		for (; tempCharIter != level.charactersList.end(); ++tempCharIter) {
@@ -254,16 +267,6 @@ void GameEngine_t::checkAlive() {
 				level.charactersList.erase(tempCharIter);
 			}
 		}
-	
-	std::list<std::unique_ptr <bullet_t>>::iterator tempOb = level.bulletsList.begin();
-
-	for (auto &bullet : level.bulletsList) {
-		if (!bullet->getAlive()) {
-			level.bulletsList.erase(tempOb);
-		}
-
-		++tempOb;
-	}
 	//*/
 }
 

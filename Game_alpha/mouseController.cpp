@@ -31,7 +31,6 @@ void mouseController::menuEventHandler(sf::Event &event) {
 		if (game->interfaceEngine->restartButton->get()->getIntRect().contains(sf::Mouse::getPosition(*window))) {
 			game->interfaceEngine->restartButton->get()->contentList.back()->setFontColor(sf::Color::Green);
 			if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left) {
-				game->interfaceEngine->restartButton->get()->action();
 				game->setGameStatus(game::RESTART);
 			}
 		}

@@ -53,7 +53,7 @@ void InterfaceEngine_t::update() {
 
 	level.mainHero->get()->setTargetPos(cursor->getPosition());
 
-	for (auto i = barsList.begin(); i != barsList.end(); ++i) {
+	for (auto &i = barsList.begin(); i != barsList.end(); ++i) {
 		if (i->get()->getDisplay()) {
 			i->get()->update();
 		}
@@ -353,7 +353,8 @@ void InterfaceEngine_t::createPausedMenu() {
 	pausedMenuIt->get()->setDisplay(false);
 
 	sf::Vector2f statusMassageSize(windowSize.x / 2.f, windowSize.y / 7.f);
-	sf::Vector2f statusMassagePos(windowSize.x / 2.f - statusMassageSize.x / 4.f, statusMassageSize.y);
+	//sf::Vector2f statusMassagePos(windowSize.x / 2.f - statusMassageSize.x / 4.f, statusMassageSize.y);
+	sf::Vector2f statusMassagePos(windowSize.x / 2.13f, statusMassageSize.y);
 
 	pausedMenuIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "PAUSE", windowPosition, statusMassagePos)));
 	pausedMenuIt->get()->contentList.back()->setFontSize(40);
@@ -366,7 +367,8 @@ void InterfaceEngine_t::createPausedMenu() {
 	--restartButton;
 
 	restartButton->get()->setSizes(restartButtonsSize);
-	sf::Vector2f restartButtonContentCorrectionPos(restartButtonsSize.x / 2.f - restartButtonsSize.x / 4.f, 0.f);
+	//sf::Vector2f restartButtonContentCorrectionPos(restartButtonsSize.x / 2.f - restartButtonsSize.x / 3.f, 0.f);
+	sf::Vector2f restartButtonContentCorrectionPos(restartButtonsSize.x / 2.24f,0.f);
 	restartButton->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "RESTART", restartButtonPos, restartButtonContentCorrectionPos)));
 	restartButton->get()->contentList.back()->setFontSize(28);
 	restartButton->get()->contentList.back()->setFontColor(sf::Color::White);
@@ -379,7 +381,9 @@ void InterfaceEngine_t::createPausedMenu() {
 	--backTomainMenuButton;
 	
 	backTomainMenuButton->get()->setSizes(backToMainMenuButtonsSize);
-	sf::Vector2f  backToMainMenuButtonButtonContentCorrectionPos(-10.f, 0.f);
+
+	sf::Vector2f  backToMainMenuButtonButtonContentCorrectionPos(backToMainMenuButtonsSize.x / 4.f, 0.f);
+	//sf::Vector2f  backToMainMenuButtonButtonContentCorrectionPos(-10.f, 0.f);
 	backTomainMenuButton->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "BACK TO MAIN MENU", backToMainMenuButtonPos, backToMainMenuButtonButtonContentCorrectionPos)));
 	backTomainMenuButton->get()->contentList.back()->setFontSize(28);
 	backTomainMenuButton->get()->contentList.back()->setFontColor(sf::Color::White);

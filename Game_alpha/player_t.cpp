@@ -8,7 +8,7 @@ player_t::player_t(sf::Vector2f _pos, std::string fileName, int _width, int _hei
 {
 	fraction = 0;
 	collision = true;
-	state.swap(std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this)));
+	state.swap(std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(*this)));
 	stat.stdattackPower = 250.f;
 	stat.attackRange = 300.f;
 	stat.stdPhysDef = 25.f;
@@ -26,7 +26,7 @@ player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_
 {
 	fraction = 0;
 	collision = true;
-	state.swap(std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(this)));
+	state.swap(std::unique_ptr<CharacterState_t>(new CharacterPlayerControll_t(*this)));
 	elemStatus = 0;
 	stat.stdattackPower = 250.f;
 	stat.attackRange = 300.f;
@@ -52,11 +52,11 @@ void player_t::update(float _speed) {
 
 	if (((this)->getState()->getStateNum() == 4) && (this)->checkSkillGenerator() && ((this)->getTimer().castReady())) {
 		(this)->generateSkillAndClearElemList();
-		(this)->changeState(new CharacterPlayerControll_t(this));
+		(this)->changeState(new CharacterPlayerControll_t(*this));
 	}
 	else if ((this)->getTimer().castReady()){
 
-		(this)->changeState(new CharacterPlayerControll_t(this));
+		(this)->changeState(new CharacterPlayerControll_t(*this));
 }
 
 }
