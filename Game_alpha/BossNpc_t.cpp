@@ -62,11 +62,11 @@ TeantBossNpc_t::TeantBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<s
 	stat.attackRange = 150.f;
 	stat.stdPhysDef = 25.f;
 	stat.stdMagDef = 15.f;
-	stat.damageRand = 10.f;
+	stat.damageRand = 15.f;
 	stat.stdHP = 350.f;
 	stat.visionDistance = 300.f;
-	stat.attackSpeed = -0.5f;
-	stat.stdSpeed = 0.11f;
+	stat.attackSpeed = 5.f;
+	stat.stdSpeed = 0.2f;
 	defaultAllStats();
 }
 
@@ -90,7 +90,7 @@ RedDragonBossNpc_t::RedDragonBossNpc_t(std::shared_ptr<sf::Texture>_texture, std
 	stat.damageRand = 15.f;
 	stat.stdHP = 450.f;
 	stat.visionDistance = 300.f;
-	stat.attackSpeed = -0.5f;
+	stat.attackSpeed = 3.f;
 	stat.stdSpeed = 0.15f;
 	defaultAllStats();
 }
@@ -108,7 +108,7 @@ RedDragonBossNpc_t::~RedDragonBossNpc_t()
 BlackDragonBossNpc_t::BlackDragonBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	BossNpc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
-	setSkills({ 24,4,10,17,18,2 });
+	setSkills({ 24,4,17,18,2 });
 	stat.stdattackPower = 40.f;
 	stat.attackRange = 200.f;
 	stat.stdPhysDef = 25.f;
@@ -116,8 +116,8 @@ BlackDragonBossNpc_t::BlackDragonBossNpc_t(std::shared_ptr<sf::Texture>_texture,
 	stat.damageRand = 15.f;
 	stat.stdHP = 550.f;
 	stat.visionDistance = 320.f;
-	stat.attackSpeed = -0.1f;
-	stat.stdSpeed = 0.11f;
+	stat.attackSpeed = 4.f;
+	stat.stdSpeed = 0.12f;
 	defaultAllStats();
 }
 
@@ -133,7 +133,7 @@ BlackDragonBossNpc_t::~BlackDragonBossNpc_t()
 EnhBpssNpc_t::EnhBpssNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	BossNpc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
-	setSkills({ 3,6,1,2,11,5,12 });
+	setSkills({ 3,6,2,11,5,12 });
 	stat.stdattackPower = 50.f;
 	stat.attackRange = 300.f;
 	stat.stdPhysDef = 15.f;
@@ -141,8 +141,8 @@ EnhBpssNpc_t::EnhBpssNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::
 	stat.damageRand = 10.f;
 	stat.stdHP = 550.f;
 	stat.visionDistance = 250.f;
-	stat.attackSpeed = 1.f;
-	stat.stdSpeed = 0.15f;
+	stat.attackSpeed = 4.f;
+	stat.stdSpeed = 0.2f;
 	defaultAllStats();
 }
 
@@ -158,14 +158,14 @@ EnhBpssNpc_t::~EnhBpssNpc_t()
 DQBossNpc_t::DQBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	BossNpc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
-	setSkills({ 3,6,1,2,11,5,12 });
+	setSkills({ 6,2,11,5,12,4 });
 	stat.stdattackPower = 55.f;
-	stat.attackRange = 300.f;
+	stat.attackRange = 350.f;
 	stat.stdPhysDef = 30.f;
 	stat.stdMagDef = 30.f;
 	stat.damageRand = 30.f;
 	stat.stdHP = 500.f;
-	stat.visionDistance = 200.f;
+	stat.visionDistance = 400.f;
 	stat.attackSpeed = 2.f;
 	stat.stdSpeed = 0.15f;
 	defaultAllStats();

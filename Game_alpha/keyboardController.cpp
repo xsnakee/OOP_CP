@@ -52,7 +52,6 @@ void keyboardController::eventHandler(sf::Event &event) {
 				case Keyboard::E: {
 					character->setPosX(3000.0f);
 					character->setPosY(200.0f);
-					character->setAlive(false);
 					checkCharacterStateAndChangeDefault();
 					break;
 				}

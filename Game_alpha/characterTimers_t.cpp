@@ -1,5 +1,5 @@
 #include "characterTimers_t.h"
-const sf::Int32 STD_ATTACK_CD = 2000;
+const sf::Int32 STD_ATTACK_CD = 1000;
 const sf::Int32 STD_CAST_DELAY = 2000;
 
 characterTimers_t::characterTimers_t()
