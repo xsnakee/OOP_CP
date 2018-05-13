@@ -74,7 +74,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmgDelay(500);
 		tempBullet->setRng(1000.f);
 
-		float tempDmg = 5.f + character->getStats().attackPower * 0.1f;
+		float tempDmg = 5.f + character->getComputedDmg() * 0.1f;
 		tempBullet->setDmg(tempDmg);
 		tempBullet->setMPCost(30.f);
 
@@ -99,7 +99,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(20.f);
 		tempBullet->setRng(15.f);
 
-		float tempDmg = 30.f + character->getStats().attackPower;
+		float tempDmg = 30.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -126,7 +126,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(80.f);
 
 
-		float tempDmg = 10.f + character->getStats().attackPower;
+		float tempDmg = 10.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -152,7 +152,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTimer(2000);
 		tempBullet->setRng(150.f + character->getStats().attackRange);
 
-		float tempDmg = 5.f + character->getStats().attackPower;
+		float tempDmg = 5.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -178,7 +178,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTimer(2000);
 		tempBullet->setRng(character->getStats().attackRange);
 
-		float tempDmg = 7.f + character->getStats().attackPower;
+		float tempDmg = 7.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -201,7 +201,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTimer(4000);
 		tempBullet->setRng(100.f + character->getStats().attackRange);
 
-		float tempDmg = 15.f + character->getStats().attackPower;
+		float tempDmg = 15.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -225,7 +225,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setRng(100.f + character->getStats().attackRange);
 		tempBullet->setAOE(10.f);
 
-		float tempDmg = 30.f + character->getStats().attackPower;
+		float tempDmg = 30.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -257,7 +257,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setDmgDelay(600);
 		tempBullet->setAOE(60.f);
 		
-		float tempDmg = (2.f + character->getStats().attackPower);
+		float tempDmg = (2.f + character->getComputedDmg());
 		tempBullet->setDmg(tempDmg);
 
 
@@ -285,7 +285,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setAOE(50.f);
 
 
-		float tempDmg = 60.f + character->getStats().attackPower;
+		float tempDmg = 60.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -309,7 +309,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setRng(150.f + character->getStats().attackRange);
 		tempBullet->setAOE(10.f);
 
-		float tempDmg = 10.f + character->getStats().attackPower;
+		float tempDmg = 10.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 		character->useMP(tempBullet->getMPCost());

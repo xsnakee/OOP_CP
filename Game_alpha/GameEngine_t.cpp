@@ -186,7 +186,9 @@ void GameEngine_t::update() {
 
 
 		for (auto &character : level.charactersList) {
-			(character)->update(speed);
+			if (character->getState()->getStateNum() != -1) {
+				(character)->update(speed);
+			}
 		}
 
 

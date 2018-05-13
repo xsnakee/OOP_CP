@@ -48,6 +48,8 @@ character_t::~character_t()
 void character_t::setStats(characterStats_t &_stats) {
 
 	stat = _stats;
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 
 }
 

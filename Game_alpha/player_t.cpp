@@ -16,9 +16,11 @@ player_t::player_t(sf::Vector2f _pos, std::string fileName, int _width, int _hei
 	stat.damageRand = 5.f;
 	stat.stdHP = 350.f;
 	stat.visionDistance = 300.f;
-	stat.attackSpeed = 2.f;
+	stat.attackSpeed = 4.f;
 	stat.stdSpeed = 0.15f;
 	defaultAllStats();
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 }
 
 player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Vector2f _pos, int _width, int _height, sf::Clock *_clock) :
@@ -35,9 +37,11 @@ player_t::player_t(std::shared_ptr<sf::Texture> _texture, std::list<std::unique_
 	stat.damageRand = 5.f;
 	stat.stdHP = 350.f;
 	stat.visionDistance = 300.f;
-	stat.attackSpeed = 2.f;
+	stat.attackSpeed = 4.f;
 	stat.stdSpeed = 0.15f;
 	defaultAllStats();
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 }
 //*/
 
