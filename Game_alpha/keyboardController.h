@@ -1,27 +1,18 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "character_t.h"
+#include "game_t.h"
 
-class keyboardController
-{
-public:
-	keyboardController();
-	virtual ~keyboardController();
+class game_t;
 
-	bool checkTimer(sf::Clock *clock, sf::Int32 startTime, sf::Int32 _time);
-
-	virtual void eventHandler(sf::Event &event) = 0;
-};
-
-
-class PlayerController :public keyboardController {
+class keyboardController{
 	character_t *character;
-
+	game_t *game;
 
 	void checkCharacterStateAndChangeDefault();
 public:
-	PlayerController(character_t *_mainHero);
-	virtual ~PlayerController();
+	keyboardController(character_t *_mainHero, game_t *_game);
+	virtual ~keyboardController();
 
 	character_t * getPlayerCharPtr()const {
 		return character;

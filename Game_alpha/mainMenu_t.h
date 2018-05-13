@@ -35,7 +35,6 @@ class mainMenu_t
 	sf::Color targetItemColor;
 	sf::Color variativeItemsColor;
 	
-	void makeMenu();
 	void draw();
 	int itemChoice();
 
@@ -49,6 +48,7 @@ public:
 	~mainMenu_t();
 
 	void action();
+	void makeMenu();
 };
 
 

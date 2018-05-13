@@ -24,9 +24,7 @@ public:
 
 	map_t map;
 	std::list<std::unique_ptr <character_t>> charactersList;
-	std::list<physOb_t*> obList;
 	std::list<std::unique_ptr <bullet_t>> bulletsList;
-	std::list<ground_t*> mapTilesList;
 	std::list<std::unique_ptr <character_t>>::iterator bossesListIt;
 
 	std::list<std::unique_ptr <character_t>>::iterator mainHero;
@@ -36,10 +34,6 @@ public:
 
 
 	mission_t &getMission();
-
-	void generateMapObjects(std::list<physOb_t*> &_obTextureList);
-	void generateMapTiles(std::list<ground_t*> &_mapTilesList);
-
 	void checkMissionsTarget();
 	bool checkLevelComplete();
 

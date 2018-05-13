@@ -40,8 +40,8 @@ public:
 	std::vector<sf::Vector2f> bossesSpawnCoords;
 
 	sf::Sprite mapBgSprite;
-	std::list<ground_t*> groundTilesList; //If needed layers view
-	std::list<physOb_t*> mapObList;
+	std::list<std::unique_ptr <ground_t>> groundTilesList; //If needed layers view
+	std::list<std::unique_ptr <physOb_t>> mapObList;
 
 	map_t();
 	map_t(std::string _levelName);

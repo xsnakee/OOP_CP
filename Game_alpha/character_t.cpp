@@ -5,8 +5,8 @@
 
 character_t::character_t(float _x, float _y, std::string fileName, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock, std::list<std::unique_ptr <bullet_t>> &_bulletList) : physOb_t(_x, _y, fileName, _coordX, _coordY, _width, _height), timer(_clock) {
 
-	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
-	buff = std::unique_ptr<Effect_t>(new Effect_t(this,this->getStats()));
+	skill.swap(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
+	buff.swap(std::unique_ptr<Effect_t>(new Effect_t(this,this->getStats())));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -23,8 +23,8 @@ character_t::character_t(float _x, float _y, std::string fileName, int _coordX, 
 
 character_t::character_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, float _x, float _y, int _coordX, int _coordY, int _width, int _height, sf::Clock *_clock) : physOb_t(_x, _y, _texture, _coordX, _coordY, _width, _height), timer(_clock) {
 	
-	skill = std::move(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
-	buff = std::unique_ptr<Effect_t>(new Effect_t(this, this->getStats()));
+	skill.swap(std::unique_ptr<skillObGenerator_t>(new skillObGenerator_t(this, _bulletList)));
+	buff.swap(std::unique_ptr<Effect_t>(new Effect_t(this, this->getStats())));
 	destroyble = true;
 	frame = .0f;
 	direction = animation::BOTTOM;
@@ -101,6 +101,9 @@ bool character_t::checkAlive() {
 	if (stat.HP < FLT_EPSILON) {
 		alive = false;
 	}
+	else if (stat.HP > stat.stdHP) {
+		stat.HP = stat.stdHP;
+	}
 
 	return alive;
 }
@@ -137,29 +140,11 @@ float character_t::toHit() const{
 	return stat.attackPower + getRand(-stat.damageRand, stat.damageRand);
 }
 
-bool character_t::checkCollision(physOb_t &Object, float _borderError) {
-	float borderError = static_cast<float>(getHeight());
+bool character_t::checkCollision(physOb_t &Object) {
 
-	float thisWidth = static_cast<float>(spritePref.getWidth()) / 2;
-	float thisHeight = static_cast<float>(spritePref.getHeight()) / 2;
-	float obWidth = static_cast<float>(Object.getWidth()) / 2;
-	float obHeight = static_cast<float>(Object.getHeight()) / 2;
-
-	float obCenterX = Object.getPosX() + obWidth;
-	float obCenterY = Object.getPosY() + obHeight;
-
-	float thisCenterX = posX + thisWidth;
-	float thisCenterY = posY + thisHeight;
-
-	if (getFloatRect().intersects(Object.getCollisionRect())) {
+	if (getFloatRect().contains(Object.getPosOfCenter())){
 		return true;
 	}
-
-
-	/*if ((abs(obCenterX - thisCenterX) < (thisWidth + obWidth - _borderError)) && (posY + getHeight() > Object.getPosY() + _borderError ) && 
-		(Object.getPosY() + Object.getHeight() - borderError > posY - getHeight()/2 - 1.f)) {
-		return true;
-	}*/
 
 	return false;
 }
@@ -183,12 +168,12 @@ bool character_t::checkEnemy(character_t *ob) {
 
 
 void character_t::changeState(CharacterState_t *newState) {
-	state.reset();
-	state = std::unique_ptr<CharacterState_t>(newState);
+	state.get_deleter();
+	state.swap(std::unique_ptr<CharacterState_t>(newState));
 }
 void character_t::changeEffect(Effect_t *newEffect) {
-	buff.reset();
-	buff = std::unique_ptr<Effect_t>(newEffect);
+	buff.get_deleter();
+	buff.swap(std::unique_ptr<Effect_t>(newEffect));
 }
 
 void character_t::attack() {

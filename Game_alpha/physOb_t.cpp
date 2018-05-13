@@ -112,23 +112,10 @@ void physOb_t::update(float _speed) {
 
 }
 
-bool physOb_t::checkCollision(physOb_t &Object, float _borderError) {
-
-	float thisWidth = static_cast<float>(spritePref.getWidth()) / 2;
-	float thisHeight = static_cast<float>(spritePref.getHeight()) / 2;
-	float obWidth = static_cast<float>(Object.getWidth()) / 2;
-	float obHeight = static_cast<float>(Object.getHeight()) / 2;
-
-	float obCenterX = Object.getPosX() + obWidth;
-	float obCenterY = Object.getPosY() + obHeight;
-
-	float thisCenterX = posX + thisWidth;
-	float thisCenterY = posY + thisHeight;
-
+bool physOb_t::checkCollision(physOb_t &Object) {
 	if (getFloatRect().intersects(Object.getCollisionRect())) {
 		return true;
 	}
-	
 	return false;
 }
 
