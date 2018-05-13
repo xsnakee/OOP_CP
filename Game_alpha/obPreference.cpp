@@ -56,9 +56,7 @@ obPreference::obPreference(std::shared_ptr<sf::Texture> &_texture, int _coordX, 
 
 obPreference::~obPreference()
 {
-	if (texture.use_count() < 2) {
-		texture.~shared_ptr();
-	}
+	
 }
 
 

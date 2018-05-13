@@ -14,8 +14,8 @@ InterfaceBar::InterfaceBar(sf::RenderWindow *_window)
 	outerRectSize = sf::Vector2f(interface::STD_BAR_SIZE);
 	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
-	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
-	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
+	outerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize)));
+	innerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize)));
 
 	posCoords = sf::Vector2f(0.f, 0.f);
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
@@ -60,8 +60,8 @@ progressBar::progressBar(sf::RenderWindow *_window, sf::Vector2f _relativeCoords
 	borders = interface::STD_BORDER_SIZE;
 	relativePos = _relativeCoords;
 
-	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
-	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
+	outerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize)));
+	innerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize)));
 
 	toDefaultPosition();
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
@@ -112,8 +112,8 @@ LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceB
 	outerRectSize = sf::Vector2f(character->getWidth() + borders.x, interface::STD_HP_BAR_HEIGHT.y);
 	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
-	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
-	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
+	outerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize)));
+	innerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize)));
 
 
 	toDefaultPosition();
@@ -167,8 +167,8 @@ castTimeBar::castTimeBar(sf::RenderWindow *_window, character_t *_character) :Li
 	outerRectSize = sf::Vector2f(interface::STD_BAR_SIZE.x/2, interface::STD_BAR_SIZE.y);
 	innerRectSize = sf::Vector2f((outerRectSize.x - borders.x * 2), (outerRectSize.y - borders.y * 2));
 
-	outerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize));
-	innerRect = std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize));
+	outerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(outerRectSize)));
+	innerRect.swap(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape(innerRectSize)));
 	
 	toDefaultPosition();
 	sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));

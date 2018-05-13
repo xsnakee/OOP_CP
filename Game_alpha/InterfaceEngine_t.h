@@ -17,14 +17,21 @@ class InterfaceEngine_t
 {
 	sf::RenderWindow *window;
 	Level_t &level;
+	std::unique_ptr<sf::View> view;
 	//Iterators
 	std::list<window_t>::iterator elemIt;
 	std::list<window_t>::iterator missionWindowIt;
 	std::list<window_t>::iterator gameStatsWindowIt;
 	std::list<window_t>::iterator mapIt;
 
+
 	void drawCursor();
+	void setCamera();
 public:
+
+	std::list<button>::iterator restartButton;
+	std::list<button>::iterator backTomainMenuButton;
+	std::list<window_t>::iterator pausedMenuIt;
 
 	std::unique_ptr<cursor_t> cursor;
 	//LISTS
@@ -46,10 +53,13 @@ public:
 	void createGameStatsWindow();
 	void createMapWindow();
 	void createInterfaceButtons();
+	void createPausedMenu();
 
 	void updateGenerator();
 	void updateMissionJournal();
 	void updateGameStats();
 	void updateMapWindow();
+
+	bool toggleMenu();
 };
 

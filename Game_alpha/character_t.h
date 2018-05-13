@@ -56,7 +56,7 @@ public:
 	virtual float takeDamage(float _dmg, bool _dmgType, elements::element _elem);
 	float takeHeal(float _heal);
 
-	bool checkCollision(physOb_t &Object, float _borderError = 0.f);
+	bool checkCollision(physOb_t &Object);
 	virtual bool checkEnemy(character_t *ob);
 
 

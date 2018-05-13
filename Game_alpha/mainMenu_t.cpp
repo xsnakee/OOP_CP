@@ -7,8 +7,8 @@ mainMenu_t::mainMenu_t(sf::RenderWindow *_window, std::string &_levelName, size_
 	window = _window;
 
 	//TEXTURE  PREFERENCES
-	bgTexture = std::move(texture(new sf::Texture));
-	nameTexture = std::move(texture(new sf::Texture));
+	bgTexture.swap(texture(new sf::Texture));
+	nameTexture.swap(texture(new sf::Texture));
 	bgTexture->loadFromFile(MENU_BG_TEXTURE_FILE);
 	nameTexture->loadFromFile(NAME_TEXTURE_FILE);
 
@@ -116,7 +116,6 @@ void mainMenu_t::draw() {
 }
 
 void mainMenu_t::action() {
-	makeMenu();
 
 	//Int RECT LSIT
 	//LEVEL
@@ -132,51 +131,56 @@ void mainMenu_t::action() {
 	int currentItem = -1;
 	while (active) {
 		while (window->pollEvent(event)) {
-			//COLOR TO DEFAULT
-			for (auto &i : menuItemsText) {
-				i.setFillColor(itemsMainColor);
-				i.setCharacterSize(fontSize);
+			if (event.type == sf::Event::Closed) {
+				window->close();
 			}
-			difficultyText.setFillColor(variativeItemsColor);
-			levelNameText.setFillColor(variativeItemsColor);
-			//SET LEVEL & DIFFICULTY
-			difficultyText.setString(difficulValuesList[currentDifficulityItem]);
-			levelNameText.setString(levelNamesList[currentLevelItem]);
+			
+		}
+		//COLOR TO DEFAULT
+		for (auto &i : menuItemsText) {
+			i.setFillColor(itemsMainColor);
+			i.setCharacterSize(fontSize);
+		}
+		difficultyText.setFillColor(variativeItemsColor);
+		levelNameText.setFillColor(variativeItemsColor);
+		//SET LEVEL & DIFFICULTY
+		difficultyText.setString(difficulValuesList[currentDifficulityItem]);
+		levelNameText.setString(levelNamesList[currentLevelItem]);
 
-			currentItem = itemChoice();
+		currentItem = itemChoice();
 
-			//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left) {
-				switch (currentItem) {
-				case 0: {
-					levelName = levelNamesList[currentLevelItem];
-					difficulty = currentDifficulityItem + 1;
-					active = false;
+		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left) {
+			switch (currentItem) {
+			case 0: {
+				levelName = levelNamesList[currentLevelItem];
+				difficulty = currentDifficulityItem + 1;
+				active = false;
+			}
+			case 1: {
+				if (currentLevelItem < levelAmount) {
+					++currentLevelItem;
 				}
-				case 1: {
-					if (currentLevelItem < levelAmount) {
-						++currentLevelItem;
-					}
-					else {
-						currentLevelItem = 0;
-					}
-					break;
+				else {
+					currentLevelItem = 0;
 				}
-				case 2: {
-					if (currentDifficulityItem < maxDifficulity) {
-						++currentDifficulityItem;
-					}
-					else {
-						currentDifficulityItem = 0;
-					}
-					break;
+				break;
+			}
+			case 2: {
+				if (currentDifficulityItem < maxDifficulity) {
+					++currentDifficulityItem;
 				}
-				case 3: {
-					exit(0);
+				else {
+					currentDifficulityItem = 0;
 				}
-				}
+				break;
+			}
+			case 3: {
+				exit(0);
+			}
 			}
 		}
+		event.key.code = sf::Keyboard::Unknown;
 		draw();
 	}
 }

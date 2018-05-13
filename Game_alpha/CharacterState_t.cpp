@@ -1,28 +1,23 @@
 #include "CharacterState_t.h"
 #include <iostream>
 
-CharacterState_t::CharacterState_t()
+
+
+CharacterState_t::CharacterState_t(character_t &__mainCharacter):mainCharacter(__mainCharacter)
 {
-}
-
-
-
-
-CharacterState_t::CharacterState_t(character_t *__mainCharacter)
-{
-	mainCharacter = __mainCharacter;
+	//mainCharacter = __mainCharacter;
 	targetCharacter = nullptr;
 	stateNum = 0;
 	moveXdistanceFromSpawn = 200.f;
 	readyToFight = true;
 }
 
-CharacterState_t::CharacterState_t(CharacterState_t &_state)
+CharacterState_t::CharacterState_t(CharacterState_t &_state):mainCharacter(_state.getCharacterPtr())
 {
-	mainCharacter = _state.getCharacterPtr();
+	//mainCharacter = _state.getCharacterPtr();
 	targetCharacter = _state.getTargetCharacterPtr();
 	stateNum = _state.stateNum;
-	mainCharacter->setTargetPos(_state.getCharacterPtr()->getTargetPos());
+	mainCharacter.setTargetPos(_state.getCharacterPtr().getTargetPos());
 	moveXdistanceFromSpawn = _state.moveXdistanceFromSpawn;
 	readyToFight = true;
 }
@@ -32,13 +27,13 @@ CharacterState_t::~CharacterState_t()
 }
 
 bool CharacterState_t::leaveFromSpot() {
-	sf::Vector2f tempSpotVector = mainCharacter->getSpawnCoords();
+	sf::Vector2f tempSpotVector = mainCharacter.getSpawnCoords();
 
-	float distanceX = tempSpotVector.x - mainCharacter->getPosX();
-	float distanceY = tempSpotVector.y - mainCharacter->getPosY();
+	float distanceX = tempSpotVector.x - mainCharacter.getPosX();
+	float distanceY = tempSpotVector.y - mainCharacter.getPosY();
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-	if (vectorLength > mainCharacter->getMoveRadius()) {
+	if (vectorLength > mainCharacter.getMoveRadius()) {
 		return true;
 	}
 	
@@ -53,12 +48,12 @@ void CharacterState_t::reversXTrajectory() {
 
 //CHARACTER STATE MOVE
 
-CharacterStateMove_t::CharacterStateMove_t(character_t *__mainCharacter) :CharacterState_t(__mainCharacter)
+CharacterStateMove_t::CharacterStateMove_t(character_t &__mainCharacter) :CharacterState_t(__mainCharacter)
 {
 	stateNum = 0;
 	targetCharacter = nullptr;
 
-	mainCharacter->setTargetPos(mainCharacter->getSpawnCoords());
+	mainCharacter.setTargetPos(mainCharacter.getSpawnCoords());
 	readyToFight = false;
 }
 
@@ -66,7 +61,7 @@ CharacterStateMove_t::CharacterStateMove_t(CharacterState_t &_state) : Character
 	stateNum = 0;
 	targetCharacter = nullptr;
 
-	mainCharacter->setTargetPos(mainCharacter->getSpawnCoords());
+	mainCharacter.setTargetPos(mainCharacter.getSpawnCoords());
 	readyToFight = false;
 }
 
@@ -77,27 +72,27 @@ CharacterStateMove_t::~CharacterStateMove_t()
 
 void CharacterStateMove_t::Action() {
 
-	float distanceX = mainCharacter->getTargetPos().x - mainCharacter->getPosX();
-	float distanceY = mainCharacter->getTargetPos().y - mainCharacter->getPosY();
+	float distanceX = mainCharacter.getTargetPos().x - mainCharacter.getPosX();
+	float distanceY = mainCharacter.getTargetPos().y - mainCharacter.getPosY();
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
 	if ((targetCharacter != nullptr) && (readyToFight) && targetCharacter->getAlive()) {
-		mainCharacter->changeState(new CharacterStateFolow_t(*this));
+		mainCharacter.changeState(new CharacterStateFolow_t(*this));
 	}
 	else {
 		resetTargetCharacter();
 	}
 		if (vectorLength > 1.f ) {
 
-			float  kX = (distanceX / abs(distanceX)) * mainCharacter->getStats().speed;
-			float  kY = (distanceY / abs(distanceY)) * mainCharacter->getStats().speed;
+			float  kX = (distanceX / abs(distanceX)) * mainCharacter.getStats().speed;
+			float  kY = (distanceY / abs(distanceY)) * mainCharacter.getStats().speed;
 			
 			
-			if (abs(distanceX) > mainCharacter->getWidth() / 2) {
-				if (abs(kX) > FLT_EPSILON) mainCharacter->setdX(kX);
+			if (abs(distanceX) > mainCharacter.getWidth() / 2) {
+				if (abs(kX) > FLT_EPSILON) mainCharacter.setdX(kX);
 			}
-			else if (abs(distanceY) > mainCharacter->getHeight() / 2) {
-					if (abs(kY) > FLT_EPSILON) mainCharacter->setdY(kY);
+			else if (abs(distanceY) > mainCharacter.getHeight() / 2) {
+					if (abs(kY) > FLT_EPSILON) mainCharacter.setdY(kY);
 			}
 			else {
 				targetCharacter = nullptr;
@@ -115,7 +110,7 @@ void CharacterStateMove_t::Action() {
 
 
 
-CharacterStateFolow_t::CharacterStateFolow_t(character_t *__mainCharacter) :CharacterState_t(__mainCharacter)
+CharacterStateFolow_t::CharacterStateFolow_t(character_t &__mainCharacter) :CharacterState_t(__mainCharacter)
 {
 	stateNum = 1;
 }
@@ -131,29 +126,29 @@ CharacterStateFolow_t::~CharacterStateFolow_t()
 
 void CharacterStateFolow_t::Action() 
 {
-	float distanceX = targetCharacter->getPosOfCenter().x - mainCharacter->getPosOfCenter().x;
-	float distanceY = targetCharacter->getPosOfCenter().y - mainCharacter->getPosOfCenter().y;
+	float distanceX = targetCharacter->getPosOfCenter().x - mainCharacter.getPosOfCenter().x;
+	float distanceY = targetCharacter->getPosOfCenter().y - mainCharacter.getPosOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 	float visionMultiple = 2.f;
 
-	if (leaveFromSpot() || vectorLength > mainCharacter->getStats().visionDistance * visionMultiple) {
-		mainCharacter->setTargetPos(mainCharacter->getSpawnCoords());
-		mainCharacter->changeState(new CharacterStateMove_t(*this));
+	if (leaveFromSpot() || vectorLength > mainCharacter.getStats().visionDistance * visionMultiple) {
+		mainCharacter.setTargetPos(mainCharacter.getSpawnCoords());
+		mainCharacter.changeState(new CharacterStateMove_t(*this));
 	}
 	else {
-		if (vectorLength < (mainCharacter->getStats().attackRange)) {
-			mainCharacter->changeState(new CharacterStateAttack_t(*this));
+		if (vectorLength < (mainCharacter.getStats().attackRange)) {
+			mainCharacter.changeState(new CharacterStateAttack_t(*this));
 		}
 
-		float  kX = (distanceX / abs(distanceX) - FLT_EPSILON) * mainCharacter->getStats().speed;
-		float  kY = (distanceY / abs(distanceY) - FLT_EPSILON) * mainCharacter->getStats().speed;
+		float  kX = (distanceX / abs(distanceX) - FLT_EPSILON) * mainCharacter.getStats().speed;
+		float  kY = (distanceY / abs(distanceY) - FLT_EPSILON) * mainCharacter.getStats().speed;
 
 		
-		if (abs(distanceX) > mainCharacter->getWidth() / 2) {
-			if (abs(kX) > FLT_EPSILON) mainCharacter->setdX(kX);
+		if (abs(distanceX) > mainCharacter.getWidth() / 2) {
+			if (abs(kX) > FLT_EPSILON) mainCharacter.setdX(kX);
 		} else 
-		if (abs(distanceY) > mainCharacter->getHeight() / 2) {
-			if (abs(kY) > FLT_EPSILON) mainCharacter->setdY(kY);
+		if (abs(distanceY) > mainCharacter.getHeight() / 2) {
+			if (abs(kY) > FLT_EPSILON) mainCharacter.setdY(kY);
 		}
 	}
 }
@@ -161,7 +156,7 @@ void CharacterStateFolow_t::Action()
 
 //CHARACTER STATE ATTACK
 
-CharacterStateAttack_t::CharacterStateAttack_t(character_t *__mainCharacter) :CharacterState_t(__mainCharacter)
+CharacterStateAttack_t::CharacterStateAttack_t(character_t &__mainCharacter) :CharacterState_t(__mainCharacter)
 {
 	stateNum = 2;
 }
@@ -176,21 +171,21 @@ CharacterStateAttack_t::~CharacterStateAttack_t()
 }
 void CharacterStateAttack_t::Action() {
 
-	float distanceX = targetCharacter->getPosOfCenter().x - mainCharacter->getPosOfCenter().x;
-	float distanceY = targetCharacter->getPosOfCenter().y - mainCharacter->getPosOfCenter().y;
+	float distanceX = targetCharacter->getPosOfCenter().x - mainCharacter.getPosOfCenter().x;
+	float distanceY = targetCharacter->getPosOfCenter().y - mainCharacter.getPosOfCenter().y;
 	float vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 	float visionMultiple = 2.f;
 
 
-	if (vectorLength > mainCharacter->getStats().attackRange){
-		mainCharacter->changeState(new CharacterStateFolow_t(*this));
+	if (vectorLength > mainCharacter.getStats().attackRange){
+		mainCharacter.changeState(new CharacterStateFolow_t(*this));
 	}
-	else if (vectorLength < mainCharacter->getStats().attackRange && targetCharacter->getAlive()) {
-		mainCharacter->setTargetPos(targetCharacter->getPosOfCenter());
-		mainCharacter->attack();
+	else if (vectorLength < mainCharacter.getStats().attackRange && targetCharacter->getAlive()) {
+		mainCharacter.setTargetPos(targetCharacter->getPosOfCenter());
+		mainCharacter.attack();
 	}
 	else {
-			mainCharacter->changeState(new CharacterStateMove_t(*this));		
+			mainCharacter.changeState(new CharacterStateMove_t(*this));		
 	}
 }
 
@@ -200,7 +195,7 @@ void CharacterStateAttack_t::Action(std::list<bullet_t*> &obList) {
 
 //CHARACTER STATE PLAYER CONTROLL
 
-CharacterPlayerControll_t::CharacterPlayerControll_t(character_t *__mainCharacter): CharacterState_t(__mainCharacter)
+CharacterPlayerControll_t::CharacterPlayerControll_t(character_t &__mainCharacter): CharacterState_t(__mainCharacter)
 {
 	stateNum = 3;
 }
@@ -215,7 +210,7 @@ void CharacterPlayerControll_t::Action() {
 
 //CHARACTER STATE PLAYER CONTROLL
 
-CharacterPlayerCast_t::CharacterPlayerCast_t(character_t *__mainCharacter) : CharacterState_t(__mainCharacter)
+CharacterPlayerCast_t::CharacterPlayerCast_t(character_t &__mainCharacter) : CharacterState_t(__mainCharacter)
 {
 	stateNum = 4;
 }

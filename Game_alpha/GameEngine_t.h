@@ -10,7 +10,6 @@
 #include "BossNpc_t.h"
 #include "bullet_t.h"
 #include "additional.h"
-#include "keyboardController.h"
 #include "Level_t.h"
 
 
@@ -32,7 +31,6 @@ private:
 	float curTime;
 	float speed;
 	float speedMultipple;
-	std::unique_ptr<sf::View> view;
 
 	void generateNpcTypes();
 	bool positionCollision(const sf::Vector2f _obPos);
@@ -51,7 +49,6 @@ public:
 	void bulletEngine();
 	void charsAction();
 	
-	void setCamera();
 	void generateNpc();
 	void generateBosses();
 	
