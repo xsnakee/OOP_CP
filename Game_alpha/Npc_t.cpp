@@ -37,7 +37,7 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 Npc_t::Npc_t(character_t *copyedNpc, sf::Vector2f spotPoint, float powerMultiple):
 	character_t(copyedNpc->getSpritePref().getTextureSharedPtr(), copyedNpc->getSkillGeneratorPtr()->getBulletList(), spotPoint.x, spotPoint.y, 0, 0,
 		copyedNpc->getWidth(), copyedNpc->getHeight(), copyedNpc->getClockPtr()) {
-	stat = copyedNpc->getStats();
+	setStats(copyedNpc->getStats());
 	elemStatus = copyedNpc->getElemStatus();
 
 	spotCoords = spotPoint;
@@ -70,6 +70,7 @@ void Npc_t::attack() {
 
 void Npc_t::setTypeStats() {
 	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 }
 
 //MAGE CLASS
@@ -95,12 +96,13 @@ void MageNpc_t::setTypeStats() {
 
 	elemStatus = 5;//FIRE BALLS
 	stat.attackRange = 200.f;
+	stat.stdattackPower = 20.f;
 	stat.stdPhysDef = 5.f;
-	stat.stdMagDef = 10.f;
+	stat.stdMagDef = 15.f;
 	stat.damageRand = 2.f;
 	stat.stdHP = 50.f;
 	stat.visionDistance = 220.f;
-	stat.attackSpeed = 1.1f;
+	stat.stdAttackSpeed = 3.f;
 	stat.stdSpeed = 0.1f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
@@ -125,15 +127,14 @@ void WarriorNpc_t::setTypeStats() {
 	stat.attackRange = 40.f;
 	stat.stdPhysDef = 15.f;
 	stat.stdMagDef = 5.f;
-	stat.attackPower = 2.f;
-	stat.damageRand = 7.f;
+	stat.stdattackPower = 20.f;
+	stat.damageRand = 10.f;
 	stat.stdHP = 70.f;
 	stat.visionDistance = 250.f;
-	stat.attackSpeed = 1.5f;
-	stat.stdSpeed = 0.11f;
+	stat.stdAttackSpeed = 5.f;
+	stat.stdSpeed = 0.16f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
-	timer.attackCDcorrection(stat.attackSpeed);
 }
 //ZOMBIE WITCH CLASS
 ZombieWitch_t::ZombieWitch_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
@@ -152,18 +153,17 @@ ZombieWitch_t::~ZombieWitch_t() {
 void ZombieWitch_t::setTypeStats() {
 
 	elemStatus = 4;//FIRE LIGHTING
-	stat.attackRange = 150.f;
+	stat.attackRange = 250.f;
 	stat.stdPhysDef = 5.f;
 	stat.stdMagDef = 5.f;
-	stat.attackPower = 5.f;
+	stat.stdattackPower = 30.f;
 	stat.damageRand = 7.f;
-	stat.stdHP = 30.f;
-	stat.visionDistance = 200.f;
-	stat.attackSpeed = 1.f;
+	stat.stdHP = 50.f;
+	stat.visionDistance = 300.f;
+	stat.stdAttackSpeed = 1.f;
 	stat.stdSpeed = 0.09f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
-	timer.attackCDcorrection(stat.attackSpeed);
 }
 //FAT ZOMBIE CLASS
 FatZombie_t::FatZombie_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
@@ -182,14 +182,14 @@ FatZombie_t::~FatZombie_t() {
 void FatZombie_t::setTypeStats() {
 
 	elemStatus = 2;//POISION BALL
-	stat.attackRange = 50.f;
-	stat.stdPhysDef = 10.f;
-	stat.stdMagDef = 10.f;
-	stat.attackPower = 30.f;
+	stat.attackRange = 70.f;
+	stat.stdPhysDef = 30.f;
+	stat.stdMagDef = 30.f;
+	stat.stdattackPower = 50.f;
 	stat.damageRand = 7.f;
 	stat.stdHP = 100.f;
 	stat.visionDistance = 250.f;
-	stat.attackSpeed = 2.f;
+	stat.stdAttackSpeed = 1.f;
 	stat.stdSpeed = 0.08f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
@@ -211,15 +211,15 @@ SkeletonMage_t::~SkeletonMage_t() {
 }
 void SkeletonMage_t::setTypeStats() {
 
-	elemStatus = 12;//POISION BALL
+	elemStatus = 12;
 	stat.attackRange = 300.f;
 	stat.stdPhysDef = 20.f;
 	stat.stdMagDef = 20.f;
-	stat.attackPower = 10.f;
-	stat.damageRand = 7.f;
+	stat.stdattackPower = 100.f;
+	stat.damageRand = 15.f;
 	stat.stdHP = 110.f;
 	stat.visionDistance = 350.f;
-	stat.attackSpeed = -10.f;
+	stat.stdAttackSpeed = -2.f;
 	stat.stdSpeed = 0.11f;
 	defaultAllStats();
 	Npc_t::setTypeStats();

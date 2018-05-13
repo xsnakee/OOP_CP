@@ -173,7 +173,7 @@ namespace interface {
 
 
 template <typename T> T getRand(T a, T b) {
-	T temp = static_cast<T>(a + (rand() % static_cast<int>(b - a)));
+	T temp = static_cast<T>(static_cast<int>(a) + (rand() % (static_cast<int>(b - a))));
 	return temp;
 }
 

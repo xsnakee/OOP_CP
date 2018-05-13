@@ -71,7 +71,7 @@ public:
 	bool kill();
 	void update(float _speed);
 	float toHit ()const;
-
+	void updateTimerDependenceStats();
 public:
 	//GET
 
@@ -123,6 +123,10 @@ public:
 		return skill.get();
 	}
 
+	float getComputedDmg() const {
+		float tempDmg = stat.attackPower + getRand(-stat.damageRand, stat.damageRand);
+		return tempDmg;
+	}
 	//SET
 	float setFrame(float _frame) {
 		frame = _frame;

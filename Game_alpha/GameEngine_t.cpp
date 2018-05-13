@@ -138,7 +138,7 @@ void GameEngine_t::generateNpc() {
 				tempCoords = generateRandomSpawnCoords(level.map.getSize());
 			} while (positionCollision(tempCoords));
 
-			level.charactersList.push_back(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty))));
+			level.charactersList.push_back(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords,STD_DIFFICULTY_COEFFICIENT * static_cast<float>(difficulty))));
 		}
 	}
 	//*/
@@ -157,7 +157,7 @@ void GameEngine_t::generateBosses() {
 	
 	for (auto &i : npcBossesTypeList) {
 		tempCoords = level.map.bossesSpawnCoords[bossCounter++];
-		level.charactersList.push_back(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT + static_cast<float>(difficulty))));
+		level.charactersList.push_back(std::unique_ptr <character_t>(new BossNpc_t(i.get(), tempCoords, STD_DIFFICULTY_COEFFICIENT * static_cast<float>(difficulty))));
 	}
 
 	level.bossesListIt = level.charactersList.end();
@@ -186,7 +186,9 @@ void GameEngine_t::update() {
 
 
 		for (auto &character : level.charactersList) {
-			(character)->update(speed);
+			if (character->getState()->getStateNum() != -1) {
+				(character)->update(speed);
+			}
 		}
 
 

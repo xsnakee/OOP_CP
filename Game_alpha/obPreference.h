@@ -62,10 +62,10 @@ public:
 		spriteCoordY = coordY;
 		sprite.setTextureRect(sf::IntRect(coordX,coordY,width,height));
 	}
-	void setSize(int newHeight, int newWidth) {
+	void setSize( int newWidth,int newHeight) {
 		width = newWidth;
 		height = newHeight;
-		sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, newWidth, newWidth));
+		sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
 	}
 
 	void setSpritePos(float coordX, float coordY) {

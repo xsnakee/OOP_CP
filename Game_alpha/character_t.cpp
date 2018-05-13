@@ -48,6 +48,8 @@ character_t::~character_t()
 void character_t::setStats(characterStats_t &_stats) {
 
 	stat = _stats;
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 
 }
 
@@ -235,4 +237,9 @@ void character_t::useMP(float _mp) {
 size_t character_t::setElemStatus(size_t _elemStatus) {
 	elemStatus = _elemStatus;
 	return elemStatus;
+}
+
+void character_t::updateTimerDependenceStats() {
+	timer.attackCDcorrection(stat.attackSpeed);
+	timer.castDelayCorrection(stat.castSpeed);
 }

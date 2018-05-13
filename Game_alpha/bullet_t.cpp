@@ -7,7 +7,6 @@ bullet_t::bullet_t() :physOb_t()
 
 bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetPos) : physOb_t(genObj->getPosOfCenter().x, genObj->getPosOfCenter().y) {
 
-
 	genericObject = genObj;
 	fraction = genObj->getFraction();
 	clock = time;
@@ -49,7 +48,7 @@ bullet_t::bullet_t(sf::Clock *time, character_t *genObj, sf::Vector2f _targetPos
 	spritePref.setRotation(rotation);
 
 
-	vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+	vectorLength = sqrt(pow(distanceX, 2) + pow(distanceY, 2)) + spritePref.getTexture().getSize().x;
 
 	//CALC DISTANCE SPEED ERROR 
 	float k = vectorLength / stat.range;
@@ -95,15 +94,12 @@ bool bullet_t::hitting(physOb_t &Object, float _speed, float _borderError) {
 	
 		if (stat.type && Object.getFraction() != fraction) {
 			Object.takeDamage(stat.damage, stat.type, stat.element);
-			if (!mass) {
+			if (collision) {
 				alive = false;
 			}
 		}
 		else if (!stat.type && Object.getFraction() == fraction) {
 			Object.takeHeal(stat.damage);
-			if (!mass) {
-				alive = false;
-			}
 		}
 	
 	return true;

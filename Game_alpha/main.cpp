@@ -1,4 +1,6 @@
+//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #include <SFML/Graphics.hpp>
+#include <SFML/Main.hpp>
 #include <iostream>
 #include <cstdlib>
 #include <memory>
@@ -14,6 +16,7 @@ int main() {
 	srand(static_cast<unsigned int>(time(NULL)));
 	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));//, sf::Style::Fullscreen));
 	
+
 
 	while (window->isOpen()) {
 		std::unique_ptr<game_t> GAME;
