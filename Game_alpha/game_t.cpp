@@ -43,11 +43,7 @@ void game_t::play() {
 
 		float timer = static_cast<float>(clock.getElapsedTime().asMicroseconds());
 		clock.restart();
-
-		game::status gameStatus = gameEngine->getGameStatus();
-		bool playContinue = (gameStatus == game::GAME_OVER || gameStatus == game::WIN) ? false : true;
-		status =  playContinue ? status : gameStatus;
-
+		
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed) {
 				window->close();
@@ -60,6 +56,7 @@ void game_t::play() {
 			gameEngine->setSpeed(timer);
 			gameEngine->update();
 			Mcontroller->eventHandler(event);
+			status = gameEngine->getGameStatus();
 			break;
 		}
 
@@ -69,16 +66,20 @@ void game_t::play() {
 		case game::MAIN_MENU: {
 			return;
 		}
+		case game::PAUSED: {
+			Mcontroller->menuEventHandler(event);
+			break;
+		}
 		case game::GAME_OVER: {
 			interfaceEngine->pausedMenuIt->get()->contentList.back()->setFontColor(sf::Color::Red);
 			interfaceEngine->pausedMenuIt->get()->contentList.back()->setText("YOU DIE");
 			interfaceEngine->pausedMenuIt->get()->setDisplay(true);
+			Mcontroller->menuEventHandler(event);
 			break;
 		}
 
 		}
 
-		Mcontroller->menuEventHandler(event);
 		keyController(event);
 		interfaceEngine->update();
 		window->clear();

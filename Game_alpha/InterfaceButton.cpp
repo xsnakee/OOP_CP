@@ -60,6 +60,7 @@ InterfaceRestartButton::InterfaceRestartButton(InterfaceWindow_t &_linkedOb, sf:
 	tracking = true;
 	setBgColor(sf::Color::Transparent);
 	setBorderColor(sf::Color::Transparent);
+	//setBgColor(sf::Color::Blue);
 }
 
 

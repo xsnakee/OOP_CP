@@ -23,10 +23,6 @@ void keyboardController::checkCharacterStateAndChangeDefault() {
 
 void keyboardController::eventHandler(sf::Event &event) {
 
-
-	game::status gameStatus = game->gameEngine->getGameStatus();
-	bool playContinue = (gameStatus == game::GAME_OVER || gameStatus == game::WIN) ? false : true;
-	if (playContinue) {
 		using namespace sf;
 		if (game->getStatus() != game::PAUSED) {
 			if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
@@ -43,8 +39,7 @@ void keyboardController::eventHandler(sf::Event &event) {
 					}
 					else {
 						game->setGameStatus(game::PLAY);
-					}
-				
+					}				
 			}
 			if (game->getStatus() != game::PAUSED) {
 				switch (event.key.code) {
@@ -99,9 +94,4 @@ void keyboardController::eventHandler(sf::Event &event) {
 			character->setdX(character->getStats().speed);
 			checkCharacterStateAndChangeDefault();
 		}
-
-
-	}
-
-
 }

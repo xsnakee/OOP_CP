@@ -24,7 +24,7 @@ void mouseController::eventHandler(sf::Event &event) {
 }
 
 void mouseController::menuEventHandler(sf::Event &event) {	
-	if (game->getStatus() == game::PAUSED || game->getStatus() == game::GAME_OVER) {
+
 		game->interfaceEngine->restartButton->get()->contentList.back()->setFontColor(sf::Color::White);
 		game->interfaceEngine->backTomainMenuButton->get()->contentList.back()->setFontColor(sf::Color::White);
 
@@ -40,6 +40,4 @@ void mouseController::menuEventHandler(sf::Event &event) {
 				game->setGameStatus(game::MAIN_MENU);
 			}
 		}
-		}	
-	
 }
