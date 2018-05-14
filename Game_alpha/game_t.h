@@ -31,7 +31,9 @@ public:
 
 	game_t(sf::RenderWindow *_window, std::string _levelName, size_t _difficulty);
 	~game_t();
-
+	sf::RenderWindow *getWindowPtr() const {
+		return window;
+	}
 	void start();
 	void play();
 	void resetGame();

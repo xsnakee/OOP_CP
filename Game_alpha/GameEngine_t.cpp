@@ -127,7 +127,7 @@ void GameEngine_t::generateNpc() {
 	size_t NpcTypeAmount = npcTypesList.size();
 	size_t tempCounter = 0;
 
-	size_t NpcAmount = 20 * difficulty;
+	size_t NpcAmount = 30;
 
 	sf::Vector2f tempCoords;
 	//*

@@ -44,11 +44,6 @@ void keyboardController::eventHandler(sf::Event &event) {
 			}
 			if (game->getStatus() != game::PAUSED) {
 				switch (event.key.code) {
-				case Keyboard::Space: {
-					character->getTimer().updateCastCD();
-					character->changeState(new CharacterPlayerCast_t(*character));
-					break;
-				}
 				case Keyboard::E: {
 					character->setPosX(3000.0f);
 					character->setPosY(200.0f);
@@ -75,6 +70,14 @@ void keyboardController::eventHandler(sf::Event &event) {
 			}
 			
 		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			if (character->getState()->getStateNum() != 4) {
+
+				character->getTimer().updateCastCD();
+				character->changeState(new CharacterPlayerCast_t(*character));
+			}
+			}
 		if (Keyboard::isKeyPressed(Keyboard::W)) {
 			character->setdY(-character->getStats().speed);
 			checkCharacterStateAndChangeDefault();
