@@ -1,7 +1,5 @@
  #include "GameEngine_t.h"
-#include <iostream>
 
-//, level.charactersList(level.level.charactersList),level.bulletsList(level.level.bulletsList), level.mapTilesList(level.level.mapTilesList), level.map.mapObList(level.level.map.mapObList)
 
 GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty):level(_level)
 {

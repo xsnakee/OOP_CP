@@ -1,5 +1,4 @@
 #include "InterfaceBar.h"
-#include <iostream>
 
 
 InterfaceBar::InterfaceBar(sf::RenderWindow *_window)

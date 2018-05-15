@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Level_t.h"
 #include "GameEngine_t.h"
 #include "InterfaceEngine_t.h"

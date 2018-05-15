@@ -1,5 +1,4 @@
 #include "character_t.h"
-#include <iostream>
 
 
 
@@ -123,7 +122,6 @@ float character_t::takeDamage(float _dmg, bool _dmgType, elements::element _elem
 			}
 
 			stat.HP -= tempDmg;
-			std::cout << tempDmg << " Dmg" << std::endl;
 		}
 		
 		return tempDmg;
@@ -216,7 +214,6 @@ bool character_t::addElement(elements::element _elem) {
 }
 
 void character_t::generateSkillAndClearElemList() {
-	std::cout << "generated" << std:: endl;
 	stat.MP = stat.stdMP;
 	elemStatus = std::accumulate(skillGeneratorArr.begin(), skillGeneratorArr.end(), 0);
 	resetElemsList();

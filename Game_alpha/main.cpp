@@ -1,7 +1,6 @@
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #include <SFML/Graphics.hpp>
 #include <SFML/Main.hpp>
-#include <iostream>
 #include <cstdlib>
 #include <memory>
 #include "game_t.h"
@@ -13,7 +12,7 @@ const int windowWidth = 1600;const int windowHeight = 900;
 
 int main() {
 	srand(static_cast<unsigned int>(time(NULL)));
-	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA", sf::Style::Fullscreen));
+	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));// , sf::Style::Fullscreen));
 	
 
 
@@ -35,8 +34,7 @@ int main() {
 		GAME.swap(std::unique_ptr<game_t>(new game_t(window.get(), levelName, difficulty)));
 		GAME->start();
 		} while (GAME->getStatus() == game::RESTART);
-		mainMenu.get_deleter();
-		mainMenu.reset();
+		mainMenu.~unique_ptr();//		mainMenu.get_deleter();		mainMenu.reset();
 	}
 	
 	return 0;

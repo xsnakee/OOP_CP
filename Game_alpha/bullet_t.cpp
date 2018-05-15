@@ -1,5 +1,5 @@
 #include "bullet_t.h"
-#include <iostream>
+
 bullet_t::bullet_t() :physOb_t()
 {
 }
