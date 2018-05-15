@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Level_t.h"
 #include "GameEngine_t.h"
 #include "InterfaceEngine_t.h"
@@ -31,7 +32,9 @@ public:
 
 	game_t(sf::RenderWindow *_window, std::string _levelName, size_t _difficulty);
 	~game_t();
-
+	sf::RenderWindow *getWindowPtr() const {
+		return window;
+	}
 	void start();
 	void play();
 	void resetGame();

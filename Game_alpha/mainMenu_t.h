@@ -5,6 +5,7 @@
 
 const std::string MENU_BG_TEXTURE_FILE = "img/menu/menu_bg.jpg";
 const std::string NAME_TEXTURE_FILE = "img/menu/nameTexture.png";
+const std::string START_MESSAGE_TEXTURE_FILE = "img/menu/start_mess.png";
 const std::string FONT_FILE = "fonts/hercules_modern.ttf";
 
 typedef std::unique_ptr<sf::Texture> texture;
@@ -16,8 +17,10 @@ class mainMenu_t
 	sf::RenderWindow *window;
 	texture bgTexture;
 	texture nameTexture;
+	texture startMessageTexture;
 	sf::Sprite bgSprite;
 	sf::Sprite nameSprite;
+	sf::Sprite startMessageSprite;
 
 	strVec menuItems;
 	strVec levelNamesList;

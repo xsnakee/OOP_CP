@@ -1,5 +1,4 @@
 #include "InterfaceContent.h"
-#include <iostream>
 
 
 InterfaceContent::InterfaceContent(sf::RenderWindow *_window, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos)

@@ -1,5 +1,4 @@
 #include "Effect_t.h"
-#include <iostream>
 
 
 Effect_t::Effect_t(character_t *_character,characterStats_t _stats, sf::Int32 _duration)

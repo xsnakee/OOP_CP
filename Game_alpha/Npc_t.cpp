@@ -1,5 +1,4 @@
 #include "Npc_t.h"
-#include <iostream>
 
 
 
@@ -16,8 +15,6 @@ Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bu
 	elemStatus = 1;
 	collision = false;
 }
-
-//REWORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Npc_t::Npc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::unique_ptr <bullet_t>> &_bulletList, sf::Clock *_clock, sf::Vector2f _spotCoords, int _width, int _height, float _multiple) :
 	character_t(_texture, _bulletList,_spotCoords.x, _spotCoords.y, 0, 0, _width, _height, _clock)

@@ -135,21 +135,6 @@ bool physOb_t::collisionHandler(physOb_t &Object, float _speed, float _borderErr
 		} else if (direction == animation::TOP) {
 			posY = Object.getPosY() + Object.getHeight() + _borderError;
 		}
-		
-		/*
-		if (direction == animation::RIGHT) {
-			posX -= Object.getdX() * _speed + _borderError;
-		}
-		else if (direction == animation::LEFT) {
-			posX += Object.getdX() * _speed + _borderError;
-		}
-		else if (direction == animation::BOTTOM) {
-			posY -= Object.getdY() * _speed + _borderError;
-		}
-		else if (direction == animation::TOP) {
-			posY += Object.getdY() * _speed + _borderError;
-		}
-		*/
 		dX = 0;
 		dY = 0;
 		return true;

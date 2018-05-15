@@ -19,21 +19,5 @@ public:
 	}
 
 
-	virtual void eventHandler(sf::Event &event);//virtual void eventHandler();
+	void eventHandler(sf::Event &event);
 };
-
-
-
-/*
-class menuController :public keyboardController {
-	//menuWindow *window;
-
-public:
-	menuController(sf::Clock *_clock);
-	virtual ~menuController();
-
-	menuWindiw * getWindowPtr()const {
-		return window;
-	}
-};
-//*/

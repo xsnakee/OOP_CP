@@ -1,20 +1,18 @@
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #include <SFML/Graphics.hpp>
 #include <SFML/Main.hpp>
-#include <iostream>
 #include <cstdlib>
 #include <memory>
 #include "game_t.h"
 
 using namespace sf;
-const int windowWidth = 1024;const int windowHeight = 768;
 
-//const int windowWidth = 1920;const int windowHeight = 1600;
+const int windowWidth = 1600;const int windowHeight = 900;
 
 
 int main() {
 	srand(static_cast<unsigned int>(time(NULL)));
-	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "SFML GAME ALPHA"));//, sf::Style::Fullscreen));
+	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "The Last Of Light",sf::Style::Fullscreen));
 	
 
 
@@ -28,7 +26,7 @@ int main() {
 		mainMenu->makeMenu();
 		mainMenu->action();
 		do {
-			if (GAME) {
+			if (GAME.get()) {
 				if (GAME->getStatus() == game::RESTART) {
 					GAME->resetGame();
 				}
@@ -36,7 +34,7 @@ int main() {
 		GAME.swap(std::unique_ptr<game_t>(new game_t(window.get(), levelName, difficulty)));
 		GAME->start();
 		} while (GAME->getStatus() == game::RESTART);
-		mainMenu.get_deleter();
+		mainMenu.get_deleter();		
 		mainMenu.reset();
 	}
 	

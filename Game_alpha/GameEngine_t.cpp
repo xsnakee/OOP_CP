@@ -1,7 +1,5 @@
  #include "GameEngine_t.h"
-#include <iostream>
 
-//, level.charactersList(level.level.charactersList),level.bulletsList(level.level.bulletsList), level.mapTilesList(level.level.mapTilesList), level.map.mapObList(level.level.map.mapObList)
 
 GameEngine_t::GameEngine_t(sf::RenderWindow *_window, Level_t &_level, size_t _difficulty):level(_level)
 {
@@ -127,7 +125,7 @@ void GameEngine_t::generateNpc() {
 	size_t NpcTypeAmount = npcTypesList.size();
 	size_t tempCounter = 0;
 
-	size_t NpcAmount = 20 * difficulty;
+	size_t NpcAmount = 30;
 
 	sf::Vector2f tempCoords;
 	//*

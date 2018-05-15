@@ -61,9 +61,9 @@ TeantBossNpc_t::TeantBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<s
 	stat.stdattackPower = 50.f;
 	stat.attackRange = 150.f;
 	stat.stdPhysDef = 40.f;
-	stat.stdMagDef = 15.f;
+	stat.stdMagDef = 25.f;
 	stat.damageRand = 15.f;
-	stat.stdHP = 350.f;
+	stat.stdHP = 550.f;
 	stat.visionDistance = 300.f;
 	stat.stdAttackSpeed = 5.f;
 	stat.stdSpeed = 0.2f;
@@ -109,7 +109,7 @@ BlackDragonBossNpc_t::BlackDragonBossNpc_t(std::shared_ptr<sf::Texture>_texture,
 	BossNpc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
 	setSkills({ 24,4,17,18,2 });
-	stat.stdattackPower = 740.f;
+	stat.stdattackPower = 70.f;
 	stat.attackRange = 200.f;
 	stat.stdPhysDef = 30.f;
 	stat.stdMagDef = 20.f;

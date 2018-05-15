@@ -1,5 +1,4 @@
 #include "keyboardController.h"
-#include <iostream>
 
 
 //keyboardController
@@ -25,7 +24,6 @@ void keyboardController::eventHandler(sf::Event &event) {
 
 		using namespace sf;
 		if (game->getStatus() != game::PAUSED) {
-			//if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 				character->attack();
 				checkCharacterStateAndChangeDefault();
@@ -35,8 +33,10 @@ void keyboardController::eventHandler(sf::Event &event) {
 		if (event.type == Event::KeyReleased) {
 			if (event.key.code == Keyboard::Escape) {
 					checkCharacterStateAndChangeDefault();
-					if (game->interfaceEngine->toggleMenu()) {
+					game->interfaceEngine->pause();
+					if (game->interfaceEngine->pausedMenuIt->get()->getDisplayState()) {
 						game->setGameStatus(game::PAUSED);
+
 					}
 					else {
 						game->setGameStatus(game::PLAY);
@@ -44,19 +44,13 @@ void keyboardController::eventHandler(sf::Event &event) {
 			}
 			if (game->getStatus() != game::PAUSED) {
 				switch (event.key.code) {
-				case Keyboard::Space: {
-					character->getTimer().updateCastCD();
-					character->changeState(new CharacterPlayerCast_t(*character));
-					break;
-				}
 				case Keyboard::E: {
-					character->setPosX(3000.0f);
-					character->setPosY(200.0f);
+					game->setGameStatus(game::WIN);
 					checkCharacterStateAndChangeDefault();
 					break;
 				}
 				case Keyboard::Num1: {
-					character->addElement(elements::WIND);
+					character->addElement(elements::EARTH);
 					checkCharacterStateAndChangeDefault();
 					break;
 				}
@@ -66,8 +60,24 @@ void keyboardController::eventHandler(sf::Event &event) {
 					break;
 				}
 				case Keyboard::Num3: {
-					character->addElement(elements::EARTH);
+					character->addElement(elements::WIND);
 					checkCharacterStateAndChangeDefault();
+					break;
+				}
+				case Keyboard::J: {
+					game->interfaceEngine->buttonsMap[buttons::JOURNAL_KEY_NAME]->get()->action();
+					break;
+				}
+				case Keyboard::T: {
+					game->interfaceEngine->buttonsMap[buttons::GAME_STATS_KEY_NAME]->get()->action();
+					break;
+				}
+				case Keyboard::M: {
+					game->interfaceEngine->buttonsMap[buttons::MAP_KEY_NAME]->get()->action();
+					break;
+				}
+				case Keyboard::K: {
+					game->interfaceEngine->buttonsMap[buttons::SKILL_KEY_NAME]->get()->action();
 					break;
 				}
 
@@ -75,6 +85,14 @@ void keyboardController::eventHandler(sf::Event &event) {
 			}
 			
 		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			if (character->getState()->getStateNum() != 4) {
+
+				character->getTimer().updateCastCD();
+				character->changeState(new CharacterPlayerCast_t(*character));
+			}
+			}
 		if (Keyboard::isKeyPressed(Keyboard::W)) {
 			character->setdY(-character->getStats().speed);
 			checkCharacterStateAndChangeDefault();

@@ -17,9 +17,9 @@ namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
 		NONE = 0,
-		EARTH = 1,
+		EARTH = 8,
 		FIRE = 2,
-		WIND = 8
+		WIND = 1
 	};
 }
 
@@ -117,32 +117,6 @@ namespace animation {
 
 }
 
-namespace icon {
-	//ICONS
-	//const std::string ICON_ELEMENT__FILE = "img/icons/.png";
-	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
-	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_earth.png";
-	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_wind.png";
-	//SKILLS ICONS
-	const std::string ICON_SKILL_BANG_BALL_FILE = "img/icons/icon_skill_bang_ball.png";
-	const std::string ICON_SKILL_COMBO_BALL_FILE = "img/icons/icon_skill_combo_ball.png";
-	const std::string ICON_SKILL_sWORD_ATTACK_FILE = "img/icons/icon_skill_common_attack.png";
-	const std::string ICON_SKILL_EARTH_BALL_FILE = "img/icons/icon_skill_earth_ball.png";
-	const std::string ICON_SKILL_FIRE_BALL_FILE = "img/icons/icon_skill_fire_ball.png";
-	const std::string ICON_SKILL_HEAL_BALL_FILE = "img/icons/icon_skill_heal_ball.png";
-	const std::string ICON_SKILL_LAVA_POOL_FILE = "img/icons/icon_skill_lava_pool.png";
-	const std::string ICON_SKILL_POWER_UP_FILE = "img/icons/icon_skill_powerUp.png";
-	const std::string ICON_SKILL_RUSH_FILE = "img/icons/icon_skill_rush.png";
-	const std::string ICON_SKILL_SMALL_EARTH_BALLS_FILE = "img/icons/icon_skill_small_earth_balls.png";
-	const std::string ICON_SKILL_SMALL_FIRE_BALLS_FILE = "img/icons/icon_skill_small_fire_balls.png";
-	const std::string ICON_SKILL__FILE = "img/icons/.png";
-
-	//BUTTONS ICONS
-	const std::string ICON_BUTTON_JOURNAL = "img/icons/icon_button_journal.png";
-	const std::string ICON_BUTTON_GAME_STATISTIC = "img/icons/icon_button_game_statistic.png";
-	const std::string ICON_BUTTON_SKILLS = "img/icons/icon_button_skills.png";
-	const std::string ICON_BUTTON_MAP = "img/icons/icon_button_map.png";
-}
 namespace textSettings {
 	const std::string STD_FONT_FILE = "fonts/main_font_regular.otf";
 	const std::string STRIKE_THROUGHT_FONT_FILE = "fonts/main_strike_throught_font.ttf";
@@ -152,6 +126,12 @@ namespace textSettings {
 	const sf::Text::Style STD_TEXT_STYLE = sf::Text::Style::Regular;
 	const sf::Text::Style TEXT_STYLE_STRIKE_THROUGH = sf::Text::Style::StrikeThrough;
 };
+namespace buttons {
+	const std::string JOURNAL_KEY_NAME = "journal";
+	const std::string GAME_STATS_KEY_NAME = "gameStats";
+	const std::string MAP_KEY_NAME = "map";
+	const std::string SKILL_KEY_NAME = "skill";
+}
 
 namespace interface {
 
@@ -159,19 +139,17 @@ namespace interface {
 	const sf::Vector2f STD_BAR_SIZE(400.f, 20.f);
 	const sf::Vector2f STD_BORDER_SIZE(2.f, 2.f);
 	const sf::Vector2f STD_WINDOW_SIZE(48.f, 48.f);
-	const sf::Vector2f STD_MARGIN_SIZE(5.f,5.f);
+	const sf::Vector2f STD_MARGIN_SIZE(5.f, 5.f);
 
 	const sf::Vector2f STD_WINDOW_MARGIN_SIZE(15.f, 15.f);
-	
-	const sf::Vector2f STD_SKILL_WINDOW_SIZE(64.f,64.f);
-	const sf::Vector2f STD_ELEMENT_GENERATOR_WINDOW_SIZE(48.f,48.f);
 
+	const sf::Vector2f STD_SKILL_WINDOW_SIZE(64.f, 64.f);
+	const sf::Vector2f STD_ELEMENT_GENERATOR_WINDOW_SIZE(48.f, 48.f);
+	const std::string WIN_CREEN_TEXTURE_FILE = "img/menu/winMenu.jpg";
 	static sf::Vector2f getScreenCoords(sf::RenderWindow *window) {
 		return sf::Vector2f(window->getView().getCenter().x - window->getSize().x / 2, window->getView().getCenter().y - window->getSize().y / 2);
 	}
 };
-
-
 template <typename T> T getRand(T a, T b) {
 	T temp = static_cast<T>(static_cast<int>(a) + (rand() % (static_cast<int>(b - a))));
 	return temp;
