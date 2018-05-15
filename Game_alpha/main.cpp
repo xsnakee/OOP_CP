@@ -17,24 +17,15 @@ int main() {
 
 
 	while (window->isOpen()) {
-		std::unique_ptr<game_t> GAME;
-		std::unique_ptr<mainMenu_t> mainMenu;
 		std::string levelName;
 		size_t difficulty = 0;
-
-		mainMenu.swap(std::unique_ptr<mainMenu_t>(new mainMenu_t(window.get(), levelName, difficulty)));
-		mainMenu->makeMenu();
-		mainMenu->action();
+		mainMenu_t mainMenu(window.get(), levelName, difficulty);
+		mainMenu.makeMenu();
+		mainMenu.action();
+		game_t GAME(window.get(), levelName, difficulty);
 		do {
-			if (GAME) {
-				if (GAME->getStatus() == game::RESTART) {
-					GAME->resetGame();
-				}
-			}
-		GAME.swap(std::unique_ptr<game_t>(new game_t(window.get(), levelName, difficulty)));
-		GAME->start();
-		} while (GAME->getStatus() == game::RESTART);
-		mainMenu.reset();
+		GAME.start();
+		} while (GAME.getStatus() == game::RESTART);
 	}
 	
 	return 0;

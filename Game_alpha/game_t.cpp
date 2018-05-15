@@ -13,7 +13,6 @@ game_t::game_t(sf::RenderWindow *_window, std::string _levelName, size_t _diffic
 
 game_t::~game_t()
 {
-	resetGame();
 }
 
 
@@ -29,7 +28,6 @@ void game_t::start() {
 			Mcontroller.swap(std::unique_ptr<mouseController>(new mouseController(window, this, *interfaceEngine.get()->cursor)));
 
 			play();
-	
 }
 
 void game_t::play() {
