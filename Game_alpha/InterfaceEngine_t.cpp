@@ -15,6 +15,7 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	createGameStatsWindow();
 	createMapWindow();
 	createPausedMenu();
+	createDescriptionMenu();
 
 	createInterfaceButtons();
 
@@ -240,7 +241,6 @@ void InterfaceEngine_t::updateGenerator() {
 	//*/
 }
 
-
 //MISSION JOURNAL INTERFACE
 void InterfaceEngine_t::createJournalWindow() {
 	size_t contentStringsAmount = level.getMission().missionsContent.size();
@@ -248,7 +248,7 @@ void InterfaceEngine_t::createJournalWindow() {
 	sf::Vector2f windowPosition(STD_BUTTON_SIZE.x + interface::STD_WINDOW_MARGIN_SIZE.x, window->getSize().y / 4.f);
 	sf::Vector2f windowSize(findBigestLength(level.getMission().missionsContent) * textSettings::STD_FONT_SIZE / 1.5f + interface::STD_BORDER_SIZE.x, (contentStringsAmount + 1) * (textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.y));
 
-	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
+	windowsList.push_back(window_t(new InterfaceWindow_t(window, windowPosition, windowSize)));
 	missionWindowIt = windowsList.end();
 	--missionWindowIt;
 	windowsList.back()->setTitle("MISSION JOURNAL");
@@ -273,6 +273,7 @@ void InterfaceEngine_t::updateMissionJournal() {
 		++tempIt;
 	}
 }
+
 
 //MISSION STATISTIC INTERFACE
 void InterfaceEngine_t::createGameStatsWindow() {
@@ -419,6 +420,8 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	temp3->loadFromFile(icon::ICON_BUTTON_MAP);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp3, buttonList.back()->getPos())));
 
+	//SKILL BUTTON
+
 
 }
 
@@ -453,4 +456,264 @@ void InterfaceEngine_t::setCamera() {
 	}
 
 	view->setCenter(_x, _y);
+}
+
+//SKILL DESCRIPTION INTERFACE
+void InterfaceEngine_t::createDescriptionMenu() {
+	size_t skillsAmount = 10;
+	//MAIN MISSION WINDOW
+	sf::Vector2f windowPosition(STD_BUTTON_SIZE.x + interface::STD_WINDOW_MARGIN_SIZE.x, window->getSize().y / 4.f);
+	sf::Vector2f windowSize((icon::ICON_DESC_WIDTH + interface::STD_BORDER_SIZE.x) * 9.f, (skillsAmount + 1) * (icon::ICON_DESC_HEIGHT + interface::STD_BORDER_SIZE.y * 2));
+
+	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
+	skillDescriptionWindowIt = windowsList.end();
+	--skillDescriptionWindowIt;
+
+	skillDescriptionWindowIt->get()->setTitle("SKILL DESCRIPTION");
+	skillDescriptionWindowIt->get()->setBgColor(sf::Color::Color(50, 50, 50, 120));
+	skillDescriptionWindowIt->get()->setBorderColor(sf::Color::Color(238, 238, 238, 120));
+	sf::Vector2f contentPos(0.f, 0.f);
+	contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+
+	using namespace icon;
+	int i = 1; //content string number
+	contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT/2) + interface::STD_BORDER_SIZE.x;
+
+	sf::Texture *EARTH_ICON = new sf::Texture; EARTH_ICON->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+	sf::Texture *FIRE_ICON = new sf::Texture; FIRE_ICON->loadFromFile(DESC_ICON_ELEMENT_FIRE_FILE);
+	sf::Texture *WIND_ICON= new sf::Texture; WIND_ICON->loadFromFile(DESC_ICON_ELEMENT_WIND_FILE);
+	
+	contentPos.x += DESC_ICON_ELEMENT_SIZE*2;
+	skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, EARTH_ICON, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+	skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window,"Num1" , windowsList.back()->getPos(), contentPos)));
+	skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+	contentPos.x += DESC_ICON_ELEMENT_SIZE*2;
+	skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_ICON, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+	skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "Num2", windowsList.back()->getPos(), contentPos)));
+	skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+	contentPos.x += DESC_ICON_ELEMENT_SIZE *2;
+	skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, WIND_ICON, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+	skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "Num3", windowsList.back()->getPos(), contentPos)));
+	skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+
+		//111
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *HEAL = new sf::Texture;
+		HEAL->loadFromFile(ICON_HEAL_111);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, HEAL, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		
+		sf::Texture *EARTH_ICON1 = new sf::Texture; EARTH_ICON1->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, EARTH_ICON1, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x3", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		//112
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *BANG_BALL= new sf::Texture;
+		BANG_BALL->loadFromFile(ICON_BANG_112);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, BANG_BALL, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		
+		sf::Texture *EARTH_ICON2 = new sf::Texture; EARTH_ICON2->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+		sf::Texture *FIRE_ICON2 = new sf::Texture; FIRE_ICON2->loadFromFile(DESC_ICON_ELEMENT_FIRE_FILE);
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, EARTH_ICON2, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x2", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+		
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_ICON2, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		//113
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *STONE= new sf::Texture;
+		STONE->loadFromFile(ICON_STONE_113);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, STONE, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+
+		sf::Texture *EARTH_ICON3 = new sf::Texture; EARTH_ICON3->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+		sf::Texture *WIND_ICON3 = new sf::Texture; WIND_ICON3->loadFromFile(DESC_ICON_ELEMENT_WIND_FILE);
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, EARTH_ICON3, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x2", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, WIND_ICON3, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+		//123
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *COMBO = new sf::Texture;
+		COMBO->loadFromFile(ICON_COMBO_123);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, COMBO, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+		sf::Texture *EARTH_ICON4 = new sf::Texture; EARTH_ICON4->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+		sf::Texture *FIRE_ICON4 = new sf::Texture; FIRE_ICON4->loadFromFile(DESC_ICON_ELEMENT_FIRE_FILE);
+		sf::Texture *WIND_ICON4 = new sf::Texture; WIND_ICON4->loadFromFile(DESC_ICON_ELEMENT_WIND_FILE);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, EARTH_ICON4, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_ICON4, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, WIND_ICON4, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		//221
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *FIRE_BREATH = new sf::Texture;
+		FIRE_BREATH->loadFromFile(ICON_FIRE_BREATH_221);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_BREATH, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+		sf::Texture *EARTH_ICON5 = new sf::Texture; EARTH_ICON5->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+		sf::Texture *FIRE_ICON5= new sf::Texture; FIRE_ICON5->loadFromFile(DESC_ICON_ELEMENT_FIRE_FILE);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE*2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_ICON5, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x2", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, EARTH_ICON5, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+	
+
+		//222
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *POWER_BUFF = new sf::Texture;
+		POWER_BUFF->loadFromFile(ICON_POWER_BUFF_222);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, POWER_BUFF, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+		sf::Texture *FIRE_ICON6 = new sf::Texture; FIRE_ICON6->loadFromFile(DESC_ICON_ELEMENT_FIRE_FILE);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_ICON6, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x3", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		//223
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *FIRE_BALL = new sf::Texture;
+		FIRE_BALL->loadFromFile(ICON_FIRE_BALL_223);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_BALL, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+		sf::Texture *FIRE_ICON7 = new sf::Texture; FIRE_ICON7->loadFromFile(DESC_ICON_ELEMENT_FIRE_FILE);
+		sf::Texture *WIND_ICON7 = new sf::Texture; WIND_ICON7->loadFromFile(DESC_ICON_ELEMENT_WIND_FILE);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_ICON7, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x2", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, WIND_ICON7, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		//331
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *SMALL_EARTH_BALL = new sf::Texture;
+		SMALL_EARTH_BALL->loadFromFile(ICON_SMALL_EARTH_BALLS_331);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, SMALL_EARTH_BALL, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+		sf::Texture *EARTH_ICON8 = new sf::Texture; EARTH_ICON8->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+		sf::Texture *WIND_ICON8 = new sf::Texture; WIND_ICON8->loadFromFile(DESC_ICON_ELEMENT_WIND_FILE);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, WIND_ICON8, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x2", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, EARTH_ICON8, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+
+		//332
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *FIRE_LIGHTING = new sf::Texture;
+		FIRE_LIGHTING->loadFromFile(ICON_FIRE_LIGHTING_332);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_LIGHTING, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+		sf::Texture *FIRE_ICON9 = new sf::Texture; FIRE_ICON9->loadFromFile(DESC_ICON_ELEMENT_EARTH_FILE);
+		sf::Texture *WIND_ICON9 = new sf::Texture; WIND_ICON9->loadFromFile(DESC_ICON_ELEMENT_WIND_FILE);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, WIND_ICON9, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x2", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, FIRE_ICON9, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x1", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+
+		//333
+		contentPos.x = textSettings::STD_FONT_SIZE + interface::STD_BORDER_SIZE.x;
+		sf::Texture *SPEED_BUFF = new sf::Texture;
+		SPEED_BUFF->loadFromFile(ICON_SPEED_BUFF_333);
+		++i;
+		contentPos.y = static_cast<float>((i) * ICON_DESC_HEIGHT) + interface::STD_BORDER_SIZE.x;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, SPEED_BUFF, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+
+
+		sf::Texture *WIND_ICON10 = new sf::Texture; WIND_ICON10->loadFromFile(DESC_ICON_ELEMENT_WIND_FILE);
+
+		contentPos.x += DESC_ICON_ELEMENT_SIZE * 2;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, WIND_ICON10, skillDescriptionWindowIt->get()->getPos(), contentPos)));
+		contentPos.x += DESC_ICON_ELEMENT_SIZE;
+		skillDescriptionWindowIt->get()->contentList.push_back(content(new InterfaceTextContent_t(window, "x3", windowsList.back()->getPos(), contentPos)));
+		skillDescriptionWindowIt->get()->contentList.back()->setFontSize(18);
+	
 }

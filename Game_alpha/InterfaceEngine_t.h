@@ -23,6 +23,7 @@ class InterfaceEngine_t
 	std::list<window_t>::iterator missionWindowIt;
 	std::list<window_t>::iterator gameStatsWindowIt;
 	std::list<window_t>::iterator mapIt;
+	std::list<window_t>::iterator skillDescriptionWindowIt;
 
 
 	void drawCursor();
@@ -54,11 +55,13 @@ public:
 	void createMapWindow();
 	void createInterfaceButtons();
 	void createPausedMenu();
-
+	void createDescriptionMenu();
+	
 	void updateGenerator();
 	void updateMissionJournal();
 	void updateGameStats();
 	void updateMapWindow();
+
 
 	bool toggleMenu();
 };

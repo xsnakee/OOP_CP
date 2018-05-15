@@ -17,9 +17,9 @@ namespace elements {
 	const size_t SKILL_ELEMENT_AMOUNT = 3;
 	enum element {
 		NONE = 0,
-		EARTH = 1,
+		EARTH = 8,
 		FIRE = 2,
-		WIND = 8
+		WIND = 1
 	};
 }
 
@@ -121,8 +121,8 @@ namespace icon {
 	//ICONS
 	//const std::string ICON_ELEMENT__FILE = "img/icons/.png";
 	const std::string ICON_ELEMENT_FIRE_FILE = "img/icons/icon_element_fire.png";
-	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_earth.png";
-	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_wind.png";
+	const std::string ICON_ELEMENT_WIND_FILE = "img/icons/icon_element_wind.png";
+	const std::string ICON_ELEMENT_EARTH_FILE = "img/icons/icon_element_earth.png";
 	//SKILLS ICONS
 	const std::string ICON_SKILL_BANG_BALL_FILE = "img/icons/icon_skill_bang_ball.png";
 	const std::string ICON_SKILL_COMBO_BALL_FILE = "img/icons/icon_skill_combo_ball.png";
@@ -142,6 +142,26 @@ namespace icon {
 	const std::string ICON_BUTTON_GAME_STATISTIC = "img/icons/icon_button_game_statistic.png";
 	const std::string ICON_BUTTON_SKILLS = "img/icons/icon_button_skills.png";
 	const std::string ICON_BUTTON_MAP = "img/icons/icon_button_map.png";
+
+	//SKILL DESCRIPTION ICONS
+	const int ICON_DESC_HEIGHT = 32;
+	const int ICON_DESC_WIDTH = 32;
+
+	const std::string DESC_ICON_ELEMENT_FIRE_FILE = "img/icons/description_icons/icon_element_fire.png";
+	const std::string DESC_ICON_ELEMENT_WIND_FILE = "img/icons/description_icons/icon_element_wind.png";
+	const std::string DESC_ICON_ELEMENT_EARTH_FILE = "img/icons/description_icons/icon_element_earth.png";
+	const int DESC_ICON_ELEMENT_SIZE = 32;
+	
+	const std::string ICON_HEAL_111 = "img/icons/description_icons/111.png";
+	const std::string ICON_BANG_112 = "img/icons/description_icons/112.png";
+	const std::string ICON_STONE_113 = "img/icons/description_icons/113.png";
+	const std::string ICON_COMBO_123 = "img/icons/description_icons/123.png";
+	const std::string ICON_FIRE_BREATH_221 = "img/icons/description_icons/221.png";
+	const std::string ICON_POWER_BUFF_222 = "img/icons/description_icons/222.png";
+	const std::string ICON_FIRE_BALL_223 = "img/icons/description_icons/223.png";
+	const std::string ICON_SMALL_EARTH_BALLS_331 = "img/icons/description_icons/331.png";
+	const std::string ICON_FIRE_LIGHTING_332 = "img/icons/description_icons/332.png";
+	const std::string ICON_SPEED_BUFF_333 = "img/icons/description_icons/333.png";
 }
 namespace textSettings {
 	const std::string STD_FONT_FILE = "fonts/main_font_regular.otf";

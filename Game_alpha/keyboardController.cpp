@@ -51,7 +51,7 @@ void keyboardController::eventHandler(sf::Event &event) {
 					break;
 				}
 				case Keyboard::Num1: {
-					character->addElement(elements::WIND);
+					character->addElement(elements::EARTH);
 					checkCharacterStateAndChangeDefault();
 					break;
 				}
@@ -61,7 +61,7 @@ void keyboardController::eventHandler(sf::Event &event) {
 					break;
 				}
 				case Keyboard::Num3: {
-					character->addElement(elements::EARTH);
+					character->addElement(elements::WIND);
 					checkCharacterStateAndChangeDefault();
 					break;
 				}
