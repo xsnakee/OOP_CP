@@ -16,7 +16,6 @@ class skillObGenerator_t
 	std::list<std::unique_ptr <bullet_t>> &skillGeneratorBulletList;
 	
 public:
-	//skillObGenerator_t();
 	skillObGenerator_t(character_t *_character, std::list<std::unique_ptr <bullet_t>> &_bulletList);
 	virtual ~skillObGenerator_t();
 

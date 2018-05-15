@@ -157,7 +157,9 @@ void mainMenu_t::action() {
 
 		currentItem = itemChoice();
 
-		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			window->close();
+		}
 		if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left) {
 			switch (currentItem) {
 			case 0: {

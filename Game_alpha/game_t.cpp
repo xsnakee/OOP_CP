@@ -81,6 +81,7 @@ void game_t::play() {
 			interfaceEngine->pausedMenuIt->get()->contentList.back()->setFontColor(sf::Color::Yellow);
 			interfaceEngine->pausedMenuIt->get()->contentList.back()->setText("YOU WIN");
 			interfaceEngine->pausedMenuIt->get()->setDisplay(true);
+			interfaceEngine->winWindowIt->get()->setDisplay(true);
 			Mcontroller->menuEventHandler(event);
 			break;
 		}

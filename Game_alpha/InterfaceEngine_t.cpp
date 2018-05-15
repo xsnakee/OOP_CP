@@ -15,10 +15,11 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	createGameStatsWindow();
 	createDescriptionMenu();
 	createMapWindow();
+
+	createWinScreen();
 	createPausedMenu();
 
 	createInterfaceButtons();
-
 
 	cursor.swap(std::unique_ptr<cursor_t>(new cursor_t("img/cursor_aim.png", 20, 20, window)));
 
@@ -274,7 +275,20 @@ void InterfaceEngine_t::updateMissionJournal() {
 		++tempIt;
 	}
 }
+void InterfaceEngine_t::createWinScreen() {
+	sf::Texture *winScreenTexture = new sf::Texture();
+	winScreenTexture->loadFromFile(interface::WIN_CREEN_TEXTURE_FILE);
+	sf::Vector2f windowSize(window->getSize());
+	sf::Vector2f windowPosition(windowSize.x/2 - winScreenTexture->getSize().x/2, 0.f);
 
+	windowsList.push_back(window_t(new InterfaceWindow_t(window,sf::Vector2f(0.f,0.f),windowSize)));
+	winWindowIt = windowsList.end();
+	--winWindowIt;
+	winWindowIt->get()->contentList.push_back(content(new InterfaceSpriteContent_t(window,winScreenTexture,windowPosition)));
+
+	winWindowIt->get()->setDisplay(false);
+	
+}
 
 //MISSION STATISTIC INTERFACE
 void InterfaceEngine_t::createGameStatsWindow() {

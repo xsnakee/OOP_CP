@@ -263,7 +263,6 @@ void skillObGenerator_t::useSkill() {
 		tempTexture->loadFromFile(animation::BULLET_LAVA_TEXTURE_FILE);
 		int amountPools = static_cast<int>(character->getStats().attackRange) / animation::LARGE_SKILL_WIDTH;
 
-		//for (int i = 0; i < amountPools*2; ++i) {
 		{
 			std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 			tempBullet->setRotation(0.f);
