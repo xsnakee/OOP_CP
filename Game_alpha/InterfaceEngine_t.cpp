@@ -13,9 +13,9 @@ InterfaceEngine_t::InterfaceEngine_t(sf::RenderWindow *_window, Level_t &_level)
 	createSkillGeneratorIterface(); 
 	createJournalWindow();
 	createGameStatsWindow();
+	createDescriptionMenu();
 	createMapWindow();
 	createPausedMenu();
-	createDescriptionMenu();
 
 	createInterfaceButtons();
 
@@ -252,6 +252,7 @@ void InterfaceEngine_t::createJournalWindow() {
 	missionWindowIt = windowsList.end();
 	--missionWindowIt;
 	windowsList.back()->setTitle("MISSION JOURNAL");
+	windowsList.back()->setDisplay(false);
 	missionWindowIt->get()->setBgColor(sf::Color::Color(50, 50, 50, 80));
 	missionWindowIt->get()->setBorderColor(sf::Color::Color(238, 238, 238, 80));
 	sf::Vector2f contentPos(0.f, 0.f);
@@ -415,14 +416,17 @@ void InterfaceEngine_t::createInterfaceButtons() {
 
 	//MAP BUTTON
 	buttonPosition.y = buttonPosition.y + buttonList.back()->getSizes().y;
-	buttonList.push_back(button(new IntefaceToggleButton(*mapIt->get(), buttonPosition + buttonMargin + buttonMargin)));
+	buttonList.push_back(button(new IntefaceToggleButton(*mapIt->get(), buttonPosition + buttonMargin * 2.f)));
 	sf::Texture *temp3 = new sf::Texture;
 	temp3->loadFromFile(icon::ICON_BUTTON_MAP);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp3, buttonList.back()->getPos())));
 
 	//SKILL BUTTON
-
-
+	buttonPosition.y = buttonPosition.y + buttonList.back()->getSizes().y ;
+	buttonList.push_back(button(new IntefaceToggleButton(*skillDescriptionWindowIt->get(), buttonPosition + buttonMargin * 3.f)));
+	sf::Texture *temp4 = new sf::Texture;
+	temp4->loadFromFile(icon::ICON_BUTTON_SKILLS);
+	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp4, buttonList.back()->getPos())));
 }
 
 
@@ -461,8 +465,7 @@ void InterfaceEngine_t::setCamera() {
 //SKILL DESCRIPTION INTERFACE
 void InterfaceEngine_t::createDescriptionMenu() {
 	size_t skillsAmount = 10;
-	//MAIN MISSION WINDOW
-	sf::Vector2f windowPosition(STD_BUTTON_SIZE.x + interface::STD_WINDOW_MARGIN_SIZE.x, window->getSize().y / 4.f);
+	sf::Vector2f windowPosition(STD_BUTTON_SIZE.x + interface::STD_WINDOW_MARGIN_SIZE.x, window->getSize().y / 2.f);
 	sf::Vector2f windowSize((icon::ICON_DESC_WIDTH + interface::STD_BORDER_SIZE.x) * 9.f, (skillsAmount + 1) * (icon::ICON_DESC_HEIGHT + interface::STD_BORDER_SIZE.y * 2));
 
 	windowsList.push_back(window_t(new InterfaceWindow_t(window,windowPosition,windowSize)));
