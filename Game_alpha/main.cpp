@@ -26,7 +26,7 @@ int main() {
 		mainMenu->makeMenu();
 		mainMenu->action();
 		do {
-			if (GAME) {
+			if (GAME.get()) {
 				if (GAME->getStatus() == game::RESTART) {
 					GAME->resetGame();
 				}
@@ -34,7 +34,8 @@ int main() {
 		GAME.swap(std::unique_ptr<game_t>(new game_t(window.get(), levelName, difficulty)));
 		GAME->start();
 		} while (GAME->getStatus() == game::RESTART);
-		mainMenu.~unique_ptr();//		mainMenu.get_deleter();		mainMenu.reset();
+		mainMenu.get_deleter();		
+		mainMenu.reset();
 	}
 	
 	return 0;

@@ -77,6 +77,13 @@ void game_t::play() {
 			Mcontroller->menuEventHandler(event);
 			break;
 		}
+		case game::WIN: {
+			interfaceEngine->pausedMenuIt->get()->contentList.back()->setFontColor(sf::Color::Yellow);
+			interfaceEngine->pausedMenuIt->get()->contentList.back()->setText("YOU WIN");
+			interfaceEngine->pausedMenuIt->get()->setDisplay(true);
+			Mcontroller->menuEventHandler(event);
+			break;
+		}
 
 		}
 
@@ -106,15 +113,9 @@ void game_t::setGameStatus(game::status _newStatus) {
 
 void game_t::resetGame() {
 	clock.restart();
-	//KBcontroller.get_deleter();
-	//Mcontroller.get_deleter();
-	//gameEngine.get_deleter();
-	//interfaceEngine.get_deleter();
-	//level.get_deleter();
-
-	KBcontroller.~unique_ptr();
-	Mcontroller.~unique_ptr();
-	gameEngine.~unique_ptr();
-	interfaceEngine.~unique_ptr();
-	level.~unique_ptr();
+	KBcontroller.get_deleter();
+	Mcontroller.get_deleter();
+	gameEngine.get_deleter();
+	interfaceEngine.get_deleter();
+	level.get_deleter();
 }

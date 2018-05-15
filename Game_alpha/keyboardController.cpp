@@ -45,8 +45,7 @@ void keyboardController::eventHandler(sf::Event &event) {
 			if (game->getStatus() != game::PAUSED) {
 				switch (event.key.code) {
 				case Keyboard::E: {
-					character->setPosX(3000.0f);
-					character->setPosY(200.0f);
+					game->setGameStatus(game::WIN);
 					checkCharacterStateAndChangeDefault();
 					break;
 				}
