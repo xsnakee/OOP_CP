@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include <list>
+#include <map>
 #include <iterator>
 #include <memory>
 #include "Level_t.h"
@@ -29,6 +30,8 @@ class InterfaceEngine_t
 	void drawCursor();
 	void setCamera();
 public:
+
+	std::map<std::string, std::list<button>::iterator> buttonsMap;
 
 	std::list<button>::iterator restartButton;
 	std::list<button>::iterator backTomainMenuButton;

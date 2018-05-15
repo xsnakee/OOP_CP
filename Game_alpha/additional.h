@@ -191,6 +191,12 @@ namespace interface {
 	}
 };
 
+namespace buttons {
+	const std::string JOURNAL_KEY_NAME = "journal";
+	const std::string GAME_STATS_KEY_NAME = "gameStats";
+	const std::string MAP_KEY_NAME = "map";
+	const std::string SKILL_KEY_NAME = "skill";
+}
 
 template <typename T> T getRand(T a, T b) {
 	T temp = static_cast<T>(static_cast<int>(a) + (rand() % (static_cast<int>(b - a))));

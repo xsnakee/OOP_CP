@@ -399,6 +399,8 @@ bool InterfaceEngine_t::toggleMenu() {
 //BUTTONS
 
 void InterfaceEngine_t::createInterfaceButtons() {
+
+
 	sf::Vector2f buttonPosition(interface::STD_MARGIN_SIZE.x, window->getSize().y / 4.f);
 	sf::Vector2f buttonMargin(0.f, interface::STD_MARGIN_SIZE.y);
 	//JOURNAL BUTTON
@@ -407,12 +409,20 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	temp->loadFromFile(icon::ICON_BUTTON_JOURNAL);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp, buttonList.back()->getPos())));
 
+	std::list<button>::iterator journalButton = buttonList.end();
+	--journalButton;
+	buttonsMap.insert(std::pair<std::string, std::list<button>::iterator>(buttons::JOURNAL_KEY_NAME, journalButton));
+
 	//GAME STATISTIC BUTTON
 	buttonPosition.y = buttonPosition.y + buttonList.back()->getSizes().y;
 	buttonList.push_back(button(new IntefaceToggleButton(*gameStatsWindowIt->get(), buttonPosition + buttonMargin)));
 	sf::Texture *temp2 = new sf::Texture;
 	temp2->loadFromFile(icon::ICON_BUTTON_GAME_STATISTIC);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp2, buttonList.back()->getPos())));
+
+	std::list<button>::iterator statisticButton = buttonList.end();
+	--statisticButton;
+	buttonsMap.insert(std::pair<std::string, std::list<button>::iterator>(buttons::GAME_STATS_KEY_NAME, statisticButton));
 
 	//MAP BUTTON
 	buttonPosition.y = buttonPosition.y + buttonList.back()->getSizes().y;
@@ -421,12 +431,20 @@ void InterfaceEngine_t::createInterfaceButtons() {
 	temp3->loadFromFile(icon::ICON_BUTTON_MAP);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp3, buttonList.back()->getPos())));
 
+	std::list<button>::iterator mapButton = buttonList.end();
+	--mapButton;
+	buttonsMap.insert(std::pair<std::string, std::list<button>::iterator>(buttons::MAP_KEY_NAME, mapButton));
+
 	//SKILL BUTTON
 	buttonPosition.y = buttonPosition.y + buttonList.back()->getSizes().y ;
 	buttonList.push_back(button(new IntefaceToggleButton(*skillDescriptionWindowIt->get(), buttonPosition + buttonMargin * 3.f)));
 	sf::Texture *temp4 = new sf::Texture;
 	temp4->loadFromFile(icon::ICON_BUTTON_SKILLS);
 	buttonList.back().get()->contentList.push_back(content(new InterfaceSpriteContent_t(window, temp4, buttonList.back()->getPos())));
+
+	std::list<button>::iterator skillsButton = buttonList.end();
+	--skillsButton;
+	buttonsMap.insert(std::pair<std::string, std::list<button>::iterator>(buttons::SKILL_KEY_NAME, skillsButton));
 }
 
 

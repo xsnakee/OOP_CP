@@ -65,6 +65,22 @@ void keyboardController::eventHandler(sf::Event &event) {
 					checkCharacterStateAndChangeDefault();
 					break;
 				}
+				case Keyboard::J: {
+					game->interfaceEngine->buttonsMap[buttons::JOURNAL_KEY_NAME]->get()->action();
+					break;
+				}
+				case Keyboard::T: {
+					game->interfaceEngine->buttonsMap[buttons::GAME_STATS_KEY_NAME]->get()->action();
+					break;
+				}
+				case Keyboard::M: {
+					game->interfaceEngine->buttonsMap[buttons::MAP_KEY_NAME]->get()->action();
+					break;
+				}
+				case Keyboard::K: {
+					game->interfaceEngine->buttonsMap[buttons::SKILL_KEY_NAME]->get()->action();
+					break;
+				}
 
 				}
 			}
