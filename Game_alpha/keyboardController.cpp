@@ -25,7 +25,6 @@ void keyboardController::eventHandler(sf::Event &event) {
 
 		using namespace sf;
 		if (game->getStatus() != game::PAUSED) {
-			//if (event.type == Event::MouseButtonReleased && event.key.code == Mouse::Left) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 				character->attack();
 				checkCharacterStateAndChangeDefault();
@@ -35,8 +34,10 @@ void keyboardController::eventHandler(sf::Event &event) {
 		if (event.type == Event::KeyReleased) {
 			if (event.key.code == Keyboard::Escape) {
 					checkCharacterStateAndChangeDefault();
-					if (game->interfaceEngine->toggleMenu()) {
+					game->interfaceEngine->pause();
+					if (game->interfaceEngine->pausedMenuIt->get()->getDisplayState()) {
 						game->setGameStatus(game::PAUSED);
+
 					}
 					else {
 						game->setGameStatus(game::PLAY);

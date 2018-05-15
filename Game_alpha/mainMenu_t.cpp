@@ -9,12 +9,15 @@ mainMenu_t::mainMenu_t(sf::RenderWindow *_window, std::string &_levelName, size_
 	//TEXTURE  PREFERENCES
 	bgTexture.swap(texture(new sf::Texture));
 	nameTexture.swap(texture(new sf::Texture));
+	startMessageTexture.swap(texture(new sf::Texture));
 	bgTexture->loadFromFile(MENU_BG_TEXTURE_FILE);
 	nameTexture->loadFromFile(NAME_TEXTURE_FILE);
+	startMessageTexture->loadFromFile(START_MESSAGE_TEXTURE_FILE);
 
 	//SPRITES PREFERENCES
 	bgSprite.setTexture(*bgTexture.get());
 	nameSprite.setTexture(*nameTexture.get());
+	startMessageSprite.setTexture(*startMessageTexture.get());
 
 	//TEXT PREFERENCES
 	textFont.loadFromFile(FONT_FILE);
@@ -71,6 +74,10 @@ void mainMenu_t::makeMenu() {
 	nameSprite.setOrigin(static_cast<float>(nameTexture->getSize().x) / 2, static_cast<float>(nameTexture->getSize().y) / 2);//Поменять координаты!!!!!!!!!!!!
 	nameSprite.setPosition(static_cast<float>(winSize.x) / 2, static_cast<float>(nameTexture->getSize().y) / 2);
 
+	//MAKE START MESSAGE SPRITE
+	startMessageSprite.scale(kX, kY);
+	startMessageSprite.setPosition(50.f, window->getSize().y / 4.f);
+
 	//MAKE MENU ITEMS TEXT
 	int menuItemsVerticalMargin = winSize.y / 10;
 	float itemskX = 0.5f;
@@ -107,6 +114,7 @@ void mainMenu_t::draw() {
 	window->clear();
 	window->draw(bgSprite);
 	window->draw(nameSprite);
+	window->draw(startMessageSprite);
 	for (auto &i : menuItemsText) {
 		window->draw(i);
 	}

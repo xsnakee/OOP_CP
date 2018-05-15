@@ -66,6 +66,6 @@ public:
 	void updateMapWindow();
 
 
-	bool toggleMenu();
+	bool pause();
 };
 
