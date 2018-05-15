@@ -106,15 +106,9 @@ void game_t::setGameStatus(game::status _newStatus) {
 
 void game_t::resetGame() {
 	clock.restart();
-	//KBcontroller.get_deleter();
-	//Mcontroller.get_deleter();
-	//gameEngine.get_deleter();
-	//interfaceEngine.get_deleter();
-	//level.get_deleter();
-
-	KBcontroller.~unique_ptr();
-	Mcontroller.~unique_ptr();
-	gameEngine.~unique_ptr();
-	interfaceEngine.~unique_ptr();
-	level.~unique_ptr();
+	KBcontroller.reset();
+	Mcontroller.reset();
+	gameEngine.reset();
+	interfaceEngine.reset();
+	level.reset();
 }
