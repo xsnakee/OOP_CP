@@ -1,5 +1,4 @@
 #pragma once
-#include <initializer_list>
 
 namespace game{
 	enum status {
