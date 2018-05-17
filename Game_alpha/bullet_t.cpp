@@ -1,5 +1,15 @@
 #include "bullet_t.h"
 
+dmgInterval_t::dmgInterval_t(physOb_t &_ob):ob (_ob){
+		startDmgTime = 0;
+	}
+
+	dmgInterval_t::~dmgInterval_t() {
+
+	}
+
+
+//BULLET
 bullet_t::bullet_t() :physOb_t()
 {
 }
@@ -157,3 +167,93 @@ dmgInterval_t &bullet_t::checkObInList(physOb_t &Object) {
 
 	return temp;
 }
+
+
+//GET
+	character_t *bullet_t::getGenericObject()const {
+		return genericObject;
+	}
+
+	sf::Int32 bullet_t::getStartTime() const {
+		return startTime;
+	}
+
+	bulletStats bullet_t::getStats() {
+		return stat;
+	}
+
+	int bullet_t::getElement()const {
+		return stat.element;
+	}
+
+	sf::Int32 bullet_t::getTimer()const {
+		return timer;
+	}
+
+	float bullet_t::getDmg()const {
+		return stat.damage;
+	}
+	float bullet_t::getRng()const {
+		return stat.range;
+	}
+
+	float bullet_t::getAOE() const {
+		return stat.AOE;
+	}
+	
+	bool bullet_t::checkAOE() const {
+		return mass;
+	}
+
+	float bullet_t::getMPCost() const {
+		return stat.mpCost;
+	}
+	//SET
+
+	int bullet_t::setElement(elements::element _element){
+		stat.element = _element;
+		return stat.element;
+	}
+
+	bool bullet_t::setStats(bulletStats &_stats) {
+		mass = (_stats.AOE > FLT_EPSILON) ? true : false;
+		stat = _stats;
+	}
+
+	void bullet_t::setTimer(sf::Int32 _timer) {
+		timer = _timer;
+	}
+
+	void bullet_t::setDmg(float _val) {
+		stat.damage = _val;
+	}
+	void bullet_t::setSpeed(float _val) {
+		stat.speed = _val;
+	}
+
+	void bullet_t::speedMultiple(float _val) {
+		stat.speed *= _val;
+		dX *= _val;
+		dY *= _val;
+	}
+
+	void bullet_t::setRng(float _val) {
+		stat.range = _val;
+	}
+
+	void bullet_t::setAOE(float _val)  {
+		mass = (_val > FLT_EPSILON) ? true : false;
+		stat.AOE = _val;
+	}
+
+	void bullet_t::setType(bool _val) {
+		stat.type = _val;
+	}
+
+	void bullet_t::setDmgDelay(sf::Int32 _time) {
+		dmgInterval = _time;
+	}
+
+	void bullet_t::setMPCost(float _val) {
+		stat.mpCost = _val;
+	}

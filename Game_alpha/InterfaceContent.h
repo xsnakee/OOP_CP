@@ -29,39 +29,16 @@ public:
 	virtual void setTexture(sf::Texture *newTexture);
 	virtual void setText(std::string newStr);
 	//GET
-	sf::Vector2u getSize() const {
-		return sizes;
-	}
-	sf::Vector2f getRelPos()const {
-		return relativePos;
-	}
-	unsigned int getFontSize() const {
-		return fontSize;
-	}
+	sf::Vector2u getSize() const;
+	sf::Vector2f getRelPos()const;
+	unsigned int getFontSize() const;
 	//SET
-	void setRelativePos(sf::Vector2f newCoords) {
-		relativePos = newCoords;
-	}
-
-	virtual void setSize(sf::Vector2u newSizes) {
-		sizes = newSizes;
-	}
-
-	void setFont(sf::Font newFont) {
-		font = newFont;
-	}
-
-	virtual void setFontSize(unsigned int newSize){
-		fontSize = newSize;
-	}
-
-	void setFontColor(sf::Color newColor) {
-		textColor = newColor;
-	}
-
-	void setFontStyle(sf::Text::Style newStyle) {
-		textStyle = newStyle;
-	}
+	void setRelativePos(sf::Vector2f newCoords);
+	virtual void setSize(sf::Vector2u newSizes);
+	void setFont(sf::Font newFont);
+	virtual void setFontSize(unsigned int newSize);
+	void setFontColor(sf::Color newColor);
+	void setFontStyle(sf::Text::Style newStyle);
 };
 
 //SPRITE CONTENT
@@ -81,18 +58,10 @@ public:
 	virtual void resetContent();
 
 	//GET
-	sf::Sprite getSprite() const {
-		return sprite;
-	}
-
-
+	sf::Sprite getSprite() const;
 	//SET
 	void setTexture(sf::Texture *newTexture);
-
-	virtual void setSize(sf::Vector2u newSizes) {
-		sizes = newSizes;
-		sprite.setTextureRect(sf::IntRect(0, 0, sizes.x, sizes.y));
-	}
+	virtual void setSize(sf::Vector2u newSizes);
 };
 
 

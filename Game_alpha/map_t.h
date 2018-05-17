@@ -7,9 +7,6 @@
 #include <memory>
 #include <list>
 
-//const std::string IMG_MAP_PATH = "img/maps/";
-//const std::string MAP_BG_FILE_NAME = "/bg.png";
-
 const std::string MAP_PATH = "maps/";
 const std::string MAP_OBJ_FILE_NAME = "/obj.csv";
 const std::string MAP_BG_TILES_FILE_NAME = "/map_bg.csv";
@@ -31,9 +28,6 @@ private:
 
 	std::string tileFileName;
 	std::shared_ptr<sf::Texture>tile_texture;
-
-	
-	//std::shared_ptr<sf::Texture>mapBgTexture;
 	
 public:
 	sf::Vector2f mainHeroSpawnCoords;
@@ -53,18 +47,9 @@ public:
 	std::string getLvlName() const;
 public:
 	//GET
-
-	sf::Vector2i getSize() const {
-		return size;
-	}
-	sf::Vector2f getFloatSize() const {
-		return sf::Vector2f(static_cast<float>(size.x), static_cast<float>(size.y));
-	}
-
-	sf::Vector2i getTileAmount() const {
-		sf::Vector2i temp(tileAmountX,tileAmountY);
-		return temp;
-	}
+	sf::Vector2i getSize() const;
+	sf::Vector2f getFloatSize() const;
+	sf::Vector2i getTileAmount() const;
 	
 };
 

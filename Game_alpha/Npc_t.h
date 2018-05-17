@@ -21,13 +21,8 @@ public:
 
 	virtual void attack();
 
-	sf::Vector2f getSpotCoords() const{
-		return spotCoords;
-	}
-
-	float getPowerMultiple() const {
-		return powerMultiple;
-	}
+	sf::Vector2f getSpotCoords() const;
+	float getPowerMultiple() const;
 };
 
 

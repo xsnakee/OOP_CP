@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-
 #include <list>
 #include <numeric>
 #include "characterStats_t.h"
@@ -33,8 +32,6 @@ protected:
 
 	sf::Vector2f targetPos;
 	sf::Vector2f spawnCoords;
-
-
 
 	float moveRadius;
 	virtual void animation();
@@ -73,79 +70,25 @@ public:
 	float toHit ()const;
 	void updateTimerDependenceStats();
 public:
-	//GET
-
-	
-	Effect_t *getEffectPtr() {
-		return buff.get();
-	}
+	//GET	
+	Effect_t *getEffectPtr();
 	characterStats_t &getStats();
-
-	character_t *getPtr() {
-		return this;
-	}
-
-	sf::Vector2f getTargetPos() const {
-		return targetPos;
-	}
-
-	sf::Vector2f getSpotCoords() const {
-		return sf::Vector2f(1800.f,1800.f);
-	}
-
-	sf::Vector2f getSpawnCoords() const {
-		return spawnCoords;
-	}
-
-
-	float getMoveRadius() const {
-		return moveRadius;
-	}
-	sf::Clock *getClockPtr() const {
-		return clock;
-	}
-
-
-	size_t getElemStatus() const {
-		return elemStatus;
-	}
-
-	characterTimers_t &getTimer() {
-		return timer;
-	}
-
-
-	std::list<elements::element> getElements() {
-		return skillGeneratorArr;
-	}
-
-	skillObGenerator_t *getSkillGeneratorPtr() {
-		return skill.get();
-	}
-
-	float getComputedDmg() const {
-		float tempDmg = stat.attackPower + getRand(-stat.damageRand, stat.damageRand);
-		return tempDmg;
-	}
+	character_t *getPtr();
+	sf::Vector2f getTargetPos();
+	sf::Vector2f getSpotCoords();
+	sf::Vector2f getSpawnCoords();
+	float getMoveRadius() const;
+	sf::Clock *getClockPtr()const;
+	size_t getElemStatus()const;
+	characterTimers_t &getTimer();
+	std::list<elements::element> getElements();
+	skillObGenerator_t *getSkillGeneratorPtr();
+	float getComputedDmg()const;
+	CharacterState_t *getState()const;
 	//SET
-	float setFrame(float _frame) {
-		frame = _frame;
-		return frame;
-	}
-	sf::Vector2f setTargetPos(sf::Vector2f _targetPos) {
-		targetPos = _targetPos;
-		return targetPos;
-	}
-	
-	CharacterState_t *getState() const {
-		return state.get();
-	}
-
+	float setFrame(float _frame);
+	sf::Vector2f setTargetPos(sf::Vector2f _targetPos);
 	void setStats(characterStats_t &_stats);
-
-
-	void setMoveRadius(float _radius) {
-		moveRadius = _radius;
-	}
+	void setMoveRadius(float _radius);
 };
 

@@ -28,7 +28,20 @@ void cursor_t::setCursorPosition() {
 	sprite.setPosition(globalPos);
 }
 
+//GET
+	
 
+	sf::Sprite cursor_t::getSprite() const {
+		return sprite;
+	}
+
+	sf::Vector2f cursor_t::getPosition(){
+		sf::Vector2i mousePos(sf::Mouse::getPosition(*window));
+		sf::Vector2f globalPos = window->mapPixelToCoords(mousePos);
+		return globalPos;
+	}
+
+//SET
 void cursor_t::setTextureFromFile(std::string fileName) {
 	texture.loadFromFile(fileName);
 	sprite.setTexture(texture);

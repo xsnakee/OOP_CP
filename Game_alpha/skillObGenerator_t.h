@@ -11,7 +11,6 @@ class character_t;
 
 class skillObGenerator_t
 {
-
 	character_t *character;
 	std::list<std::unique_ptr <bullet_t>> &skillGeneratorBulletList;
 	
@@ -20,12 +19,7 @@ public:
 	virtual ~skillObGenerator_t();
 
 	void useSkill();
-
 	void upCharacterStat(characterStats_t &_stats);
-
-
-	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
-		return skillGeneratorBulletList;
-	}
+	std::list<std::unique_ptr <bullet_t>> &getBulletList();
 };
 

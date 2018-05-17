@@ -43,84 +43,28 @@ protected:
 	virtual void toDefaultPosition();
 
 	//GET
-	sf::Vector2f getPos() const {
-		return pos;
-	}
-
-	sf::Vector2f getSizes() const {
-		return sizes;
-	}
-
-	sf::FloatRect getFloatRect()const {
-		return sf::FloatRect(pos,sizes);
-	}
-
-	sf::IntRect getIntRect() const {
-		return sf::IntRect(static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(sizes.x), static_cast<int>(sizes.y));
-	}
-	bool getClickable() const {
-		return clickable;
-	}
-	bool getDisplayState() const {
-		return display;
-	}
-
-	sf::RenderWindow *getWindowPtr()const {
-		return window;
-	}
-
-	sf::Vector2f getBorders() const {
-		return borders;
-	}
+	sf::Vector2f getPos() const;
+	sf::Vector2f getSizes() const;
+	sf::FloatRect getFloatRect()const;
+	sf::IntRect getIntRect() const;
+	bool getClickable() const;
+	bool getDisplayState() const;
+	sf::RenderWindow *getWindowPtr()const;
+	sf::Vector2f getBorders() const;
 
 
 	//SET
-	void setPos(sf::Vector2f &newpos) {
-		pos = newpos;
-		rectangle.setPosition(pos);
-	}
-
-	void setSizes(sf::Vector2f &newSizes) {
-		sizes = newSizes;
-		rectangle.setSize(sizes);
-	}
-
-	void setBgColor(sf::Color newColor) {
-		rectangle.setFillColor(newColor);
-	}
-
-	void setClickble(bool newState) {
-		clickable = newState;
-	}
-
-	void setBorderColor(sf::Color newColor) {
-		outerBorderRect.setFillColor(newColor);
-	}
-
-	void setDisplay(bool newState) {
-		display = newState;
-	}
-
-	void setTitle(std::string newTitle) {
-		title = newTitle;
-		text.setString(title);
-	}
-
-	void setTitlePos(sf::Vector2f _newpos) {
-		textRelativePos = _newpos;
-	}
-	void setTextFontSize(unsigned int size) {
-		text.setCharacterSize(size);
-	}
-
-	void setFont(std::string _path) {
-		font.loadFromFile(_path);
-	}
-	
-	void setTextColor(sf::Color newColor) {
-		text.setFillColor(newColor);
-	}
-
+	void setPos(sf::Vector2f &newpos);
+	void setSizes(sf::Vector2f &newSizes);
+	void setBgColor(sf::Color newColor);
+	void setClickble(bool newState);
+	void setBorderColor(sf::Color newColor);
+	void setDisplay(bool newState);
+	void setTitle(std::string newTitle);
+	void setTitlePos(sf::Vector2f _newpos);
+	void setTextFontSize(unsigned int size);
+	void setFont(std::string _path);
+	void setTextColor(sf::Color newColor);
 
 };
 

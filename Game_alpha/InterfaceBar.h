@@ -35,59 +35,21 @@ public:
 	virtual void toDefaultPosition();
 
 	//GET
-	sf::Vector2f getOuterRectSize() const {
-		return outerRectSize;
-	}
-	sf::Vector2f getInnerRectSize() const {
-		return innerRectSize;
-	}
-
-	sf::Vector2f getPosCoords() const{
-		return posCoords;
-	}
-	sf::Color getOuterColor() const{
-		return outerColor;
-	}
-	sf::Color getInnerColor() const{
-		return innerColor;
-	}
-
-	bool getDisplay() const {
-		return display;
-	}
+	sf::Vector2f getOuterRectSize() const;
+	sf::Vector2f getInnerRectSize() const;
+	sf::Vector2f getPosCoords() const;
+	sf::Color getOuterColor() const;
+	sf::Color getInnerColor() const;
+	bool getDisplay() const ;
 	//SET
-	void setOuterRectSize(sf::Vector2f newSize) {
-		outerRect->setSize(newSize);
-	}
+	void setOuterRectSize(sf::Vector2f newSize);
 
-	void setInnerRectSize(sf::Vector2f newSize) {
-		innerRect->setSize(newSize);
-	}
-
-
-	void setPosCoords(sf::Vector2f newCoords) {
-		posCoords = newCoords;
-		outerRect->setPosition(posCoords);
-		sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
-		innerRect->setPosition(innerRectPos);
-
-	}
-
-	void setOuterRectColor(sf::Color newColor) {
-		outerColor = newColor;
-		outerRect->setFillColor(outerColor);
-	}
-	void setInnerRectColor(sf::Color newColor) {
-		innerColor = newColor;
-		innerRect->setFillColor(innerColor);
-	}
-	void setBorders(sf::Vector2f newBorders) {
-		borders = newBorders;
-	}
-	
-	void serRelativeCoords(sf::Vector2f newCoords) {
-
-	}
+	void setInnerRectSize(sf::Vector2f newSize);
+	void setPosCoords(sf::Vector2f newCoords);
+	void setOuterRectColor(sf::Color newColor);
+	void setInnerRectColor(sf::Color newColor);
+	void setBorders(sf::Vector2f newBorders);
+	void serRelativeCoords(sf::Vector2f newCoords);
 };
 
 class progressBar : public InterfaceBar {
@@ -102,9 +64,7 @@ public:
 	virtual void update();
 
 	virtual void toDefaultPosition();
-	void setRelativePos(sf::Vector2f newCoords) {
-		relativePos = newCoords;
-	}
+	void setRelativePos(sf::Vector2f newCoords);
 };
 
 

@@ -53,6 +53,62 @@ void InterfaceBar::toDefaultPosition(){
 	outerRect->setPosition(posCoords);
 	updateInnerRectPos();
 }
+
+sf::Vector2f InterfaceBar::getOuterRectSize() const {
+		return outerRectSize;
+	}
+	sf::Vector2f InterfaceBar::getInnerRectSize() const {
+		return innerRectSize;
+	}
+
+	sf::Vector2f InterfaceBar::getPosCoords() const{
+		return posCoords;
+	}
+	sf::Color InterfaceBar::getOuterColor() const{
+		return outerColor;
+	}
+	sf::Color InterfaceBar::getInnerColor() const{
+		return innerColor;
+	}
+
+	bool InterfaceBar::getDisplay() const {
+		return display;
+	}
+	//SET
+	void InterfaceBar::setOuterRectSize(sf::Vector2f newSize) {
+		outerRect->setSize(newSize);
+	}
+
+	void InterfaceBar::setInnerRectSize(sf::Vector2f newSize) {
+		innerRect->setSize(newSize);
+	}
+
+
+	void InterfaceBar::setPosCoords(sf::Vector2f newCoords) {
+		posCoords = newCoords;
+		outerRect->setPosition(posCoords);
+		sf::Vector2f innerRectPos((posCoords.x + borders.x), (posCoords.y + borders.y));
+		innerRect->setPosition(innerRectPos);
+
+	}
+
+	void InterfaceBar::setOuterRectColor(sf::Color newColor) {
+		outerColor = newColor;
+		outerRect->setFillColor(outerColor);
+	}
+	void InterfaceBar::setInnerRectColor(sf::Color newColor) {
+		innerColor = newColor;
+		innerRect->setFillColor(innerColor);
+	}
+	void InterfaceBar::setBorders(sf::Vector2f newBorders) {
+		borders = newBorders;
+	}
+	
+	void InterfaceBar::serRelativeCoords(sf::Vector2f newCoords) {
+
+	}
+
+
 //PROGRESS BAR
 progressBar::progressBar(sf::RenderWindow *_window, sf::Vector2f _relativeCoords, float &_curVal, float &_maxValue) : InterfaceBar(_window), curValue(_curVal), maxValue(_maxValue)
 {
@@ -99,6 +155,12 @@ void progressBar::toDefaultPosition() {
 	setPosCoords(tempPos);
 }
 
+
+
+	void progressBar::setRelativePos(sf::Vector2f newCoords) {
+		relativePos = newCoords;
+	}
+	
 
 //LIFE BAR
 LifeBar::LifeBar(sf::RenderWindow *_window, character_t *_character) :InterfaceBar(_window)

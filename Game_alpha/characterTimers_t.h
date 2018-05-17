@@ -2,8 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 
-
-
 class characterTimers_t
 {
 	struct timerStats {

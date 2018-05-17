@@ -4,7 +4,6 @@
 
 CharacterState_t::CharacterState_t(character_t &__mainCharacter):mainCharacter(__mainCharacter)
 {
-	//mainCharacter = __mainCharacter;
 	targetCharacter = nullptr;
 	stateNum = 0;
 	moveXdistanceFromSpawn = 200.f;
@@ -13,7 +12,6 @@ CharacterState_t::CharacterState_t(character_t &__mainCharacter):mainCharacter(_
 
 CharacterState_t::CharacterState_t(CharacterState_t &_state):mainCharacter(_state.getCharacterPtr())
 {
-	//mainCharacter = _state.getCharacterPtr();
 	targetCharacter = _state.getTargetCharacterPtr();
 	stateNum = _state.stateNum;
 	mainCharacter.setTargetPos(_state.getCharacterPtr().getTargetPos());
@@ -43,7 +41,25 @@ void CharacterState_t::reversXTrajectory() {
 	moveXdistanceFromSpawn = -moveXdistanceFromSpawn;
 }
 
+//RESET
+void  CharacterState_t::resetTargetCharacter() {
+	targetCharacter = NULL;
+}
 
+//GET
+character_t & CharacterState_t::getCharacterPtr() const {
+	return mainCharacter;
+}
+character_t * CharacterState_t::getTargetCharacterPtr()const {
+	return targetCharacter;
+}
+int  CharacterState_t::getStateNum() const {
+	return stateNum;
+}
+//SET
+void  CharacterState_t::setTargetCharacter(character_t *character) {
+	targetCharacter = character;
+}
 
 //CHARACTER STATE MOVE
 

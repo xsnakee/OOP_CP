@@ -28,25 +28,12 @@ public:
 
 	bool leaveFromSpot();
 	void reversXTrajectory();
-
-
-
-
-	character_t &getCharacterPtr() const {
-		return mainCharacter;
-	}
-	character_t *getTargetCharacterPtr()const {
-		return targetCharacter;
-	}
-	int getStateNum() const {
-		return stateNum;
-	}
-	void setTargetCharacter(character_t *character) {
-		targetCharacter = character;
-	}
-	void resetTargetCharacter() {
-		targetCharacter = NULL;
-	}
+	
+	character_t &getCharacterPtr() const;
+	character_t *getTargetCharacterPtr()const;
+	int getStateNum() const;
+	void setTargetCharacter(character_t *character);
+	void resetTargetCharacter();
 };
 
 

@@ -171,3 +171,19 @@ bool map_t::fillTheMapTiles() {
 
 	return true;
 }
+
+
+//GET
+
+	sf::Vector2i map_t::getSize() const {
+		return size;
+	}
+	sf::Vector2f map_t::getFloatSize() const {
+		return sf::Vector2f(static_cast<float>(size.x), static_cast<float>(size.y));
+	}
+
+	sf::Vector2i map_t::getTileAmount() const {
+		sf::Vector2i temp(tileAmountX,tileAmountY);
+		return temp;
+	}
+	

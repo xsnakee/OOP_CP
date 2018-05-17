@@ -44,17 +44,6 @@ character_t::~character_t()
 
 
 
-void character_t::setStats(characterStats_t &_stats) {
-
-	stat = _stats;
-	timer.attackCDcorrection(stat.attackSpeed);
-	timer.castDelayCorrection(stat.castSpeed);
-
-}
-
-characterStats_t &character_t::getStats() {
-	return stat;
-}
 
 void character_t::defaultStats() {
 	stat.defaultStats();
@@ -240,3 +229,86 @@ void character_t::updateTimerDependenceStats() {
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
 }
+
+
+//GET
+characterStats_t &character_t::getStats() {
+	return stat;
+}
+	
+	Effect_t *character_t::getEffectPtr() {
+		return buff.get();
+	}
+
+	character_t *character_t::getPtr() {
+		return this;
+	}
+
+	sf::Vector2f character_t::getTargetPos()  {
+		return targetPos;
+	}
+
+	sf::Vector2f character_t::getSpotCoords()  {
+		return sf::Vector2f(1800.f,1800.f);
+	}
+
+	sf::Vector2f character_t::getSpawnCoords() {
+		return spawnCoords;
+	}
+
+
+	float character_t::getMoveRadius() const {
+		return moveRadius;
+	}
+	sf::Clock *character_t::getClockPtr() const {
+		return clock;
+	}
+
+
+	size_t character_t::getElemStatus() const {
+		return elemStatus;
+	}
+
+	characterTimers_t &character_t::getTimer() {
+		return timer;
+	}
+
+
+	std::list<elements::element> character_t::getElements() {
+		return skillGeneratorArr;
+	}
+
+	skillObGenerator_t *character_t::getSkillGeneratorPtr() {
+		return skill.get();
+	}
+
+	float character_t::getComputedDmg() const {
+		float tempDmg = stat.attackPower + getRand(-stat.damageRand, stat.damageRand);
+		return tempDmg;
+	}
+	CharacterState_t *character_t::getState() const {
+		return state.get();
+	}
+
+	//SET
+
+	void character_t::setStats(characterStats_t &_stats) {
+
+		stat = _stats;
+		timer.attackCDcorrection(stat.attackSpeed);
+		timer.castDelayCorrection(stat.castSpeed);
+	}
+	float character_t::setFrame(float _frame) {
+		frame = _frame;
+		return frame;
+	}
+	sf::Vector2f character_t::setTargetPos(sf::Vector2f _targetPos) {
+		targetPos = _targetPos;
+		return targetPos;
+	}
+
+
+
+	void character_t::setMoveRadius(float _radius) {
+		moveRadius = _radius;
+	}

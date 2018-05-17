@@ -53,29 +53,12 @@ public:
 	void generateBosses();
 	
 	//GET
-	game::status getGameStatus() const {
-		return status;
-	}
-
-	float setSpeed(float _time) {
-		speed = _time/speedMultipple;
-		return speed;
-	}
-
-	float getSpeed()const {
-		return speed;
-	}
-
-	float getCurTimeSec() const {
-		return clock->getElapsedTime().asSeconds();
-	}
-
-	float getSpeedMultipple()const {
-		return speedMultipple;
-	}
-
-	std::list<std::unique_ptr <bullet_t>> &getBulletList() {
-		return level.bulletsList;
-	}
+	game::status getGameStatus() const;
+	float getSpeed()const;
+	float getCurTimeSec() const;
+	float getSpeedMultipple()const;
+	std::list<std::unique_ptr <bullet_t>> &getBulletList();
+	//SET
+	float setSpeed(float _time);
 };
 

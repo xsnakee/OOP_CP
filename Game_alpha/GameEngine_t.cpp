@@ -318,7 +318,31 @@ void GameEngine_t::collisionEngine() {
 }
 
 
+//GET
+	game::status GameEngine_t::getGameStatus() const {
+		return status;
+	}
+	float GameEngine_t::getSpeed()const {
+		return speed;
+	}
 
+	float GameEngine_t::getCurTimeSec() const {
+		return clock->getElapsedTime().asSeconds();
+	}
+
+	float GameEngine_t::getSpeedMultipple()const {
+		return speedMultipple;
+	}
+
+	std::list<std::unique_ptr <bullet_t>> &GameEngine_t::getBulletList() {
+		return level.bulletsList;
+	}
+//SET	
+
+	float GameEngine_t::setSpeed(float _time) {
+		speed = _time/speedMultipple;
+		return speed;
+	}
 
 
 

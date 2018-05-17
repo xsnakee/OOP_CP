@@ -64,3 +64,82 @@ void InterfaceWindow_t::toDefaultPosition() {
 	text.setPosition(tempPos + pos + textRelativePos);
 	outerBorderRect.setPosition(tempPos + pos - borders);
 }
+
+//GET
+	sf::Vector2f InterfaceWindow_t::getPos() const {
+		return pos;
+	}
+
+	sf::Vector2f InterfaceWindow_t::getSizes() const {
+		return sizes;
+	}
+
+	sf::FloatRect InterfaceWindow_t::getFloatRect()const {
+		return sf::FloatRect(pos,sizes);
+	}
+
+	sf::IntRect InterfaceWindow_t::getIntRect() const {
+		return sf::IntRect(static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(sizes.x), static_cast<int>(sizes.y));
+	}
+	bool InterfaceWindow_t::getClickable() const {
+		return clickable;
+	}
+	bool InterfaceWindow_t::getDisplayState() const {
+		return display;
+	}
+
+	sf::RenderWindow *InterfaceWindow_t::getWindowPtr()const {
+		return window;
+	}
+
+	sf::Vector2f InterfaceWindow_t::getBorders() const {
+		return borders;
+	}
+
+
+	//SET
+	void InterfaceWindow_t::setPos(sf::Vector2f &newpos) {
+		pos = newpos;
+		rectangle.setPosition(pos);
+	}
+
+	void InterfaceWindow_t::setSizes(sf::Vector2f &newSizes) {
+		sizes = newSizes;
+		rectangle.setSize(sizes);
+	}
+
+	void InterfaceWindow_t::setBgColor(sf::Color newColor) {
+		rectangle.setFillColor(newColor);
+	}
+
+	void InterfaceWindow_t::setClickble(bool newState) {
+		clickable = newState;
+	}
+
+	void InterfaceWindow_t::setBorderColor(sf::Color newColor) {
+		outerBorderRect.setFillColor(newColor);
+	}
+
+	void InterfaceWindow_t::setDisplay(bool newState) {
+		display = newState;
+	}
+
+	void InterfaceWindow_t::setTitle(std::string newTitle) {
+		title = newTitle;
+		text.setString(title);
+	}
+
+	void InterfaceWindow_t::setTitlePos(sf::Vector2f _newpos) {
+		textRelativePos = _newpos;
+	}
+	void InterfaceWindow_t::setTextFontSize(unsigned int size) {
+		text.setCharacterSize(size);
+	}
+
+	void InterfaceWindow_t::setFont(std::string _path) {
+		font.loadFromFile(_path);
+	}
+	
+	void InterfaceWindow_t::setTextColor(sf::Color newColor) {
+		text.setFillColor(newColor);
+	}

@@ -351,3 +351,10 @@ void skillObGenerator_t::useSkill() {
 void skillObGenerator_t::upCharacterStat(characterStats_t &_stats) {
 	character->getStats().upStat(_stats);
 }
+
+
+//GET
+std::list<std::unique_ptr <bullet_t>> &skillObGenerator_t::getBulletList(){
+
+		return skillGeneratorBulletList;
+}

@@ -23,6 +23,44 @@ void InterfaceContent::setTexture(sf::Texture *newTexture){
 void InterfaceContent::setText(std::string newStr) {
 
 }
+
+//GET
+	sf::Vector2u InterfaceContent::getSize() const {
+		return sizes;
+	}
+	sf::Vector2f InterfaceContent::getRelPos()const {
+		return relativePos;
+	}
+	unsigned int InterfaceContent::getFontSize() const {
+		return fontSize;
+	}
+	//SET
+	void InterfaceContent::setRelativePos(sf::Vector2f newCoords) {
+		relativePos = newCoords;
+	}
+
+	void InterfaceContent::setSize(sf::Vector2u newSizes) {
+		sizes = newSizes;
+	}
+
+	void InterfaceContent::setFont(sf::Font newFont) {
+		font = newFont;
+	}
+
+	void InterfaceContent::setFontSize(unsigned int newSize){
+		fontSize = newSize;
+	}
+
+	void InterfaceContent::setFontColor(sf::Color newColor) {
+		textColor = newColor;
+	}
+
+	void InterfaceContent::setFontStyle(sf::Text::Style newStyle) {
+		textStyle = newStyle;
+	}
+
+
+
 //SPRITE CONTENT
 InterfaceSpriteContent_t::InterfaceSpriteContent_t(sf::RenderWindow *_window, sf::Texture *_texture, sf::Vector2f _defaultCoords, sf::Vector2f _relativePos):
 	InterfaceContent(_window,_defaultCoords, _relativePos)
@@ -69,6 +107,19 @@ void InterfaceSpriteContent_t::toDefaultPosition() {
 void InterfaceSpriteContent_t::resetContent() {
 	texture.get_deleter();
 }
+
+//GET
+	sf::Sprite InterfaceSpriteContent_t::getSprite() const {
+		return sprite;
+	}
+
+
+//SET
+
+	void InterfaceSpriteContent_t::setSize(sf::Vector2u newSizes) {
+		sizes = newSizes;
+		sprite.setTextureRect(sf::IntRect(0, 0, sizes.x, sizes.y));
+	}
 
 
 

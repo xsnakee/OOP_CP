@@ -69,6 +69,17 @@ void Npc_t::setTypeStats() {
 	timer.attackCDcorrection(stat.attackSpeed);
 	timer.castDelayCorrection(stat.castSpeed);
 }
+//GET
+
+
+
+	sf::Vector2f Npc_t::getSpotCoords() const{
+		return spotCoords;
+	}
+
+	float Npc_t::getPowerMultiple() const {
+		return powerMultiple;
+	}
 
 //MAGE CLASS
 

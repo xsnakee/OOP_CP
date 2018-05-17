@@ -35,3 +35,40 @@ ground_t::ground_t(std::shared_ptr<sf::Texture>_texture, float _posX, float _pos
 ground_t::~ground_t()
 {
 }
+
+//GET
+	std::shared_ptr<sf::Texture> ground_t::getTexture() const {
+		return texture;
+	}
+
+	sf::Sprite ground_t::getSprite() const {
+		return sprite;
+	}
+
+	int ground_t::getCoordX() const {
+		return spriteCoordX;
+	}
+
+	int ground_t::getCoordY() const {
+		return spriteCoordY;
+	}
+
+	int ground_t::getHeight() const {
+		return height;
+	}
+
+	int ground_t::getWidth() const {
+		return width;
+	}
+
+	float ground_t::getPosX() const {
+		return posX;
+	}
+
+	float ground_t::getPosY() const {
+		return posY;
+	}
+
+	int ground_t::getId() const {
+		return id;
+	}

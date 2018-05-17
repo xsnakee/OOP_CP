@@ -185,3 +185,140 @@ void physOb_t::updateFrame() {
 void physOb_t::animation() {
 
 }
+
+
+//GET
+sf::FloatRect physOb_t::getCollisionRect() const {
+		float correctionError = animation::HEROES_SPRITE_COLLISION_CORRECTION_BORDER;
+		return sf::FloatRect(posX + correctionError, posY + correctionError, getWidth()- correctionError,getHeight() - correctionError);
+	}
+
+	physOb_t *physOb_t::getPtr() {
+		return this;
+	}
+
+	float physOb_t::getFrame() const {
+		return frame;
+	}
+	obPreference &physOb_t::getSpritePref() {
+		return spritePref;
+	}
+	sf::Sprite &physOb_t::getSprite() {
+		return spritePref.getSprite();
+	}
+	int physOb_t::getWidth() const {
+		return spritePref.getWidth();
+	}
+	int physOb_t::getHeight()const {
+		return spritePref.getHeight();
+	}
+	int physOb_t::getFraction() const {
+		return fraction;
+	}
+
+	float physOb_t::getdX() const {
+		return dX;
+	}
+
+	float physOb_t::getdY() const {
+		return dY;
+	}
+
+	float physOb_t::getPosX() const {
+		return posX;
+	}
+
+	float physOb_t::getPosY() const {
+		return posY;
+	}
+
+	bool physOb_t::getDestroyble() const {
+		return destroyble;
+	}
+
+	bool physOb_t::getAlive() const {
+		return alive;
+	}
+
+	bool physOb_t::getCollision() const {
+		return collision;
+	}
+
+	int physOb_t::gethitsToDestroy() const {
+		return hitsToDestroy;
+	}
+
+	sf::Int32 physOb_t::getStartTime() const {
+		return 0;
+	}
+	sf::Int32 physOb_t::getTimeCd()const {
+		return std::numeric_limits<sf::Int32>::max();
+	}
+
+	sf::Vector2f physOb_t::getPos() const {	
+		return sf::Vector2f (posX, posY);
+	}
+
+	sf::Vector2f physOb_t::getPosOfCenter() const {
+		return sf::Vector2f(posX + getWidth()/2, posY + getHeight() / 2);
+	}
+	sf::FloatRect physOb_t::getFloatRect() const {
+		return sf::FloatRect(posX, posY, static_cast<float>(getWidth()), static_cast<float>(getHeight()));
+	}
+
+	//SET
+
+
+	void physOb_t::setSpriteSize(int _x, int _y){
+		spritePref.setSize(_x, _y);
+	}
+	void physOb_t::setRotation(float _val) {
+		spritePref.setRotation(_val);
+	}
+	float physOb_t::setPosX(float _x){
+		posX = _x;
+		return posX;
+	}
+
+	float physOb_t::setPosY(float _y){
+		posY = _y;
+		return posY;
+	}
+	int physOb_t::setFraction(int _fract) {
+		fraction = _fract;
+		return fraction;
+	}
+	bool physOb_t::setDestroyble(bool _d){
+		destroyble = _d;
+		return destroyble;
+	}
+
+	bool physOb_t::setAlive(bool _live){
+		alive = _live;
+		return alive;
+	}
+
+	bool physOb_t::setCollision(bool _collision){
+		collision = _collision;
+		return collision;
+	}
+
+	int physOb_t::sethitsToDestroy(int _hitsToDestroy){
+		hitsToDestroy = _hitsToDestroy;
+		return hitsToDestroy;
+	}
+
+	void physOb_t::setTexturePtr(std::shared_ptr<sf::Texture> &newTexture) {
+		spritePref.setTexturePtr(newTexture);
+	}
+
+
+	float physOb_t::setdX(float _x) {
+		dX = _x;
+		return dX;
+	}
+
+	float physOb_t::setdY(float _y) {
+		dY = _y;
+		return dY;
+	}

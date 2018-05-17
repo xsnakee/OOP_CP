@@ -11,7 +11,6 @@ class obPreference
 private:
 	std::shared_ptr<sf::Texture> texture;
 	sf::Sprite sprite;
-
 	int spriteCoordX;
 	int spriteCoordY;
 	int height;
@@ -26,60 +25,23 @@ public:
 
 	void setOriginToCenter();
 	//GET
-	std::shared_ptr<sf::Texture> &getTextureSharedPtr(){
-		return texture;
-	}
-
-	sf::Texture getTexture() const{
-		return *texture;
-	}
-
-	sf::Sprite &getSprite() {
-		return sprite;
-	}
-
-	int getCoordX() const {
-		return spriteCoordX;
-	}
-	int getCoordY() const {
-		return spriteCoordY;
-	}
-	int getHeight() const {
-		return height;
-	}
-	int getWidth() const {
-		return width;
-	}
+	std::shared_ptr<sf::Texture> &getTextureSharedPtr();
+	sf::Texture getTexture() const;
+	sf::Sprite &getSprite();
+	int getCoordX() const;
+	int getCoordY() const;
+	int getHeight() const;
+	int getWidth() const;
 
 	//SET
-	void setTexturePtr(std::shared_ptr<sf::Texture> &newTexture) {
-		texture = newTexture;
-		sprite.setTexture(*texture);
-	}
+	void setTexturePtr(std::shared_ptr<sf::Texture> &newTexture);
 
-	void setTexturePos(int coordX, int coordY) {
-		spriteCoordX = coordX;
-		spriteCoordY = coordY;
-		sprite.setTextureRect(sf::IntRect(coordX,coordY,width,height));
-	}
-	void setSize( int newWidth,int newHeight) {
-		width = newWidth;
-		height = newHeight;
-		sprite.setTextureRect(sf::IntRect(spriteCoordX, spriteCoordY, width, height));
-	}
-
-	void setSpritePos(float coordX, float coordY) {
-		sprite.setPosition(coordX, coordY);
-	}
-
-	void setRotation(float _rotation) {
-		sprite.setRotation(_rotation);
-	}
+	void setTexturePos(int coordX, int coordY);
+	void setSize( int newWidth,int newHeight);
+	void setSpritePos(float coordX, float coordY);
+	void setRotation(float _rotation);
 
 	//FOR CHECK COLLISION
-	sf::FloatRect getRect()const {
-		sf::FloatRect rect(static_cast<float>(spriteCoordX), static_cast<float>(spriteCoordY), static_cast<float>(width), static_cast<float>(height));
-		return rect;
-	}
+	sf::FloatRect getRect()const;
 };
 

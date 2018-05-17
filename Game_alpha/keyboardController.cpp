@@ -113,3 +113,10 @@ void keyboardController::eventHandler(sf::Event &event) {
 			checkCharacterStateAndChangeDefault();
 		}
 }
+
+
+//GET
+
+	character_t * keyboardController::getPlayerCharPtr()const {
+		return character;
+	}

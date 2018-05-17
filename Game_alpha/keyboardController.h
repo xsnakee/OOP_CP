@@ -14,10 +14,6 @@ public:
 	keyboardController(character_t *_mainHero, game_t *_game);
 	virtual ~keyboardController();
 
-	character_t * getPlayerCharPtr()const {
-		return character;
-	}
-
-
 	void eventHandler(sf::Event &event);
+	character_t * getPlayerCharPtr()const;
 };

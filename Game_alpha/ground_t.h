@@ -25,40 +25,14 @@ public:
 
 
 	//GET
-	std::shared_ptr<sf::Texture> getTexture() const {
-		return texture;
-	}
-
-	sf::Sprite getSprite() const {
-		return sprite;
-	}
-
-	int getCoordX() const {
-		return spriteCoordX;
-	}
-
-	int getCoordY() const {
-		return spriteCoordY;
-	}
-
-	int getHeight() const {
-		return height;
-	}
-
-	int getWidth() const {
-		return width;
-	}
-
-	float getPosX() const {
-		return posX;
-	}
-
-	float getPosY() const {
-		return posY;
-	}
-
-	int getId() const {
-		return id;
-	}
+	std::shared_ptr<sf::Texture> getTexture() const;
+	sf::Sprite getSprite() const;
+	int getCoordX() const;
+	int getCoordY() const;
+	int getHeight() const;
+	int getWidth() const;
+	float getPosX() const;
+	float getPosY() const;
+	int getId() const;
 };
 

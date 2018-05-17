@@ -19,20 +19,10 @@ public:
 
 
 	//GET
-	
-
-	sf::Sprite getSprite() const {
-		return sprite;
-	}
-
-	sf::Vector2f getPosition(){
-		sf::Vector2i mousePos(sf::Mouse::getPosition(*window));
-		sf::Vector2f globalPos = window->mapPixelToCoords(mousePos);
-		return globalPos;
-	}
+	sf::Sprite getSprite() const;
+	sf::Vector2f getPosition();
 
 	//SET
-
 	void setTextureFromFile(std::string fileName);
 };
 
