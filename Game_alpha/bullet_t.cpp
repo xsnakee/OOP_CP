@@ -218,6 +218,7 @@ dmgInterval_t &bullet_t::checkObInList(physOb_t &Object) {
 	bool bullet_t::setStats(bulletStats &_stats) {
 		mass = (_stats.AOE > FLT_EPSILON) ? true : false;
 		stat = _stats;
+		return mass;
 	}
 
 	void bullet_t::setTimer(sf::Int32 _timer) {

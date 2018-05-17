@@ -247,7 +247,6 @@ void GameEngine_t::checkAlive() {
 		for (int i = 0; tempCharIter != level.bossesListIt; ++i, ++tempCharIter){
 		if (tempCharIter != level.mainHero) {
 			if (!(*tempCharIter)->getAlive()) {
-				tempCharIter->get_deleter();
 				level.charactersList.erase(tempCharIter);
 				level.getMission().ånemyKilled();
 			}

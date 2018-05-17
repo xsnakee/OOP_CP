@@ -34,7 +34,6 @@ bool Effect_t::timerIsOver() {
 
 void Effect_t::cancelEffect() {
 	character->getStats().defaultStats();
-	character->updateTimerDependenceStats();
 }
 
 void Effect_t::checkActivity() {

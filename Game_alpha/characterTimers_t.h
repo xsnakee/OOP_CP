@@ -11,7 +11,8 @@ class characterTimers_t
 	};
 	//get init time in Milliseconds
 	sf::Clock *clock;
-	std::map<std::string, timerStats> timersList;
+	//std::map<std::string, timerStats> timersList;
+	std::vector<timerStats> timersList;
 	const std::string attackCDkey = "attackCD";
 	const std::string castDelaykey = "castDelay";
 	const std::string skillGenerationCDkey = "skillGenerationCD";

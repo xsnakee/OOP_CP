@@ -12,7 +12,7 @@ const int windowWidth = 1600;const int windowHeight = 900;
 
 int main() {
 	srand(static_cast<unsigned int>(time(NULL)));
-	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "The Last Of Light",sf::Style::Fullscreen));
+	std::unique_ptr<RenderWindow> window(new RenderWindow(VideoMode(windowWidth, windowHeight), "The Last Of Light"));//,sf::Style::Fullscreen));
 	
 
 
