@@ -70,6 +70,7 @@ public:
 
 
 	bool pause();
+	bool hideButtons();
 };
 
 namespace icon {

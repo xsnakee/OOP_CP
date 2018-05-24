@@ -60,7 +60,7 @@ TeantBossNpc_t::TeantBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<s
 	setSkills({ 3,6,24,10,18,2 });
 	stat.stdattackPower = 50.f;
 	stat.attackRange = 150.f;
-	stat.stdPhysDef = 40.f;
+	stat.stdPhysDef = 50.f;
 	stat.stdMagDef = 25.f;
 	stat.damageRand = 15.f;
 	stat.stdHP = 550.f;
@@ -111,7 +111,7 @@ BlackDragonBossNpc_t::BlackDragonBossNpc_t(std::shared_ptr<sf::Texture>_texture,
 	setSkills({ 24,4,17,18,2 });
 	stat.stdattackPower = 70.f;
 	stat.attackRange = 200.f;
-	stat.stdPhysDef = 30.f;
+	stat.stdPhysDef = 50.f;
 	stat.stdMagDef = 20.f;
 	stat.damageRand = 15.f;
 	stat.stdHP = 550.f;
@@ -134,9 +134,9 @@ EnhBpssNpc_t::EnhBpssNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::
 	BossNpc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
 	setSkills({ 1,3,6,2,11,5,12 });
-	stat.stdattackPower = 90.f;
+	stat.stdattackPower = 80.f;
 	stat.attackRange = 300.f;
-	stat.stdPhysDef = 20.f;
+	stat.stdPhysDef = 40.f;
 	stat.stdMagDef = 50.f;
 	stat.damageRand = 10.f;
 	stat.stdHP = 650.f;
@@ -159,11 +159,11 @@ DQBossNpc_t::DQBossNpc_t(std::shared_ptr<sf::Texture>_texture, std::list<std::un
 	BossNpc_t(_texture, _bulletList, _clock, _spotCoords, _width, _height, _multiple)
 {
 	setSkills({ 6,2,11,5,12,4,7 });
-	stat.stdattackPower = 100.f;
+	stat.stdattackPower = 80.f;
 	stat.attackRange = 350.f;
 	stat.stdPhysDef = 40.f;
 	stat.stdMagDef = 40.f;
-	stat.damageRand = 30.f;
+	stat.damageRand = 10.f;
 	stat.stdHP = 500.f;
 	stat.visionDistance = 400.f;
 	stat.stdAttackSpeed = 2.f;

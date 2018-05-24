@@ -34,13 +34,15 @@ void keyboardController::eventHandler(sf::Event &event) {
 			if (event.key.code == Keyboard::Escape) {
 					checkCharacterStateAndChangeDefault();
 					game->interfaceEngine->pause();
-					if (game->interfaceEngine->pausedMenuIt->get()->getDisplayState()) {
-						game->setGameStatus(game::PAUSED);
-
+					if (game->getStatus() == game::PAUSED || game->getStatus() == game::PLAY) {
+						if (game->interfaceEngine->pausedMenuIt->get()->getDisplayState()) {
+							game->setGameStatus(game::PAUSED);
+						}
+						else {
+							game->setGameStatus(game::PLAY);
+						}
 					}
-					else {
-						game->setGameStatus(game::PLAY);
-					}				
+									
 			}
 			if (game->getStatus() != game::PAUSED) {
 				switch (event.key.code) {

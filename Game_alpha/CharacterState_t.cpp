@@ -99,8 +99,10 @@ void CharacterStateMove_t::Action() {
 	}
 		if (vectorLength > 1.f ) {
 
-			float  kX = (distanceX / abs(distanceX)) * mainCharacter.getStats().speed;
-			float  kY = (distanceY / abs(distanceY)) * mainCharacter.getStats().speed;
+			int x = (distanceX > 0) ? 1 : -1;
+			int y = (distanceY > 0) ? 1 : -1;
+			float  kX = static_cast<float>(x) * mainCharacter.getStats().speed;
+			float  kY = static_cast<float>(y) * mainCharacter.getStats().speed;
 			
 			
 			if (abs(distanceX) > mainCharacter.getWidth() / 2) {
@@ -154,9 +156,10 @@ void CharacterStateFolow_t::Action()
 		if (vectorLength < (mainCharacter.getStats().attackRange)) {
 			mainCharacter.changeState(new CharacterStateAttack_t(*this));
 		}
-
-		float  kX = (distanceX / abs(distanceX) - FLT_EPSILON) * mainCharacter.getStats().speed;
-		float  kY = (distanceY / abs(distanceY) - FLT_EPSILON) * mainCharacter.getStats().speed;
+		int x = (distanceX > 0) ? 1 : -1;
+		int y = (distanceY > 0) ? 1 : -1;
+		float  kX = static_cast<float>(x) * mainCharacter.getStats().speed;
+		float  kY = static_cast<float>(y) * mainCharacter.getStats().speed;
 
 		
 		if (abs(distanceX) > mainCharacter.getWidth() / 2) {

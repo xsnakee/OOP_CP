@@ -108,7 +108,7 @@ void MageNpc_t::setTypeStats() {
 	stat.stdPhysDef = 5.f;
 	stat.stdMagDef = 15.f;
 	stat.damageRand = 2.f;
-	stat.stdHP = 50.f;
+	stat.stdHP = 70.f;
 	stat.visionDistance = 220.f;
 	stat.stdAttackSpeed = 3.f;
 	stat.stdSpeed = 0.1f;
@@ -137,9 +137,9 @@ void WarriorNpc_t::setTypeStats() {
 	stat.stdMagDef = 5.f;
 	stat.stdattackPower = 20.f;
 	stat.damageRand = 10.f;
-	stat.stdHP = 70.f;
+	stat.stdHP = 90.f;
 	stat.visionDistance = 250.f;
-	stat.stdAttackSpeed = 5.f;
+	stat.stdAttackSpeed = 7.f;
 	stat.stdSpeed = 0.16f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
@@ -166,7 +166,7 @@ void ZombieWitch_t::setTypeStats() {
 	stat.stdMagDef = 5.f;
 	stat.stdattackPower = 30.f;
 	stat.damageRand = 7.f;
-	stat.stdHP = 50.f;
+	stat.stdHP = 100.f;
 	stat.visionDistance = 300.f;
 	stat.stdAttackSpeed = 1.f;
 	stat.stdSpeed = 0.09f;
@@ -193,9 +193,9 @@ void FatZombie_t::setTypeStats() {
 	stat.attackRange = 70.f;
 	stat.stdPhysDef = 30.f;
 	stat.stdMagDef = 30.f;
-	stat.stdattackPower = 50.f;
+	stat.stdattackPower = 60.f;
 	stat.damageRand = 7.f;
-	stat.stdHP = 100.f;
+	stat.stdHP = 120.f;
 	stat.visionDistance = 250.f;
 	stat.stdAttackSpeed = 1.f;
 	stat.stdSpeed = 0.08f;
@@ -227,7 +227,7 @@ void SkeletonMage_t::setTypeStats() {
 	stat.damageRand = 15.f;
 	stat.stdHP = 110.f;
 	stat.visionDistance = 350.f;
-	stat.stdAttackSpeed = -2.f;
+	stat.stdAttackSpeed = -4.f;
 	stat.stdSpeed = 0.11f;
 	defaultAllStats();
 	Npc_t::setTypeStats();
