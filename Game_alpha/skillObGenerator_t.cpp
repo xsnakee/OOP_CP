@@ -144,7 +144,7 @@ void skillObGenerator_t::useSkill() {
 
 		tempBullet->setMPCost(10.f);
 
-		float tempDmg = 10.f + character->getComputedDmg();
+		float tempDmg = 20.f + character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
 
@@ -309,7 +309,7 @@ void skillObGenerator_t::useSkill() {
 		tempBullet->setTimer(2000);
 
 
-		float tempDmg = 60.f + character->getComputedDmg();
+		float tempDmg = character->getComputedDmg() * 4.f;
 		tempBullet->setDmg(tempDmg);
 
 		tempBullet->setMPCost(30.f);
@@ -327,7 +327,7 @@ void skillObGenerator_t::useSkill() {
 		std::unique_ptr<bullet_t> tempBullet(new bullet_t(character->getClockPtr(), character, character->getTargetPos()));
 		tempBullet->setSpriteSize(tempTexture->getSize().x / 3, tempTexture->getSize().y);
 		tempBullet->setTexturePtr(tempTexture);
-		tempBullet->speedMultiple(2.f);
+		tempBullet->speedMultiple(3.f);
 		tempBullet->setAOE(30.f);
 		tempBullet->setCollision(true);
 		tempBullet->setElement(elements::WIND);
@@ -337,7 +337,7 @@ void skillObGenerator_t::useSkill() {
 		float tempDmg = character->getComputedDmg();
 		tempBullet->setDmg(tempDmg);
 
-		tempBullet->setMPCost(15.f);
+		tempBullet->setMPCost(5.f);
 		character->useMP(tempBullet->getMPCost());
 		skillGeneratorBulletList.push_back(std::move(tempBullet));
 

@@ -325,7 +325,7 @@ void GameEngine_t::collisionEngine() {
 		return speed;
 	}
 
-	float GameEngine_t::getCurTimeSec() const {
+	sf::Int32 GameEngine_t::getCurTimeSec() const {
 		return clock->getElapsedTime().asSeconds();
 	}
 
@@ -335,6 +335,10 @@ void GameEngine_t::collisionEngine() {
 
 	std::list<std::unique_ptr <bullet_t>> &GameEngine_t::getBulletList() {
 		return level.bulletsList;
+	}
+	
+	sf::Clock *GameEngine_t::getClockPtr() const{
+		return clock.get();
 	}
 //SET	
 

@@ -55,9 +55,10 @@ public:
 	//GET
 	game::status getGameStatus() const;
 	float getSpeed()const;
-	float getCurTimeSec() const;
+	sf::Int32 getCurTimeSec() const;
 	float getSpeedMultipple()const;
 	std::list<std::unique_ptr <bullet_t>> &getBulletList();
+	sf::Clock *getClockPtr() const;
 	//SET
 	float setSpeed(float _time);
 };
