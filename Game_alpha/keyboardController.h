@@ -8,8 +8,6 @@ class game_t;
 class keyboardController{
 	character_t *character;
 	game_t *game;
-	sf::Int32 startKeyPress;
-	const sf::Int32 keyDelay;
 
 	void checkCharacterStateAndChangeDefault();
 public:
